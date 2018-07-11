@@ -1,5 +1,5 @@
 const keys = require('../../config/keys');
-
+const InitializeUserAccount = require('./../InitializeUserAccount');
 module.exports = User => ({
   config: {
     clientID: keys.googleClientID,
@@ -9,6 +9,9 @@ module.exports = User => ({
   },
   callback: async (accessToken, refreshToken, profile, done) => {
     console.log(profile);
+    // new InitializeUserAccount(profile)
+    //   .prepare()
+    //   .then(user => done(null, user));
     const existingUser = await User.findOne({ googleId: profile.id });
     const user =
       existingUser ||
