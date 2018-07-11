@@ -1,1 +1,11 @@
-@import './tooltip.scss';
+:root {
+  --primary1: hsl(211, 92%, 32%);
+  --primary1-hover: hsl(211, 92%, 36%);
+  --primary1-active: hsl(211, 92%, 28%);
+  --primary2: hsl(211, 92%, 44%);
+  --primary2-hover: hsl(211, 92%, 48%);
+  --primary2-active: hsl(211, 92%, 40%);
+  --primary3: hsl(209, 100%, 55%);
+  --primary3-hover: hsl(209, 100%, 59%);
+  --primary3-active: hsl(209, 100%, 51%);
+}
