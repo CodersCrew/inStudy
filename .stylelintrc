@@ -9,6 +9,8 @@
     "declaration-block-semicolon-newline-after": null,
     "rule-empty-line-before": null,
     "no-descending-specificity": null,
+    "value-list-max-empty-lines": null,
+    "declaration-colon-newline-after": null,
     "comment-empty-line-before": null
   }
 }

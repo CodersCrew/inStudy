@@ -37,6 +37,7 @@
     "chalk": "^2.4.1",
     "concurrently": "^3.6.0",
     "cookie-session": "^2.0.0-beta.3",
+    "eslint-config-airbnb": "^17.0.0",
     "express": "^4.16.3",
     "figures": "^2.0.0",
     "mongoose": "^5.2.2",

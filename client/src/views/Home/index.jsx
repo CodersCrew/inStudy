@@ -1,33 +1,56 @@
-import React, { PureComponent, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { logout } from '../../actions';
-import { oneOf, string, number, object, func } from 'prop-types';
+import React, { PureComponent } from 'react';
+import Typist from 'react-typist';
+import { withRouter } from 'react-router-dom';
+import headerTexts from './headerTexts';
+import Search from './Search';
+import { Container, Middle, Supheader, Filler, Header } from './style';
 
-const goToGoogleLogin = () => {
-  window.location.assign('/auth/google');
-};
+@withRouter
+export default class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      headerIndex: 0,
+    };
+  }
 
-@connect(
-  ({ auth }) => ({ auth }),
-  { logout },
-)
-class Home extends PureComponent {
+  switchHeaderText = headerIndex => {
+    this.setState({ headerIndex });
+  };
+
+  dryRender = () => {
+    let { headerIndex } = this.state;
+    headerIndex = headerIndex + 1 < headerTexts.length ? headerIndex + 1 : 0;
+    this.setState({ headerIndex: -1 }, () => {
+      this.switchHeaderText(headerIndex);
+    });
+  };
+
+  renderHeader = headerIndex => {
+    const text = headerTexts[headerIndex];
+
+    return (
+      <Header onTypingDone={this.dryRender}>
+        <Typist.Delay ms={500} />
+        {text}
+        <Typist.Backspace count={text.length} delay={3000} />
+      </Header>
+    );
+  };
+
   render() {
-    return this.props.auth === false ? (
-      <button onClick={goToGoogleLogin}>Zaloguj</button>
-    ) : (
-      <Fragment>
-        <img alt="user-image" src={this.props.auth && this.props.auth.image} />
-        <button onClick={this.props.logout}>Wyloguj</button>
-      </Fragment>
+    return (
+      <Container src="/img/landing.jpg">
+        <Middle>
+          <Supheader>Dołącz do najaktywniejszych studentów i</Supheader>
+          {this.state.headerIndex === -1 ? (
+            <Filler>|</Filler>
+          ) : (
+            this.renderHeader(this.state.headerIndex)
+          )}
+          <Search />
+        </Middle>
+      </Container>
     );
   }
 }
-
-Home.propTypes = {
-  auth: oneOf([null, false, { googleId: string, __v: number, _id: string }]),
-  logout: func,
-  history: object,
-};
-
-export default Home;
