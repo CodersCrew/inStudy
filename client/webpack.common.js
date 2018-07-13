@@ -75,5 +75,8 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      'react-ui-framework': path.resolve(__dirname, '..', 'react-ui-framework'),
+    },
   },
 };
