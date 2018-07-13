@@ -3,9 +3,12 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as actions from '../../actions';
-import { StyledIndex } from './styles';
+import { StyledIndex } from './style';
 
-import Home from '../../views/Home';
+import Navbar from '../../components/Navbar';
+import UIObserver from '../../components/UIObserver';
+
+import Home from '../Home';
 
 @connect(
   null,
@@ -19,7 +22,13 @@ class App extends PureComponent {
   render() {
     return (
       <BrowserRouter>
-        <StyledIndex notifications fa={__FONT_AWESOME__} bodyClassName="mainBody">
+        <StyledIndex
+          notifications
+          before={<Navbar />}
+          after={<UIObserver />}
+          fa={__FONT_AWESOME__}
+          bodyClassName="mainBody"
+        >
           <Switch>
             <Route exact path="/" component={Home} />
           </Switch>
