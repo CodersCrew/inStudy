@@ -9,15 +9,12 @@ import { getViewportSize } from '../../utils';
   { setSize },
 )
 class UIObserver extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.size = getViewportSize();
-  }
+  size = getViewportSize();
 
   componentDidMount() {
     window.addEventListener('resize', () => {
       const size = getViewportSize();
-      if (this.size !== size.mane) {
+      if (this.size !== size.name) {
         this.props.setSize(size);
         this.size = size.name;
       }

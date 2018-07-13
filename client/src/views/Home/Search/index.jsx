@@ -19,12 +19,7 @@ class SearchBar extends PureComponent {
 
   onChange = ({ target: { value } }) => this.setState({ value });
 
-  onKeyDown = ({ key }) => {
-    if (key === 'Enter') {
-      console.log('search');
-      this.props.setSearch({ query: this.state.value });
-    }
-  };
+  onKeyDown = ({ key }) => key === 'Enter' && this.props.setSearch({ query: this.state.value });
 
   render() {
     const placeholder =
