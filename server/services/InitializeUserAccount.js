@@ -1,21 +1,23 @@
+const DBConnect = require('./DBConnector');
+
 function InitializeUserAccount(profile) {
   this.profile = profile;
 }
 
 InitializeUserAccount.prototype.prepare = function() {
-  return checkUser(this.profile)
+  return userExist(this.profile)
 };
 
-function checkUser(profile) {
-  if(userExist(profile)) {
-    return UpdateUserProfile();
-  } else {
-    return createUser(profile)
-  }
-}
-
-function userExist() {
-
+function userExist(profile) {
+  DBConnect.prepare(profile)
+  return DBConnect.getUser(profile.id)
+    .then(user => {
+      if(user) {
+        return DBConnect.putUser(profile);
+      } else {
+        return DBConnect.setUser(profile)
+      }
+    })
 }
 
 module.exports = InitializeUserAccount;
