@@ -4,7 +4,6 @@ const User = mongoose.model('users');
 function DBConnector() {
   this.connection = null;
   // this.context = context;
-  console.log(this.context, 'yy')
 }
 
 DBConnector.prototype.prepare = (context) => {
