@@ -23,4 +23,15 @@ module.exports = app => {
           .json({result});
       })
   });
+
+  app.get('/initiative/:shortUrl', (req, res) => {
+    const { shortUrl } = req.params;
+    new FetchInitiative()
+      .getSingleInitiative(shortUrl)
+      .then(singleInitiative => {
+        res
+          .status(200)
+          .json({result: singleInitiative})
+      })
+  })
 };

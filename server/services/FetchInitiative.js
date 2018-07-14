@@ -28,6 +28,15 @@ FetchInitiative.prototype.setInitiative = function(initiative) {
   });
 };
 
+FetchInitiative.prototype.getSingleInitiative = function(shortUrl) {
+  return Initiative.findOne({
+    shortUrl,
+  } )
+    .then(singleInitiative => {
+      return Promise.resolve({...singleInitiative.toObject(), profileCompleted: true})
+    })
+}
+
 function initiativeExist(initiativeShortUrl) {
   return Initiative.findOne({
     shortUrl: initiativeShortUrl,
