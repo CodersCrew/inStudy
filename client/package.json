@@ -52,6 +52,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-typist": "^2.0.4",
+    "react-ui-framework": "^0.0.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.3.3"

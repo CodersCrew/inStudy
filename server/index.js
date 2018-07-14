@@ -9,6 +9,9 @@ require('./services/passport');
 
 const app = express();
 
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'ejs');
+
 app.use(
   cookieSession({
     maxAge: keys.sessionDuration,
@@ -17,6 +20,10 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/', function(req, res, next) {
+  res.render('index', {});
+});
 
 require('./routes')(app);
 
