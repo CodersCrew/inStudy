@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { setSize } from '../../actions';
+import { setSize } from '../../store/actions';
 import { getViewportSize } from '../../utils';
 
 @connect(

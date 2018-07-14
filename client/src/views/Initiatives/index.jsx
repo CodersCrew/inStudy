@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import { string } from 'prop-types';
 import { connect } from 'react-redux';
 import Home from '../Home';
-import { Container } from './styles';
 
 @connect(state => ({ initiatives: state.initiatives }))
 class Initiatives extends PureComponent {

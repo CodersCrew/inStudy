@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { withSearch } from 'react-ui-framework/lib/services/search';
-import { getInitiatives } from '../../../actions';
+import { getInitiatives } from '../../../store/actions';
 import { Container, Input, Icon } from './styles';
 
 @withSearch
