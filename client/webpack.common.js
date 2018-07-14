@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: ['@babel/polyfill', './src/index.jsx'],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '..', 'public'),
     publicPath: '/',
     filename: '[name].js',
   },
@@ -65,7 +65,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['build']),
+    new CleanWebpackPlugin([path.resolve(__dirname, '..', 'public')]),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -75,5 +75,8 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      'react-ui-framework': path.resolve(__dirname, '..', 'react-ui-framework'),
+    }
   },
 };
