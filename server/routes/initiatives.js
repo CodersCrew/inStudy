@@ -11,4 +11,16 @@ module.exports = app => {
           .json({result: foundInitiatives});
       })
   });
+
+  app.post('/initiative', (req, res) => {
+    const { initiative } = req.body;
+
+    new FetchInitiative()
+      .setInitiative(initiative)
+      .then(result => {
+        res
+          .status(200)
+          .json({result});
+      })
+  });
 };

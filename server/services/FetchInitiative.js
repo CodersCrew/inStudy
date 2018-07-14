@@ -1,27 +1,41 @@
 const mongoose = require('mongoose');
 const Initiative = mongoose.model('initiatives');
-function FetchInitiative() {
-
-}
+function FetchInitiative() {}
 //logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 FetchInitiative.prototype.getInitiative = function(page) {
-  if(page) {
+  if (page) {
     return Initiative.find({})
       .skip(page * 10)
       .limit(10);
   } else {
     return Initiative.find({});
   }
-
 };
 
 FetchInitiative.prototype.getShortInitiativeProfile = function(page) {
-  return this.getInitiative(page)
-    .then(initiatives => initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)))
+  return this.getInitiative(page).then(initiatives =>
+    initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),
+  );
 };
 
+FetchInitiative.prototype.setInitiative = function(initiative) {
+  return initiativeExist(initiative.shortUrl).then(foundInitiative => {
+    if (foundInitiative) {
+      return Promise.resolve(foundInitiative);
+    } else {
+      return new Initiative(initiative).save();
+    }
+  });
+};
+
+function initiativeExist(initiativeShortUrl) {
+  return Initiative.findOne({
+    shortUrl: initiativeShortUrl,
+  });
+}
+
 function shortenInitiativeProfile(singleInitiative) {
-  const { image, name, description, shortUrl} = singleInitiative;
+  const { image, name, description, shortUrl } = singleInitiative;
   return {
     image,
     name,
