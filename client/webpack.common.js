@@ -77,6 +77,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       'react-ui-framework': path.resolve(__dirname, '..', 'react-ui-framework'),
+      'styled-components': path.resolve(__dirname, 'node_modules', 'styled-components'),
     }
   },
 };

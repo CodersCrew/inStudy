@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Container } from './style';
+import { Container } from './styles';
 
 import '../../styles/main.scss';
 
