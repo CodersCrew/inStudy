@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import Typist from 'react-typist';
 import { media } from 'react-ui-framework/lib/utils';
 
-const sizeDown = keyframes`
+const toSmaller = keyframes`
   from {
     height: 100%;
   }
@@ -20,6 +20,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: var(--primary2);
+  height: ${props => (props.isLanding ? '280px' : '100%')};
 
   &::before {
     content: '';
@@ -35,26 +36,16 @@ export const Container = styled.div`
 
   > div {
     position: relative;
-    top: ${props => (props.resized ? 0 : '-32px')};
-  }
-
-  &.entering {
-    animation: ${sizeDown} 1s var(--ease-in-out);
-    animation-fill-mode: forwards;
-    animation-direction: reverse;
-  }
-
-  &.entered {
-    height: 100%;
+    top: ${props => (props.isLanding ? 0 : '-32px')};
   }
 
   &.exiting {
-    animation: ${sizeDown} 1s var(--ease-in-out);
-    animation-fill-mode: forwards;
+    animation: ${toSmaller} 0.6s var(--ease-in-out);
   }
 
-  &.exited {
-    height: 280px;
+  &.entering {
+    animation: ${toSmaller} 0.6s var(--ease-in-out);
+    animation-direction: reverse;
   }
 `;
 
@@ -83,36 +74,30 @@ export const Supheader = styled.p`
   ${media.xs`font-size: var(--font-md); padding-bottom: var(--space-sm);`};
 `;
 
-const enteredHeaderStyles = `
-  opacity: 1;
-  ${media.lg`
-    box-sizing: border-box;
-    font-size: 40px;
-    margin-bottom: var(--space-xl);
-  `}
-  ${media.md`
-    box-sizing: border-box;
-    font-size: var(--font-xxl);
-  `}
-  ${media.sm`
-    box-sizing: border-box;
-    line-height: 1.3;
-    min-height: 82px;
-  `}
-  ${media.xs`box-sizing: border-box; margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`}
-`;
-
-const headerEntering = keyframes`
+const hideHeader = keyframes`
   from {
-    font-size: 0;
-    margin: 0;
-    opacity: 0;
-    min-height: 0;
-    line-height: 0;
+    line-height: 1;
+    font-size: 52px;
+    margin-bottom: var(--space-xxl);
+    opacity: 1;
+    ${media.lg`
+      font-size: 40px;
+      margin-bottom: var(--space-xl);
+    `}
+    ${media.md`
+      font-size: var(--font-xxl);
+    `}
+    ${media.sm`
+      line-height: 1.3;
+      min-height: 82px;
+    `}
+    ${media.xs`margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`}
   }
 
   to {
-    ${enteredHeaderStyles}
+    font-size: 0;
+    margin: 0;
+    line-height: 0;
   }
 `;
 
@@ -123,32 +108,31 @@ export const Header = styled(Typist)`
   font-weight: var(--bold);
   font-family: var(--headerFont);
   margin-bottom: var(--space-xxl);
+  opacity: 1;
+  ${media.lg`
+    font-size: 40px;
+    margin-bottom: var(--space-xl);
+  `}
   ${media.md`
+    font-size: var(--font-xxl);
+
     @media (orientation: landscape) {
       top: 0;
     }
-  `};
+  `}
+  ${media.sm`
+    line-height: 1.3;
+    min-height: 82px;
+  `}
+  ${media.xs`margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`}
 
-  &.entered {
-    ${enteredHeaderStyles};
+  &.exiting {
+    animation: ${hideHeader} 0.6s var(--ease-in-out);
   }
 
   &.entering {
-    animation: ${headerEntering} 0.3s var(--ease-out);
-    animation-fill-mode: forwards;
+    animation: ${hideHeader} 0.6s var(--ease-in-out);
     animation-direction: reverse;
-  }
-
-  &.exited {
-    font-size: 0;
-    margin: 0;
-    opacity: 0;
-    min-height: 0;
-  }
-
-  &.exiting {
-    animation: ${headerEntering} 0.3s var(--ease-out);
-    animation-fill-mode: forwards;
   }
 
   .Cursor {

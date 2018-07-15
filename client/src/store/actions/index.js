@@ -21,11 +21,17 @@ export const setHistory = history => ({
   payload: history,
 });
 
+let reqCache = {};
+
 export const getInitiatives = req => async dispatch => {
   const params = {
     page: req?.page || 0,
     query: req?.query || '',
   };
-  const { data } = await axios.get('/api/initiative', { params });
-  return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+
+  if (params.page !== reqCache.page || params.query !== reqCache.query) {
+    reqCache = params;
+    const { data } = await axios.get('/api/initiative', { params });
+    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+  }
 };
