@@ -9,7 +9,7 @@ const HeaderStyles = `
   font-weight: var(--bold);
   font-family: var(--headerFont);
   margin-bottom: var(--space-xxl);
-  transition: all 1s var(--ease-out);
+  transition: all 0.3 var(--ease-out);
 `;
 
 export const Container = styled.div`
@@ -51,8 +51,8 @@ export const Middle = styled.div`
   color: #fff;
   ${media.xs`padding: 0 var(--space-md);`};
 
-  > div:first-of-type {
-    font-size: ${props => props.resized && '0px !important; margin: 0px !important'};
+  .header {
+    font-size: ${props => props.hideHeader && '0px !important; margin: 0px !important'};
     ${media.lg`font-size: 40px; margin-bottom: var(--space-xl);`};
     ${media.md`
       font-size: var(--font-xxl);
@@ -65,7 +65,7 @@ export const Middle = styled.div`
     ${media.xs`margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`};
 
     p {
-      font-size: ${props => props.resized && '0px !important; margin: 0px !important'};
+      font-size: ${props => props.hideHeader && '0px !important; margin: 0px !important'};
     }
   }
 `;

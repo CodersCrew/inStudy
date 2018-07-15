@@ -1,7 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { bool, object } from 'prop-types';
 import Typist from 'react-typist';
-import { Transition } from 'react-transition-group';
 import { withSearch } from 'react-ui-framework/lib/services/search';
 import headerTexts from './headerTexts';
 import Search from './Search';
@@ -23,58 +22,29 @@ class Home extends PureComponent {
   };
 
   onSearch = () => {
-    if (!this.state.resized) {
-      this.setState({ resized: true }, () => {
-        const { search } = window.location;
-        window.setTimeout(() => {
-          this.props.history.push('/inicjatywy');
-          this.props.history.replace(`/inicjatywy/${search}`);
-        }, 2000);
-      });
-    }
+    const { search } = window.location;
+    this.props.history.push('/inicjatywy');
+    this.props.history.replace(`/inicjatywy/${search}`);
   };
 
-  getSupheader = state => {
-    if (state === 'entered') {
-      return <Supheader visible>Dołącz do najaktywniejszych studentów i</Supheader>;
-    } else if (state === 'entering') {
-      return <Supheader visible={false}>Odnajdź najlepszą inicjatywę dla siebie</Supheader>;
-    } else if (state === 'exited') {
-      return <Supheader visible>Odnajdź najlepszą inicjatywę dla siebie</Supheader>;
-    } else return <Supheader visible={false}>Dołącz do najaktywniejszych studentów i</Supheader>;
-  };
-
-  renderHeader = index => (
-    <Transition in={!this.state.resized} timeout={1000} unmountOnExit>
-      {state =>
-        state === 'exited' ? null : (
-          <Header onTypingDone={this.dryRender}>
-            <Typist.Delay ms={300} />
-            {headerTexts[index]}
-            <Typist.Backspace count={headerTexts[index].length} delay={3000} />
-          </Header>
-        )
-      }
-    </Transition>
-  );
-
-  renderSupHeader = () => (
-    <Fragment>
-      <Transition in={!this.state.resized} timeout={300}>
-        {state => this.getSupheader(state)}
-      </Transition>
-    </Fragment>
-  );
+  renderHeader = index =>
+    !this.props.resized && (
+      <Header onTypingDone={this.dryRender} className="header">
+        <Typist.Delay ms={300} />
+        {headerTexts[index]}
+        <Typist.Backspace count={headerTexts[index].length} delay={3000} />
+      </Header>
+    );
 
   renderText = index => (index === -1 ? <Filler>|</Filler> : this.renderHeader(index));
 
   render() {
-    const { headerIndex, resized } = this.state;
+    const { headerIndex, resized, hideHeader } = this.state;
 
     return (
       <Container src="/img/landing.jpg" resized={resized}>
-        <Middle resized={resized}>
-          {this.renderSupHeader()}
+        <Middle hideHeader={hideHeader}>
+          <Supheader visible>Dołącz do najaktywniejszych studentów i</Supheader>
           {this.renderText(headerIndex)}
           <Search onSearch={this.onSearch} />
         </Middle>

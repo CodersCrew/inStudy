@@ -10,7 +10,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_INITIATIVES:
-      return { ...state, fetching: false, items: action.payload };
+      return { ...state, ...action.payload };
 
     default:
       return state;

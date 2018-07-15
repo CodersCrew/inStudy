@@ -1,5 +1,5 @@
 import { SET_SIZE, SET_HISTORY } from '../actions/types';
-import { getViewportSize } from '../utils';
+import { getViewportSize } from '../../utils';
 
 export default (state = { size: getViewportSize() }, action) => {
   switch (action.type) {

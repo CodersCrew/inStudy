@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import * as actions from '../../actions';
+import * as actions from '../../store/actions';
 import { StyledIndex } from './styles';
 
 import Navbar from '../../components/Navbar';

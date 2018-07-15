@@ -54,7 +54,7 @@ function shortenInitiativeProfile(singleInitiative) {
     university: {
       name: 'Uniwersytet Ekonomiczny',
       id: '1',
-      image: '/url',
+      image: '/img/universities/5a90aac95ded6d5a4a06195d.png',
     },
   };
 }

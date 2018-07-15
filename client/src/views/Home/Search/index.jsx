@@ -15,6 +15,7 @@ class SearchBar extends PureComponent {
     super(props);
 
     if (this.props.page === false) {
+      console.log('request');
       this.props.getInitiatives({
         query: this.props.search.query,
       });
@@ -41,6 +42,7 @@ class SearchBar extends PureComponent {
   };
 
   onSearch = () => {
+    console.log('request');
     this.props.getInitiatives({
       query: this.props.search.query,
     });

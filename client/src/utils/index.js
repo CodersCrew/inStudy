@@ -15,3 +15,6 @@ export const getViewportSize = () => {
     return { name: 'xs', value: 0 };
   }
 };
+
+export const sliceText = (text = '', maxCharacters = 20) =>
+  text.length > maxCharacters ? `${text.slice(0, maxCharacters - 4)}...` : text;

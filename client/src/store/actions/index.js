@@ -17,11 +17,12 @@ export const setSize = size => ({
 });
 
 export const getInitiatives = query => async dispatch => {
-  const { data } = await axios.get('/api/initiative', {
-    params: {
-      page: query?.page || 0,
-      query: query?.query || 0,
-    },
-  });
-  return dispatch({ type: FETCH_INITIATIVES, payload: data.result });
+  console.log('initiatives request started');
+  const params = {
+    page: query?.page || 0,
+    query: query?.query || 0,
+  };
+  const { data } = await axios.get('/api/initiative', { params });
+  console.log('initiatives request resolved');
+  return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
 };
