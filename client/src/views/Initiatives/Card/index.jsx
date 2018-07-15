@@ -35,7 +35,7 @@ class Card extends PureComponent {
             <Footer>
               <UniversityLogo src={this.props.university.image} />
               <FeatureIcons>
-                <FeatureIcon>
+                <FeatureIcon active={this.props.profileCompleted}>
                   <i className="fal fa-user-plus" />
                 </FeatureIcon>
                 <FeatureIcon>
