@@ -6,6 +6,8 @@ import reduxThunk from 'redux-thunk';
 import App from './views/App';
 import reducers from './store/reducers';
 
+import './styles/main.scss';
+
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(
   reducers,
