@@ -1,27 +1,21 @@
-import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
+import React, { Fragment } from 'react';
+import { array } from 'prop-types';
 import Card from '../Card';
 import { StyledContainer } from './styles';
 
-class InitiativesList extends PureComponent {
-  render() {
-    console.log(this.props.initiatives);
-    return (
-      <StyledContainer>
-        {this.props.initiatives.map(initiative => (
-          <Card key={initiative.shortUrl} {...initiative} />
-        ))}
-      </StyledContainer>
-    );
-  }
-}
+const InitiativesList = ({ initiatives, waypoint }) => (
+  <StyledContainer>
+    {initiatives.map((initiative, i) => (
+      <Fragment key={initiative.shortUrl}>
+        {i === initiatives.length - 3 && waypoint()}
+        <Card key={initiative.shortUrl} {...initiative} />
+      </Fragment>
+    ))}
+  </StyledContainer>
+);
 
 InitiativesList.propTypes = {
-  text: string,
-};
-
-InitiativesList.defaultProps = {
-  text: 'Hello World',
+  initiatives: array.isRequired,
 };
 
 export default InitiativesList;

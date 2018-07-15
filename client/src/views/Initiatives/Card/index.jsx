@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
+import React from 'react';
+import { string, object, bool } from 'prop-types';
+import Fade from 'react-reveal/Fade';
 import { sliceText } from '../../../utils';
 import {
   Container,
@@ -17,44 +18,43 @@ import {
   FeatureIcon,
 } from './styles';
 
-class Card extends PureComponent {
-  render() {
-    return (
-      <Container>
-        <Head>
-          <Title>{this.props.name}</Title>
-          <MoreIcon className="fal fa-ellipsis-v moreIcon" />
-        </Head>
-        <Content>
-          <Left>
-            <Logo src={this.props.image} alt={`Logo inicjatywy ${name}`} />
-          </Left>
-          <Right>
-            <Description>{sliceText(this.props.description, 260)}</Description>
-            <Footer>
-              <UniversityLogo src={this.props.university.image} />
-              <FeatureIcons>
-                <FeatureIcon active={this.props.profileCompleted}>
-                  <i className="fal fa-user-plus" />
-                </FeatureIcon>
-                <FeatureIcon>
-                  <i className="fal fa-star" />
-                </FeatureIcon>
-              </FeatureIcons>
-            </Footer>
-          </Right>
-        </Content>
-      </Container>
-    );
-  }
-}
+const Card = ({ name, image, description, university, profileCompleted, shortUrl, style }) => (
+  <Fade>
+    <Container to={`/${shortUrl}`}>
+      <Head>
+        <Title>{name}</Title>
+        <MoreIcon className="fal fa-ellipsis-v moreIcon" />
+      </Head>
+      <Content>
+        <Left>
+          <Logo src={image} alt={`Logo inicjatywy ${name}`} />
+        </Left>
+        <Right>
+          <Description>{sliceText(description, 260)}</Description>
+          <Footer>
+            <UniversityLogo src={university.image} />
+            <FeatureIcons>
+              <FeatureIcon active={profileCompleted}>
+                <i className="fal fa-user-plus" />
+              </FeatureIcon>
+              <FeatureIcon>
+                <i className="fal fa-star" />
+              </FeatureIcon>
+            </FeatureIcons>
+          </Footer>
+        </Right>
+      </Content>
+    </Container>
+  </Fade>
+);
 
 Card.propTypes = {
-  text: string,
-};
-
-Card.defaultProps = {
-  text: 'Hello World',
+  name: string.isRequired,
+  image: string.isRequired,
+  description: string.isRequired,
+  university: object.isRequired,
+  profileCompleted: bool.isRequired,
+  shortUrl: string.isRequired,
 };
 
 export default Card;

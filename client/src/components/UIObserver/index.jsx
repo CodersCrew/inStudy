@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { func } from 'prop-types';
+import { func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { setSize, setHistory } from '../../store/actions';
@@ -46,6 +46,8 @@ class UIObserver extends PureComponent {
 }
 
 UIObserver.propTypes = {
+  history: object.isRequired,
+  setHistory: func.isRequired,
   setSize: func.isRequired,
 };
 

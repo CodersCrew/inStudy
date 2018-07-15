@@ -13,31 +13,18 @@ import { Container, Middle, Supheader, Header } from './styles';
 class Home extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(this.props.uiHistory.previousPath);
+    const { previousPath } = props.uiHistory;
 
-    if (this.props.uiHistory.previousPath === '/') {
-      this.state = {
-        headerIndex: 0,
-        isLanding: false,
-      };
-      window.setTimeout(() => {
-        this.setState({ isLanding: true });
-      }, 0);
-    } else if (this.props.uiHistory.previousPath === '/inicjatywy/' && !window.searchRequest) {
-      this.state = {
-        headerIndex: 0,
-        isLanding: true,
-      };
-      window.setTimeout(() => {
-        this.setState({ isLanding: false });
-      }, 0);
+    if (previousPath === '/') {
+      this.state = { headerIndex: 0, isLanding: false };
+      setTimeout(() => this.setState({ isLanding: true }), 0);
+    } else if (previousPath === '/inicjatywy/' && !window.disableHomeAnimation) {
+      this.state = { headerIndex: 0, isLanding: true };
+      setTimeout(() => this.setState({ isLanding: false }), 0);
     } else {
-      this.state = {
-        headerIndex: 0,
-        isLanding: !this.props.listView,
-      };
+      this.state = { headerIndex: 0, isLanding: !props.listView };
     }
-    window.searchRequest = false;
+    window.disableHomeAnimation = false;
   }
 
   switchHeaderText = headerIndex => this.setState({ headerIndex });
@@ -49,7 +36,7 @@ class Home extends PureComponent {
   };
 
   onSearch = () => {
-    window.searchRequest = true;
+    window.disableHomeAnimation = true;
     if (this.state.isLanding) {
       this.setState({ isLanding: false }, () => {
         window.setTimeout(() => {
@@ -77,30 +64,30 @@ class Home extends PureComponent {
     const { headerIndex, isLanding } = this.state;
 
     return (
-      <Transition in={this.state.isLanding} timeout={600}>
-        {state => {
-          console.log(state);
-          return (
-            <Container src="/img/landing.jpg" isLanding={!isLanding} className={state}>
-              <Middle>
-                <Supheader>Dołącz do najaktywniejszych studentów i</Supheader>
-                {this.renderText(headerIndex)}
-                <Search onSearch={this.onSearch} />
-              </Middle>
-            </Container>
-          );
-        }}
+      <Transition in={isLanding} timeout={600}>
+        {state => (
+          <Container src="/img/landing.jpg" isLanding={!isLanding} className={state}>
+            <Middle>
+              <Supheader>Dołącz do najaktywniejszych studentów i</Supheader>
+              {this.renderText(headerIndex)}
+              <Search onSearch={this.onSearch} />
+            </Middle>
+          </Container>
+        )}
       </Transition>
     );
   }
 }
 
 Home.propTypes = {
+  listView: bool,
   resized: bool,
   history: object.isRequired,
+  uiHistory: object.isRequired,
 };
 
 Home.defaultProps = {
+  listView: false,
   resized: false,
 };
 

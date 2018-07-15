@@ -81,13 +81,16 @@ const hideHeader = keyframes`
     margin-bottom: var(--space-xxl);
     opacity: 1;
     ${media.lg`
+      box-sizing: border-box;
       font-size: 40px;
       margin-bottom: var(--space-xl);
     `}
     ${media.md`
+      box-sizing: border-box;
       font-size: var(--font-xxl);
     `}
     ${media.sm`
+      box-sizing: border-box;
       line-height: 1.3;
       min-height: 82px;
     `}

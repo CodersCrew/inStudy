@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { media } from 'react-ui-framework/lib/utils';
 
-export const Container = styled.div`
+export const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -9,6 +10,8 @@ export const Container = styled.div`
   box-shadow: var(--shadow2);
   transition: all 0.3s var(--ease-out);
   cursor: pointer;
+  height: 100%;
+  text-decoration: none;
 
   &:hover {
     box-shadow: var(--shadow1);

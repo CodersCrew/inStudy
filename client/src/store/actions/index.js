@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { FETCH_USER, LOGOUT, SET_SIZE, FETCH_INITIATIVES, SET_HISTORY } from './types';
+import {
+  FETCH_USER,
+  LOGOUT,
+  SET_SIZE,
+  FETCH_INITIATIVES,
+  SET_HISTORY,
+  FETCH_MORE_INITIATIVES,
+} from './types';
 
 export const fetchUser = () => async dispatch => {
   const { data } = await axios.get('/api/current_user');
@@ -34,4 +41,10 @@ export const getInitiatives = req => async dispatch => {
     const { data } = await axios.get('/api/initiative', { params });
     return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
   }
+};
+
+export const getMoreInitiatives = () => async dispatch => {
+  const params = { ...reqCache, page: reqCache.page + 1 };
+  const { data } = await axios.get('/api/initiative', { params });
+  return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data.result } });
 };

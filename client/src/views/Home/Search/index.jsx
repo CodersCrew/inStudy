@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { object, func } from 'prop-types';
+import { object, func, oneOf, bool, number } from 'prop-types';
 import { connect } from 'react-redux';
 import { withSearch } from 'react-ui-framework/lib/services/search';
 import { getInitiatives } from '../../../store/actions';
@@ -7,23 +7,21 @@ import { Container, Input, Icon } from './styles';
 
 @withSearch
 @connect(
-  ({ ui, search, initiatives }) => ({ ui, search, page: initiatives.page }),
+  ({ ui, search, initiatives }) => ({ size: ui.size, search, page: initiatives.page }),
   { getInitiatives },
 )
 class SearchBar extends PureComponent {
   constructor(props) {
     super(props);
+    const { query } = props.search;
 
-    if (this.props.page === false) {
-      console.log('request');
-      this.props.getInitiatives({
-        query: this.props.search.query,
-      });
+    if (props.page === false) {
+      props.getInitiatives({ query });
     }
 
     this.state = {
-      value: this.props.search.query,
-      valueFromProps: this.props.search.query,
+      value: query,
+      valueFromProps: query,
     };
   }
 
@@ -42,16 +40,14 @@ class SearchBar extends PureComponent {
   };
 
   onSearch = () => {
-    console.log('request');
-    this.props.getInitiatives({
-      query: this.props.search.query,
-    });
-    this.props.onSearch();
+    const { getInitiatives, onSearch } = this.props;
+    onSearch();
+    getInitiatives({ query: this.state.value, page: 0 });
   };
 
   render() {
     const placeholder =
-      this.props.ui.size.value > 768
+      this.props.size.value > 768
         ? 'Napisz, czym się interesujesz. Resztę pozostaw nam ;)'
         : 'Napisz, czym się interesujesz';
 
@@ -63,21 +59,25 @@ class SearchBar extends PureComponent {
           onChange={this.onChange}
           onKeyPress={this.onKeyDown}
         />
-        <Icon className="fal fa-search" />
+        <Icon className="fal fa-search" onClick={this.onSearch} />
       </Container>
     );
   }
 }
 
 SearchBar.propTypes = {
+  getInitiatives: func.isRequired,
   onEnterPress: func,
+  onSearch: func,
+  page: oneOf([bool, number]),
   search: object.isRequired,
   setSearch: func.isRequired,
-  ui: object.isRequired,
+  size: object.isRequired,
 };
 
 SearchBar.defaultProps = {
   onEnterPress: () => {},
+  onSearch: () => {},
 };
 
 export default SearchBar;
