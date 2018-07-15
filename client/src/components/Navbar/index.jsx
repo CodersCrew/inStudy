@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { logout } from '../../store/actions';
 import { Container } from './styles';
 
-import '../../styles/main.scss';
-
 const goToGoogleLogin = () => {
   window.location.assign('/auth/google');
 };

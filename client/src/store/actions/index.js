@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, LOGOUT, SET_SIZE, FETCH_INITIATIVES } from './types';
+import { FETCH_USER, LOGOUT, SET_SIZE, FETCH_INITIATIVES, SET_HISTORY } from './types';
 
 export const fetchUser = () => async dispatch => {
   const { data } = await axios.get('/api/current_user');
@@ -16,13 +16,22 @@ export const setSize = size => ({
   payload: size,
 });
 
-export const getInitiatives = query => async dispatch => {
-  console.log('initiatives request started');
+export const setHistory = history => ({
+  type: SET_HISTORY,
+  payload: history,
+});
+
+let reqCache = {};
+
+export const getInitiatives = req => async dispatch => {
   const params = {
-    page: query?.page || 0,
-    query: query?.query || 0,
+    page: req?.page || 0,
+    query: req?.query || '',
   };
-  const { data } = await axios.get('/api/initiative', { params });
-  console.log('initiatives request resolved');
-  return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+
+  if (params.page !== reqCache.page || params.query !== reqCache.query) {
+    reqCache = params;
+    const { data } = await axios.get('/api/initiative', { params });
+    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+  }
 };

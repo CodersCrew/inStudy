@@ -7,10 +7,9 @@ import InitiativesList from './InitiativesList';
 @connect(state => ({ initiatives: state.initiatives }))
 class Initiatives extends PureComponent {
   render() {
-    console.log(this.props.initiatives);
     return (
       <Fragment>
-        <Home resized />
+        <Home listView />
         <InitiativesList initiatives={this.props.initiatives.items} />
       </Fragment>
     );
