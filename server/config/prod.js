@@ -7,4 +7,9 @@ module.exports = {
   cookieKey: process.env.COOKIE_KEY,
   PORT: process.env.PORT,
   sessionDuration: process.env.SESSION_DURATION,
+  file_cloud: {
+    cloud_name: process.env.PHOTO_CLOUD_NAME,
+    api_key: process.env.PHOTO_API_KEY,
+    api_secret: process.env.PHOTO_API_SECRET,
+  },
 };
