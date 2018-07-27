@@ -34,12 +34,13 @@ class SearchBar extends PureComponent {
 
   onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      this.props.setSearch({ query: this.state.value });
       this.onSearch();
     }
   };
 
   onSearch = () => {
+    this.props.setSearch({ query: this.state.value });
+    window.resizeHomeDown = this.props.location.pathname === '/';
     const { getInitiatives, onSearch } = this.props;
     onSearch();
     getInitiatives({ query: this.state.value, page: 0 });
