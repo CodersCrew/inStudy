@@ -13,18 +13,29 @@ import { Container, Middle, Supheader, Header } from './styles';
 class Home extends PureComponent {
   constructor(props) {
     super(props);
-    const { previousPath } = props.uiHistory;
 
-    if (previousPath === '/') {
+    const {
+      uiHistory: { previousPath },
+      location: { pathname },
+    } = this.props;
+
+    window.resizeHomeUp =
+      window.resizeHomeUp || (previousPath === '/inicjatywy/' && pathname === '/');
+    window.resizeHomeDown =
+      window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy/');
+
+    if (window.resizeHomeUp && !window.disableAnimation) {
       this.state = { headerIndex: 0, isLanding: false };
       setTimeout(() => this.setState({ isLanding: true }), 0);
-    } else if (previousPath === '/inicjatywy/' && !window.disableHomeAnimation) {
+    } else if (window.resizeHomeDown && !window.disableAnimation) {
       this.state = { headerIndex: 0, isLanding: true };
       setTimeout(() => this.setState({ isLanding: false }), 0);
     } else {
       this.state = { headerIndex: 0, isLanding: !props.listView };
     }
-    window.disableHomeAnimation = false;
+    window.disableAnimation = false;
+    window.resizeHomeUp = false;
+    window.resizeHomeDown = false;
   }
 
   switchHeaderText = headerIndex => this.setState({ headerIndex });
@@ -36,11 +47,11 @@ class Home extends PureComponent {
   };
 
   onSearch = () => {
-    window.disableHomeAnimation = true;
+    window.disableAnimation = true;
     if (this.state.isLanding) {
       this.setState({ isLanding: false }, () => {
         window.setTimeout(() => {
-          this.props.history.push(`/inicjatywy/${window.location.search}`);
+          this.props.history.push(`/inicjatywy${window.location.search}`);
         }, 600);
       });
     }
@@ -83,12 +94,13 @@ Home.propTypes = {
   listView: bool,
   resized: bool,
   history: object.isRequired,
-  uiHistory: object.isRequired,
+  uiHistory: object,
 };
 
 Home.defaultProps = {
   listView: false,
   resized: false,
+  uiHistory: {},
 };
 
 export default Home;

@@ -16,9 +16,10 @@ class UIObserver extends PureComponent {
 
     this.size = getViewportSize();
 
-    this.setHistory(this.props.history.location.pathname);
+    this.history = {};
+    this.setPreviousPath(this.props.history.location.pathname);
     this.props.history.listen(e => {
-      this.setHistory(e.pathname);
+      if (e.pathname !== this.previousPathHolder) this.setPreviousPath(e.pathname);
     });
   }
 
@@ -32,12 +33,11 @@ class UIObserver extends PureComponent {
     });
   }
 
-  setHistory = newPath => {
-    this.history = {
-      previousPath: this?.history?.actualPath || '',
-      actualPath: newPath,
-    };
-    this.props.setHistory(this.history);
+  setPreviousPath = newPath => {
+    if (newPath !== this.history.previousPath) {
+      this.history.previousPath = newPath;
+      this.props.setHistory(this.history);
+    }
   };
 
   render() {
