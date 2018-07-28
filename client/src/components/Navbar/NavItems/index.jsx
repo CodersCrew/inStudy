@@ -27,7 +27,7 @@ const NavItems = ({ location }) => (
       </NavItem>
     </Tooltip>
     <NavItemLink
-      to="/inicjatywy/"
+      to="/inicjatywy"
       onClick={() => {
         window.resizeHomeDown = location.pathname === '/';
       }}

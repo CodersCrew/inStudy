@@ -48,7 +48,7 @@ class Search extends PureComponent {
     const { getInitiatives } = this.props;
 
     window.disableAnimation = true;
-    if (!this.props.location.pathname.includes('inicjatywy')) {
+    if (!this.props.location.pathname === '/inicjatywy') {
       this.props.history.push(`/inicjatywy${window.location.search}`);
     }
 

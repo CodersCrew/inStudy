@@ -16,7 +16,7 @@ class Navbar extends PureComponent {
         <Link
           to="/"
           onClick={() => {
-            window.resizeHomeUp = this.props.location.pathname.includes('inicjatywy');
+            window.resizeHomeUp = this.props.location.pathname === '/inicjatywy';
           }}
         >
           {this.props.sizeName === 'xs' ? (

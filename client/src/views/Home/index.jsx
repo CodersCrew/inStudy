@@ -20,9 +20,9 @@ class Home extends PureComponent {
     } = this.props;
 
     window.resizeHomeUp =
-      window.resizeHomeUp || (previousPath === '/inicjatywy/' && pathname === '/');
+      window.resizeHomeUp || (previousPath === '/inicjatywy' && pathname === '/');
     window.resizeHomeDown =
-      window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy/');
+      window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy');
 
     if (window.resizeHomeUp && !window.disableAnimation) {
       this.state = { headerIndex: 0, isLanding: false };

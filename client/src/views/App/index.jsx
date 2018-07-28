@@ -36,8 +36,8 @@ class App extends PureComponent {
           bodyClassName="mainBody"
         >
           <Switch>
+            <Route path="/inicjatywy/:initiative" component={InitiativeProfile} />
             <Route path="/inicjatywy" component={Initiatives} />
-            <Route path="/:initiative" component={InitiativeProfile} />
             <Route exact path="/" component={Home} />
           </Switch>
         </StyledIndex>

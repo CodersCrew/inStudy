@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
+import TriangleBackground from '../../components/TriangleBackground';
 import { Container } from './styles';
 
 class MyComponentName extends PureComponent {
@@ -15,7 +16,12 @@ class MyComponentName extends PureComponent {
   }
 
   render() {
-    return <Container>{this.props.match.params.initiative}</Container>;
+    return (
+      <Container>
+        {this.props.match.params.initiative}
+        <TriangleBackground />
+      </Container>
+    );
   }
 }
 

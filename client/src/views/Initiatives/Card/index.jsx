@@ -20,7 +20,7 @@ import {
 
 const Card = ({ name, image, description, university, profileCompleted, shortUrl, style }) => (
   <Fade>
-    <Container to={`/${shortUrl}`}>
+    <Container to={`/inicjatywy/${shortUrl}`}>
       <Head>
         <Title>{name}</Title>
         <MoreIcon className="fal fa-ellipsis-v moreIcon" />
