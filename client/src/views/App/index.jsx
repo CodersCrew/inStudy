@@ -11,6 +11,7 @@ import UIObserver from '../../components/UIObserver';
 import Home from '../Home';
 import Initiatives from '../Initiatives';
 import InitiativeProfile from '../InitiativeProfile';
+import UserProfile from '../UserProfile';
 
 @connect(
   null,
@@ -38,6 +39,7 @@ class App extends PureComponent {
           <Switch>
             <Route path="/inicjatywy/:initiative" component={InitiativeProfile} />
             <Route path="/inicjatywy" component={Initiatives} />
+            <Route path="/student/profil" component={UserProfile} />
             <Route exact path="/" component={Home} />
           </Switch>
         </StyledIndex>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { object } from 'prop-types';
 import { withRouter } from 'react-router';
 import { Tooltip } from 'react-ui-framework';
 import { MenuItems, MenuItem } from '../Menu';
@@ -36,5 +37,9 @@ const NavItems = ({ location }) => (
     </NavItemLink>
   </Container>
 );
+
+NavItems.propTypes = {
+  location: object.isRequired,
+};
 
 export default withRouter(NavItems);

@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { Tooltip } from 'react-ui-framework';
 import tooltipConfig from '../tooltipConfig';
 import { logout } from '../../../store/actions';
-import { MenuItem } from '../Menu';
+import { MenuItems, MenuItem } from '../Menu';
 import { StyledButton, UserImage } from './styles';
 
 const goToGoogleLogin = () => {
   window.location.assign('/auth/google');
+};
+
+const goToProfile = () => {
+  window.location.assign('/student/profil');
 };
 
 @connect(
@@ -29,7 +33,12 @@ class User extends PureComponent {
         ) : (
           <Fragment>
             <Tooltip
-              html={<MenuItem text="Wyloguj się" onClick={this.props.logout} />}
+              html={
+                <MenuItems>
+                  <MenuItem text="Mój profil" onClick={goToProfile} />
+                  <MenuItem text="Wyloguj się" onClick={this.props.logout} />
+                </MenuItems>
+              }
               trigger="click"
               {...tooltipConfig}
             >
@@ -52,6 +61,7 @@ User.propTypes = {
     }),
   ]),
   logout: func,
+  sizeName: string.isRequired,
 };
 
 User.defaultProps = {
