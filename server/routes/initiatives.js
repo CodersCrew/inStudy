@@ -20,13 +20,10 @@ module.exports = app => {
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then(foundInitiatives => {
-        res
-          .status(200)
-          .json({result: foundInitiatives});
+        res.status(200).json({ result: foundInitiatives });
       })
       .catch(() => {
-        res
-          .sendStatus(404);
+        res.sendStatus(404);
       });
   });
 
@@ -36,13 +33,10 @@ module.exports = app => {
     new FetchInitiative()
       .setInitiative(initiative)
       .then(result => {
-        res
-          .status(200)
-          .json({result});
+        res.status(200).json({ result });
       })
       .catch(() => {
-        res
-          .sendStatus(404);
+        res.sendStatus(404);
       });
   });
 
@@ -51,30 +45,25 @@ module.exports = app => {
     new FetchInitiative()
       .getSingleInitiative(shortUrl)
       .then(singleInitiative => {
-        res
-          .status(200)
-          .json({result: singleInitiative})
+        res.status(200).json({ result: singleInitiative });
       })
       .catch(() => {
-        res
-          .sendStatus(404);
+        res.sendStatus(404);
       });
   });
 
   app.post('/initiative/logo', upload.single('background'), (req, res) => {
     const path = req.file.path;
     // console.log(req.file)
-    new Cloudinary()
-      .uploadInitiativeBackground(path, '34234')
-      .then((result) => {
-        console.log(result)
-        res.status(200).json({result})
-      })
+    new Cloudinary().uploadInitiativeBackground(path, '34234').then(result => {
+      console.log(result);
+      res.status(200).json({ result });
+    });
 
     // app.post('/initiative/:shortUrl', upload.single('image'), (req, res) => {
     //   const { shortUrl } = req.params;
     //   new FetchInitiative()
     //     .putInitiative()
     // });
-  })
+  });
 };
