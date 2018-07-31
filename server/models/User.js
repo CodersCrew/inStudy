@@ -7,6 +7,13 @@ const userSchema = new Schema({
   firstName: String,
   lastName: String,
   email: String,
+  description: String,
+  socials: [
+    {
+      link: String,
+      iconName: String,
+    },
+  ],
 });
 
 mongoose.model('users', userSchema);

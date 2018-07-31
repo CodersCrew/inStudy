@@ -13,9 +13,7 @@ class UserProfile extends PureComponent {
     return (
       <Fragment>
         <MainContainer>
-          <LeftColumn>
-            <Card />
-          </LeftColumn>
+          <LeftColumn>{this.props.user && <Card {...this.props.user}/>}</LeftColumn>
           <RightColumn>
             <Modules />
           </RightColumn>
@@ -27,11 +25,11 @@ class UserProfile extends PureComponent {
 }
 
 UserProfile.propTypes = {
-  auth: object,
+  user: object,
 };
 
 UserProfile.defaultProps = {
-  auth: null,
+  user: null,
 };
 
 export default UserProfile;

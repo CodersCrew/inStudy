@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
-const createUser = ({ photos, id, name, emails }) => ({
+const createUser = ({ photos, id, name, emails, description = '', socials = [] }) => ({
   googleId: id,
   image: photos[0].value.split('?sz=')[0],
   firstName: name.givenName,
   lastName: name.familyName,
   email: emails[0].value,
+  description,
+  socials,
 });
 
 function DBConnector() {
