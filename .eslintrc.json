@@ -15,8 +15,12 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "__FONT_AWESOME__": true
+  },
   "rules": {
     "prettier/prettier": "error",
-    "no-console": "off"
+    "no-console": "off",
+    "ts": "off"
   }
 }

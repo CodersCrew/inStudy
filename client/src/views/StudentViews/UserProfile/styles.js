@@ -6,10 +6,8 @@ export const MainContainer = styled(Container)`
   display: grid;
   grid-template-columns: 3fr 9fr;
   grid-gap: var(--space-xl);
-  padding: var(--space-xxl) 0;
   ${media.lg`
     grid-gap: var(--space-lg);
-    padding-top: var(--space-xl);
   `};
   ${media.md`
     grid-template-columns: 1fr;
@@ -28,4 +26,8 @@ export const RightColumn = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 64px;
+
+  div:only-child {
+    grid-area: 1/1/2/3;
+  }
 `;

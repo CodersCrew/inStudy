@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
-import TriangleBackground from 'components/TriangleBackground';
 import Card from './Card';
 import Modules from './Modules';
 import ModulesNav from './ModulesNav';
@@ -21,7 +20,6 @@ class UserProfile extends PureComponent {
     this.setState(state => ({ openedModalNames: state.openedModalNames.filter(n => n !== name) }));
 
   render() {
-    console.log(this.props);
     const { user } = this.props;
     const { openedModalNames } = this.state;
     const { openModal, closeModal } = this;
@@ -32,10 +30,11 @@ class UserProfile extends PureComponent {
           <LeftColumn>{user && <Card {...user} />}</LeftColumn>
           <RightColumn>
             <Modules modules={user?.modules} openModal={openModal} />
-            <ModulesNav modules={user?.modules} openModal={openModal} />
+            {user?.modules?.length > 0 && (
+              <ModulesNav modules={user?.modules} openModal={openModal} />
+            )}
           </RightColumn>
         </MainContainer>
-        <TriangleBackground />
         <ModulesModals
           openedModalNames={openedModalNames}
           openModal={openModal}

@@ -13,7 +13,7 @@ const Card = ({ image, firstName, lastName, description, socials }) => (
     <Image src={image} />
     <Name>{`${firstName} ${lastName}`}</Name>
     <Description>{description}</Description>
-    <Socials>{socials.map(renderSocial)}</Socials>
+    {socials.length > 0 && <Socials>{socials.map(renderSocial)}</Socials>}
   </Container>
 );
 

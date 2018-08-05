@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Container } from './styles';
 
 const createBackground = () => {
@@ -190,9 +190,13 @@ const createBackground = () => {
   window.onresize = onResize;
 };
 
-class TriangleBackground extends PureComponent {
+class TriangleBackground extends Component {
   componentDidMount() {
     createBackground();
+  }
+
+  shouldComponentUpdate() {
+    return false;
   }
 
   render() {
