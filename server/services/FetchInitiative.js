@@ -35,7 +35,34 @@ FetchInitiative.prototype.getSingleInitiative = function(shortUrl) {
     .then(singleInitiative => {
       return Promise.resolve({...singleInitiative.toObject(), profileCompleted: true})
     })
-}
+};
+
+FetchInitiative.prototype.addInitiativeModule = function (initiativeId, module) {
+  module._id = new mongoose.mongo.ObjectId();
+
+  return Initiative.findByIdAndUpdate(initiativeId, {
+    $addToSet: {
+      modules: module,
+    }
+  })
+};
+
+FetchInitiative.prototype.getAllModules = function (initiativeId) {
+  return Initiative.findById(initiativeId)
+    .then((result) => {
+      return Promise.resolve(result.modules);
+    });
+};
+
+FetchInitiative.prototype.deleteModule = function (initiativeId, moduleId) {
+  return Initiative.findByIdAndUpdate(initiativeId, {
+    $pull: {
+      modules: {
+        _id: new mongoose.mongo.ObjectId(moduleId),
+      },
+    },
+  });
+};
 
 function initiativeExist(initiativeShortUrl) {
   return Initiative.findOne({
