@@ -77,4 +77,41 @@ module.exports = app => {
     //     .putInitiative()
     // });
   })
+
+
+  app.post('/api/initiative/:initId/module', (req, res) => {
+    const initId = req.params.initId;
+    const module = req.body.module;
+
+    new FetchInitiative()
+      .addInitiativeModule(initId, module)
+      .then(() => {
+        res
+          .sendStatus(201);
+      })
+  });
+
+  app.get('/api/initiative/:initId/module', (req, res) => {
+    const initId = req.params.initId;
+
+    new FetchInitiative()
+      .getAllModules(initId)
+      .then((modules) => {
+        res
+          .status(200)
+          .json(modules)
+      })
+  });
+
+  app.delete('/api/initiative/:initId/module/:modId', (req, res) => {
+    const initId = req.params.initId;
+    const modId = req.params.modId;
+
+    new FetchInitiative()
+      .deleteModule(initId, modId)
+      .then(() => {
+        res
+          .sendStatus(201);
+      })
+  })
 };
