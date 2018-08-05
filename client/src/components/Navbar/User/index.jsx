@@ -1,11 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { oneOf, bool, exact, string, func } from 'prop-types';
 import { connect } from 'react-redux';
-import { Tooltip } from 'react-ui-framework';
 import tooltipConfig from '../tooltipConfig';
 import { logout } from '../../../store/actions';
 import { MenuItems, MenuItem } from '../Menu';
-import { StyledButton, UserImage } from './styles';
+import { StyledButton, UserImage, StyledTooltip } from './styles';
 
 const goToGoogleLogin = () => {
   window.location.assign('/auth/google');
@@ -21,30 +20,29 @@ const goToProfile = () => {
 )
 class User extends PureComponent {
   render() {
+    const { sizeName, logout, auth } = this.props;
     const buttonContent =
-      this.props.sizeName === 'xs' ? <span className="fas fa-user" /> : <span>Moje konto</span>;
+      sizeName === 'xs' ? <span className="fas fa-user" /> : <span>Moje konto</span>;
 
     return (
       <Fragment>
-        {this.props.auth === false ? (
+        {auth === false ? (
           <StyledButton ghost size="xs" kind="white" onClick={goToGoogleLogin}>
             {buttonContent}
           </StyledButton>
         ) : (
-          <Fragment>
-            <Tooltip
-              html={
-                <MenuItems>
-                  <MenuItem text="Mój profil" onClick={goToProfile} />
-                  <MenuItem text="Wyloguj się" onClick={this.props.logout} />
-                </MenuItems>
-              }
-              trigger="click"
-              {...tooltipConfig}
-            >
-              <UserImage src={this.props.auth && this.props.auth.image} />
-            </Tooltip>
-          </Fragment>
+          <StyledTooltip
+            html={
+              <MenuItems>
+                <MenuItem text="Mój profil" onClick={goToProfile} />
+                <MenuItem text="Wyloguj się" onClick={logout} />
+              </MenuItems>
+            }
+            distance={12}
+            {...tooltipConfig}
+          >
+            <UserImage src={auth?.image} />
+          </StyledTooltip>
         )}
       </Fragment>
     );

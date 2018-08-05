@@ -16,7 +16,6 @@ export const MainContainer = styled(Container)`
     grid-gap: var(--space-xl);
   `};
   ${media.xs`
-    grid-template-columns: 1fr;
     grid-gap: var(--space-lg);
   `};
 `;
@@ -26,6 +25,7 @@ export const LeftColumn = styled.div`
 `;
 
 export const RightColumn = styled.div`
-  height: 100vh;
-  background-color: red;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 64px;
 `;

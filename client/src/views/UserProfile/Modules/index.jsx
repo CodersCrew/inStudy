@@ -1,16 +1,27 @@
-import React from 'react';
-import { string } from 'prop-types';
+import React, { PureComponent } from 'react';
+import { array, func } from 'prop-types';
+import EmptyState from './EmptyState';
 
-const MyComponentName = ({ text }) => (
-	<div>{text}</div>
-);
-
-MyComponentName.propTypes = {
-  text: string,
+const renderModule = module => {
+  console.log(module);
+  return null;
 };
 
-MyComponentName.defaultProps = {
-  text: 'HModules',
+class Modules extends PureComponent {
+  render() {
+    const { modules, openModal } = this.props;
+
+    return modules.length > 0 ? modules.map(renderModule) : <EmptyState openModal={openModal} />;
+  }
+}
+
+Modules.propTypes = {
+  modules: array,
+  openModal: func.isRequired,
 };
 
-export default MyComponentName;
+Modules.defaultProps = {
+  modules: [],
+};
+
+export default Modules;

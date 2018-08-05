@@ -1,28 +1,33 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { string, arrayOf, object } from 'prop-types';
 import { Container, Image, Name, Description, Socials, Social } from './styles';
 
 const renderSocial = ({ link, iconName }) => <Social to={link} className={`fab fa-${iconName}`} />;
-
-const MyComponentName = props => {
-  console.log(props);
-
-  return (
-    <Container>
-      <Image src={props.image} />
-      <Name>{`${props.firstName} ${props.lastName}`}</Name>
-      <Description>{props.description}</Description>
-      <Socials>{props.socials.map(renderSocial)}</Socials>
-    </Container>
-  );
+renderSocial.propTypes = {
+  link: string.isRequired,
+  iconName: string.isRequired,
 };
 
-MyComponentName.propTypes = {
-  text: string,
+const Card = ({ image, firstName, lastName, description, socials }) => (
+  <Container>
+    <Image src={image} />
+    <Name>{`${firstName} ${lastName}`}</Name>
+    <Description>{description}</Description>
+    <Socials>{socials.map(renderSocial)}</Socials>
+  </Container>
+);
+
+Card.propTypes = {
+  image: string.isRequired,
+  firstName: string.isRequired,
+  lastName: string.isRequired,
+  description: string,
+  socials: arrayOf(object),
 };
 
-MyComponentName.defaultProps = {
-  text: 'Card',
+Card.defaultProps = {
+  description: '',
+  socials: [],
 };
 
-export default MyComponentName;
+export default Card;

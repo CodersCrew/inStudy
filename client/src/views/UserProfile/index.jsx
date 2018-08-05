@@ -4,21 +4,43 @@ import { connect } from 'react-redux';
 import TriangleBackground from 'components/TriangleBackground';
 import Card from './Card';
 import Modules from './Modules';
+import ModulesNav from './ModulesNav';
+import ModulesModals from './ModulesModals';
 import { MainContainer, LeftColumn, RightColumn } from './styles';
 
 @connect(({ auth }) => ({ user: auth }))
 class UserProfile extends PureComponent {
+  state = {
+    openedModalNames: [],
+  };
+
+  openModal = name =>
+    this.setState(state => ({ openedModalNames: [...state.openedModalNames, name] }));
+
+  closeModal = name =>
+    this.setState(state => ({ openedModalNames: state.openedModalNames.filter(n => n !== name) }));
+
   render() {
     console.log(this.props);
+    const { user } = this.props;
+    const { openedModalNames } = this.state;
+    const { openModal, closeModal } = this;
+
     return (
       <Fragment>
         <MainContainer>
-          <LeftColumn>{this.props.user && <Card {...this.props.user}/>}</LeftColumn>
+          <LeftColumn>{user && <Card {...user} />}</LeftColumn>
           <RightColumn>
-            <Modules />
+            <Modules modules={user?.modules} openModal={openModal} />
+            <ModulesNav modules={user?.modules} openModal={openModal} />
           </RightColumn>
         </MainContainer>
         <TriangleBackground />
+        <ModulesModals
+          openedModalNames={openedModalNames}
+          openModal={openModal}
+          closeModal={closeModal}
+        />
       </Fragment>
     );
   }
