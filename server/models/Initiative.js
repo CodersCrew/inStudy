@@ -6,6 +6,7 @@ const organisationSchema = new Schema({
   image: String,
   description: String,
   shortUrl: String,
+  modules: [{}],
 });
 
 mongoose.model('initiatives', organisationSchema);
