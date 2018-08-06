@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import { object, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -7,34 +8,35 @@ import Search from './Search';
 import User from './User';
 import { Container, Logo, Line, Right } from './styles';
 
-@withRouter
-@connect(state => ({ sizeName: state.ui.size.name }))
-class Navbar extends PureComponent {
-  render() {
-    return (
-      <Container>
-        <Link
-          to="/"
-          onClick={() => {
-            window.resizeHomeUp = this.props.location.pathname === '/inicjatywy';
-          }}
-        >
-          {this.props.sizeName === 'xs' ? (
-            <Logo path="/img/sygnet_bialy.svg" width={21} height={16} fill="#fff" />
-          ) : (
-            <Logo path="/img/logo_poziomo_biale.svg" width={80} height={24} fill="#fff" />
-          )}
-        </Link>
-        <Line />
-        <NavItems />
-        <Right>
-          <Search />
-          <Line />
-          <User />
-        </Right>
-      </Container>
-    );
-  }
-}
+const setResize = ({ pathname }) => {
+  window.resizeHomeUp = pathname === '/inicjatywy';
+};
 
-export default Navbar;
+const Navbar = ({ location, sizeName }) => {
+  const logoData =
+    sizeName === 'xs'
+      ? { path: '/img/sygnet_bialy.svg', width: 21, height: 16 }
+      : { path: '/img/logo_poziomo_biale.svg', width: 80, height: 24 };
+
+  return (
+    <Container>
+      <Link to="/" onClick={() => setResize(location)}>
+        <Logo {...logoData} fill="#fff" />
+      </Link>
+      <Line />
+      <NavItems />
+      <Right>
+        <Search />
+        <Line />
+        <User />
+      </Right>
+    </Container>
+  );
+};
+
+Navbar.propTypes = {
+  location: object.isRequired,
+  sizeName: string.isRequired,
+};
+
+export default withRouter(connect(state => ({ sizeName: state.ui.size.name }))(Navbar));

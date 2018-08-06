@@ -1,3 +1,6 @@
+import gfa from './getFontAwesome';
+import eh from './enhanceHead';
+
 export const getViewportSize = () => {
   const width = window.innerWidth;
 
@@ -18,3 +21,6 @@ export const getViewportSize = () => {
 
 export const sliceText = (text = '', maxCharacters = 20) =>
   text.length > maxCharacters ? `${text.slice(0, maxCharacters - 4)}...` : text;
+
+export const getFontAwesome = gfa;
+export const enhanceHead = eh;

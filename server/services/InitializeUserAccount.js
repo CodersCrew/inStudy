@@ -5,19 +5,15 @@ function InitializeUserAccount(profile) {
 }
 
 InitializeUserAccount.prototype.prepare = function() {
-  return userExist(this.profile)
+  return userExist(this.profile);
 };
 
 function userExist(profile) {
-  DBConnect.prepare(profile)
-  return DBConnect.getUser(profile.id)
-    .then(user => {
-      if(user) {
-        return DBConnect.putUser(profile);
-      } else {
-        return DBConnect.setUser(profile)
-      }
-    })
+  console.log(profile.emails);
+  DBConnect.prepare(profile);
+  return DBConnect.getUser(profile.id).then(
+    user => (user ? DBConnect.putUser(profile) : DBConnect.setUser(profile)),
+  );
 }
 
 module.exports = InitializeUserAccount;

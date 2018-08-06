@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Button } from 'react-ui-framework';
-import { media } from 'react-ui-framework/lib/utils';
+import { Button, Tooltip } from 'CC-UI';
+import { media } from 'CC-UI/lib/utils';
 
 export const StyledButton = styled(Button)`
   margin-left: var(--space-lg);
@@ -38,4 +38,10 @@ export const UserImage = styled.img`
   ${media.sm`
     margin-left: var(--space-md);
   `};
+`;
+
+export const StyledTooltip = styled(Tooltip)`
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 `;

@@ -9,4 +9,5 @@ export const Container = styled.div`
   background: radial-gradient(ellipse at center, var(--background) 0%, var(--grey7) 100%);
   overflow: hidden;
   opacity: 0.06;
+  z-index: -1;
 `;

@@ -5,4 +5,5 @@ export default {
   animation: 'perspective',
   inertia: true,
   duration: 300,
+  trigger: 'click',
 };

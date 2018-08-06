@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
-import { withSearch } from 'react-ui-framework/lib/services/search';
+import { object, func } from 'prop-types';
+import { withSearch } from 'CC-UI/lib/services/search';
 import { connect } from 'react-redux';
 import { getInitiatives } from '../../../store/actions';
 import { Container, Input, SearchIcon } from './styles';
@@ -44,41 +44,44 @@ class Search extends PureComponent {
   };
 
   onSearch = () => {
-    window.resizeHomeDown = this.props.location.pathname === '/';
-    const { getInitiatives } = this.props;
+    const { getInitiatives, history, location } = this.props;
 
+    window.resizeHomeDown = location.pathname === '/';
     window.disableAnimation = true;
-    if (!this.props.location.pathname === '/inicjatywy') {
-      this.props.history.push(`/inicjatywy${window.location.search}`);
+
+    if (!location.pathname === '/inicjatywy') {
+      history.push(`/inicjatywy${window.location.search}`);
     }
 
     getInitiatives({ query: this.state.value, page: 0 });
   };
 
   render() {
+    const { active, value } = this.state;
+
     return (
-      <Container active={this.state.active}>
+      <Container active={active}>
         <Input
           placeholder="Napisz, czym się interesujesz"
           innerRef={input => {
             this.input = input;
           }}
           onKeyPress={this.onKeyPress}
-          value={this.state.value}
+          value={value}
           onChange={this.onChange}
         />
-        <SearchIcon active={this.state.active} onClick={this.toggle} />
+        <SearchIcon active={active} onClick={this.toggle} />
       </Container>
     );
   }
 }
 
 Search.propTypes = {
-  text: string,
-};
-
-Search.defaultProps = {
-  text: 'Hello World',
+  history: object.isRequired,
+  location: object.isRequired,
+  getInitiatives: func.isRequired,
+  setSearch: func.isRequired,
+  search: object.isRequired,
 };
 
 export default Search;

@@ -8,7 +8,7 @@ module.exports = merge(common, {
   devtool: 'source-map',
   plugins: [
     new ExtendedDefinePlugin({
-      __FONT_AWESOME__: 'local',
+      __FONT_AWESOME__: 'sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno',
     }),
     new CopyWebpackPlugin([
       {

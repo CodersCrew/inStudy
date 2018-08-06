@@ -22,5 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-react-ui-framework
+CC-UI
 /public

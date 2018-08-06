@@ -9,8 +9,6 @@ module.exports = User => ({
     proxy: true,
   },
   callback: async (accessToken, refreshToken, profile, done) => {
-    new InitializeUserAccount(profile)
-      .prepare()
-      .then(user => done(null, user));
+    new InitializeUserAccount(profile).prepare().then(user => done(null, user));
   },
 });
