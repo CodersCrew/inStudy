@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'react-ui-framework';
+import { Modal } from 'CC-UI';
 
 const AddModule = ({ visible, onClose }) => (
   <Modal

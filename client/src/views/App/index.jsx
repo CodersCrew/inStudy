@@ -3,7 +3,7 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { NotificationsSystem, theme } from 'react-ui-framework/lib/services/notifications';
+import { NotificationsSystem, theme } from 'CC-UI/lib/services/notifications';
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
 

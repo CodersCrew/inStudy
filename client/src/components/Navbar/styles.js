@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { SVGIcon } from 'react-ui-framework';
-import { media } from 'react-ui-framework/lib/utils';
+import { SVGIcon } from 'CC-UI';
+import { media } from 'CC-UI/lib/utils';
 
 export const Container = styled.div`
   z-index: 100;

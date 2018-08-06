@@ -1,4 +1,4 @@
-import { styles } from 'react-ui-framework/lib/utils';
+import { styles } from 'CC-UI/lib/utils';
 import enhanceHead from './enhanceHead';
 
 export default fa => {

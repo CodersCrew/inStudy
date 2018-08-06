@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { bool, object } from 'prop-types';
 import Typist from 'react-typist';
 import { connect } from 'react-redux';
-import { withSearch } from 'react-ui-framework/lib/services/search';
+import { withSearch } from 'CC-UI/lib/services/search';
 import { Transition } from 'react-transition-group';
 import headerTexts from './headerTexts';
 import Search from './Search';

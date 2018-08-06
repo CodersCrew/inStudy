@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { searchReducer } from 'react-ui-framework/lib/services/search';
+import { searchReducer } from 'CC-UI/lib/services/search';
 import authReducer from './authReducer';
 import initiativesReducer from './initiativesReducer';
 import uiReducer from './uiReducer';

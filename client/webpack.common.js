@@ -81,7 +81,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      'react-ui-framework': path.resolve(__dirname, '..', 'react-ui-framework'),
+      'CC-UI': path.resolve(__dirname, '..', 'CC-UI'),
       'styled-components': path.resolve(__dirname, 'node_modules', 'styled-components'),
       components: path.resolve(__dirname, 'src', 'components'),
       utils: path.resolve(__dirname, 'src', 'utils'),

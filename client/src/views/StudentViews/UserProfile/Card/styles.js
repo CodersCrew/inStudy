@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from 'react-ui-framework/lib/utils';
+import { media } from 'CC-UI/lib/utils';
 
 export const Container = styled.div`
   position: sticky;

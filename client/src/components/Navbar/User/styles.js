@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Button, Tooltip } from 'react-ui-framework';
-import { media } from 'react-ui-framework/lib/utils';
+import { Button, Tooltip } from 'CC-UI';
+import { media } from 'CC-UI/lib/utils';
 
 export const StyledButton = styled(Button)`
   margin-left: var(--space-lg);

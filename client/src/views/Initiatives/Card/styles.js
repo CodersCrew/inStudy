@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { media } from 'react-ui-framework/lib/utils';
+import { media } from 'CC-UI/lib/utils';
 
 export const Container = styled(Link)`
   display: flex;

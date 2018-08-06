@@ -1,7 +1,7 @@
 import React from 'react';
 import { object } from 'prop-types';
 import { withRouter } from 'react-router';
-import { Tooltip } from 'react-ui-framework';
+import { Tooltip } from 'CC-UI';
 import { MenuItems, MenuItem } from '../Menu';
 import tooltipConfig from '../tooltipConfig';
 import { Container, NavItem, NavItemLink, Icon } from './styles';

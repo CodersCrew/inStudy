@@ -12,8 +12,8 @@
     "server": "nodemon ./server/index.js server",
     "client": "cd client && yarn run start",
     "build": "cd client && yarn run build",
-    "build:docs": "cd react-ui-framework/demo && yarn run build",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\" \"cd react-ui-framework && yarn start\" \"cd react-ui-framework/demo && yarn start\""
+    "build:docs": "cd CC-UI/demo && yarn run build",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\" \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\""
   },
   "author": "Konrad Szwarc",
   "license": "MIT",
