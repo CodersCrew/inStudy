@@ -2,6 +2,7 @@ const FetchInitiative = require('./../services/FetchInitiative');
 const multer = require('multer');
 const path = require('path');
 const Cloudinary = require('./../services/Cloudinary');
+const cacher = require('../services/cacher/index');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -79,19 +80,21 @@ module.exports = app => {
   })
 
 
-  app.post('/api/initiative/:initId/module', (req, res) => {
+  app.post('/api/initiative/:initId/module', (req, res, next) => {
     const initId = req.params.initId;
     const module = req.body.module;
 
     new FetchInitiative()
       .addInitiativeModule(initId, module)
       .then(() => {
-        res
-          .sendStatus(201);
+        req.instudyCache = module;
+        next();
+        // res
+        //   .sendStatus(201);
       })
-  });
+  }, cacher);
 
-  app.get('/api/initiative/:initId/module', (req, res) => {
+  app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const initId = req.params.initId;
 
     new FetchInitiative()
