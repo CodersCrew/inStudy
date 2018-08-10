@@ -11,9 +11,12 @@
     "start": "node ./server/index.js server",
     "server": "nodemon ./server/index.js server",
     "client": "cd client && yarn run start",
-    "build": "cd client && yarn run build",
-    "build:docs": "cd CC-UI/demo && yarn run build",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\" \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\""
+    "build:instudy": "cd client && yarn run build",
+    "build:ccui": "cd CC-UI/demo && yarn run build",
+    "dev:all": "concurrently \"yarn run server\" \"yarn run client\" \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\"",
+    "dev:instudy": "concurrently \"cd CC-UI && yarn start\" \"yarn run server\" \"yarn run client\"",
+    "dev:ccui": "concurrently \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\"",
+    "install:all": "yarn install && cd client && yarn install && cd ../CC-UI && yarn install && cd demo && yarn install"
   },
   "author": "Konrad Szwarc",
   "license": "MIT",
