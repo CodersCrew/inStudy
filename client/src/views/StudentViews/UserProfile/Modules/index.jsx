@@ -5,7 +5,7 @@ import ModuleBase from './ModuleBase';
 
 const renderModule = module => {
   console.log(module);
-  return <ModuleBase />;
+  return <ModuleBase {...module} />;
 };
 
 class Modules extends PureComponent {

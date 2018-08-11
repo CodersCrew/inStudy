@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
-import { Container } from './styles';
+import { Container, Header, Icon, Text } from './styles';
 
 class ModuleBase extends PureComponent {
   render() {
     return (
-      <Container>{this.props.text}</Container>
+      <Container>
+        <Header>
+          <Icon className={`fal fa-${this.props.icon}`} />
+          <Text>{this.props.title}</Text>
+        </Header>
+      </Container>
     );
   }
 }

@@ -1,18 +1,23 @@
 import React from 'react';
 import { array, func } from 'prop-types';
-import { Container, Icon } from './styles';
+import modulesConfig from '../modulesConfig';
+import { Container, Icon, AddIcon } from './styles';
 
 const createNavItem = module => {
-  console.log(module);
-  return null;
+  console.log(modulesConfig[module.type].icon);
+  return (
+    <Icon>
+      <i className={`fal fa-${modulesConfig[module.type].icon}`} />
+    </Icon>
+  );
 };
 
 const ModulesNav = ({ modules, openModal }) => (
   <Container>
     {modules.map(createNavItem)}
-    <Icon onClick={() => openModal('AddModule')}>
+    <AddIcon onClick={() => openModal('AddModule')}>
       <i className="fal fa-plus" />
-    </Icon>
+    </AddIcon>
   </Container>
 );
 
