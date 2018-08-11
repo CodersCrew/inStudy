@@ -11,7 +11,7 @@ export const NavItem = styled.div`
   user-select: none;
   height: 14px;
   margin-right: var(--space-lg);
-  color: #fff;
+  color: var(--white);
   font-size: var(--font-sm);
   line-height: 1;
   cursor: pointer;
@@ -22,7 +22,7 @@ export const NavItemLink = styled(Link)`
   user-select: none;
   text-decoration: none;
   margin-right: var(--space-lg);
-  color: #fff;
+  color: var(--white);
   font-size: var(--font-sm);
   line-height: 1;
   cursor: pointer;
@@ -37,6 +37,6 @@ export const Icon = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-left: var(--space-sm);
-  color: #fff;
+  color: var(--white);
   font-size: var(--font-lg);
 `;

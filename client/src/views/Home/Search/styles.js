@@ -5,7 +5,7 @@ export const Container = styled.div`
   position: relative;
   width: 800px;
   height: 64px;
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 4px;
   ${media.md`width: calc(100vw - 128px);`};
   ${media.sm`height: 56px;`};

@@ -21,7 +21,7 @@ export const Icon = styled.div`
   user-select: none;
 
   i {
-    color: #fff;
+    color: var(--white);
     font-size: var(--font-lg);
   }
 

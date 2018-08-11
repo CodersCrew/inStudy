@@ -5,7 +5,7 @@ const itemStyles = `
   width: 100%;
   padding: var(--space-md);
   transition: all 0.3s var(--ease-in-out);
-  background-color: #fff;
+  background-color: var(--white);
   color: var(--text1);
   cursor: pointer;
 

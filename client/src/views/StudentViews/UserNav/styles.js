@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   height: 48px;
-  background-color: #fff;
+  background-color: var(--white);
   box-shadow: var(--shadow3);
 `;
 
