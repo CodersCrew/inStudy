@@ -9,11 +9,12 @@ const AddModule = ({ visible, onClose, openModal }) => (
     onClose={onClose}
     title="Dodaj moduł do profilu"
     type="complex"
+    width={644}
     buttons={[
       {
         onClick: onClose,
         label: 'Anuluj',
-        kind: 'warning',
+        kind: 'grey',
       },
     ]}
   >

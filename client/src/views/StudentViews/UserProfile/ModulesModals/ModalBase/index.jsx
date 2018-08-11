@@ -9,6 +9,7 @@ const RichText = ({ visible, onClose, key, name, icon, Content }) => (
     title={`Dodaj moduł "${name}"`}
     icon={`/fa-icons/${icon}-light.svg`}
     type="complex"
+    width={644}
     buttons={[
       {
         onClick: () => console.log('Go forward'),
