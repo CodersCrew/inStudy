@@ -1,32 +1,21 @@
-import React from 'react';
-import { bool, func } from 'prop-types';
-import { Modal } from 'CC-UI';
+import React, { PureComponent } from 'react';
+import { string } from 'prop-types';
+import { Container } from './styles';
 
-const RichText = ({ visible, onClose }) => (
-  <Modal
-    visible={visible}
-    onClose={() => onClose()}
-    title="Dodaj moduł Tekst"
-    buttons={[
-      {
-        onClick: () => console.log('Go forward'),
-        label: 'Dodaj',
-      },
-      {
-        onClick: () => onClose(),
-        label: 'Anuluj',
-        kind: 'grey',
-      },
-    ]}
-  >
-    {console.log(visible)}
-    Lorem ipsum dolor sit amet.
-  </Modal>
-);
+class RichText extends PureComponent {
+  render() {
+    return (
+      <Container>{this.props.text}</Container>
+    );
+  }
+}
 
 RichText.propTypes = {
-  visible: bool.isRequired,
-  onClose: func.isRequired,
+  text: string,
+};
+
+RichText.defaultProps = {
+  text: 'Rich Text',
 };
 
 export default RichText;

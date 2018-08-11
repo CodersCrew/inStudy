@@ -1,31 +1,21 @@
-import React from 'react';
-import { bool, func } from 'prop-types';
-import { Modal } from 'CC-UI';
+import React, { PureComponent } from 'react';
+import { string } from 'prop-types';
+import { Container } from './styles';
 
-const Timeline = ({ visible, onClose }) => (
-  <Modal
-    visible={visible}
-    onClose={() => onClose()}
-    title="Dodaj moduł Tekst"
-    buttons={[
-      {
-        onClick: () => console.log('Go forward'),
-        label: 'Dodaj',
-      },
-      {
-        onClick: () => onClose(),
-        label: 'Anuluj',
-        kind: 'grey',
-      },
-    ]}
-  >
-    Lorem ipsum dolor sit amet.
-  </Modal>
-);
+class Timeline extends PureComponent {
+  render() {
+    return (
+      <Container>{this.props.text}</Container>
+    );
+  }
+}
 
 Timeline.propTypes = {
-  visible: bool.isRequired,
-  onClose: func.isRequired,
+  text: string,
+};
+
+Timeline.defaultProps = {
+  text: 'Timeline',
 };
 
 export default Timeline;

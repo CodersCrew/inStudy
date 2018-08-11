@@ -2,14 +2,17 @@ import React, { PureComponent, Fragment } from 'react';
 import { array, func } from 'prop-types';
 import AddModule from './AddModule';
 import modulesConfig from '../modulesConfig';
+import ModalBase from './ModalBase';
+import { StyledModal } from './styles';
 
 class ModulesModals extends PureComponent {
-  renderModal = (key, { name, icon, modal: Modal }) => {
+  renderModal = (key, { name, icon, modalContent }) => {
     return (
-      <Modal
+      <ModalBase
         key={key}
         name={name}
         icon={icon}
+        Content={modalContent}
         visible={this.props.openedModalNames.includes(key)}
         onClose={() => this.props.closeModal(key)}
       />

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
 import { Container } from './styles';
 
-class Contatct extends PureComponent {
+class Skills extends PureComponent {
   render() {
     return (
       <Container>{this.props.text}</Container>
@@ -10,12 +10,12 @@ class Contatct extends PureComponent {
   }
 }
 
-Contatct.propTypes = {
+Skills.propTypes = {
   text: string,
 };
 
-Contatct.defaultProps = {
-  text: 'Contact',
+Skills.defaultProps = {
+  text: 'Skills',
 };
 
-export default Contatct;
+export default Skills;
