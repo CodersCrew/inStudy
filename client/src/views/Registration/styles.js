@@ -13,25 +13,24 @@ export const Message = styled.div`
   top: 260px;
   left: 31%;
   right: 31%;
-  text-align:center;
-  color:#fff;
-  font-family: Raleway,Open Sans;
- 
+  text-align: center;
+  color: #fff;
+  font-family: Raleway, sans-serif;
 `;
 export const MainText = styled.div`
-  color:#fff;
+  color: #fff;
   font-size: 28px;
   font-weight: bold;
   line-height: 33px;
   margin-bottom: 3%;
 `;
 export const MiddleText = styled.div`
-  color:#fff;
+  color: #fff;
   font-size: 22px;
   margin-bottom: 10%;
 `;
 export const CautionText = styled.div`
-  color:#fff;
+  color: #fff;
   margin-bottom: 20px;
 `;
 export const StyledSVGIcon = styled(SVGIcon)`
