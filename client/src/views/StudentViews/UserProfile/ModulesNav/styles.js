@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: sticky;
+  top: 80px;
   padding-left: var(--space-md);
 
   > div + div {

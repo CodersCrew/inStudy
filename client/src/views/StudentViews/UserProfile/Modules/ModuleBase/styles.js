@@ -1,11 +1,15 @@
 import styled from 'styled-components';
+import { media } from 'CC-UI/lib/utils';
 
 export const Container = styled.div`
   width: 100%;
   padding: var(--space-lg) var(--space-xl);
   background-color: var(--white);
-  box-shadow: var(--shadow1);
+  box-shadow: var(--shadow2);
   border-radius: 4px;
+  ${media.md`
+  padding: var(--space-md) var(--space-lg);
+  `};
 `;
 
 export const Header = styled.div`
@@ -15,9 +19,22 @@ export const Header = styled.div`
 `;
 
 export const Icon = styled.h1`
-  color: blue;
+  color: var(--primary2);
+  ${media.xl`
+    font-size: var(--font-xl);
+    line-height: var(--font-xl-lh);
+  `};
 `;
 
 export const Text = styled.h1`
-  margin-left: var(--space-md);
+  margin-left: var(--space-lg);
+  ${media.xl`
+    font-size: var(--font-xl);
+    line-height: var(--font-xl-lh);
+    margin-left: var(--space-md);
+  `};
+  ${media.md`
+    font-size: var(--font-lg);
+    line-height: var(--font-lg-lh);
+  `};
 `;

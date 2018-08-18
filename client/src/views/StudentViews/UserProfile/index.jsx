@@ -5,7 +5,7 @@ import Card from './Card';
 import Modules from './Modules';
 import ModulesNav from './ModulesNav';
 import ModulesModals from './ModulesModals';
-import { MainContainer, LeftColumn, RightColumn } from './styles';
+import { MainContainer, LeftColumn, RightColumn, NavColumn } from './styles';
 
 @connect(({ auth }) => ({ user: auth }))
 class UserProfile extends PureComponent {
@@ -30,10 +30,12 @@ class UserProfile extends PureComponent {
           <LeftColumn>{user && <Card {...user} />}</LeftColumn>
           <RightColumn>
             <Modules modules={user?.modules} openModal={openModal} />
+          </RightColumn>
+          <NavColumn>
             {user?.modules?.length > 0 && (
               <ModulesNav modules={user?.modules} openModal={openModal} />
             )}
-          </RightColumn>
+          </NavColumn>
         </MainContainer>
         <ModulesModals
           openedModalNames={openedModalNames}

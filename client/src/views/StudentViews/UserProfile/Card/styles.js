@@ -3,14 +3,14 @@ import { media } from 'CC-UI/lib/utils';
 
 export const Container = styled.div`
   position: sticky;
-  top: var(--space-xxl);
+  top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--white);
   border-radius: 4px;
   padding: var(--space-xl);
-  box-shadow: var(--shadow1);
+  box-shadow: var(--shadow2);
   ${media.xl`
     padding: var(--space-lg);
   `};
