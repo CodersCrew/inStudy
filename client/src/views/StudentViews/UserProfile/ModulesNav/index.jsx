@@ -4,7 +4,6 @@ import modulesConfig from '../modulesConfig';
 import { Container, Icon, AddIcon } from './styles';
 
 const createNavItem = module => {
-  console.log(modulesConfig[module.type].icon);
   return (
     <Icon>
       <i className={`fal fa-${modulesConfig[module.type].icon}`} />

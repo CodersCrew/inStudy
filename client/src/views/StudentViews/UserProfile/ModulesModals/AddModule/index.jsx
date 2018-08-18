@@ -2,6 +2,8 @@ import React from 'react';
 import { bool, func } from 'prop-types';
 import { Modal } from 'CC-UI';
 import modulesConfig from '../../modulesConfig';
+import Item from './Item';
+import { Container, Label, Modules } from './styles';
 
 const AddModule = ({ visible, onClose, openModal }) => (
   <Modal
@@ -18,16 +20,19 @@ const AddModule = ({ visible, onClose, openModal }) => (
       },
     ]}
   >
-    {Object.keys(modulesConfig).map(key => (
-      <div
-        onClick={() => {
-          openModal(key);
-          onClose();
-        }}
-      >
-        {key}
-      </div>
-    ))}
+    <Container>
+      <Label>Moduły statyczne</Label>
+      <Modules>
+        {Object.keys(modulesConfig).map(key => (
+          <Item
+            key={key}
+            data={{ ...modulesConfig[key], key }}
+            openModal={openModal}
+            onClose={onClose}
+          />
+        ))}
+      </Modules>
+    </Container>
   </Modal>
 );
 

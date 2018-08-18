@@ -4,8 +4,7 @@ import EmptyState from './EmptyState';
 import ModuleBase from './ModuleBase';
 
 const renderModule = module => {
-  console.log(module);
-  return <ModuleBase {...module} />;
+  return <ModuleBase key={module.type} {...module} />;
 };
 
 class Modules extends PureComponent {
