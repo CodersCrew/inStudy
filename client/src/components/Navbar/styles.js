@@ -29,7 +29,7 @@ export const Logo = styled(SVGIcon)`
 export const Line = styled.div`
   height: 100%;
   width: 2px;
-  background-color: #fff;
+  background-color: var(--white);
   opacity: 0.2;
 `;
 

@@ -56,7 +56,7 @@ export const Middle = styled.div`
   width: 100vw;
   padding: 0 var(--space-xl);
   text-align: center;
-  color: #fff;
+  color: var(--white);
   ${media.xs`padding: 0 var(--space-md);`};
 `;
 
@@ -66,7 +66,7 @@ export const Supheader = styled.p`
   font-size: var(--font-xxl);
   font-weight: var(--regular);
   font-family: var(--headerFont);
-  color: #fff;
+  color: var(--white);
   opacity: 1;
   transition: all 0.3s linear;
   ${media.lg`font-size: var(--font-xl); padding-bottom: var(--space-lg);`};

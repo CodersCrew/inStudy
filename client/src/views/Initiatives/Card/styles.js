@@ -5,7 +5,7 @@ import { media } from 'CC-UI/lib/utils';
 export const Container = styled(Link)`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 4px;
   box-shadow: var(--shadow2);
   transition: all 0.3s var(--ease-out);
@@ -161,7 +161,7 @@ export const FeatureIcon = styled.div`
   width: 32px;
   height: 32px;
   border: 1px solid ${props => (props.active ? 'var(--primary2)' : 'var(--grey5)')};
-  background-color: ${props => (props.active ? 'var(--primary1)' : '#fff')};
+  background-color: ${props => (props.active ? 'var(--primary1)' : 'var(--white)')};
   border-radius: 100%;
 
   &:not(:last-child) {
@@ -170,6 +170,6 @@ export const FeatureIcon = styled.div`
 
   i {
     font-size: var(--font-xs);
-    color: ${props => (props.active ? '#fff' : 'var(--grey5)')};
+    color: ${props => (props.active ? 'var(--white)' : 'var(--grey5)')};
   }
 `;

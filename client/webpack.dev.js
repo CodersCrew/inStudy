@@ -9,7 +9,7 @@ const { BundleAnalyzerPlugin } = analyzer;
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'eval',
+  devtool: 'source-map',
   plugins: [
     new ExtendedDefinePlugin({
       __FONT_AWESOME__: 'local',

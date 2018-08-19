@@ -55,7 +55,7 @@ export const SearchIcon = styled.div`
   height: 25px;
   border-radius: 100%;
   margin-right: var(--space-md);
-  background: #fff;
+  background: var(--white);
   cursor: pointer;
 
   &::before,
@@ -78,7 +78,7 @@ export const SearchIcon = styled.div`
   &::after {
     width: 4px;
     height: 12px;
-    background: #fff;
+    background: var(--white);
     border-radius: 4px;
     margin: 19px 0 0 21px;
     transform: rotate(-45deg);
@@ -96,7 +96,7 @@ export const SearchIcon = styled.div`
     }
 
     &::before {
-      background: #fff;
+      background: var(--white);
       width: 3px;
       height: 14px;
       margin: 6px 0 0 11px;
@@ -105,7 +105,7 @@ export const SearchIcon = styled.div`
     &::after {
       width: 3px;
       height: 14px;
-      background: #fff;
+      background: var(--white);
       margin: 6px 0 0 11px;
     }
   `};

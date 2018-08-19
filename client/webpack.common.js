@@ -3,8 +3,6 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-console.log(path.resolve(__dirname, 'src', 'components'));
-
 module.exports = {
   entry: ['@babel/polyfill', './src/index.jsx'],
   output: {

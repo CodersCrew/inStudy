@@ -2,10 +2,15 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   justify-content: center;
   height: 48px;
-  background-color: #fff;
+  background-color: var(--white);
   box-shadow: var(--shadow3);
 `;
 

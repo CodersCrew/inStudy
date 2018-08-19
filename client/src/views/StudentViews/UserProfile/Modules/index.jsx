@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { array, func } from 'prop-types';
 import EmptyState from './EmptyState';
+import ModuleBase from './ModuleBase';
 
 const renderModule = module => {
-  console.log(module);
-  return null;
+  return <ModuleBase key={module.type} {...module} />;
 };
 
 class Modules extends PureComponent {
