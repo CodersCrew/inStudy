@@ -12,7 +12,6 @@ const Item = ({ data, openModal, onClose }) => (
     <Circle>
       <i className={`fal fa-${data.icon}`} />
     </Circle>
-    {console.log(data.key)}
     <Content>
       <Name>{data.name}</Name>
       <Description>{data.description}</Description>

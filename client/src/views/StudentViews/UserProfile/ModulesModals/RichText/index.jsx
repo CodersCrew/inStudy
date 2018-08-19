@@ -4,9 +4,7 @@ import { Container } from './styles';
 
 class RichText extends PureComponent {
   render() {
-    return (
-      <Container>{this.props.text}</Container>
-    );
+    return <this.props.Field name="description">{this.props.text}</this.props.Field>;
   }
 }
 
