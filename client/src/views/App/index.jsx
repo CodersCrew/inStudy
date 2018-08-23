@@ -16,6 +16,7 @@ import Home from '../Home';
 import Initiatives from '../Initiatives';
 import InitiativeProfile from '../InitiativeProfile';
 import StudentViews from '../StudentViews';
+import Page404 from '../Page404';
 
 let isFontAwesomeLoaded = false;
 
@@ -45,6 +46,7 @@ class App extends PureComponent {
                 <Route path="/inicjatywy" component={Initiatives} />
                 <Route path="/student/profil" component={StudentViews} />
                 <Route exact path="/" component={Home} />
+                <Route path="/" component={Page404} />
               </Switch>
             </Scrollbars>
           </Body>
