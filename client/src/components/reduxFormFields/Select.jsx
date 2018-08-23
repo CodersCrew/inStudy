@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import { Select } from 'CC-UI';
 
 export default class SelectField extends PureComponent {
-  change = value => this.props.input.onChange(value);
-
   render() {
     const {
       input,
@@ -17,7 +15,9 @@ export default class SelectField extends PureComponent {
     return (
       <Select
         className={className}
-        onChange={this.change}
+        onChange={input.onChange}
+        onFocus={input.onFocus}
+        onBlur={input.onBlur}
         label={label}
         name={input.name}
         items={items}
