@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
-import { Container } from './styles';
+import { Field } from 'redux-form';
+import { Input } from 'components/reduxFormFields';
+import ModalBase from '../ModalBase';
 
 class RichText extends PureComponent {
   render() {
-    return <this.props.Field name="description">{this.props.text}</this.props.Field>;
+    const { visible, onClose, name, icon } = this.props;
+    return (
+      <ModalBase visible={visible} onClose={onClose} name={name} icon={icon}>
+        <Field component={Input} name="description" props={{ label: 'Treść', fullWidth: true }} />
+      </ModalBase>
+    );
   }
 }
 

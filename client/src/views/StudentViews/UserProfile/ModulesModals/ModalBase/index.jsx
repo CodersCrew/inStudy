@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import { bool, func, string } from 'prop-types';
+import { reduxForm, Field } from 'redux-form';
 import { Modal } from 'CC-UI';
-import { FormRenderer } from 'CC-UI/lib/services/forms';
-import modulesConfig from '../../modulesConfig';
-import baseFields from './formConfig';
-import { Top, IconPicker, TitleInput } from './styles';
+import { Top, StyledIconPicker, StyledInput } from './styles';
+import { required } from 'utils/validators';
 
-const ModalWrapper = props => (
-  <FormRenderer
-    name={`${props.id}-modal`}
-    fields={{ ...baseFields, ...modulesConfig[props.id].fieldsConfig }}
-  >
-    {(Field, handleSubmit) => <ModalBase {...props} Field={Field} handleSubmit={handleSubmit} />}
-  </FormRenderer>
-);
-
-ModalWrapper.propTypes = {
-  id: string.isRequired,
-};
-
+@reduxForm({ form: 'addModule' })
 class ModalBase extends Component {
   shouldComponentUpdate(np) {
     return !(!np.visible && !this.props.visible);
@@ -27,7 +14,7 @@ class ModalBase extends Component {
   onSubmit = values => console.log(values);
 
   render() {
-    const { visible, onClose, id, name, icon, Content, Field, handleSubmit } = this.props;
+    const { visible, onClose, id, name, icon, handleSubmit, children } = this.props;
 
     return (
       <Modal
@@ -50,14 +37,20 @@ class ModalBase extends Component {
         ]}
       >
         <Top>
-          <IconPicker>
-            <Field name="icon" />
-          </IconPicker>
-          <TitleInput>
-            <Field name="title" />
-          </TitleInput>
+          <Field
+            name="icon"
+            component={StyledIconPicker}
+            props={{ label: 'Ikona' }}
+            validate={[required]}
+          />
+          <Field
+            name="title"
+            component={StyledInput}
+            props={{ label: 'Tytuł modułu' }}
+            validate={[required]}
+          />
         </Top>
-        <Content Field={Field} />
+        {children}
       </Modal>
     );
   }
@@ -74,4 +67,4 @@ ModalBase.propTypes = {
   onClose: func.isRequired,
 };
 
-export default ModalWrapper;
+export default ModalBase;

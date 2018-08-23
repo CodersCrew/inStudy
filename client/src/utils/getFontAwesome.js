@@ -5,7 +5,7 @@ export default fa => {
   if (fa === 'free') {
     enhanceHead('link', {
       rel: 'stylesheet',
-      href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+      href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css',
       integrity: 'sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9',
       crossorigin: 'anonymous',
     });
@@ -17,13 +17,13 @@ export default fa => {
     });
     enhanceHead('link', {
       rel: 'stylesheet prefetch',
-      href: 'https://pro-staging.fontawesome.com/releases/v5.0.13/css/all.css',
+      href: 'https://pro-staging.fontawesome.com/releases/v5.2.0/css/all.css',
     });
     styles.setValue('--fa-light', '300');
   } else {
     enhanceHead('link', {
       rel: 'stylesheet',
-      href: 'https://pro.fontawesome.com/releases/v5.0.13/css/all.css',
+      href: 'https://pro.fontawesome.com/releases/v5.2.0/css/all.css',
       integrity: fa,
       crossorigin: 'anonymous',
     });
