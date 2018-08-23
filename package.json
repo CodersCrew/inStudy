@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "10.7.0",
-    "yarn": "1.7.0"
-  },
+  
   "scripts": {
     "start": "node ./server/index.js server",
     "server": "nodemon ./server/index.js server",

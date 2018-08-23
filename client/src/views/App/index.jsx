@@ -16,6 +16,9 @@ import Home from '../Home';
 import Initiatives from '../Initiatives';
 import InitiativeProfile from '../InitiativeProfile';
 import StudentViews from '../StudentViews';
+import Registration from '../Registration';
+import Policy from '../Registration/Policy';
+import Statute from '../Registration/Statute';
 
 let isFontAwesomeLoaded = false;
 
@@ -44,6 +47,9 @@ class App extends PureComponent {
                 <Route path="/inicjatywy/:initiative" component={InitiativeProfile} />
                 <Route path="/inicjatywy" component={Initiatives} />
                 <Route path="/student/profil" component={StudentViews} />
+                <Route path="/rejestracja" component={Registration} />
+                <Route path="/polityka_prywatnosci" component={Policy} />
+                <Route path="/regulamin" component={Statute} />
                 <Route exact path="/" component={Home} />
               </Switch>
             </Scrollbars>
