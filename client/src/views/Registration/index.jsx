@@ -22,15 +22,15 @@ class Registration extends PureComponent {
                 <Message>
                     <MainText>Już tylko jedno kliknięcie dzieli Cię od dołączenia do największego grona aktywnych studentów we Wrocławiu!</MainText>
                     <MiddleText>Zarejestruj się z wykorzystaniem konta Google dzieki czemu będziesz w stanie w pełni wykorzystać możliwości inStudy.</MiddleText>
-                    <CautionText>Logując się akceptujesz {" "}
+                    <CautionText>Logując się akceptujesz 
                         <StyledLink to="/polityka_prywatnosci"> 
                            politykę prywatności 
                         </StyledLink>
-                        {" "} oraz {" "}
+                         oraz 
                         <StyledLink to="/regulamin">
-                             regulamin 
+                            regulamin 
                         </StyledLink> 
-                        {" "} portalu.
+                         portalu.
                     </CautionText>
                     <StyledButton kind='white' onClick={goToGoogleLogin}>
                         <StyledSVGIcon path='/img/google_icon.svg' width={32} height={32} />

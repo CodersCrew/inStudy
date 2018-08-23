@@ -37,11 +37,11 @@ export const StyledSVGIcon = styled(SVGIcon)`
   margin-right: 25%;
 `;
 export const StyledButton = styled(Button)`
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 `;
 export const StyledLink = styled(Link)`
   color: #fff;
+  margin: 0 3px;
 `;
 
 
