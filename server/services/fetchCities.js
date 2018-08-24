@@ -7,5 +7,5 @@ module.exports.fetchCities = function() {
 };
 
 module.exports.fetchUniversities = function(city) {
-  return Universities.find({ city });
+  return Universities.find({ city: new mongoose.mongo.ObjectId(city) });
 }
