@@ -2,6 +2,7 @@ const FetchInitiative = require('./../services/FetchInitiative');
 const multer = require('multer');
 const path = require('path');
 const Cloudinary = require('./../services/Cloudinary');
+const cacher = require('../services/cacher/index');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -20,7 +21,9 @@ module.exports = app => {
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then(foundInitiatives => {
-        res.status(200).json({ result: foundInitiatives });
+        res
+          .status(200)
+          .json(foundInitiatives);
       })
       .catch(() => {
         res.sendStatus(404);
@@ -68,19 +71,21 @@ module.exports = app => {
   })
 
 
-  app.post('/api/initiative/:initId/module', (req, res) => {
+  app.post('/api/initiative/:initId/module', (req, res, next) => {
     const initId = req.params.initId;
     const module = req.body.module;
 
     new FetchInitiative()
       .addInitiativeModule(initId, module)
       .then(() => {
-        res
-          .sendStatus(201);
+        req.instudyCache = module;
+        next();
+        // res
+        //   .sendStatus(201);
       })
-  });
+  }, cacher);
 
-  app.get('/api/initiative/:initId/module', (req, res) => {
+  app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const initId = req.params.initId;
 
     new FetchInitiative()
@@ -102,5 +107,13 @@ module.exports = app => {
         res
           .sendStatus(201);
       })
+  });
+
+  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
+    const shortUrl = req.params.shortUrl;
+    new FetchInitiative()
+      .getFBProfile(shortUrl)
+      .then((result) => new FetchInitiative().setFBProfile(shortUrl, result))
+      .then(() => res.sendStatus(201));
   })
 };
