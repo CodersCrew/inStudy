@@ -23,7 +23,7 @@ module.exports = app => {
       .then(foundInitiatives => {
         res
           .status(200)
-          .json({result: foundInitiatives});
+          .json(foundInitiatives);
       })
       .catch(() => {
         res
@@ -116,5 +116,13 @@ module.exports = app => {
         res
           .sendStatus(201);
       })
+  });
+
+  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
+    const shortUrl = req.params.shortUrl;
+    new FetchInitiative()
+      .getFBProfile(shortUrl)
+      .then((result) => new FetchInitiative().setFBProfile(shortUrl, result))
+      .then(() => res.sendStatus(201));
   })
 };

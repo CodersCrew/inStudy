@@ -22,6 +22,7 @@ function FBCrawler() {
 
 FBCrawler.prototype.addPage = function(url) {
   this.pages.push(new Page(url, null));
+  return this;
 };
 
 function json(target) {
@@ -57,6 +58,7 @@ function AboutSchema() {
   let city = document.querySelector('div._20ud:nth-child(2) > div:nth-child(2) > div:nth-child(2) > span:nth-child(1)').innerHTML;
 
   return {
+    kind: 'About',
     title,
     mission,
     about,

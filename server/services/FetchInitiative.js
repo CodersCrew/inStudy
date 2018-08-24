@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Initiative = mongoose.model('initiatives');
+const FBCrawler = require('./Crawler/FBCrawler');
+
 function FetchInitiative() {}
 //logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 FetchInitiative.prototype.getInitiative = function(page) {
@@ -31,30 +33,28 @@ FetchInitiative.prototype.setInitiative = function(initiative) {
 FetchInitiative.prototype.getSingleInitiative = function(shortUrl) {
   return Initiative.findOne({
     shortUrl,
-  } )
-    .then(singleInitiative => {
-      return Promise.resolve({...singleInitiative.toObject(), profileCompleted: true})
-    })
+  }).then(singleInitiative => {
+    return { ...singleInitiative.toObject(), profileCompleted: true };
+  });
 };
 
-FetchInitiative.prototype.addInitiativeModule = function (initiativeId, module) {
+FetchInitiative.prototype.addInitiativeModule = function(initiativeId, module) {
   module._id = new mongoose.mongo.ObjectId();
 
   return Initiative.findByIdAndUpdate(initiativeId, {
     $addToSet: {
       modules: module,
-    }
-  })
+    },
+  });
 };
 
-FetchInitiative.prototype.getAllModules = function (initiativeId) {
-  return Initiative.findById(initiativeId)
-    .then((result) => {
-      return Promise.resolve(result.modules);
-    });
+FetchInitiative.prototype.getAllModules = function(initiativeId) {
+  return Initiative.findById(initiativeId).then(result => {
+    return Promise.resolve(result.modules);
+  });
 };
 
-FetchInitiative.prototype.deleteModule = function (initiativeId, moduleId) {
+FetchInitiative.prototype.deleteModule = function(initiativeId, moduleId) {
   return Initiative.findByIdAndUpdate(initiativeId, {
     $pull: {
       modules: {
@@ -62,6 +62,25 @@ FetchInitiative.prototype.deleteModule = function (initiativeId, moduleId) {
       },
     },
   });
+};
+
+FetchInitiative.prototype.getFBProfile = function(shortUrl) {
+  return new FBCrawler()
+    .addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`)
+    .scrape();
+};
+
+FetchInitiative.prototype.setFBProfile = function(shortUrl, profile) {
+  return Initiative.findOneAndUpdate(
+    {
+      shortUrl,
+    },
+    {
+      $set: {
+        FBProfile: profile,
+      },
+    },
+  );
 };
 
 function initiativeExist(initiativeShortUrl) {

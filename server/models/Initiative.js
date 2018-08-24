@@ -7,6 +7,7 @@ const organisationSchema = new Schema({
   description: String,
   shortUrl: String,
   modules: [{}],
+  FBProfile: [{}],
 });
 
 mongoose.model('initiatives', organisationSchema);
