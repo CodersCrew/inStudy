@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, number } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { Modal } from 'CC-UI';
 import { Input, Select } from 'components/reduxFormFields';
+import { required } from 'utils/validators';
 import texts from './texts';
 import { Container } from './styles';
-
-const cities = [{ label: 'Wrocław', value: 1 }, { label: 'Opole', value: 2 }];
 
 const universities = {
   1: [
@@ -25,11 +24,65 @@ const universities = {
   ],
 };
 
+const getCities = () =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve([{ label: 'Wrocław', value: 1 }, { label: 'Opole', value: 2 }]);
+    }, 500);
+  });
+
+const getCategories = () =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve([
+        { label: 'IT', value: 1 },
+        { label: 'Medycyna', value: 2 },
+        { label: 'Społeczne', value: 3 },
+      ]);
+    }, 500);
+  });
+
+const getUniversities = cityId =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve(universities[cityId]);
+    }, 500);
+  });
+
 const selector = formValueSelector('newInitiativeDetails');
 
 @connect(state => ({ city: selector(state, 'city') }))
-@reduxForm({ form: 'newInitiativeDetails', initialValues: { city: 1 } })
+@reduxForm({ form: 'newInitiativeDetails' })
 class Details extends PureComponent {
+  state = {
+    cities: [],
+    universities: [],
+    categories: [],
+  };
+
+  componentDidMount() {
+    getCities().then(cities =>
+      this.setState({ cities }, () => {
+        getUniversities(this.state.cities[0].value).then(universities =>
+          this.setState({ universities }),
+        );
+      }),
+    );
+    getCategories().then(categories => this.setState({ categories }));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.city !== this.props.city) {
+      getUniversities(this.props.city).then(universities =>
+        this.setState({ universities }, () => {
+          this.props.change('university', universities[0].value);
+        }),
+      );
+    }
+  }
+
+  onSubmit = values => console.log(values);
+
   render() {
     const { visible, decrementStep, incrementStep } = this.props;
     return (
@@ -48,19 +101,53 @@ class Details extends PureComponent {
             ghost: true,
           },
           {
-            onClick: () => incrementStep(1),
+            onClick: this.props.handleSubmit(this.onSubmit),
             label: texts.okButton,
           },
         ]}
       >
         <Container>
-          <Field name="name" component={Input} props={{ label: 'Nazwa inicjatywy' }} />
-          <Field name="email" component={Input} props={{ label: 'E-mail kontaktowy' }} />
-          <Field name="city" component={Select} props={{ label: 'Miasto', items: cities }} />
+          <Field
+            name="name"
+            component={Input}
+            props={{ label: 'Nazwa inicjatywy', fullWidth: true }}
+            validate={[required]}
+          />
+          <Field
+            name="email"
+            component={Input}
+            props={{ label: 'E-mail kontaktowy', fullWidth: true }}
+            validate={[required]}
+          />
+          <Field
+            name="city"
+            component={Select}
+            props={{ label: 'Miasto', items: this.state.cities, fullWidth: true }}
+            validate={[required]}
+          />
           <Field
             name="university"
             component={Select}
-            props={{ label: 'Miasto', items: universities[this.props.city] }}
+            props={{ label: 'Uczelnia', items: this.state.universities, fullWidth: true }}
+            validate={[required]}
+          />
+          <Field
+            name="category"
+            component={Select}
+            props={{ label: 'Obszar działalności', items: this.state.categories, fullWidth: true }}
+            validate={[required]}
+          />
+          <Field
+            name="facebook"
+            component={Input}
+            props={{ label: 'Adres fanpage na facebooku', fullWidth: true }}
+            validate={[required]}
+          />
+          <Field
+            name="description"
+            component={Input}
+            props={{ label: 'Krótki opis inicjatywy (do 260 znaków)', fullWidth: true }}
+            validate={[required]}
           />
         </Container>
       </Modal>
@@ -72,10 +159,13 @@ Details.propTypes = {
   visible: bool,
   closeModal: func.isRequired,
   incrementStep: func.isRequired,
+  change: func.isRequired,
+  city: number,
 };
 
 Details.defaultProps = {
   visible: false,
+  city: null,
 };
 
 export default Details;

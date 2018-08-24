@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Select } from 'CC-UI';
 
-export default class SelectField extends PureComponent {
+export default class SelectField extends PureComponent {;
   render() {
     const {
       input,
@@ -10,6 +10,7 @@ export default class SelectField extends PureComponent {
       className,
       style,
       items,
+      fullWidth,
     } = this.props;
 
     return (
@@ -18,6 +19,7 @@ export default class SelectField extends PureComponent {
         onChange={input.onChange}
         onFocus={input.onFocus}
         onBlur={input.onBlur}
+        fullWidth={fullWidth}
         label={label}
         name={input.name}
         items={items}
