@@ -11,10 +11,10 @@ module.exports = app => {
       })
   });
 
-  app.get('/api/cities/universities/:city', (req, res) => {
-    const city = req.params.city;
+  app.get('/api/cities/universities/:cityId', (req, res) => {
+    const cityId = req.params.cityId;
     FetchCity
-      .fetchUniversities(city)
+      .fetchUniversities(cityId)
       .then((result) => res.status(200).json(result))
   });
 };
