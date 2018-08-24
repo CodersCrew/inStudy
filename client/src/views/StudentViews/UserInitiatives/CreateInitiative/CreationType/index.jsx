@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'CC-UI';
+import { Modal } from 'components';
 import texts from './texts';
 
 class CreationType extends PureComponent {
@@ -17,16 +17,12 @@ class CreationType extends PureComponent {
         buttons={[
           {
             label: texts.importButtonLabel,
-            size: 'lg',
-            kind: 'grey',
-            ghost: true,
+            size: 'large',
           },
           {
             onClick: () => incrementStep(1),
             label: texts.createButtonLabel,
-            size: 'lg',
-            kind: 'grey',
-            ghost: true,
+            size: 'large',
           },
         ]}
       >

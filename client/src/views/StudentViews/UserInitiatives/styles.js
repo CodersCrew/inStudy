@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Container, Button } from 'CC-UI';
+import { Container } from 'components';
+import { Button } from 'antd';
 
 export const MainContainer = styled(Container)`
   box-sizing: border-box;

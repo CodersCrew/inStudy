@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { bool, func, number } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal } from 'CC-UI';
+import { Modal } from 'components';
 import { Input, Select } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
 import texts from './texts';
@@ -95,14 +95,13 @@ class Details extends PureComponent {
         width={644}
         buttons={[
           {
-            onClick: () => decrementStep(1),
-            label: texts.cancelButton,
-            kind: 'grey',
-            ghost: true,
-          },
-          {
             onClick: this.props.handleSubmit(this.onSubmit),
             label: texts.okButton,
+            type: 'primary',
+          },
+          {
+            onClick: () => decrementStep(1),
+            label: texts.cancelButton,
           },
         ]}
       >
@@ -122,19 +121,19 @@ class Details extends PureComponent {
           <Field
             name="city"
             component={Select}
-            props={{ label: 'Miasto', items: this.state.cities, fullWidth: true }}
+            props={{ label: 'Miasto', options: this.state.cities }}
             validate={[required]}
           />
           <Field
             name="university"
             component={Select}
-            props={{ label: 'Uczelnia', items: this.state.universities, fullWidth: true }}
+            props={{ label: 'Uczelnia', options: this.state.universities }}
             validate={[required]}
           />
           <Field
             name="category"
             component={Select}
-            props={{ label: 'Obszar działalności', items: this.state.categories, fullWidth: true }}
+            props={{ label: 'Obszar działalności', options: this.state.categories }}
             validate={[required]}
           />
           <Field

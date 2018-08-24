@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { IconPicker } from 'CC-UI';
+import { IconPicker } from 'components';
 
 export default class IconPickerField extends PureComponent {
   render() {

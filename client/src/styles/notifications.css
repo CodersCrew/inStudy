@@ -1,0 +1,590 @@
+@charset "UTF-8";
+
+@keyframes :local(top20px-enter) {
+  0% {
+    top: -360px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes :local(top20px-leave) {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: 20px;
+  }
+  40% {
+    margin-bottom: 20px;
+    max-height: 200px;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes :local(bottom20px-enter) {
+  0% {
+    bottom: -360px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes :local(bottom20px-leave) {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: 20px;
+  }
+  40% {
+    margin-bottom: 20px;
+    max-height: 200px;
+  }
+  50% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes :local(left20px-enter) {
+  0% {
+    left: -360px;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes :local(left20px-leave) {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: 20px;
+  }
+  40% {
+    margin-bottom: 20px;
+    max-height: 200px;
+  }
+  50% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes :local(right20px-enter) {
+  0% {
+    right: -360px;
+    opacity: 0;
+  }
+  100% {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes :local(right20px-leave) {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: 20px;
+  }
+  40% {
+    margin-bottom: 20px;
+    max-height: 200px;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes :local(top0-enter) {
+  0% {
+    top: -360px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes :local(top0-leave) {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: 0;
+  }
+  40% {
+    margin-bottom: 0;
+    max-height: 200px;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes :local(rotating) {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:local .notifications-system {
+  font-family: var(--mainFont);
+  font-size: var(--font-sm);
+  line-height: var(--font-sm-lh);
+}
+
+:local .notifications-container {
+  position: fixed;
+  z-index: 99999;
+}
+
+:local .notifications-container--tc,
+:local .notifications-container--tr,
+:local .notifications-container--tl,
+:local .notifications-container--bc,
+:local .notifications-container--br,
+:local .notifications-container--bl {
+  width: 360px;
+}
+:local .notifications-container--tc .notification--buttons-1 .notification-button,
+:local .notifications-container--tr .notification--buttons-1 .notification-button,
+:local .notifications-container--tl .notification--buttons-1 .notification-button,
+:local .notifications-container--bc .notification--buttons-1 .notification-button,
+:local .notifications-container--br .notification--buttons-1 .notification-button,
+:local .notifications-container--bl .notification--buttons-1 .notification-button {
+  height: 100%;
+}
+:local .notifications-container--tc .notification--buttons-2 .notification-button,
+:local .notifications-container--tr .notification--buttons-2 .notification-button,
+:local .notifications-container--tl .notification--buttons-2 .notification-button,
+:local .notifications-container--bc .notification--buttons-2 .notification-button,
+:local .notifications-container--br .notification--buttons-2 .notification-button,
+:local .notifications-container--bl .notification--buttons-2 .notification-button {
+  height: 50%;
+}
+:local .notifications-container--tc .notification-buttons,
+:local .notifications-container--tr .notification-buttons,
+:local .notifications-container--tl .notification-buttons,
+:local .notifications-container--bc .notification-buttons,
+:local .notifications-container--br .notification-buttons,
+:local .notifications-container--bl .notification-buttons {
+  flex-direction: column;
+}
+:local .notifications-container--tc .notification-buttons .notification-button,
+:local .notifications-container--tr .notification-buttons .notification-button,
+:local .notifications-container--tl .notification-buttons .notification-button,
+:local .notifications-container--bc .notification-buttons .notification-button,
+:local .notifications-container--br .notification-buttons .notification-button,
+:local .notifications-container--bl .notification-buttons .notification-button {
+  display: block;
+  width: 100%;
+}
+:local .notifications-container--tc .notification-buttons .notification-button:nth-child(2),
+:local .notifications-container--tr .notification-buttons .notification-button:nth-child(2),
+:local .notifications-container--tl .notification-buttons .notification-button:nth-child(2),
+:local .notifications-container--bc .notification-buttons .notification-button:nth-child(2),
+:local .notifications-container--br .notification-buttons .notification-button:nth-child(2),
+:local .notifications-container--bl .notification-buttons .notification-button:nth-child(2) {
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+:local .notifications-container--b .notification-buttons .notification-buttons,
+:local .notifications-container--b .notification--buttons-1 .notification-buttons,
+:local .notifications-container--t .notification-buttons .notification-buttons,
+:local .notifications-container--t .notification--buttons-1 .notification-buttons {
+  flex-direction: row;
+}
+
+:local .notifications-container--t {
+  width: calc(100% - 40px);
+  top: 20px;
+  left: 20px;
+}
+:local .notifications-container--t .notification-wrapper {
+  position: relative;
+  top: 0;
+}
+:local .notifications-container--t .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: top20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--t .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: top20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--tc {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+:local .notifications-container--tc .notification-wrapper {
+  position: relative;
+  top: 0;
+}
+:local .notifications-container--tc .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: top20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--tc .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: top20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--tr {
+  top: 20px;
+  right: 20px;
+}
+:local .notifications-container--tr .notification-wrapper {
+  position: relative;
+  right: 0;
+}
+:local .notifications-container--tr .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: right20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--tr .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: right20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--tl {
+  top: 20px;
+  left: 20px;
+}
+:local .notifications-container--tl .notification-wrapper {
+  position: relative;
+  left: 0;
+}
+:local .notifications-container--tl .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: left20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--tl .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: left20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--b {
+  width: calc(100% - 40px);
+  bottom: 0;
+  left: 20px;
+}
+:local .notifications-container--b .notification-wrapper {
+  position: relative;
+  bottom: 0;
+}
+:local .notifications-container--b .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  -webkit-animation-name: bottom20px-enter;
+  animation-name: bottom20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--b .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: bottom20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--bc {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+:local .notifications-container--bc .notification-wrapper {
+  position: relative;
+  bottom: 0;
+}
+:local .notifications-container--bc .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  -webkit-animation-name: bottom20px-enter;
+  animation-name: bottom20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--bc .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: bottom20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--br {
+  bottom: 0;
+  right: 20px;
+}
+:local .notifications-container--br .notification-wrapper {
+  position: relative;
+  right: 0;
+}
+:local .notifications-container--br .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: right20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--br .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: right20px-leave;
+  animation-duration: 0.8s;
+}
+
+:local .notifications-container--bl {
+  bottom: 0;
+  left: 20px;
+}
+:local .notifications-container--bl .notification-wrapper {
+  position: relative;
+  left: 0;
+}
+:local .notifications-container--bl .notification-wrapper-enter {
+  animation-fill-mode: forwards;
+  animation-name: left20px-enter;
+  animation-duration: 0.4s;
+}
+:local .notifications-container--bl .notification-wrapper-leave {
+  animation-fill-mode: forwards;
+  animation-name: left20px-leave;
+  animation-duration: 0.8s;
+}
+
+@media (max-width: 767px) {
+  :local .notifications-container--t {
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  :local .notifications-container--t .notification-wrapper {
+    position: relative;
+    top: 0;
+  }
+  :local .notifications-container--t .notification-wrapper-enter {
+    animation-fill-mode: forwards;
+    animation-name: top0-enter;
+    animation-duration: 0.4s;
+  }
+  :local .notifications-container--t .notification-wrapper-leave {
+    animation-fill-mode: forwards;
+    animation-name: top0-leave;
+    animation-duration: 0.8s;
+  }
+  :local .notifications-container--t .notification-wrapper {
+    margin: 0;
+  }
+}
+
+:local .notification {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 40px;
+  border: none;
+  border-left: 4px solid transparent;
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  background-color: #fff;
+  border-radius: 4px;
+}
+:local .notification-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+:local .notification-image-container {
+  box-sizing: border-box;
+  padding: 10px 0 10px 15px;
+}
+:local .notification-image {
+  display: inline-block;
+  border-radius: 40px;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+}
+:local .notification-icon {
+  box-sizing: border-box;
+  margin: var(--space-md) 0 0 var(--space-md);
+  font-size: var(--font-xl) !important;
+  font-size: var(--font-xl) !important;
+  align-self: flex-start;
+}
+:local .notification-icon::before {
+  font-weight: var(--fa-light);
+}
+:local .notification-meta {
+  vertical-align: top;
+  box-sizing: border-box;
+  flex: 1;
+}
+:local .notification-close-button-container {
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+:local .notification-close-button {
+  font-size: 14px !important;
+  color: var(--grey2);
+  cursor: pointer;
+}
+:local .notification-close-button:before {
+  content: "\f00d";
+  font-weight: var(--fa-light);
+}
+:local .notification-close-button:hover {
+  color: var(--grey3);
+}
+:local .notification-buttons {
+  display: flex;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+:local .notification-buttons .notification-button {
+  min-height: 40px;
+  box-sizing: border-box;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-left: 1px solid rgba(0, 0, 0, 0.09);
+  outline: none;
+  text-align: center;
+  color: var(--grey1);
+  cursor: pointer;
+  background-color: transparent;
+}
+:local .notification-buttons .notification-button-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+  font-size: var(--font-sm);
+  line-height: var(--font-sm-lh);
+  padding: 0 var(--space-md);
+}
+:local .notification-buttons .notification-button:hover {
+  transition: all 0.3s var(--ease-in-out);
+  color: var(--primary2-hover);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+:local .notification-buttons .notification-button:active {
+  transition: all 0.3s var(--ease-out);
+  color: var(--primary2-active);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+:local .notification-title {
+  padding: var(--space-md) var(--space-md) 0;
+}
+:local .notification-message {
+  font-size: var(--font-sm);
+  line-height: var(--font-sm-lh);
+  color: var(--grey2);
+  padding: var(--space-xs) var(--space-md) var(--space-md);
+}
+:local .notification--dismissible {
+  cursor: pointer;
+}
+:local .notification--default {
+  border-left-color: #ffffff;
+}
+:local .notification--default .notification-icon {
+  display: none;
+}
+:local .notification--success {
+  border-left-color: var(--success);
+}
+:local .notification--success .notification-icon:before {
+  content: "\f058";
+  color: var(--success);
+}
+:local .notification--info {
+  border-left-color: var(--info);
+}
+:local .notification--info .notification-icon:before {
+  content: "\f05a";
+  color: var(--info);
+}
+:local .notification--warning {
+  border-left-color: var(--warning);
+}
+:local .notification--warning .notification-icon:before {
+  content: "\f06a";
+  color: var(--warning);
+}
+:local .notification--error {
+  border-left-color: var(--error);
+}
+:local .notification--error .notification-icon:before {
+  content: "\f057";
+  color: var(--error);
+}
+:local .notification--loading {
+  border-left-color: var(--info);
+}
+:local .notification--loading .notification-icon {
+  animation: rotating 2s infinite linear;
+}
+:local .notification--loading .notification-icon:before {
+  content: "\f110";
+  color: var(--info);
+}

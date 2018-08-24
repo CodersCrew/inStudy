@@ -23,10 +23,10 @@ class UserInitiatives extends PureComponent {
             Obecnie nie działasz w żadnej inicjatywie. Oznacza to, że w ramach tej zkaładki masz 2
             możliwości.
           </Header>
-          <StyledButton ghost kind="grey" onClick={this.goToInitiatives}>
+          <StyledButton size="large" onClick={this.goToInitiatives}>
             Wyszukaj istniejącą inicjatywę
           </StyledButton>
-          <StyledButton ghost kind="grey" onClick={this.openModal}>
+          <StyledButton size="large" onClick={this.openModal}>
             Utwórz nową inicjatywę
           </StyledButton>
         </Wrapper>

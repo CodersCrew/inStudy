@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'CC-UI';
+import { Modal } from 'components';
 import texts from './texts';
 
 class Initial extends PureComponent {
@@ -19,7 +19,7 @@ class Initial extends PureComponent {
           {
             onClick: () => incrementStep(1),
             label: texts.buttonLabel,
-            size: 'lg',
+            size: 'large',
           },
         ]}
       >

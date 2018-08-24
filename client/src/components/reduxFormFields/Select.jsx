@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Select } from 'CC-UI';
+import { Select } from 'antd';
 
-export default class SelectField extends PureComponent {;
+const { Option } = Select;
+
+export default class SelectField extends PureComponent {
   render() {
     const {
       input,
@@ -9,8 +11,7 @@ export default class SelectField extends PureComponent {;
       meta: { touched, error },
       className,
       style,
-      items,
-      fullWidth,
+      options = [],
     } = this.props;
 
     return (
@@ -19,14 +20,18 @@ export default class SelectField extends PureComponent {;
         onChange={input.onChange}
         onFocus={input.onFocus}
         onBlur={input.onBlur}
-        fullWidth={fullWidth}
-        label={label}
         name={input.name}
-        items={items}
-        value={input.value}
+        placeholder={label}
+        value={input.value || undefined}
         error={touched && error}
         style={style}
-      />
+      >
+        {options.map(({ label, value }) => (
+          <Option key={value} value={value}>
+            {label}
+          </Option>
+        ))}
+      </Select>
     );
   }
 }

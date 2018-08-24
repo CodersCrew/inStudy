@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { object, func } from 'prop-types';
-import { withSearch } from 'CC-UI/lib/services/search';
+import { withSearch } from 'hocs';
 import { connect } from 'react-redux';
 import { getInitiatives } from '../../../store/actions';
 import { Container, Input, SearchIcon } from './styles';

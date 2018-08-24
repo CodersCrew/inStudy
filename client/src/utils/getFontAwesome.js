@@ -1,4 +1,3 @@
-import { styles } from 'CC-UI/lib/utils';
 import enhanceHead from './enhanceHead';
 
 export default fa => {
@@ -9,7 +8,6 @@ export default fa => {
       integrity: 'sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9',
       crossorigin: 'anonymous',
     });
-    styles.setValue('--fa-light', '600');
   } else if (fa === 'local') {
     enhanceHead('link', {
       rel: 'stylesheet prefetch',
@@ -19,7 +17,6 @@ export default fa => {
       rel: 'stylesheet prefetch',
       href: 'https://pro-staging.fontawesome.com/releases/v5.2.0/css/all.css',
     });
-    styles.setValue('--fa-light', '300');
   } else {
     enhanceHead('link', {
       rel: 'stylesheet',
@@ -27,7 +24,6 @@ export default fa => {
       integrity: fa,
       crossorigin: 'anonymous',
     });
-    styles.setValue('--fa-light', '300');
   }
   return true;
 };

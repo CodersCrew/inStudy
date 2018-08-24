@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bool, func, string } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { Modal } from 'CC-UI';
+import { Modal } from 'components';
 import { Top, StyledIconPicker, StyledInput } from './styles';
 import { required } from 'utils/validators';
 
