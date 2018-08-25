@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { string, bool, func, object, oneOf } from 'prop-types';
+import { string, bool, func } from 'prop-types';
 import { Input } from 'antd';
 import Modal from './Modal';
 import { Container, IconWrapper } from './styles';
@@ -32,19 +32,19 @@ class IconPicker extends PureComponent {
       closeModal,
       handleChange,
       state: { isModalOpen },
-      props: { className, disabled, fullWidth, label, name, style, value },
+      props: { className, label, name, value, placeholder },
     } = this;
 
     return (
       <Fragment>
-        <Container
-          className={className}
-          disabled={disabled}
-          fullWidth={fullWidth}
-          onClick={openModal}
-          style={style}
-        >
-          <Input name={name} label={label} value={value} />
+        <Container className={className} hasValue={!!value}>
+          <Input
+            onClick={openModal}
+            name={name}
+            label={label}
+            value={value}
+            placeholder={placeholder}
+          />
           {value && (
             <IconWrapper>
               <i className={`fal fa-${value}`} />
@@ -67,9 +67,7 @@ IconPicker.propTypes = {
   onBlur: func,
   onChange: func,
   onFocus: func,
-  pristine: bool,
-  style: object,
-  type: oneOf(['text', 'password', 'email', 'search', 'tel', 'url']),
+  placeholder: string,
   value: string,
 };
 
@@ -82,9 +80,7 @@ IconPicker.defaultProps = {
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  pristine: true,
-  style: {},
-  type: 'text',
+  placeholder: '',
   value: '',
 };
 

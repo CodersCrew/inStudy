@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { bool, func, string } from 'prop-types';
+import { bool, func, string, node } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { Modal } from 'components';
-import { Top, StyledIconPicker, StyledInput } from './styles';
+import { Input, IconPicker } from 'components/reduxFormFields';
+import { Top, InputWrapper } from './styles';
 import { required } from 'utils/validators';
 
 @reduxForm({ form: 'addModule' })
@@ -14,7 +15,7 @@ class ModalBase extends Component {
   onSubmit = values => console.log(values);
 
   render() {
-    const { visible, onClose, id, name, icon, handleSubmit, children } = this.props;
+    const { visible, onClose, name, icon, handleSubmit, children } = this.props;
 
     return (
       <Modal
@@ -28,27 +29,29 @@ class ModalBase extends Component {
           {
             onClick: handleSubmit(this.onSubmit),
             label: 'Dodaj',
+            type: 'primary',
           },
           {
             onClick: () => onClose(),
             label: 'Anuluj',
-            kind: 'grey',
           },
         ]}
       >
         <Top>
           <Field
             name="icon"
-            component={StyledIconPicker}
+            component={IconPicker}
             props={{ label: 'Ikona' }}
             validate={[required]}
           />
-          <Field
-            name="title"
-            component={StyledInput}
-            props={{ label: 'Tytuł modułu' }}
-            validate={[required]}
-          />
+          <InputWrapper>
+            <Field
+              name="title"
+              component={Input}
+              props={{ label: 'Tytuł modułu' }}
+              validate={[required]}
+            />
+          </InputWrapper>
         </Top>
         {children}
       </Modal>
@@ -65,6 +68,7 @@ ModalBase.propTypes = {
   icon: string.isRequired,
   visible: bool.isRequired,
   onClose: func.isRequired,
+  children: node.isRequired,
 };
 
 export default ModalBase;

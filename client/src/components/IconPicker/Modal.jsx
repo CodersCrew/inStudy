@@ -59,17 +59,21 @@ export default class IconsModal extends PureComponent {
           {
             onClick: this.onSubmit,
             label: 'Zapisz',
+            type: 'primary',
           },
           {
             onClick: close,
             label: 'Anuluj',
-            kind: 'grey',
-            ghost: true,
           },
         ]}
       >
         <Content>
-          <Input label="" onChange={this.onChange} fullWidth value={this.state.value} />
+          <Input
+            onChange={this.onChange}
+            fullWidth
+            value={this.state.value}
+            placeholder="Wyszukaj ikony..."
+          />
           <Icons>
             <Scrollbars>
               {this.state.icons.map(({ name }) => (

@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Input } from 'antd';
+import { Input, Form } from 'antd';
+
+const FormItem = Form.Item;
 
 export default class InputField extends PureComponent {
   render() {
@@ -8,6 +10,7 @@ export default class InputField extends PureComponent {
       input,
       label,
       meta: { touched, error },
+      placeholder,
       className,
       validating,
       type,
@@ -15,19 +18,24 @@ export default class InputField extends PureComponent {
     } = this.props;
 
     return (
-      <Input
-        className={className}
-        disabled={disabled}
-        name={input.name}
-        onFocus={input.onFocus}
-        onChange={input.onChange}
-        onBlur={input.onBlur}
-        value={input.value}
-        placeholder={label}
-        type={type}
-        error={touched && error ? error : undefined}
-        style={style}
-      />
+      <FormItem
+        label={label}
+        validateStatus={touched && error ? 'error' : 'success'}
+        help={touched && error ? error : undefined}
+      >
+        <Input
+          className={className}
+          disabled={disabled}
+          name={input.name}
+          onFocus={input.onFocus}
+          onChange={input.onChange}
+          onBlur={input.onBlur}
+          value={input.value}
+          placeholder={placeholder}
+          type={type}
+          style={style}
+        />
+      </FormItem>
     );
   }
 }

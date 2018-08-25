@@ -22,20 +22,23 @@ import Registration from '../Registration';
 import Policy from '../Registration/Policy';
 import Statute from '../Registration/Statute';
 
-let isFontAwesomeLoaded = false;
-
 @connect(
   null,
   actions,
 )
 class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.isFontAwesomeLoaded = false;
+  }
+
   componentDidMount() {
     this.props.fetchUser();
   }
 
   render() {
-    if (!isFontAwesomeLoaded) {
-      isFontAwesomeLoaded = getFontAwesome(__FONT_AWESOME__, isFontAwesomeLoaded);
+    if (!this.isFontAwesomeLoaded) {
+      this.isFontAwesomeLoaded = getFontAwesome(__FONT_AWESOME__, this.isFontAwesomeLoaded);
     }
 
     return (

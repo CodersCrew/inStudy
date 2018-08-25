@@ -27,7 +27,7 @@ class CreateInitiative extends PureComponent {
           closeModal={this.props.closeModal}
         />
         <DetailsModal
-          visible
+          visible={this.state.step === 2}
           incrementStep={this.incrementStep}
           decrementStep={this.decrementStep}
         />

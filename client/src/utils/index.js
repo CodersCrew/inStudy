@@ -25,6 +25,5 @@ export const omit = (obj, arr) =>
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 
 export getFontAwesome from './getFontAwesome';
-export enhanceHead from './enhanceHead';
 export media from './media';
 export notificationsTheme from './notificationsTheme';

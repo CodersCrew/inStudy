@@ -17,10 +17,8 @@ const sendUniversitiesRequest = cityId => axios.get(`/api/cities/universities/${
 
 const addInitiativeRequest = initiativeData => axios.post('/api/initiative', initiativeData);
 
-const mapResponseToOptions = responseArray => {
-  console.log(responseArray);
-  return responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
-};
+const mapResponseToOptions = responseArray =>
+  responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
 
 const valueSelector = formValueSelector('newInitiativeDetails');
 
@@ -61,16 +59,19 @@ class Details extends PureComponent {
 
   onSubmit = values => {
     console.log(values);
-    addInitiativeRequest(values).then(res => console.log(res));
+    addInitiativeRequest(values).then(res => {
+      console.log(res);
+      this.props.incrementStep(1);
+    });
   };
 
   render() {
-    const { visible, decrementStep, incrementStep } = this.props;
+    const { visible, decrementStep } = this.props;
 
     return (
       <Modal
         visible={visible}
-        onClose={decrementStep}
+        onClose={() => decrementStep(1)}
         title={texts.modalTitle}
         icon="/fa-icons/clipboard-list-light.svg"
         type="complex"
@@ -140,6 +141,8 @@ Details.propTypes = {
   visible: bool,
   closeModal: func.isRequired,
   incrementStep: func.isRequired,
+  decrementStep: func.isRequired,
+  handleSubmit: func.isRequired,
   change: func.isRequired,
   city: number,
 };

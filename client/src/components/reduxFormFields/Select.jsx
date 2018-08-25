@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Select } from 'antd';
+import { Select, Form } from 'antd';
 
 const { Option } = Select;
+const FormItem = Form.Item;
 
 export default class SelectField extends PureComponent {
   render() {
@@ -9,29 +10,36 @@ export default class SelectField extends PureComponent {
       input,
       label,
       meta: { touched, error },
+      placeholder,
       className,
       style,
       options = [],
     } = this.props;
 
     return (
-      <Select
-        className={className}
-        onChange={input.onChange}
-        onFocus={input.onFocus}
-        onBlur={input.onBlur}
-        name={input.name}
-        placeholder={label}
-        value={input.value || undefined}
-        error={touched && error}
-        style={style}
+      <FormItem
+        label={label}
+        validateStatus={touched && error ? 'error' : 'success'}
+        help={touched && error ? error : undefined}
       >
-        {options.map(({ label, value }) => (
-          <Option key={value} value={value}>
-            {label}
-          </Option>
-        ))}
-      </Select>
+        <Select
+          className={className}
+          onChange={input.onChange}
+          onFocus={input.onFocus}
+          onBlur={input.onBlur}
+          name={input.name}
+          placeholder={placeholder}
+          value={input.value || undefined}
+          error={touched && error}
+          style={style}
+        >
+          {options.map(({ label, value }) => (
+            <Option key={value} value={value}>
+              {label}
+            </Option>
+          ))}
+        </Select>
+      </FormItem>
     );
   }
 }

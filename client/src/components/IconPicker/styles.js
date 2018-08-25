@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  width: ${props => (props.fullWidth ? '100%' : '256px')};
+  display: flex;
+  align-items: center;
 
   input {
-    padding-left: 48px;
+    margin: var(--space-xs) 0;
+    padding-left: ${props => (props.hasValue ? '40px' : '11px')};
   }
 `;
 
@@ -13,8 +15,8 @@ export const IconWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 48px;
-  height: 40px;
+  height: 32px;
+  padding: 0 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,6 +33,7 @@ export const Icons = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 320px;
+  margin-top: var(--space-md);
 
   @media (max-height: 620px) {
     height: 240px;
@@ -40,6 +43,7 @@ export const Icons = styled.div`
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-gap: var(--space-sm);
+    justify-items: center;
   }
 `;
 
