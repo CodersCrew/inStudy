@@ -56,6 +56,7 @@ function AboutSchema() {
   let type = document.querySelector('._5m_o > a:nth-child(1)').innerHTML;
   let street = document.querySelector('div._20ud:nth-child(2) > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)').innerHTML;
   let city = document.querySelector('div._20ud:nth-child(2) > div:nth-child(2) > div:nth-child(2) > span:nth-child(1)').innerHTML;
+  let logo = document.querySelector('html#facebook.tinyViewport.tinyWidth body._4-u5._2yq.UIPage_LoggedOut.hasBanner._-kb._61s0._605a.b_c3pyn-ahh.gecko.x1.Locale_en_GB.cores-gte4.hasAXNavMenubar._19_u.hasCookieBanner div#u_0_6._li div#globalContainer.uiContextualLayerParent div#content.fb_content.clearfix div div.clearfix div._1qkq._1qks div._lwx div#entity_sidebar._r_m div#u_0_f div._qa1 a._2dgj img._4jhq.img').innerHTML;
 
   return {
     kind: 'About',
@@ -67,6 +68,7 @@ function AboutSchema() {
     type,
     street,
     city,
+    logo,
   };
 }
 

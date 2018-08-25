@@ -14,6 +14,7 @@ const userSchema = new Schema({
       iconName: String,
     },
   ],
+  initiatives: [Schema.Types.ObjectId],
 });
 
 mongoose.model('users', userSchema);

@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const Cloudinary = require('./../services/Cloudinary');
 const cacher = require('../services/cacher/index');
+const createNewInitiative = require('./../services/createNewInitiative');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -32,14 +33,18 @@ module.exports = app => {
 
   app.post('/api/initiative', (req, res) => {
     const initiative = req.body;
-
+    console.log(req.user, req.users)
+    // createNewInitiative(initiative, )
     new FetchInitiative()
       .setInitiative(initiative)
       .then(result => {
-        res.status(200).json({ result });
+        res
+          .status(200)
+          .json({ result });
       })
       .catch(() => {
-        res.sendStatus(404);
+        res
+          .sendStatus(404);
       });
   });
 
@@ -69,12 +74,6 @@ module.exports = app => {
     //     .putInitiative()
     // });
   });
-
-  app.post(
-    '/api/initiative/:initId/module',
-    (req, res, next) => {
-      const initId = req.params.initId;
-      const module = req.body.module;
 
   app.post('/api/initiative/:initId/module', (req, res, next) => {
     const initId = req.params.initId;
