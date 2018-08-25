@@ -7,14 +7,14 @@ import { logout } from '../../../store/actions';
 import { MenuItems, MenuItem } from '../Menu';
 import { StyledButton, UserImage, StyledTooltip } from './styles';
 
+const goToRegistrationPage = ({ push }) => push('/rejestracja');
 
-const goToRegistrationPage = ({push}) => push('/rejestracja')
 const goToProfile = ({ push }) => push('student/profil');
 
 const User = ({ sizeName, logout, auth, history }) => (
   <Fragment>
     {auth === false ? (
-      <StyledButton ghost size="xs" kind="white" onClick={()=>goToRegistrationPage(history)}>
+      <StyledButton ghost size="small" kind="white" onClick={()=>goToRegistrationPage(history)}>
         {sizeName === 'xs' ? <span className="fas fa-user" /> : <span>Moje konto</span>}
       </StyledButton>
     ) : (

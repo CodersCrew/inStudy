@@ -161,19 +161,21 @@ const createBackground = () => {
 
   function refresh() {
     randomize();
-    for (let i = 0; i < document.querySelector('#bg svg').childNodes.length; i++) {
-      const polygon = document.querySelector('#bg svg').childNodes[i];
-      const animate = polygon.childNodes[0];
-      if (animate.getAttribute('to')) {
-        animate.setAttribute('from', animate.getAttribute('to'));
+    if (document.querySelector('#bg svg')) {
+      for (let i = 0; i < document.querySelector('#bg svg').childNodes.length; i++) {
+        const polygon = document.querySelector('#bg svg').childNodes[i];
+        const animate = polygon.childNodes[0];
+        if (animate.getAttribute('to')) {
+          animate.setAttribute('from', animate.getAttribute('to'));
+        }
+        animate.setAttribute(
+          'to',
+          `${points[polygon.point1].x},${points[polygon.point1].y} ${points[polygon.point2].x},${
+            points[polygon.point2].y
+          } ${points[polygon.point3].x}, ${points[polygon.point3].y}`,
+        );
+        animate.beginElement();
       }
-      animate.setAttribute(
-        'to',
-        `${points[polygon.point1].x},${points[polygon.point1].y} ${points[polygon.point2].x},${
-          points[polygon.point2].y
-        } ${points[polygon.point3].x}, ${points[polygon.point3].y}`,
-      );
-      animate.beginElement();
     }
     refreshTimeout = setTimeout(function() {
       refresh();

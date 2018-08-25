@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Select } from 'CC-UI';
+import { Select } from 'antd';
+
+const { Option } = Select;
 
 export default class SelectField extends PureComponent {
-  change = value => this.props.input.onChange(value);
-
   render() {
     const {
       input,
@@ -11,20 +11,27 @@ export default class SelectField extends PureComponent {
       meta: { touched, error },
       className,
       style,
-      items,
+      options = [],
     } = this.props;
 
     return (
       <Select
         className={className}
-        onChange={this.change}
-        label={label}
+        onChange={input.onChange}
+        onFocus={input.onFocus}
+        onBlur={input.onBlur}
         name={input.name}
-        items={items}
-        value={input.value}
+        placeholder={label}
+        value={input.value || undefined}
         error={touched && error}
         style={style}
-      />
+      >
+        {options.map(({ label, value }) => (
+          <Option key={value} value={value}>
+            {label}
+          </Option>
+        ))}
+      </Select>
     );
   }
 }

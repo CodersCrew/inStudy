@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Container } from 'CC-UI';
-import { media } from 'CC-UI/lib/utils';
+import { Container } from 'components';
+import { media } from 'utils';
 
 export const StyledContainer = styled(Container)`
   display: grid;

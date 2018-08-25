@@ -3,7 +3,8 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { NotificationsSystem, theme } from 'CC-UI/lib/services/notifications';
+import { notificationsTheme } from 'utils';
+import NotificationsSystem from 'reapop';
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
 
@@ -56,7 +57,7 @@ class App extends PureComponent {
               </Switch>
             </Scrollbars>
           </Body>
-          <NotificationsSystem theme={theme} />
+          <NotificationsSystem theme={notificationsTheme} />
         </Container>
       </BrowserRouter>
     );
