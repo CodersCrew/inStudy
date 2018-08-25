@@ -3,55 +3,35 @@ import { Container } from 'components';
 import { media } from 'utils';
 
 export const MainContainer = styled(Container)`
-  display: grid;
-  grid-template-columns: 3fr 9fr 64px;
-  grid-gap: var(--space-xl) 0;
-  height: 200vh;
-  ${media.lg`
-    grid-gap: var(--space-lg) 0;
-  `};
   ${media.md`
-    grid-template-columns: 1fr 64px;
-    grid-gap: var(--space-lg) 0;
+    flex-wrap: wrap;
   `};
 `;
 
 export const LeftColumn = styled.div`
-  box-sizing: border-box;
-  grid-area: 1/1/2/2;
+  min-width: 288px;
+  max-width: 288px;
   margin-right: var(--space-xl);
-  ${media.lg`
-    grid-gap: var(--space-lg) 0;
-    margin-right: var(--space-lg);
+  ${media.xl`
+    min-width: 240px;
+    max-width: 240px;
   `};
   ${media.md`
-    margin-right: 0;
-    grid-area: 1/1/2/2;
-    grid-template-columns: 1fr;
-    grid-gap: var(--space-xl);
+    min-width: 100%;
+    max-width: 100%;
   `};
 `;
 
 export const RightColumn = styled.div`
-  box-sizing: border-box;
-  grid-area: 1/2/2/3;
-  display: grid;
-  grid-template-columns: 1fr 64px;
-
-  div:only-child {
-    grid-area: 1/1/2/3;
-  }
-
+  flex: 1;
   ${media.md`
-    grid-area: 2/1/3/2;
-    grid-template-columns: 1fr;
-    grid-gap: var(--space-xl);
+    min-width: 100%;
+    max-width: 100%;
   `};
 `;
 
 export const NavColumn = styled.div`
-  grid-area: 1/3/2/4;
-  ${media.md`
-    grid-area: 1/2/3/3;
-  `};
+  min-width: 48px;
+  max-width: 48px;
+  margin-left: var(--space-md);
 `;
