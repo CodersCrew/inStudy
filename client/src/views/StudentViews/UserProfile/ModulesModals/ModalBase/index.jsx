@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bool, func, string, node } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { omit } from 'utils';
 import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
-import { Top, InputWrapper } from './styles';
+import { Top, InputWrapper, ContentHeader } from './styles';
 import { required } from 'utils/validators';
 
 const addModuleRequest = moduleData =>
@@ -18,14 +19,28 @@ class ModalBase extends Component {
   }
 
   onSubmit = async values => {
-    console.log(values);
-    await addModuleRequest(values);
+    const valuesToSubmit = {
+      icon: values.icon,
+      title: values.title,
+      content: omit(values, ['icon', 'titile']),
+    };
+    console.log(valuesToSubmit);
+    await addModuleRequest(valuesToSubmit);
     console.log('Module added!');
     this.props.onClose();
   };
 
   render() {
-    const { visible, onClose, name, icon, handleSubmit, children, submitting } = this.props;
+    const {
+      visible,
+      onClose,
+      name,
+      icon,
+      handleSubmit,
+      children,
+      submitting,
+      contentHeader,
+    } = this.props;
 
     return (
       <Modal
@@ -65,6 +80,7 @@ class ModalBase extends Component {
             />
           </InputWrapper>
         </Top>
+        {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
         {children}
       </Modal>
     );
@@ -72,6 +88,7 @@ class ModalBase extends Component {
 }
 
 ModalBase.propTypes = {
+  contentHeader: string,
   handleSubmit: func,
   name: string.isRequired,
   icon: string.isRequired,
@@ -82,6 +99,7 @@ ModalBase.propTypes = {
 };
 
 ModalBase.defaultProps = {
+  contentHeader: '',
   submitting: false,
 };
 

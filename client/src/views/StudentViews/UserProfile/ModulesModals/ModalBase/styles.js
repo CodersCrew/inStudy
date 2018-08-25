@@ -9,3 +9,13 @@ export const Top = styled.div`
 export const InputWrapper = styled.div`
   width: 100%;
 `;
+
+export const ContentHeader = styled.h6`
+  margin-bottom: var(--space-sm);
+  font-family: var(--headerFont);
+  font-size: var(--font-xs);
+  line-height: var(--font-xs-lh);
+  font-weight: var(--bold);
+  text-transform: uppercase;
+  color: var(--text3);
+`;

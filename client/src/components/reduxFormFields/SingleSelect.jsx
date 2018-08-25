@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { bool, string, func, oneOf, arrayOf, exact, object } from 'prop-types';
 import { Select } from 'antd';
 import FieldWrapper from './FieldWrapper';
@@ -7,34 +7,73 @@ const { Option } = Select;
 
 const filterOptions = (query, option) => option.props.children.includes(query);
 
-const SingleSelect = props => (
-  <FieldWrapper {...props}>
-    <Select
-      allowClear={props.allowClear}
-      autoFocus={props.autoFocus}
-      defaultActiveFirstOption={props.defaultActiveFirstOption}
-      disabled={props.disabled}
-      filterOption={filterOptions}
-      name={props.input.name}
-      notFoundContent={props.notFoundContent}
-      placeholder={props.placeholder}
-      showSearch={props.showSearch}
-      size={props.size}
-      value={props.input.value || undefined}
-      onBlur={props.input.onBlur}
-      onChange={props.input.onChange}
-      onFocus={props.input.onFocus}
-      onSearch={props.input.onSearch}
-      onSelect={props.onSelect}
-    >
-      {props.options.map(({ label, value }) => (
-        <Option key={value} value={value}>
-          {label}
-        </Option>
-      ))}
-    </Select>
-  </FieldWrapper>
-);
+class SingleSelect extends PureComponent {
+  state = {
+    isOpen: false,
+  };
+
+  blurIfOpened = () => {
+    if (this.state.isOpen) {
+      this.setState({ isOpen: false });
+      this.props.input.onBlur();
+    }
+  };
+
+  onFocus = () => {
+    if (!this.state.isOpen) {
+      this.focus();
+    }
+  };
+
+  onSelect = value => {
+    this.props.onSelect(value);
+    this.blurIfOpened();
+  };
+
+  onChange = value => {
+    this.props.input.onChange(value);
+    this.blurIfOpened();
+  };
+
+  focus = () => {
+    this.setState({ isOpen: true });
+    this.props.input.onFocus();
+  };
+
+  render() {
+    const props = this.props;
+
+    return (
+      <FieldWrapper {...props}>
+        <Select
+          allowClear={props.allowClear}
+          autoFocus={props.autoFocus}
+          defaultActiveFirstOption={props.defaultActiveFirstOption}
+          disabled={props.disabled}
+          filterOption={filterOptions}
+          name={props.input.name}
+          notFoundContent={props.notFoundContent}
+          placeholder={props.placeholder}
+          showSearch={props.showSearch}
+          size={props.size}
+          value={props.input.value || undefined}
+          onBlur={this.blurIfOpened}
+          onChange={this.onChange}
+          onFocus={this.onFocus}
+          onSearch={props.input.onSearch}
+          onSelect={this.onSelect}
+          open={this.state.isOpen}
+        >
+          {props.options.map(({ label, value }) => (
+            <Option key={value} value={value}>
+              {label}
+            </Option>
+          ))}
+        </Select>
+      </FieldWrapper>
+    );
+  }
+}
 
 SingleSelect.propTypes = {
   allowClear: bool,

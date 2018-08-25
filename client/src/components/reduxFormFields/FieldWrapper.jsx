@@ -29,7 +29,7 @@ class FieldWrapper extends PureComponent {
         label={label}
         validateStatus={getValidateStatus(meta, isValidating)}
         help={getHelpText(meta, help)}
-        style={style}
+        style={{ ...style, position: 'relative' }}
       >
         {children}
       </FormItem>
