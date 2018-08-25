@@ -1,41 +1,52 @@
-import React, { PureComponent } from 'react';
-import { Input, Form } from 'antd';
+import React from 'react';
+import { bool, string, node, func, oneOf, oneOfType, object } from 'prop-types';
+import { Input } from 'antd';
+import FieldWrapper from './FieldWrapper';
 
-const FormItem = Form.Item;
+const InputField = props => (
+  <FieldWrapper {...props}>
+    <Input
+      addonAfter={props.addonAfter}
+      addonBefore={props.addonBefore}
+      disabled={props.disabled}
+      name={props.input.name}
+      placeholder={props.placeholder}
+      prefix={props.prefix}
+      size={props.size}
+      suffix={props.suffix}
+      type={props.type}
+      value={props.input.value}
+      onBlur={props.input.onBlur}
+      onChange={props.input.onChange}
+      onFocus={props.input.onFocus}
+      onPressEnter={props.onPressEnter}
+    />
+  </FieldWrapper>
+);
 
-export default class InputField extends PureComponent {
-  render() {
-    const {
-      disabled,
-      input,
-      label,
-      meta: { touched, error },
-      placeholder,
-      className,
-      validating,
-      type,
-      style,
-    } = this.props;
+InputField.propTypes = {
+  addonAfter: oneOfType([string, node]),
+  addonBefore: oneOfType([string, node]),
+  disabled: bool,
+  input: object.isRequired,
+  placeholder: string,
+  prefix: oneOfType([string, node]),
+  size: oneOf(['small', 'default', 'large']),
+  suffix: oneOfType([string, node]),
+  type: oneOf(['text', 'password']),
+  onPressEnter: func,
+};
 
-    return (
-      <FormItem
-        label={label}
-        validateStatus={touched && error ? 'error' : 'success'}
-        help={touched && error ? error : undefined}
-      >
-        <Input
-          className={className}
-          disabled={disabled}
-          name={input.name}
-          onFocus={input.onFocus}
-          onChange={input.onChange}
-          onBlur={input.onBlur}
-          value={input.value}
-          placeholder={placeholder}
-          type={type}
-          style={style}
-        />
-      </FormItem>
-    );
-  }
-}
+InputField.defaultProps = {
+  addonAfter: '',
+  addonBefore: '',
+  disabled: false,
+  placeholder: '',
+  prefix: '',
+  size: 'default',
+  suffix: '',
+  type: 'text',
+  onPressEnter: () => {},
+};
+
+export default InputField;

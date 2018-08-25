@@ -22,3 +22,13 @@
   font-weight: var(--regular);
   color: var(--error);
 }
+
+.text-area-field-wrapper {
+  .ant-form-item-label {
+    padding-bottom: var(--space-xs);
+  }
+
+  .ant-form-explain {
+    padding-top: var(--space-xs);
+  }
+}

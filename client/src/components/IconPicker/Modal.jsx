@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
+import { func, string } from 'prop-types';
 import { Modal } from 'components';
 import { Input } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import icons from './icons';
 import { Content, Icons, Icon } from './styles';
 
-export default class IconsModal extends PureComponent {
+class IconsModal extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       icons,
-      icon: this.props.data,
+      icon: this.props.icon,
       value: '',
     };
 
@@ -19,13 +20,13 @@ export default class IconsModal extends PureComponent {
 
   componentDidUpdate(pp) {
     if (!pp.open && this.props.open) {
-      this.setState({ icon: this.props.data });
+      this.setState({ icon: this.props.icon });
     } else if (pp.open && !this.props.open) {
       this.setState({ icon: '' });
     }
   }
 
-  onChange = value => {
+  onChange = ({ target: { value } }) => {
     const queryLength = value.length;
     const arrToFilter = queryLength > this.lastValueLength ? this.state.icons : icons;
     this.lastValueLength = queryLength;
@@ -70,7 +71,6 @@ export default class IconsModal extends PureComponent {
         <Content>
           <Input
             onChange={this.onChange}
-            fullWidth
             value={this.state.value}
             placeholder="Wyszukaj ikony..."
           />
@@ -88,3 +88,16 @@ export default class IconsModal extends PureComponent {
     );
   }
 }
+
+IconsModal.propTypes = {
+  close: func.isRequired,
+  icon: string,
+  open: func.isRequired,
+  onSubmit: func.isRequired,
+};
+
+IconsModal.defaultProps = {
+  icon: '',
+};
+
+export default IconsModal;

@@ -32,18 +32,19 @@ class IconPicker extends PureComponent {
       closeModal,
       handleChange,
       state: { isModalOpen },
-      props: { className, label, name, value, placeholder },
+      props: { disabled, name, value, placeholder, size },
     } = this;
 
     return (
       <Fragment>
-        <Container className={className} hasValue={!!value}>
+        <Container hasValue={!!value}>
           <Input
-            onClick={openModal}
+            disabled={disabled}
             name={name}
-            label={label}
-            value={value}
             placeholder={placeholder}
+            size={size}
+            value={value}
+            onClick={openModal}
           />
           {value && (
             <IconWrapper>
@@ -51,37 +52,34 @@ class IconPicker extends PureComponent {
             </IconWrapper>
           )}
         </Container>
-        <Modal onSubmit={handleChange} open={isModalOpen} close={closeModal} data={value} />
+        {isModalOpen && (
+          <Modal onSubmit={handleChange} open={isModalOpen} close={closeModal} icon={value} />
+        )}
       </Fragment>
     );
   }
 }
 
 IconPicker.propTypes = {
-  className: string,
   disabled: bool,
-  error: string,
-  fullWidth: bool,
   label: string,
   name: string.isRequired,
+  placeholder: string,
+  size: string,
+  value: string,
   onBlur: func,
   onChange: func,
   onFocus: func,
-  placeholder: string,
-  value: string,
 };
 
 IconPicker.defaultProps = {
-  className: '',
   disabled: false,
-  error: '',
-  fullWidth: false,
-  label: '',
+  placeholder: '',
+  size: 'default',
+  value: '',
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  placeholder: '',
-  value: '',
 };
 
 export default IconPicker;

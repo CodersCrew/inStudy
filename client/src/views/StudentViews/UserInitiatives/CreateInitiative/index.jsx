@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 import InitialModal from './Initial';
 import CreationTypeModal from './CreationType';
 import DetailsModal from './Details';
+import SuccessModal from './Success';
 
 class CreateInitiative extends PureComponent {
   state = {
@@ -14,23 +15,27 @@ class CreateInitiative extends PureComponent {
   decrementStep = (number = 1) => this.setState(({ step }) => ({ step: step - number }));
 
   render() {
+    const { step } = this.state;
+    const { closeModal } = this.props;
+
     return (
       <Fragment>
         <InitialModal
-          visible={this.state.step === 0}
+          visible={step === 0}
           incrementStep={this.incrementStep}
-          closeModal={this.props.closeModal}
+          closeModal={closeModal}
         />
         <CreationTypeModal
-          visible={this.state.step === 1}
+          visible={step === 1}
           incrementStep={this.incrementStep}
-          closeModal={this.props.closeModal}
+          closeModal={closeModal}
         />
         <DetailsModal
-          visible={this.state.step === 2}
+          visible={step === 2}
           incrementStep={this.incrementStep}
           decrementStep={this.decrementStep}
         />
+        <SuccessModal visible={step === 3} closeModal={closeModal} />
       </Fragment>
     );
   }

@@ -7,15 +7,15 @@ export const Container = styled.div`
 
   input {
     margin: var(--space-xs) 0;
-    padding-left: ${props => (props.hasValue ? '40px' : '11px')};
+    padding-left: ${props => (props.hasValue ? '32px' : '11px')};
   }
 `;
 
 export const IconWrapper = styled.div`
   position: absolute;
-  top: 0;
+  top: 8px;
+  bottom: 8px;
   left: 0;
-  height: 32px;
   padding: 0 11px;
   display: flex;
   align-items: center;
@@ -42,6 +42,7 @@ export const Icons = styled.div`
   > div > div:first-child {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 30px;
     grid-gap: var(--space-sm);
     justify-items: center;
   }

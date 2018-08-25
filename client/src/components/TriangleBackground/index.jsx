@@ -183,7 +183,7 @@ const createBackground = () => {
   }
 
   function onResize() {
-    document.querySelector('#bg svg').remove();
+    document.querySelector('#bg svg')?.remove();
     clearTimeout(refreshTimeout);
     onLoad();
   }

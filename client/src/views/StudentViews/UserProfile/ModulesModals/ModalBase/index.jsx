@@ -6,21 +6,31 @@ import { Input, IconPicker } from 'components/reduxFormFields';
 import { Top, InputWrapper } from './styles';
 import { required } from 'utils/validators';
 
+const addModuleRequest = moduleData =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(moduleData), 3000);
+  });
+
 @reduxForm({ form: 'addModule' })
 class ModalBase extends Component {
   shouldComponentUpdate(np) {
     return !(!np.visible && !this.props.visible);
   }
 
-  onSubmit = values => console.log(values);
+  onSubmit = async values => {
+    console.log(values);
+    await addModuleRequest(values);
+    console.log('Module added!');
+    this.props.onClose();
+  };
 
   render() {
-    const { visible, onClose, name, icon, handleSubmit, children } = this.props;
+    const { visible, onClose, name, icon, handleSubmit, children, submitting } = this.props;
 
     return (
       <Modal
         visible={visible}
-        onClose={onClose}
+        onClose={submitting ? () => {} : onClose}
         title={`Dodaj moduł "${name}"`}
         icon={`/fa-icons/${icon}-light.svg`}
         type="complex"
@@ -30,10 +40,12 @@ class ModalBase extends Component {
             onClick: handleSubmit(this.onSubmit),
             label: 'Dodaj',
             type: 'primary',
+            loading: submitting,
           },
           {
             onClick: () => onClose(),
             label: 'Anuluj',
+            disabled: submitting,
           },
         ]}
       >
@@ -41,14 +53,14 @@ class ModalBase extends Component {
           <Field
             name="icon"
             component={IconPicker}
-            props={{ label: 'Ikona' }}
+            props={{ label: 'Ikona', disabled: submitting }}
             validate={[required]}
           />
           <InputWrapper>
             <Field
               name="title"
               component={Input}
-              props={{ label: 'Tytuł modułu' }}
+              props={{ label: 'Tytuł modułu', disabled: submitting }}
               validate={[required]}
             />
           </InputWrapper>
@@ -60,15 +72,17 @@ class ModalBase extends Component {
 }
 
 ModalBase.propTypes = {
-  Field: func,
-  Content: func,
   handleSubmit: func,
   name: string.isRequired,
-  id: string.isRequired,
   icon: string.isRequired,
   visible: bool.isRequired,
   onClose: func.isRequired,
   children: node.isRequired,
+  submitting: bool,
+};
+
+ModalBase.defaultProps = {
+  submitting: false,
 };
 
 export default ModalBase;

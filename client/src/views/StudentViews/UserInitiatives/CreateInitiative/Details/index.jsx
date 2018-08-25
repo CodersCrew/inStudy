@@ -4,10 +4,15 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Modal } from 'components';
-import { Input, Select } from 'components/reduxFormFields';
-import { required } from 'utils/validators';
+import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
+import { required, maxLength } from 'utils/validators';
 import texts from './texts';
 import { Container } from './styles';
+
+const testPromise = () =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(true), 5000);
+  });
 
 const sendCitiesRequest = () => axios.get('/api/cities');
 
@@ -24,6 +29,8 @@ const valueSelector = formValueSelector('newInitiativeDetails');
 
 const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCityId;
 
+const maxDescriptionLength = maxLength(260);
+
 @connect(state => ({ city: valueSelector(state, 'city') }))
 @reduxForm({ form: 'newInitiativeDetails' })
 class Details extends PureComponent {
@@ -31,6 +38,7 @@ class Details extends PureComponent {
     cities: [],
     universities: [],
     categories: [],
+    areUniversitiesFetching: false,
   };
 
   componentDidMount() {
@@ -46,27 +54,29 @@ class Details extends PureComponent {
     }
   }
 
-  fetchUniversities = () =>
+  fetchUniversities = () => {
+    this.setState({ areUniversitiesFetching: true });
     sendUniversitiesRequest(this.props.city).then(({ data }) => {
       const universities = mapResponseToOptions(data);
       this.updateUniversities(universities);
     });
+  };
 
   updateUniversities = universities => {
-    this.setState({ universities });
+    this.setState({ universities, areUniversitiesFetching: false });
     this.props.change('university', universities[0].value);
   };
 
-  onSubmit = values => {
+  onSubmit = async values => {
     console.log(values);
-    addInitiativeRequest(values).then(res => {
-      console.log(res);
-      this.props.incrementStep(1);
-    });
+    const res = await testPromise(values);
+    console.log(res);
+    this.props.incrementStep(1);
   };
 
   render() {
-    const { visible, decrementStep } = this.props;
+    const { visible, decrementStep, submitting, city } = this.props;
+    const { areUniversitiesFetching, cities, universities, categories } = this.state;
 
     return (
       <Modal
@@ -81,10 +91,12 @@ class Details extends PureComponent {
             onClick: this.props.handleSubmit(this.onSubmit),
             label: texts.okButton,
             type: 'primary',
+            loading: submitting,
           },
           {
             onClick: () => decrementStep(1),
             label: texts.cancelButton,
+            disabled: submitting,
           },
         ]}
       >
@@ -92,44 +104,53 @@ class Details extends PureComponent {
           <Field
             name="name"
             component={Input}
-            props={{ label: 'Nazwa inicjatywy', fullWidth: true }}
+            props={{ label: 'Nazwa inicjatywy', disabled: submitting }}
             validate={[required]}
           />
           <Field
             name="email"
             component={Input}
-            props={{ label: 'E-mail kontaktowy', fullWidth: true }}
+            props={{ label: 'E-mail kontaktowy', disabled: submitting }}
             validate={[required]}
           />
           <Field
             name="city"
-            component={Select}
-            props={{ label: 'Miasto', options: this.state.cities }}
+            component={SingleSelect}
+            props={{ label: 'Miasto', options: cities, disabled: submitting }}
             validate={[required]}
           />
           <Field
             name="university"
-            component={Select}
-            props={{ label: 'Uczelnia', options: this.state.universities }}
+            component={SingleSelect}
+            props={{
+              label: 'Uczelnia',
+              options: universities,
+              disabled: submitting || !city || areUniversitiesFetching,
+              isValidating: areUniversitiesFetching,
+            }}
             validate={[required]}
           />
           <Field
             name="category"
-            component={Select}
-            props={{ label: 'Obszar działalności', options: this.state.categories }}
+            component={SingleSelect}
+            props={{
+              label: 'Obszar działalności',
+              options: categories,
+              disabled: submitting,
+            }}
             validate={[required]}
           />
           <Field
             name="facebookUrl"
             component={Input}
-            props={{ label: 'Adres fanpage na facebooku', fullWidth: true }}
+            props={{ label: 'Adres fanpage na facebooku', disabled: submitting }}
             validate={[required]}
           />
           <Field
             name="description"
-            component={Input}
-            props={{ label: 'Krótki opis inicjatywy (do 260 znaków)', fullWidth: true }}
-            validate={[required]}
+            component={TextArea}
+            props={{ label: 'Krótki opis inicjatywy (do 260 znaków)', disabled: submitting }}
+            validate={[required, maxDescriptionLength]}
           />
         </Container>
       </Modal>
@@ -138,18 +159,19 @@ class Details extends PureComponent {
 }
 
 Details.propTypes = {
-  visible: bool,
-  closeModal: func.isRequired,
-  incrementStep: func.isRequired,
-  decrementStep: func.isRequired,
-  handleSubmit: func.isRequired,
   change: func.isRequired,
   city: number,
+  closeModal: func.isRequired,
+  decrementStep: func.isRequired,
+  handleSubmit: func.isRequired,
+  incrementStep: func.isRequired,
+  submitting: bool.isRequired,
+  visible: bool,
 };
 
 Details.defaultProps = {
-  visible: false,
   city: null,
+  visible: false,
 };
 
 export default Details;

@@ -1,3 +1,4 @@
 export IconPicker from './IconPicker';
-export Select from './Select';
+export SingleSelect from './SingleSelect';
 export Input from './Input';
+export TextArea from './TextArea';
