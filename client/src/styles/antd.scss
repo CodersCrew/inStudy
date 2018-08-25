@@ -1,0 +1,34 @@
+/* FORMS */
+
+.ant-input {
+  font-weight: var(--regular);
+}
+
+.ant-form-item-label {
+  font-size: var(--font-xs);
+  line-height: var(--font-xs-lh);
+  font-weight: var(--medium);
+
+  label {
+    padding-left: var(--space-xs);
+    color: var(--text2);
+  }
+}
+
+.has-error .ant-form-explain {
+  padding-left: var(--space-xs);
+  font-size: var(--font-xs);
+  line-height: var(--font-xs-lh);
+  font-weight: var(--regular);
+  color: var(--error);
+}
+
+.text-area-field-wrapper {
+  .ant-form-item-label {
+    padding-bottom: var(--space-xs);
+  }
+
+  .ant-form-explain {
+    padding-top: var(--space-xs);
+  }
+}

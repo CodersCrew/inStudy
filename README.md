@@ -16,6 +16,5 @@ Z czasem planujemy także wprowadzanie kolejnych funkcjonalności pozwalających
 
 
 ### Najważniejsze linki
-* [Repozytorium CC-UI](https://github.com/CodersCrew/CC-UI)
 * [Mockupy na Figmie](https://www.figma.com/file/dwrYXz6cT75C3tVPPbAiGi4M/inStudy?node-id=0%3A1)
 * [Wersja developerska portalu](https://instudy-prod.herokuapp.com/)

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { Button, Tooltip } from 'CC-UI';
-import { media } from 'CC-UI/lib/utils';
+import { Tooltip } from 'react-tippy';
+import { Button } from 'antd';
+import { media } from 'utils';
 
 export const StyledButton = styled(Button)`
   margin-left: var(--space-lg);
+  min-width: 104px;
   ${media.sm`
     margin-left: var(--space-md);
   `};

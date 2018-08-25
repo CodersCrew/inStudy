@@ -6,6 +6,7 @@ import {
   FETCH_INITIATIVES,
   SET_HISTORY,
   FETCH_MORE_INITIATIVES,
+  SET_SEARCH,
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -48,3 +49,9 @@ export const getMoreInitiatives = () => async dispatch => {
   const { data } = await axios.get('/api/initiative', { params });
   return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data.result } });
 };
+
+export const setSearch = (searchObj, history) => ({
+  type: SET_SEARCH,
+  payload: searchObj,
+  history,
+});

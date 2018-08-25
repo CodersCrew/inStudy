@@ -3,8 +3,12 @@ const { Schema } = mongoose;
 
 const organisationSchema = new Schema({
   name: String,
-  image: String,
   description: String,
+  email: String,
+  city: String,
+  category: String,
+  university: String,
+  facebookUrl: String,
   shortUrl: String,
   modules: [{}],
   FBProfile: [{}],

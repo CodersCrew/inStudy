@@ -31,7 +31,7 @@ module.exports = app => {
   });
 
   app.post('/api/initiative', (req, res) => {
-    const { initiative } = req.body;
+    const initiative = req.body;
 
     new FetchInitiative()
       .setInitiative(initiative)
@@ -68,8 +68,13 @@ module.exports = app => {
     //   new FetchInitiative()
     //     .putInitiative()
     // });
-  })
+  });
 
+  app.post(
+    '/api/initiative/:initId/module',
+    (req, res, next) => {
+      const initId = req.params.initId;
+      const module = req.body.module;
 
   app.post('/api/initiative/:initId/module', (req, res, next) => {
     const initId = req.params.initId;
@@ -88,19 +93,22 @@ module.exports = app => {
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const initId = req.params.initId;
 
-    new FetchInitiative()
-      .getAllModules(initId)
-      .then((modules) => {
-        res
-          .status(200)
-          .json(modules)
-      })
+    new FetchInitiative().getAllModules(initId).then(modules => {
+      res.status(200).json(modules);
+    });
   });
 
   app.delete('/api/initiative/:initId/module/:modId', (req, res) => {
     const initId = req.params.initId;
     const modId = req.params.modId;
 
+    new FetchInitiative().deleteModule(initId, modId).then(() => {
+      res.sendStatus(201);
+    });
+  });
+
+  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
+    const shortUrl = req.params.shortUrl;
     new FetchInitiative()
       .deleteModule(initId, modId)
       .then(() => {

@@ -1,6 +1,5 @@
 import RichTextModule from './Modules/RichText';
 import RichTextModal from './ModulesModals/RichText';
-import RichTextValidation from './ModulesModals/RichText/validate';
 
 import SkillsModule from './Modules/Skills';
 import SkillsModal from './ModulesModals/Skills';
@@ -18,7 +17,6 @@ export default {
     description: 'Pole tekstowe z możliwością dodawania linków, zdjęć i filmików.',
     module: RichTextModule,
     modalContent: RichTextModal,
-    validate: RichTextValidation,
   },
   skills: {
     name: 'Umiejętności',

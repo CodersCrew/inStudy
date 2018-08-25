@@ -3,17 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
   "scripts": {
     "start": "node ./server/index.js server",
     "server": "nodemon ./server/index.js server",
     "client": "cd client && yarn run start",
-    "build:instudy": "cd client && yarn run build",
-    "build:ccui": "cd CC-UI/demo && yarn run build",
-    "dev:all": "concurrently \"yarn run server\" \"yarn run client\" \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\"",
-    "dev:instudy": "concurrently \"cd CC-UI && yarn start\" \"yarn run server\" \"yarn run client\"",
-    "dev:ccui": "concurrently \"cd CC-UI && yarn start\" \"cd CC-UI/demo && yarn start\"",
-    "install:all": "yarn install && cd client && yarn install && cd ../CC-UI && yarn install && cd demo && yarn install"
+    "build": "cd client && yarn run build",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "install:all": "yarn install && cd client && yarn install"
   },
   "author": "Konrad Szwarc",
   "license": "MIT",
@@ -34,6 +30,7 @@
     "stylelint-processor-styled-components": "^1.3.2"
   },
   "dependencies": {
+    "antd": "^3.8.2",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
     "concurrently": "^3.6.1",
@@ -55,8 +52,6 @@
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
-    "puppeteer": "^1.6.2",
-    "react-background-video-player": "^1.1.5",
-    "react-portal": "^4.1.5"
+    "puppeteer": "^1.6.2"
   }
 }

@@ -31,11 +31,6 @@ class UserProfile extends PureComponent {
           <RightColumn>
             <Modules modules={user?.modules} openModal={openModal} />
           </RightColumn>
-          <NavColumn>
-            {user?.modules?.length > 0 && (
-              <ModulesNav modules={user?.modules} openModal={openModal} />
-            )}
-          </NavColumn>
         </MainContainer>
         <ModulesModals
           openedModalNames={openedModalNames}

@@ -1,3 +1,4 @@
+      res.status(200).json(result);
 const FetchCategory = require('./../services/fetchCategories');
 
 module.exports = app => {
