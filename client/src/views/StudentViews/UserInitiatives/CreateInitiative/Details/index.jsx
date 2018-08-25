@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { bool, func, number } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, Select } from 'components/reduxFormFields';
@@ -8,50 +9,24 @@ import { required } from 'utils/validators';
 import texts from './texts';
 import { Container } from './styles';
 
-const universities = {
-  1: [
-    { label: 'Uniwersytet Ekonomiczny we Wrocławiu', value: 1 },
-    { label: 'Uniwersytet Wrocławski', value: 2 },
-    { label: 'Politechnika Wrocławska', value: 3 },
-    { label: 'Uniwersytet Przyrodniczy we Wrocławiu', value: 4 },
-    { label: 'Uniwersytet SWPS we Wrocławiu', value: 5 },
-    { label: 'Wysza Szkoła Bankowa we Wrocławiu', value: 6 },
-  ],
-  2: [
-    { label: 'Politechnika Opolska', value: 7 },
-    { label: 'Uniwersytet Opolski', value: 8 },
-    { label: 'Państwowa Medyczna Wyższa Szkoła Zawodowa w Opolu', value: 9 },
-  ],
+const sendCitiesRequest = () => axios.get('/api/cities');
+
+const sendCategoriesRequest = () => axios.get('/api/category');
+
+const sendUniversitiesRequest = cityId => axios.get(`/api/cities/universities/${cityId}`);
+
+const addInitiativeRequest = initiativeData => axios.post('/api/initiative', initiativeData);
+
+const mapResponseToOptions = responseArray => {
+  console.log(responseArray);
+  return responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
 };
 
-const getCities = () =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve([{ label: 'Wrocław', value: 1 }, { label: 'Opole', value: 2 }]);
-    }, 500);
-  });
+const valueSelector = formValueSelector('newInitiativeDetails');
 
-const getCategories = () =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        { label: 'IT', value: 1 },
-        { label: 'Medycyna', value: 2 },
-        { label: 'Społeczne', value: 3 },
-      ]);
-    }, 500);
-  });
+const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCityId;
 
-const getUniversities = cityId =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(universities[cityId]);
-    }, 500);
-  });
-
-const selector = formValueSelector('newInitiativeDetails');
-
-@connect(state => ({ city: selector(state, 'city') }))
+@connect(state => ({ city: valueSelector(state, 'city') }))
 @reduxForm({ form: 'newInitiativeDetails' })
 class Details extends PureComponent {
   state = {
@@ -61,30 +36,37 @@ class Details extends PureComponent {
   };
 
   componentDidMount() {
-    getCities().then(cities =>
-      this.setState({ cities }, () => {
-        getUniversities(this.state.cities[0].value).then(universities =>
-          this.setState({ universities }),
-        );
-      }),
+    sendCitiesRequest().then(({ data }) => this.setState({ cities: mapResponseToOptions(data) }));
+    sendCategoriesRequest().then(({ data }) =>
+      this.setState({ categories: mapResponseToOptions(data) }),
     );
-    getCategories().then(categories => this.setState({ categories }));
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.city !== this.props.city) {
-      getUniversities(this.props.city).then(universities =>
-        this.setState({ universities }, () => {
-          this.props.change('university', universities[0].value);
-        }),
-      );
+    if (hasCityChanged(prevProps.city, this.props.city)) {
+      this.fetchUniversities();
     }
   }
 
-  onSubmit = values => console.log(values);
+  fetchUniversities = () =>
+    sendUniversitiesRequest(this.props.city).then(({ data }) => {
+      const universities = mapResponseToOptions(data);
+      this.updateUniversities(universities);
+    });
+
+  updateUniversities = universities => {
+    this.setState({ universities });
+    this.props.change('university', universities[0].value);
+  };
+
+  onSubmit = values => {
+    console.log(values);
+    addInitiativeRequest(values).then(res => console.log(res));
+  };
 
   render() {
     const { visible, decrementStep, incrementStep } = this.props;
+
     return (
       <Modal
         visible={visible}
@@ -137,7 +119,7 @@ class Details extends PureComponent {
             validate={[required]}
           />
           <Field
-            name="facebook"
+            name="facebookUrl"
             component={Input}
             props={{ label: 'Adres fanpage na facebooku', fullWidth: true }}
             validate={[required]}

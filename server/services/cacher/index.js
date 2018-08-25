@@ -7,18 +7,14 @@ module.exports = (req, res, next) => {
 
   if (method === 'GET') {
     const result = storage.find(path);
-    console.log(result)
+    console.log(result);
     if (result) {
-      res
-        .status(200)
-        .json(result);
+      res.status(200).json(result);
     } else {
       next();
     }
   } else {
     storage.save(path, cache);
-    res
-      .sendStatus(201);
+    res.sendStatus(201);
   }
-
 };
