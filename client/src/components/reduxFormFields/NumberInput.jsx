@@ -13,6 +13,10 @@ export default class InputField extends PureComponent {
       validating,
       type,
       style,
+      min,
+      max,
+      step,
+      suffix
     } = this.props;
 
     return (
@@ -29,6 +33,10 @@ export default class InputField extends PureComponent {
         type={type}
         error={touched && error}
         style={style}
+        min={min}
+        max={max}
+        step={step}
+        suffix={suffix}
       />
     );
   }
