@@ -15,7 +15,8 @@ export const Container = styled.div`
     padding: var(--space-lg);
   `};
   ${media.md`
-    position: static;
+    position: relative;
+    top: unset;
     display: grid;
     grid-column-gap: var(--space-lg);
     grid-template-columns: 160px 1fr;
@@ -26,7 +27,8 @@ export const Container = styled.div`
   `};
 `;
 
-export const Image = styled.img`
+export const Image = styled.div`
+  background: url('${props => props.src}') no-repeat center/cover;
   min-width: 176px;
   min-height: 176px;
   max-width: 176px;
@@ -114,9 +116,44 @@ export const Socials = styled.div`
   `};
 `;
 
-export const Social = styled.div`
+export const Social = styled.a`
+  display: block;
   font-size: var(--font-xl);
   text-align: center;
+  color: var(--grey2);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-in-out);
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 0.7;
+    color: ${props => props.color};
+  }
+
+  &:active {
+    opacity: 1;
+    color: ${props => props.color};
+  }
+
+  & + a {
+    margin-left: var(--space-lg);
+  }
+
+  ${media.xl`
+    font-size: var(--font-lg);
+  `};
+`;
+
+export const EditIcon = styled.div`
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-xl);
   color: var(--grey5);
   cursor: pointer;
   transition: all 0.3s var(--ease-in-out);
@@ -128,12 +165,4 @@ export const Social = styled.div`
   &:active {
     color: var(--grey4);
   }
-
-  & + div {
-    margin-left: var(--space-lg);
-  }
-
-  ${media.xl`
-    font-size: var(--font-lg);
-  `};
 `;

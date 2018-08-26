@@ -1,8 +1,19 @@
 import React, { PureComponent } from 'react';
 import { string, node, object, bool } from 'prop-types';
 import { Form } from 'antd';
+import styled from 'styled-components';
 
-const FormItem = Form.Item;
+const FormItem = styled(Form.Item)`
+  position: relative;
+
+  .ant-form-item-label {
+    padding-bottom: var(--space-xs);
+  }
+
+  .ant-form-explain {
+    padding-top: var(--space-xs);
+  }
+`;
 
 const getValidateStatus = ({ touched, error }, isValidating) => {
   if (touched && error) {
