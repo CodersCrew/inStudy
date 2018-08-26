@@ -4,7 +4,7 @@ import { Input } from 'antd';
 import FieldWrapper from './FieldWrapper';
 
 const InputField = props => (
-  <FieldWrapper {...props}>
+  <FieldWrapper {...props} className={`${props.className} additional-space-field-wrapper`}>
     <Input
       addonAfter={props.addonAfter}
       addonBefore={props.addonBefore}

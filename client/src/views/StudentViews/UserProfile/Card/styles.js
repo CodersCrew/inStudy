@@ -15,7 +15,8 @@ export const Container = styled.div`
     padding: var(--space-lg);
   `};
   ${media.md`
-    position: static;
+    position: relative;
+    top: unset;
     display: grid;
     grid-column-gap: var(--space-lg);
     grid-template-columns: 160px 1fr;
@@ -136,4 +137,27 @@ export const Social = styled.div`
   ${media.xl`
     font-size: var(--font-lg);
   `};
+`;
+
+export const EditIcon = styled.div`
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-xl);
+  color: var(--grey5);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-in-out);
+
+  &:hover {
+    color: var(--grey6);
+  }
+
+  &:active {
+    color: var(--grey4);
+  }
 `;

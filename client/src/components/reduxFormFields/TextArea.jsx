@@ -6,7 +6,7 @@ import FieldWrapper from './FieldWrapper';
 const { TextArea } = Input;
 
 const TextAreaField = props => (
-  <FieldWrapper {...props} className={`${props.className} text-area-field-wrapper`}>
+  <FieldWrapper {...props} className={`${props.className} additional-space-field-wrapper`}>
     <TextArea
       disabled={props.disabled}
       name={props.input.name}
