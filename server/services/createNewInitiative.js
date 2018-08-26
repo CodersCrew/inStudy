@@ -6,7 +6,7 @@ const FBCrawler = require('./../services/Crawler/FBCrawler');
 module.exports = function (initiative, user) {
   console.log(initiative, user)
   return initiativeNotExist(initiative)
-    .then(() => createInitiative(initiative, user))
+    .then(() => createInitiative(mapUserInputToSave(initiative), user))
     // .then((createdInitiative) => assignToUser(createdInitiative, user))
 };
 
@@ -18,20 +18,14 @@ function createInitiative(initiative, user) {
       return new Initiative({ ...initiative, FBProfile: fetchedProfile})
         .save();
     })
-    .then((createdInitaitive) => {
-      return User.findByIdAndUpdate(user._id, {
-        $addToSet: {
-          initiatives: new mongoose.mongo.ObjectId(createdInitaitive._id),
-        }
-      })
-    })
+    .then((createdInitaitive) => assignToUser(createdInitaitive._id, user._id))
 }
 
-function assignToUser(createdInitiative, user) {
+function assignToUser(createdInitiativeId, userId) {
   return User
-    .findByIdAndUpdate(user, {
+    .findByIdAndUpdate(userId, {
       $addToSet: {
-        initiatives: new mongoose.mongo.ObjectId(createdInitiative._id),
+        initiatives: new mongoose.mongo.ObjectId(createdInitiativeId),
       }
     })
 }
@@ -42,4 +36,12 @@ function initiativeNotExist({ email }) {
       if(initiative) return new Error('Dana inicjatywa już istnieje')
       else return true;
     })
+}
+
+function mapUserInputToSave(RAWInputData) {
+  const FBUrlRegExp = new RegExp('^@([a-zA-Z0-9]+)$|facebook\.com\/([a-zA-Z0-9]+)\/?$|facebook\.com\/pg\/([a-zA-Z0-9]+)\/?|^[a-zA-Z0-9]+$', 'i')
+    .exec(RAWInputData.facebookUrl);
+
+  RAWInputData.facebookUrl = FBUrlRegExp.slice(0).reverse().find((singleMatch) => singleMatch);
+  return RAWInputData;
 }
