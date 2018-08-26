@@ -1,43 +1,28 @@
 import React, { PureComponent } from 'react';
-import { NumberInput } from 'CC-UI';
+import { InputNumber } from 'antd';
+import FieldWrapper from './FieldWrapper';
 
 export default class InputField extends PureComponent {
   render() {
-    const {
-      disabled,
-      fullWidth,
-      input,
-      label,
-      meta: { touched, error },
-      className,
-      validating,
-      type,
-      style,
-      min,
-      max,
-      step,
-      suffix
-    } = this.props;
+    const { autoFocus, disabled, input, className, style, min, max, step } = this.props;
 
     return (
-      <NumberInput
-        className={className}
-        disabled={disabled}
-        fullWidth={fullWidth}
-        name={input.name}
-        onFocus={input.onFocus}
-        onChange={input.onChange}
-        onBlur={input.onBlur}
-        label={label}
-        value={input.value}
-        type={type}
-        error={touched && error}
-        style={style}
-        min={min}
-        max={max}
-        step={step}
-        suffix={suffix}
-      />
+      <FieldWrapper {...this.props}>
+        <InputNumber
+          autoFocus={autoFocus}
+          className={className}
+          disabled={disabled}
+          name={input.name}
+          onFocus={input.onFocus}
+          onChange={input.onChange}
+          onBlur={input.onBlur}
+          value={input.value}
+          style={style}
+          min={min}
+          max={max}
+          step={step}
+        />
+      </FieldWrapper>
     );
   }
 }

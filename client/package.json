@@ -51,6 +51,7 @@
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.56",
     "@dr-kobros/react-webfont-loader": "^8.0.0",
+    "antd": "^3.8.2",
     "axios": "^0.18.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",

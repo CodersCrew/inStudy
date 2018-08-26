@@ -6,12 +6,9 @@ import FieldArrayForm from './form';
 class Skills extends PureComponent {
   render() {
     const { visible, onClose, name, icon } = this.props;
-    return (
-      <ModalBase visible={visible} onClose={onClose} name={name} icon={icon}>
-        <p>LISTA UMIEJĘTNOŚCI</p>
+    return <ModalBase visible={visible} onClose={onClose} name={name} icon={icon}>
         <FieldArrayForm />
-      </ModalBase>
-    );
+      </ModalBase>;
   }
 }
 

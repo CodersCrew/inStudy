@@ -1,29 +1,42 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
-import { NumberInput, Input} from 'components/reduxFormFields';
-// import validate from './validate';
+import validate from './validate';
+import { Li,StyledInputNumber, StyledInput, FieldsContainer, StyledField } from './styles';
 
 const renderSkills = ({ fields}) => (
+
   <ul>
     {fields.map((skill, index) => (
-      <li key={index}>
-        <Field name={`${skill}.name`}
-        type="text" component={Input}
-        label="Nazwa umiejętności" />
+      <Li key={index}>
+
+
+      <FieldsContainer>
+        <Field
+          name={`${skill}.name`}
+          type="text"
+          component={StyledInput}
+          label="Nazwa umiejętności" />
         <Field
           name={`${skill}.level`}
           type="number"
-          component={NumberInput}
+          component={StyledInputNumber}
           label="Poziom"
-          props={{ label: 'Poziom', name: 'level', min: 0, max: 100, step: 1, suffix: '%' }}
+          props={{ label: 'Poziom', name: 'level', min: 0, max: 100, step: 1 }}
         />
-      </li>
+         <button
+          type="button"
+          title="Remove Skill"
+          onClick={() => fields.remove(index)}
+        >-</button>
+      </FieldsContainer>
+      </Li>
     ))}
-    <li>
-      <button type="button" onClick={() => fields.push({})}>
-        Add skill
-      </button>
-    </li>
+    <Li>
+      <Field
+        type="text" component={StyledInput}
+        label="Nazwa umiejętności"
+        onFocus={() => fields.push({})} />
+    </Li>
   </ul>
 );
 
@@ -37,6 +50,6 @@ const FieldsArrayForm = props => {
 };
 
 export default reduxForm({
-  form: 'fieldArrays', // a unique identifier for this form
-  // validate
+  form: 'fieldArrays',
+  validate
 })(FieldsArrayForm)
