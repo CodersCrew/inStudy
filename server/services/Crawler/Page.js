@@ -11,9 +11,9 @@ Page.prototype.openNewPage = async function(browserInstance, scrapeFunction) {
     await this.page.goto(this.url);
     await this.page.waitFor(1000);
 
-    return await this.page.evaluate(await scrapeFunction);
+    return await this.page.evaluate(scrapeFunction);
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 };
 

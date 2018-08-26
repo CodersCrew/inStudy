@@ -8,7 +8,6 @@ let FBScraper = (url) => {
 
     const key = Object.keys(pageSchema)
     .find((singleKey) => new RegExp(singleKey).test(url));
-
     if(!key) throw new Error('Scrape not matched');
 
   return pageSchema[key]
@@ -34,7 +33,7 @@ FBCrawler.prototype.scrape = async function () {
   this.browser = await puppeteer.launch();
   const scrapedPages = this.pages.map(async (singlePage) => {
     singlePage.content = await singlePage.openNewPage(this.browser, FBScraper(singlePage.url));
-    return Promise.resolve(singlePage);
+    return singlePage;
   });
   return await Promise.all(scrapedPages)
     .then((result) => {
@@ -47,7 +46,6 @@ FBCrawler.prototype.scrape = async function () {
 
 
 function AboutSchema() {
-
   let title = document.querySelector('title').innerText;
   let mission = document.querySelector('div._3-8j:nth-child(1) > div:nth-child(2) > div:nth-child(2)').innerHTML;
   let about = document.querySelector('div._4-u2:nth-child(5) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)').innerHTML;
@@ -56,8 +54,7 @@ function AboutSchema() {
   let type = document.querySelector('._5m_o > a:nth-child(1)').innerHTML;
   let street = document.querySelector('div._20ud:nth-child(2) > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)').innerHTML;
   let city = document.querySelector('div._20ud:nth-child(2) > div:nth-child(2) > div:nth-child(2) > span:nth-child(1)').innerHTML;
-  let logo = document.querySelector('html#facebook.tinyViewport.tinyWidth body._4-u5._2yq.UIPage_LoggedOut.hasBanner._-kb._61s0._605a.b_c3pyn-ahh.gecko.x1.Locale_en_GB.cores-gte4.hasAXNavMenubar._19_u.hasCookieBanner div#u_0_6._li div#globalContainer.uiContextualLayerParent div#content.fb_content.clearfix div div.clearfix div._1qkq._1qks div._lwx div#entity_sidebar._r_m div#u_0_f div._qa1 a._2dgj img._4jhq.img').innerHTML;
-
+  let logo = document.querySelector('#u_0_f > div > a > img').getAttribute('src')
   return {
     kind: 'About',
     title,

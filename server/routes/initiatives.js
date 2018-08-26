@@ -33,11 +33,8 @@ module.exports = app => {
 
   app.post('/api/initiative', (req, res) => {
     const initiative = req.body;
-    console.log(req.user, req.users)
-    // createNewInitiative(initiative, )
-    new FetchInitiative()
-      .setInitiative(initiative)
-      .then(result => {
+    createNewInitiative(initiative, req.user)
+      .then((result) => {
         res
           .status(200)
           .json({ result });
