@@ -1,15 +1,11 @@
-@import "~CC-UI/src/scss/main.scss";
+@import "./reset.scss";
+@import "./variables.scss";
+@import "./antd.scss";
+@import "./modal.scss";
 
-:root {
-  --primary1: hsl(211, 92%, 32%);
-  --primary1-hover: hsl(211, 92%, 36%);
-  --primary1-active: hsl(211, 92%, 28%);
-  --primary2: hsl(211, 92%, 44%);
-  --primary2-hover: hsl(211, 92%, 48%);
-  --primary2-active: hsl(211, 92%, 40%);
-  --primary3: hsl(209, 100%, 55%);
-  --primary3-hover: hsl(209, 100%, 59%);
-  --primary3-active: hsl(209, 100%, 51%);
+body {
+  font-family: var(--mainFont);
+  font-weight: var(--regular);
 }
 
 .tippy-tooltip.tippy-tooltip--regular.light-theme {

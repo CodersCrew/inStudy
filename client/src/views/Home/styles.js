@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import Typist from 'react-typist';
-import { media } from 'CC-UI/lib/utils';
+import { media } from 'utils';
 
 const toSmaller = keyframes`
   from {

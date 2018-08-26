@@ -1,16 +1,11 @@
 import styled from 'styled-components';
-import { IconPicker, Input } from 'components/reduxFormFields';
 
 export const Top = styled.div`
-  display: flex;
-  margin-bottom: var(--space-lg);
+  display: grid;
+  grid-gap: 0 var(--space-xl);
+  grid-template-columns: 160px 1fr;
 `;
 
-export const StyledIconPicker = styled(IconPicker)`
-  width: 160px;
-  margin-right: var(--space-xl);
-`;
-
-export const StyledInput = styled(Input)`
+export const InputWrapper = styled.div`
   width: 100%;
 `;

@@ -1,46 +1,52 @@
-import React, { PureComponent } from 'react';
-import { Input } from 'CC-UI';
+import React from 'react';
+import { bool, string, node, func, oneOf, oneOfType, object } from 'prop-types';
+import { Input } from 'antd';
+import FieldWrapper from './FieldWrapper';
 
-export default class InputField extends PureComponent {
-  state = {
-    value: this.props.input.value,
-  };
+const InputField = props => (
+  <FieldWrapper {...props}>
+    <Input
+      addonAfter={props.addonAfter}
+      addonBefore={props.addonBefore}
+      disabled={props.disabled}
+      name={props.input.name}
+      placeholder={props.placeholder}
+      prefix={props.prefix}
+      size={props.size}
+      suffix={props.suffix}
+      type={props.type}
+      value={props.input.value}
+      onBlur={props.input.onBlur}
+      onChange={props.input.onChange}
+      onFocus={props.input.onFocus}
+      onPressEnter={props.onPressEnter}
+    />
+  </FieldWrapper>
+);
 
-  change = value => this.setState({ value });
+InputField.propTypes = {
+  addonAfter: oneOfType([string, node]),
+  addonBefore: oneOfType([string, node]),
+  disabled: bool,
+  input: object.isRequired,
+  placeholder: string,
+  prefix: oneOfType([string, node]),
+  size: oneOf(['small', 'default', 'large']),
+  suffix: oneOfType([string, node]),
+  type: oneOf(['text', 'password']),
+  onPressEnter: func,
+};
 
-  blur = () => {
-    this.props.input.onChange(this.state.value);
-    this.props.input.onBlur();
-  };
+InputField.defaultProps = {
+  addonAfter: '',
+  addonBefore: '',
+  disabled: false,
+  placeholder: '',
+  prefix: '',
+  size: 'default',
+  suffix: '',
+  type: 'text',
+  onPressEnter: () => {},
+};
 
-  render() {
-    const {
-      disabled,
-      fullWidth,
-      input,
-      label,
-      meta: { touched, error },
-      className,
-      validating,
-      type,
-      style,
-    } = this.props;
-
-    return (
-      <Input
-        className={className}
-        disabled={disabled}
-        fullWidth={fullWidth}
-        name={input.name}
-        onFocus={input.onFocus}
-        onChange={this.change}
-        onBlur={this.blur}
-        label={label}
-        value={validating ? input.value : this.state.value}
-        type={type}
-        error={touched && error}
-        style={style}
-      />
-    );
-  }
-}
+export default InputField;

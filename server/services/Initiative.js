@@ -1,9 +1,9 @@
-function Initiative() {
-  this.context = null;
+class Initiative {
+  constructor() {
+    this.context = null;
+  }
+
+  setInitiative(initiative) {
+    this.initiative = initiative;
+  }
 }
-
-Initiative.prototype.setInitiative = function (initiative) {
-  this.initiative = initiative;
-};
-
-

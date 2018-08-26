@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'CC-UI';
+import { Modal } from 'components';
 import modulesConfig from '../../modulesConfig';
 import Item from './Item';
 import { Container, Label, Modules } from './styles';

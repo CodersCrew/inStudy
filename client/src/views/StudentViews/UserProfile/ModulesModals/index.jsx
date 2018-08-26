@@ -31,9 +31,9 @@ class ModulesModals extends PureComponent {
           onClose={() => closeModal('AddModule')}
           openModal={openModal}
         />
-        {!openedModalNames.includes('AddModule') &&
-          openedModalNames.length &&
-          this.renderModal(openedModalNames[0])}
+        {!openedModalNames.includes('AddModule') && openedModalNames.length
+          ? this.renderModal(openedModalNames[0])
+          : null}
       </Fragment>
     );
   }

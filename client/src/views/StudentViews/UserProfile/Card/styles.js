@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from 'CC-UI/lib/utils';
+import { media } from 'utils';
 
 export const Container = styled.div`
   position: sticky;
@@ -14,15 +14,11 @@ export const Container = styled.div`
   ${media.xl`
     padding: var(--space-lg);
   `};
-  ${media.lg`
-    top: var(--space-xl);
-    padding: var(--space-lg) var(--space-md);
-  `};
   ${media.md`
     position: static;
     display: grid;
     grid-column-gap: var(--space-lg);
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 160px 1fr;
   `};
   ${media.xs`
     display: flex;
@@ -31,26 +27,28 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 224px;
-  height: 224px;
+  min-width: 176px;
+  min-height: 176px;
+  max-width: 176px;
+  max-height: 176px;
   border-radius: 100%;
   ${media.xl`
-    width: 160px;
-    height: 160px;
-  `};
-  ${media.lg`
-    width: 120px;
-    height: 120px;
-    min-width: 120px;
-    min-height: 120px;
+    min-width: 160px;
+    min-height: 160px;
+    max-width: 160px;
+    max-height: 160px;
   `};
   ${media.md`
     grid-area: 1/1/4/2;
     align-self: start;
   `};
   ${media.xs`
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 120px;
+    max-height: 120px;
     align-self: center;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   `};
 `;
 
@@ -67,16 +65,11 @@ export const Name = styled.div`
     font-size: var(--font-lg);
     line-height: var(--font-lg-lh);
   `};
-  ${media.lg`
-    font-size: var(--font-md);
-    line-height: var(--font-md-lh);
-    padding-top: var(--space-md);
-  `};
   ${media.md`
+    padding-top: var(--space-sm);
     font-size: var(--font-lg);
     line-height: var(--font-lg-lh);
     text-align: left;
-    padding-top: 0;
   `};
   ${media.xs`
     text-align: center;
@@ -92,9 +85,6 @@ export const Description = styled.div`
   ${media.xl`
     font-size: var(--font-sm);
     line-height: var(--font-sm-lh);
-  `};
-  ${media.lg`
-    padding-top: var(--space-sm);
   `};
   ${media.md`
     padding: 0;
@@ -115,9 +105,6 @@ export const Socials = styled.div`
   padding-top: var(--space-xl);
   ${media.xl`
     padding-top: var(--space-lg);
-  `};
-  ${media.lg`
-    padding-top: var(--space-md);
   `};
   ${media.md`
     justify-content: flex-start;

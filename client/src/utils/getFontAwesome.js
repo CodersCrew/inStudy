@@ -1,16 +1,16 @@
-import { styles } from 'CC-UI/lib/utils';
-import enhanceHead from './enhanceHead';
+const enhanceHead = (tagName, attributes) => {
+  const element = document.createElement(tagName);
+  const head = document.querySelector('head');
+  const items = head.querySelectorAll('*');
+  const firstItem = items[0];
+  Object.keys(attributes).map((key) => {
+    element.setAttribute(key, attributes[key]);
+  });
+  head.insertBefore(element, firstItem);
+};
 
 export default fa => {
-  if (fa === 'free') {
-    enhanceHead('link', {
-      rel: 'stylesheet',
-      href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css',
-      integrity: 'sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9',
-      crossorigin: 'anonymous',
-    });
-    styles.setValue('--fa-light', '600');
-  } else if (fa === 'local') {
+  if (fa === 'local') {
     enhanceHead('link', {
       rel: 'stylesheet prefetch',
       href: 'https://static.fontawesome.com/css/fontawesome-app.css',
@@ -19,7 +19,6 @@ export default fa => {
       rel: 'stylesheet prefetch',
       href: 'https://pro-staging.fontawesome.com/releases/v5.2.0/css/all.css',
     });
-    styles.setValue('--fa-light', '300');
   } else {
     enhanceHead('link', {
       rel: 'stylesheet',
@@ -27,7 +26,6 @@ export default fa => {
       integrity: fa,
       crossorigin: 'anonymous',
     });
-    styles.setValue('--fa-light', '300');
   }
   return true;
 };

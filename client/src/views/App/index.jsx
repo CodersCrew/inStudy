@@ -3,7 +3,8 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { NotificationsSystem, theme } from 'CC-UI/lib/services/notifications';
+import { notificationsTheme } from 'utils';
+import NotificationsSystem from 'reapop';
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
 
@@ -21,20 +22,23 @@ import Registration from '../Registration';
 import Policy from '../Registration/Policy';
 import Statute from '../Registration/Statute';
 
-let isFontAwesomeLoaded = false;
-
 @connect(
   null,
   actions,
 )
 class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.isFontAwesomeLoaded = false;
+  }
+
   componentDidMount() {
     this.props.fetchUser();
   }
 
   render() {
-    if (!isFontAwesomeLoaded) {
-      isFontAwesomeLoaded = getFontAwesome(__FONT_AWESOME__, isFontAwesomeLoaded);
+    if (!this.isFontAwesomeLoaded) {
+      this.isFontAwesomeLoaded = getFontAwesome(__FONT_AWESOME__, this.isFontAwesomeLoaded);
     }
 
     return (
@@ -56,7 +60,7 @@ class App extends PureComponent {
               </Switch>
             </Scrollbars>
           </Body>
-          <NotificationsSystem theme={theme} />
+          <NotificationsSystem theme={notificationsTheme} />
         </Container>
       </BrowserRouter>
     );
