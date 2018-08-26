@@ -27,6 +27,14 @@ export const omit = (obj, arr) =>
 export const pick = (obj, arr) =>
   arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
 
+export const nl2br = text =>
+  text.split('\n').map((item, key) => (
+    <span key={key}>
+      {item}
+      <br />
+    </span>
+  ));
+
 export getFontAwesome from './getFontAwesome';
 export media from './media';
 export notificationsTheme from './notificationsTheme';

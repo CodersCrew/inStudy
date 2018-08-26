@@ -54,7 +54,8 @@ class FetchInitiative {
   getSingleInitiative(shortUrl) {
     return Initiative.findOne({
       shortUrl,
-    }).then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }));
+    }).then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
+    .then((profile) => mapRAWInitiativeObjectToViewReady(profile))
   }
 
   addInitiativeModule(initiativeId, module) {
@@ -92,6 +93,16 @@ class FetchInitiative {
   setFBProfile(shortUrl, profile) {
     return Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
   }
+}
+
+function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
+  const AboutPage = RAWInitiative.FBProfile.find((page) => page.content && page.content.kind === 'About');
+
+  if (AboutPage && AboutPage.content && AboutPage.content.logo) {
+    RAWInitiative.image = AboutPage.content.logo;
+  }
+
+  return RAWInitiative;
 }
 
 module.exports = FetchInitiative;

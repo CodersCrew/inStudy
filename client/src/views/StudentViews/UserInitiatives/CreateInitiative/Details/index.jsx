@@ -68,9 +68,7 @@ class Details extends PureComponent {
   };
 
   onSubmit = async values => {
-    console.log(values);
-    const res = await testPromise(values);
-    console.log(res);
+    const addedInitiative = await addInitiativeRequest(values);
     this.props.incrementStep(1);
   };
 
