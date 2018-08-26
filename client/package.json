@@ -49,16 +49,20 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "antd": "^3.8.2",
     "@babel/polyfill": "7.0.0-beta.56",
     "@dr-kobros/react-webfont-loader": "^8.0.0",
+    "antd": "^3.8.2",
     "axios": "^0.18.0",
+    "emotion": "^9.2.6",
+    "immutable": "^3.8.2",
+    "is-hotkey": "^0.1.3",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "react": "^16.4.2",
     "react-background-video-player": "^1.1.5",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.4.2",
+    "react-emotion": "^9.2.6",
     "react-portal": "^4.1.5",
     "react-redux": "^5.0.7",
     "react-reveal": "^1.2.2",
@@ -74,6 +78,8 @@
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
+    "slate": "^0.40.2",
+    "slate-react": "^0.18.3",
     "styled-components": "^3.4.1"
   }
 }

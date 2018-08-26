@@ -1,5 +1,6 @@
 import styled from 'styled-components';
+import { RichText } from 'components/reduxFormFields';
 
-export const Container = styled.div`
+export const StyledRichText = styled(RichText)`
   box-sizing: border-box;
 `;
