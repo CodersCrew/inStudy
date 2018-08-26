@@ -41,14 +41,14 @@ export const getInitiatives = req => async dispatch => {
   if (params.page !== reqCache.page || params.query !== reqCache.query) {
     reqCache = params;
     const { data } = await axios.get('/api/initiative', { params });
-    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data } });
   }
 };
 
 export const getMoreInitiatives = () => async dispatch => {
   const params = { ...reqCache, page: reqCache.page + 1 };
   const { data } = await axios.get('/api/initiative', { params });
-  return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data.result } });
+  return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data } });
 };
 
 export const setSearch = (searchObj, history) => ({

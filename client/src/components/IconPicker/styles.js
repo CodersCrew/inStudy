@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: center;
 
   input {
-    margin: var(--space-xs) 0;
     padding-left: ${props => (props.hasValue ? '32px' : '11px')};
   }
 `;
