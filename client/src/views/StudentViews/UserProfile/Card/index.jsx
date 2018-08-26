@@ -1,13 +1,20 @@
 import React, { PureComponent } from 'react';
 import { string, arrayOf, object } from 'prop-types';
+import { pick } from 'utils';
+import { socials } from 'data';
 import CardEditModal from './CardEditModal';
 import { Container, Image, Name, Description, Socials, Social, EditIcon } from './styles';
 
-const renderSocial = ({ link, iconName }) => <Social to={link} className={`fab fa-${iconName}`} />;
+const renderSocial = ({ type, url }) => (
+  <Social color={socials[type].color} href={url} className={socials[type].icon} />
+);
+
 renderSocial.propTypes = {
-  link: string.isRequired,
-  iconName: string.isRequired,
+  type: string.isRequired,
+  url: string.isRequired,
 };
+
+const userDataToPick = ['firstName', 'lastName', 'image', 'email', 'description', 'socials'];
 
 class Card extends PureComponent {
   state = {
@@ -28,7 +35,13 @@ class Card extends PureComponent {
         <Description>{description}</Description>
         {socials.length > 0 && <Socials>{socials.map(renderSocial)}</Socials>}
         <EditIcon className="fal fa-edit" onClick={this.openModal} />
-        <CardEditModal visible={this.state.isModalOpen} onClose={this.closeModal} />
+        {this.state.isModalOpen && (
+          <CardEditModal
+            visible={this.state.isModalOpen}
+            onClose={this.closeModal}
+            userData={pick(this.props, userDataToPick)}
+          />
+        )}
       </Container>
     );
   }

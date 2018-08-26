@@ -27,7 +27,8 @@ export const Container = styled.div`
   `};
 `;
 
-export const Image = styled.img`
+export const Image = styled.div`
+  background: url('${props => props.src}') no-repeat center/cover;
   min-width: 176px;
   min-height: 176px;
   max-width: 176px;
@@ -115,22 +116,26 @@ export const Socials = styled.div`
   `};
 `;
 
-export const Social = styled.div`
+export const Social = styled.a`
+  display: block;
   font-size: var(--font-xl);
   text-align: center;
-  color: var(--grey5);
+  color: var(--grey2);
   cursor: pointer;
   transition: all 0.3s var(--ease-in-out);
+  opacity: 0.4;
 
   &:hover {
-    color: var(--grey6);
+    opacity: 0.7;
+    color: ${props => props.color};
   }
 
   &:active {
-    color: var(--grey4);
+    opacity: 1;
+    color: ${props => props.color};
   }
 
-  & + div {
+  & + a {
     margin-left: var(--space-lg);
   }
 

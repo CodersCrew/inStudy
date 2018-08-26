@@ -1,13 +1,11 @@
-import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
-import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
-import FieldWrapper from './FieldWrapper';
+import Dropzone from 'react-dropzone';
 
-const StyledDropzone = styled(Dropzone)`
+export const StyledDropzone = styled(Dropzone)`
   position: relative;
-  width: 188px;
-  height: 188px;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
   border: 1px solid var(--grey5);
   border-radius: 4px;
   background: url('${props => props.preview}') no-repeat center/cover;
@@ -40,35 +38,3 @@ const StyledDropzone = styled(Dropzone)`
     background-color: ${props => (props.preview ? 'rgba(0, 0, 0, 0.75)' : 'var(--white)')};
   }
 `;
-
-class ImagePicker extends PureComponent {
-  state = {
-    preview: '',
-  };
-
-  onDrop = (acceptedFiles, rejectedFiles) => {
-    this.setState({ preview: acceptedFiles[0].preview });
-    this.props.input.onChange(acceptedFiles);
-  };
-
-  render() {
-    const props = this.props;
-    console.log(props);
-
-    return (
-      <FieldWrapper {...props} className={`${props.className} additional-space-field-wrapper`}>
-        <StyledDropzone preview={this.state.preview} onDrop={this.onDrop} />
-      </FieldWrapper>
-    );
-  }
-}
-
-ImagePicker.propTypes = {
-  text: string,
-};
-
-ImagePicker.defaultProps = {
-  text: 'Hello World',
-};
-
-export default ImagePicker;

@@ -25,3 +25,23 @@ export const Container = styled.div`
     grid-area: 3/2/4/3;
   }
 `;
+
+export const Label = styled.div`
+  padding: 0 0 var(--space-xs) var(--space-xs);
+  font-size: var(--font-xs);
+  line-height: var(--font-xs-lh);
+  font-weight: var(--medium);
+  color: var(--text2);
+`;
+
+export const TrashIcon = styled.i.attrs({
+  className: 'fal fa-trash-alt',
+})`
+  color: var(--grey2);
+  transition: all 0.3s var(--ease-in-out);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--error);
+  }
+`;
