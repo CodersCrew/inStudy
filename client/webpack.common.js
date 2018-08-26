@@ -101,6 +101,7 @@ module.exports = {
       utils: path.resolve(__dirname, 'src', 'utils'),
       store: path.resolve(__dirname, 'src', 'store'),
       hocs: path.resolve(__dirname, 'src', 'hocs'),
+      data: path.resolve(__dirname, 'src', 'data'),
     },
   },
 };

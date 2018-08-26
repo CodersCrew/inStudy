@@ -24,6 +24,9 @@ export const omit = (obj, arr) =>
     .filter(k => !arr.includes(k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 
+export const pick = (obj, arr) =>
+  arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
+
 export getFontAwesome from './getFontAwesome';
 export media from './media';
 export notificationsTheme from './notificationsTheme';

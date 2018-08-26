@@ -7,6 +7,7 @@ import {
   SET_HISTORY,
   FETCH_MORE_INITIATIVES,
   SET_SEARCH,
+  UPDATE_BASIC_USER_DATA,
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -55,3 +56,10 @@ export const setSearch = (searchObj, history) => ({
   payload: searchObj,
   history,
 });
+
+export const updateBasicUserData = userData => dispatch => {
+  return dispatch({
+    type: UPDATE_BASIC_USER_DATA,
+    payload: userData,
+  });
+};

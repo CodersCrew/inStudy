@@ -3,9 +3,8 @@ import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import Card from './Card';
 import Modules from './Modules';
-import ModulesNav from './ModulesNav';
 import ModulesModals from './ModulesModals';
-import { MainContainer, LeftColumn, RightColumn, NavColumn } from './styles';
+import { MainContainer, LeftColumn, RightColumn } from './styles';
 
 @connect(({ auth }) => ({ user: auth }))
 class UserProfile extends PureComponent {
