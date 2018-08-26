@@ -1,9 +1,9 @@
 const { addNewModule } = require('./../services/fetchUser')
 module.exports = app => {
   app.post('/api/user/module', (req, res) => {
-    const module = req.body.module;
+    const module = req.body;
     const userId = req.user._id;
-
+    
     addNewModule(module, userId)
       .then(() => {
         res.sendStatus(201);
