@@ -26,7 +26,6 @@ CloudinaryAPI.prototype.uploadInitiativeBackground = function(path, initiativeId
 
 function removeFile(path) {
   fs.unlinkSync(path);
-};
-
+}
 
 module.exports = CloudinaryAPI;
