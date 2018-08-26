@@ -4,10 +4,8 @@ const User = mongoose.model('users');
 const FBCrawler = require('./../services/Crawler/FBCrawler');
 
 module.exports = function (initiative, user) {
-  console.log(initiative, user)
-  return initiativeNotExist(initiative)
-    .then(() => createInitiative(mapUserInputToSave(initiative), user))
-    // .then((createdInitiative) => assignToUser(createdInitiative, user))
+  return initiativeNotExist(mapUserInputToSave(initiative))
+    .then(() => createInitiative(initiative, user))
 };
 
 function createInitiative(initiative, user) {
@@ -30,11 +28,17 @@ function assignToUser(createdInitiativeId, userId) {
     })
 }
 
-function initiativeNotExist({ email }) {
-  return Initiative.findOne({ email })
+function initiativeNotExist(initiative) {
+  const { email, facebookUrl, shortUrl } = initiative;
+  return Initiative.findOne({
+    $or: [{ email }, { facebookUrl }, { shortUrl }],
+  })
     .then((initiative) => {
-      if(initiative) return new Error('Dana inicjatywa już istnieje')
-      else return true;
+      if(initiative) {
+        return Promise.reject('Dana inicjatywa już istnieje')
+      }
+
+      return true;
     })
 }
 
@@ -42,6 +46,9 @@ function mapUserInputToSave(RAWInputData) {
   const FBUrlRegExp = new RegExp('^@([a-zA-Z0-9]+)$|facebook\.com\/([a-zA-Z0-9]+)\/?$|facebook\.com\/pg\/([a-zA-Z0-9]+)\/?|^[a-zA-Z0-9]+$', 'i')
     .exec(RAWInputData.facebookUrl);
 
+  //TODO: dodac obslluge bledow
   RAWInputData.facebookUrl = FBUrlRegExp.slice(0).reverse().find((singleMatch) => singleMatch);
+  RAWInputData.shortUrl = RAWInputData.facebookUrl;
+
   return RAWInputData;
 }
