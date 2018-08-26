@@ -16,7 +16,7 @@ const NavItems = ({ location }) => (
       html={
         <MenuItems>
           <MenuItem text="O projekcie" to="/about" />
-          <MenuItem text="FAQ" to="/faq" />
+          <MenuItem text="FAQ" to="/faq/ogolne" />
           <MenuItem text="Kontakt" to="/contact" />
         </MenuItems>
       }
