@@ -1,15 +1,14 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import validate from './validate';
-import { Li,StyledInputNumber, StyledInput, FieldsContainer, StyledField } from './styles';
+import { StyledButton, Li, StyledInputNumber, StyledInput, FieldsContainer, StyledField } from './styles';
+
 
 const renderSkills = ({ fields}) => (
 
   <ul>
     {fields.map((skill, index) => (
       <Li key={index}>
-
-
       <FieldsContainer>
         <Field
           name={`${skill}.name`}
@@ -23,11 +22,11 @@ const renderSkills = ({ fields}) => (
           label="Poziom"
           props={{ label: 'Poziom', name: 'level', min: 0, max: 100, step: 1 }}
         />
-         <button
-          type="button"
+         <StyledButton
+          type="default"
           title="Remove Skill"
           onClick={() => fields.remove(index)}
-        >-</button>
+         >x</StyledButton>
       </FieldsContainer>
       </Li>
     ))}

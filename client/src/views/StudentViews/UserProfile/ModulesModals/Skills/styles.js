@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Input, NumberInput } from 'components/reduxFormFields';
-import { Field } from 'redux-form';
+import { Button } from 'antd';
 
 export const Container = styled.div`
   box-sizing: border-box;
@@ -13,9 +13,13 @@ export const FieldsContainer = styled.div`
   justify-content: space-between;
 `;
 export const StyledInput = styled(Input)`
-  width: 70%;
+  width: 65%;
 `;
 export const StyledInputNumber = styled(NumberInput)`
-  width: 30%;
+  width: 28%;
+`;
+export const StyledButton = styled(Button)`
+  width: 2%;
+  margin-top: 4%;
 `;
 
