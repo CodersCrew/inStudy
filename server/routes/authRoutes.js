@@ -1,4 +1,5 @@
 const passport = require('passport');
+const { mapUserToView } = require('./../services/fetchUser');
 
 module.exports = app => {
   app.get(
@@ -17,7 +18,7 @@ module.exports = app => {
     res.send(req.user)
   });
 
-  app.get('/api/current_user', (req, res) => res.send(req.user));
+  app.get('/api/current_user', (req, res) => res.send(mapUserToView(req.user)));
 };
 
 
