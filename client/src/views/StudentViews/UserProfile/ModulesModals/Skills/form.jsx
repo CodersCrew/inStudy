@@ -1,9 +1,9 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
-import { NumberInput, Input } from 'components/reduxFormFields';
+import { NumberInput, Input} from 'components/reduxFormFields';
 // import validate from './validate';
 
-const renderSkills = ({ fields, meta: { error, submitFailed } }) => (
+const renderSkills = ({ fields}) => (
   <ul>
     {fields.map((skill, index) => (
       <li key={index}>
