@@ -1,20 +1,14 @@
-const FetchCity = require('./../services/fetchCities');
+import { fetchCities, fetchUniversities } from './../services/fetchCities';
 
-module.exports = app => {
-  app.get('/api/cities', (req, res) => {
-    FetchCity
-      .fetchCities()
-      .then((result) => {
-        res
-          .status(200)
-          .json(result)
-      })
+export default app => {
+  app.get('/api/cities', async (req, res) => {
+    const result = await fetchCities();
+    res.status(200).json(result);
   });
 
-  app.get('/api/cities/universities/:cityId', (req, res) => {
-    const cityId = req.params.cityId;
-    FetchCity
-      .fetchUniversities(cityId)
-      .then((result) => res.status(200).json(result))
+  app.get('/api/cities/universities/:cityId', async (req, res) => {
+    const { cityId } = req.params;
+    const result = await fetchUniversities(cityId);
+    res.status(200).json(result);
   });
 };

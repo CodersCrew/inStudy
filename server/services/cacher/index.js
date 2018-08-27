@@ -1,24 +1,20 @@
-const storage = require('./storage');
+import storage from './storage';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const path = req.path;
   const method = req.method;
   const cache = req.instudyCache;
 
   if (method === 'GET') {
     const result = storage.find(path);
-    console.log(result)
+    console.log(result);
     if (result) {
-      res
-        .status(200)
-        .json(result);
+      res.status(200).json(result);
     } else {
       next();
     }
   } else {
     storage.save(path, cache);
-    res
-      .sendStatus(201);
+    res.sendStatus(201);
   }
-
 };

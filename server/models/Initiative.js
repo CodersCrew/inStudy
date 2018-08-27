@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const organisationSchema = new Schema({
+const initiativeSchema = new Schema({
   name: String,
   description: String,
   email: String,
@@ -15,4 +15,7 @@ const organisationSchema = new Schema({
   image: String,
 });
 
-mongoose.model('initiatives', organisationSchema);
+export default {
+  name: 'initiatives',
+  schema: initiativeSchema,
+};

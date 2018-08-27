@@ -1,8 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const universitySchema = new Schema({
   name: String,
 });
 
-mongoose.model('universities', universitySchema);
+export default {
+  name: 'universities',
+  schema: universitySchema,
+};

@@ -1,30 +1,28 @@
-const FetchInitiative = require('./../services/FetchInitiative');
-const multer = require('multer');
-const path = require('path');
-const Cloudinary = require('./../services/Cloudinary');
-const cacher = require('../services/cacher/index');
-const createNewInitiative = require('./../services/createNewInitiative');
+import FetchInitiative from './../services/FetchInitiative';
+import multer from 'multer';
+import path from 'path';
+import Cloudinary from './../services/Cloudinary';
+import cacher from '../services/cacher/index';
+import createNewInitiative from './../services/createNewInitiative';
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   },
 });
 const upload = multer({ dest: 'uploads/', storage });
 // const upload = multer({ dest: 'uploads/' });
 
-module.exports = app => {
+export default app => {
   app.get('/api/initiative', (req, res) => {
     const { page } = req.query;
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then(foundInitiatives => {
-        res
-          .status(200)
-          .json(foundInitiatives);
+        res.status(200).json(foundInitiatives);
       })
       .catch(() => {
         res.sendStatus(404);
@@ -34,14 +32,11 @@ module.exports = app => {
   app.post('/api/initiative', (req, res) => {
     const initiative = req.body;
     createNewInitiative(initiative, req.user)
-      .then((result) => {
-        res
-          .status(200)
-          .json({ result });
+      .then(result => {
+        res.status(200).json({ result });
       })
       .catch(() => {
-        res
-          .sendStatus(404);
+        res.sendStatus(404);
       });
   });
 
@@ -72,19 +67,21 @@ module.exports = app => {
     // });
   });
 
-  app.post('/api/initiative/:initId/module', (req, res, next) => {
-    const initId = req.params.initId;
-    const module = req.body.module;
+  app.post(
+    '/api/initiative/:initId/module',
+    (req, res, next) => {
+      const initId = req.params.initId;
+      const module = req.body.module;
 
-    new FetchInitiative()
-      .addInitiativeModule(initId, module)
-      .then(() => {
+      new FetchInitiative().addInitiativeModule(initId, module).then(() => {
         req.instudyCache = module;
         next();
         // res
         //   .sendStatus(201);
-      })
-  }, cacher);
+      });
+    },
+    cacher,
+  );
 
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const initId = req.params.initId;
@@ -105,19 +102,16 @@ module.exports = app => {
 
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
-    new FetchInitiative()
-      .deleteModule(initId, modId)
-      .then(() => {
-        res
-          .sendStatus(201);
-      })
+    new FetchInitiative().deleteModule(initId, modId).then(() => {
+      res.sendStatus(201);
+    });
   });
 
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
     new FetchInitiative()
       .getFBProfile(shortUrl)
-      .then((result) => new FetchInitiative().setFBProfile(shortUrl, result))
+      .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
       .then(() => res.sendStatus(201));
-  })
+  });
 };
