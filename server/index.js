@@ -1,13 +1,17 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-const keys = require('./config/keys');
-const fileUpload = require('express-fileupload');
+import '@babel/polyfill';
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
+import keys from './config/keys';
+import fileUpload from 'express-fileupload';
+import initializeRoutes from './routes';
+import initializeModels from './models';
+import initializePassport from './services/passport';
 
-require('./models')();
-require('./services/passport');
+initializeModels();
+initializePassport();
 
 const app = express();
 
@@ -29,7 +33,7 @@ app.get('/', function(req, res, next) {
   res.render('index', {});
 });
 
-require('./routes')(app);
+initializeRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'public')));

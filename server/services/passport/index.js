@@ -1,19 +1,22 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
+import passport from 'passport';
+import { Strategy } from 'passport-google-oauth20';
+import mongoose from 'mongoose';
+import createGoogleStrategy from './googleStrategy';
 
-const User = mongoose.model('users');
-const googleStrategy = require('./googleStrategy')(User);
+export default () => {
+  const User = mongoose.model('users');
+  const googleStrategy = createGoogleStrategy(User);
 
-passport.serializeUser((user, done) => done(null, user.id));
+  passport.serializeUser((user, done) => done(null, user.id));
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (e) {
-    console.error(`Error with User deserializing: ${e.message}`);
-  }
-});
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findById(id);
+      done(null, user);
+    } catch (e) {
+      console.error(`Error with User deserializing: ${e.message}`);
+    }
+  });
 
-passport.use(new GoogleStrategy(googleStrategy.config, googleStrategy.callback));
+  passport.use(new Strategy(googleStrategy.config, googleStrategy.callback));
+};

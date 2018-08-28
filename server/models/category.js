@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const citySchema = new Schema({
+const categorySchema = new Schema({
   name: String,
 });
 
 export default {
-  name: 'cities',
-  schema: citySchema,
+  name: 'categories',
+  schema: categorySchema,
 };

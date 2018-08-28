@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -17,4 +17,7 @@ const userSchema = new Schema({
   initiatives: [Schema.Types.ObjectId],
 });
 
-mongoose.model('users', userSchema);
+export default {
+  name: 'users',
+  schema: userSchema,
+};

@@ -1,7 +1,7 @@
-const keys = require('../../config/keys');
-const InitializeUserAccount = require('./../InitializeUserAccount');
+import keys from '../../config/keys';
+import InitializeUserAccount from './../InitializeUserAccount';
 
-module.exports = User => ({
+export default User => ({
   config: {
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,

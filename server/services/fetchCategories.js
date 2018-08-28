@@ -1,6 +1,3 @@
-const mongoose = require('mongoose');
-const Categories = mongoose.model('categories');
+import mongoose from 'mongoose';
 
-module.exports.fetchCategories = function() {
-  return Categories.find({});
-};
+module.exports.fetchCategories = () => mongoose.model('categories').find({});
