@@ -103,20 +103,6 @@ export default app => {
 
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
-    new FetchInitiative().deleteModule(initId, modId).then(() => {
-      res.sendStatus(201);
-    });
-  });
-
-  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
-    const shortUrl = req.params.shortUrl;
-    new FetchInitiative().deleteModule(initId, modId).then(() => {
-      res.sendStatus(201);
-    });
-  });
-
-  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
-    const shortUrl = req.params.shortUrl;
     new FetchInitiative()
       .getFBProfile(shortUrl)
       .then(result => new FetchInitiative().setFBProfile(shortUrl, result))

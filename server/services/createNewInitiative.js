@@ -8,18 +8,19 @@ const createInitiative = (initiative, user) => {
     .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
     .scrape()
     .then(fetchedProfile => {
-      console.log(fetchedProfile);
       return new Initiative({ ...initiative, FBProfile: fetchedProfile }).save();
     })
-    .then(createdInitaitive => assignToUser(createdInitaitive._id, user._id));
+    .then(createdInitiative => assignToUser(createdInitiative, user._id));
 };
 
-const assignToUser = (createdInitiativeId, userId) =>
-  mongoose.model('users').findByIdAndUpdate(userId, {
+const assignToUser = async (createdInitiative, userId) => {
+  await mongoose.model('users').findByIdAndUpdate(userId, {
     $addToSet: {
-      initiatives: new mongoose.mongo.ObjectId(createdInitiativeId),
+      initiatives: new mongoose.mongo.ObjectId(createdInitiative._id),
     },
   });
+  return createdInitiative;
+};
 
 const initiativeNotExist = initiative => {
   const { email, facebookUrl, shortUrl } = initiative;
@@ -52,4 +53,5 @@ const mapUserInputToSave = RAWInputData => {
   return RAWInputData;
 };
 
-export default (initiative, user) => initiativeNotExist(mapUserInputToSave(initiative)).then(() => createInitiative(initiative, user));
+export default (initiative, user) =>
+  initiativeNotExist(mapUserInputToSave(initiative)).then(() => createInitiative(initiative, user));

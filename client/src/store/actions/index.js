@@ -68,11 +68,11 @@ export const updateBasicUserData = userData => async dispatch => {
 
 export const addUserInitiative = initiativeData => async dispatch => {
   try {
-    await axios.post('/api/initiative', initiativeData);
+    const data = await axios.post('/api/initiative', initiativeData);
 
     return dispatch({
       type: ADD_USER_INITIATIVE,
-      payload: initiativeData,
+      payload: data.data.result,
     });
   } catch (e) {
     console.log(e);
