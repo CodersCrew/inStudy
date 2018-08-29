@@ -1,13 +1,12 @@
 import React from 'react';
 import { Value } from 'slate';
 import 'antd';
-
+import { SVGIcon } from '../../index';
 import initialValue from './RichTextValue.json';
 import { isKeyHotkey } from 'is-hotkey';
 import {
   StyledEditor,
   Button,
-  Icon,
   Toolbar,
   Bold,
   Italic,
@@ -15,6 +14,8 @@ import {
   BlockQuote,
   One,
   Two,
+  Ul,
+  Ol,
 } from './RichTextStyle';
 
 const DEFAULT_NODE = 'paragraph';
@@ -43,14 +44,14 @@ class RichTextExample extends React.Component {
     return (
       <div>
         <Toolbar>
-          {this.renderMarkButton('bold', 'B')}
-          {this.renderMarkButton('italic', 'I')}
-          {this.renderMarkButton('underlined', '_')}
-          {this.renderBlockButton('heading-one', 'one')}
-          {this.renderBlockButton('heading-two', 'two')}
-          {this.renderBlockButton('block-quote', 'quo')}
-          {this.renderBlockButton('numbered-list', 'ol')}
-          {this.renderBlockButton('bulleted-list', 'ul')}
+          {this.renderMarkButton('bold', 'bold-solid.svg')}
+          {this.renderMarkButton('italic', 'italic-solid.svg')}
+          {this.renderMarkButton('underlined', 'underline-solid.svg')}
+          {this.renderBlockButton('heading-one', 'number-one-in-a-circle.svg')}
+          {this.renderBlockButton('heading-two', 'number-two-in-a-circle.svg')}
+          {this.renderBlockButton('block-quote', 'quote-right-solid.svg')}
+          {this.renderBlockButton('numbered-list', 'list-ol-solid.svg')}
+          {this.renderBlockButton('bulleted-list', 'list-ul-solid.svg')}
         </Toolbar>
         <StyledEditor
           spellCheck
@@ -71,7 +72,7 @@ class RichTextExample extends React.Component {
 
     return (
       <Button active={isActive} onMouseDown={event => this.onClickMark(event, type)}>
-        <Icon>{icon}</Icon>
+        <SVGIcon path={`/fa-icons/${icon}`} fill="currnetColor" width="15px" height="15px" />
       </Button>
     );
   };
@@ -87,7 +88,7 @@ class RichTextExample extends React.Component {
 
     return (
       <Button active={isActive} onMouseDown={event => this.onClickBlock(event, type)}>
-        <Icon>{icon}</Icon>
+        <SVGIcon path={`/fa-icons/${icon}`} fill="currentColor" width="15px" height="15px" />
       </Button>
     );
   };
@@ -99,7 +100,7 @@ class RichTextExample extends React.Component {
       case 'block-quote':
         return <BlockQuote {...attributes}>{children}</BlockQuote>;
       case 'bulleted-list':
-        return <ul {...attributes}>{children}</ul>;
+        return <Ul {...attributes}>{children}</Ul>;
       case 'heading-one':
         return <One {...attributes}>{children}</One>;
       case 'heading-two':
@@ -107,7 +108,7 @@ class RichTextExample extends React.Component {
       case 'list-item':
         return <li {...attributes}>{children}</li>;
       case 'numbered-list':
-        return <ol {...attributes}>{children}</ol>;
+        return <Ol {...attributes}>{children}</Ol>;
     }
   };
 

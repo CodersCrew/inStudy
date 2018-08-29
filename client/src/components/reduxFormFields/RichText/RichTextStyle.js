@@ -1,15 +1,12 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Editor } from 'slate-react';
 
 export const StyledEditor = styled(Editor)`
-  margin: var(--space-xs) 0;
   padding: 11px;
   font-family: 'Roboto', sans-serif;
   font-variant: tabular-nums;
   width: 100%;
-  height: 200px;
-  color: rgba(0, 0, 0, 0.65);
+  min-height: 200px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   transition: all 0.3s;
@@ -23,18 +20,11 @@ export const StyledEditor = styled(Editor)`
 export const Button = styled.span`
   cursor: pointer;
   color: ${props =>
-    props.reversed ? (props.active ? 'white' : '#aaa') : props.active ? 'black' : '#ccc'};
-  transition: all 0.5 s ease;
+    props.reversed ? (props.active ? '' : '') : props.active ? 'black' : 'rgb(185, 185, 185)'};
+  transition: all 0.05s ease;
   &:hover {
-    color: blue;
+    fill: grey;
   }
-`;
-
-export const Icon = styled(({ className, ...rest }) => {
-  return <span className={`material-icons ${className}`} {...rest} />;
-})`
-  font-size: 15px;
-  vertical-align: text-bottom;
 `;
 
 export const Menu = styled.div`
@@ -50,8 +40,6 @@ export const Toolbar = styled(Menu)`
   position: relative;
   padding: 1px 18px 17px;
   margin: 0 -20px;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 20px;
 `;
 
 export const Bold = styled.span`
@@ -69,7 +57,7 @@ export const Underlined = styled.span`
 export const BlockQuote = styled.blockquote`
   clear: both;
   color: rgb(160, 160, 160);
-  background-color: rgb(214, 214, 214);
+  background-color: rgb(235, 235, 235);
   font-size: 14px;
   border-left: solid 1px black;
   padding-left: 5px;
@@ -81,4 +69,12 @@ export const One = styled.span`
 
 export const Two = styled.span`
   font-size: 24px;
+`;
+
+export const Ul = styled.ul`
+  margin-left: 10px;
+`;
+
+export const Ol = styled.ol`
+  margin-left: 10px;
 `;
