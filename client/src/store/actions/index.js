@@ -57,7 +57,8 @@ export const setSearch = (searchObj, history) => ({
   history,
 });
 
-export const updateBasicUserData = userData => dispatch => {
+export const updateBasicUserData = userData => async dispatch => {
+  await axios.put('/api/user/basic', userData);
   return dispatch({
     type: UPDATE_BASIC_USER_DATA,
     payload: userData,

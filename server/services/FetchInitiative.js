@@ -57,6 +57,9 @@ class FetchInitiative {
   getSingleInitiative = shortUrl => {
     return this.Initiative.findOne({
       shortUrl,
+    }).then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
+    .then((profile) => mapRAWInitiativeObjectToViewReady(profile))
+  }
     })
       .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
       .then(profile => mapRAWInitiativeObjectToViewReady(profile));

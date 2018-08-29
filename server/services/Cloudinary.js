@@ -6,7 +6,7 @@ cloudinary.config(file_cloud);
 
 const removeFile = path => {
   fs.unlinkSync(path);
-};
+}
 
 class CloudinaryAPI {
   constructor() {

@@ -1,3 +1,5 @@
 import mongoose from 'mongoose';
 
-module.exports.fetchCategories = () => mongoose.model('categories').find({});
+module.exports.fetchCategories = function() {
+  return Categories.find({});
+};

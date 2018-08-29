@@ -86,13 +86,14 @@ class ItemsList extends PureComponent {
 
 class TimeLine extends PureComponent {
   render() {
-    const { visible, onClose, name, icon } = this.props;
+    const { visible, onClose, name, icon, type } = this.props;
     return (
       <ModalBase
         visible={visible}
         onClose={onClose}
         name={name}
         icon={icon}
+        type={type}
         contentHeader="Elementy na osi czasu"
       >
         <FieldArray name="items" component={ItemsList} />

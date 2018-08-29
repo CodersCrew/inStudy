@@ -22,7 +22,9 @@ export default app => {
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then(foundInitiatives => {
-        res.status(200).json(foundInitiatives);
+        res
+          .status(200)
+          .json(foundInitiatives);
       })
       .catch(() => {
         res.sendStatus(404);
@@ -36,7 +38,8 @@ export default app => {
         res.status(200).json({ result });
       })
       .catch(() => {
-        res.sendStatus(404);
+        res
+          .sendStatus(404);
       });
   });
 
@@ -67,21 +70,19 @@ export default app => {
     // });
   });
 
-  app.post(
-    '/api/initiative/:initId/module',
-    (req, res, next) => {
-      const initId = req.params.initId;
-      const module = req.body.module;
+  app.post('/api/initiative/:initId/module', (req, res, next) => {
+    const initId = req.params.initId;
+    const module = req.body.module;
 
-      new FetchInitiative().addInitiativeModule(initId, module).then(() => {
+    new FetchInitiative()
+      .addInitiativeModule(initId, module)
+      .then(() => {
         req.instudyCache = module;
         next();
         // res
         //   .sendStatus(201);
-      });
-    },
-    cacher,
-  );
+      })
+  }, cacher);
 
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const initId = req.params.initId;
@@ -110,8 +111,18 @@ export default app => {
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
     new FetchInitiative()
-      .getFBProfile(shortUrl)
-      .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
-      .then(() => res.sendStatus(201));
+      .deleteModule(initId, modId)
+      .then(() => {
+        res
+          .sendStatus(201);
+      })
   });
+
+  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
+    const shortUrl = req.params.shortUrl;
+    new FetchInitiative()
+      .getFBProfile(shortUrl)
+      .then((result) => new FetchInitiative().setFBProfile(shortUrl, result))
+      .then(() => res.sendStatus(201));
+  })
 };

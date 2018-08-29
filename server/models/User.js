@@ -10,11 +10,13 @@ const userSchema = new Schema({
   description: String,
   socials: [
     {
-      link: String,
-      iconName: String,
+      url: String,
+      socialType: String,
+      _id: false,
     },
   ],
   initiatives: [Schema.Types.ObjectId],
+  modules: [{}],
 });
 
 export default {

@@ -6,11 +6,9 @@ import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
 import { Top, InputWrapper, ContentHeader } from './styles';
 import { required } from 'utils/validators';
+import axios from 'axios';
 
-const addModuleRequest = moduleData =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(moduleData), 3000);
-  });
+const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData)
 
 @reduxForm({ form: 'addModule' })
 class ModalBase extends Component {
@@ -22,6 +20,7 @@ class ModalBase extends Component {
     const valuesToSubmit = {
       icon: values.icon,
       title: values.title,
+      type: this.props.type,
       content: omit(values, ['icon', 'titile']),
     };
     console.log(valuesToSubmit);
@@ -41,7 +40,6 @@ class ModalBase extends Component {
       submitting,
       contentHeader,
     } = this.props;
-
     return (
       <Modal
         visible={visible}
@@ -96,6 +94,7 @@ ModalBase.propTypes = {
   onClose: func.isRequired,
   children: node.isRequired,
   submitting: bool,
+  type: string.isRequired,
 };
 
 ModalBase.defaultProps = {
