@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { media } from 'utils';
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   padding: var(--space-lg) var(--space-xl) var(--space-xl);
   background-color: var(--white);

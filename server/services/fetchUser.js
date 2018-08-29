@@ -17,6 +17,31 @@ export const updateModule = (module, userId, moduleIndex) => {
   });
 };
 
+export const deleteModule = (userId, moduleIndex) => {
+  const User = mongoose.model('users');
+  const unsetObject = {};
+  unsetObject['modules.' + moduleIndex] = null;
+
+  return new Promise(resolve => {
+    User.findByIdAndUpdate(
+      userId,
+      {
+        $set: unsetObject,
+      },
+      () => {
+        User.findByIdAndUpdate(
+          userId,
+          {
+            $pull: { modules: null },
+          },
+          { multi: true },
+          () => resolve(),
+        );
+      },
+    );
+  });
+};
+
 export const changeBasicUserData = (basic, userId) => {
   basic.socials = basic.socials.map(singleSocial => ({
     url: singleSocial.url,

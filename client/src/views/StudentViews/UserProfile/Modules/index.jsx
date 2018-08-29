@@ -4,7 +4,7 @@ import EmptyState from './EmptyState';
 import ModuleBase from './ModuleBase';
 
 const renderModule = (module, index) => {
-  return <ModuleBase key={module.type} moduleIndex={index} {...module} />;
+  return <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} />;
 };
 
 class Modules extends PureComponent {

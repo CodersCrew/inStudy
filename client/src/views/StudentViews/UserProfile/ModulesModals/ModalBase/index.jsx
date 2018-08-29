@@ -12,6 +12,9 @@ const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData
 
 const editModuleRequest = (moduleData, moduleIndex) =>
   axios.put('/api/user/module', { data: moduleData, index: moduleIndex });
+
+const deleteModuleRequest = moduleIndex => axios.delete(`/api/user/module/${moduleIndex}`);
+
 @reduxForm({ form: 'addModule' })
 class ModalBase extends Component {
   constructor(props) {
@@ -51,8 +54,40 @@ class ModalBase extends Component {
     this.props.onClose();
   };
 
+  deleteModule = async () => {
+    await deleteModuleRequest(this.props.moduleIndex);
+    console.log('Module deleted');
+  };
+
   render() {
     const { visible, onClose, name, icon, handleSubmit, children, submitting, contentHeader } = this.props;
+    const buttons = [
+      {
+        onClick: handleSubmit(this.onSubmit),
+        label: this.isEditModal ? 'Zapisz zmiany' : 'Dodaj moduł',
+        type: 'primary',
+        loading: submitting,
+      },
+      {
+        onClick: () => onClose(),
+        label: 'Anuluj',
+        disabled: submitting,
+      },
+    ];
+
+    if (this.isEditModal) {
+      buttons.push({
+        onClick: this.deleteModule,
+        label: 'Usuń moduł',
+        type: 'danger',
+        ghost: true,
+        disabled: submitting,
+        style: { marginRight: 'auto' },
+      });
+    }
+
+    console.log(buttons);
+
     return (
       <Modal
         visible={visible}
@@ -61,19 +96,7 @@ class ModalBase extends Component {
         icon={`/fa-icons/${icon}-light.svg`}
         type="complex"
         width={644}
-        buttons={[
-          {
-            onClick: handleSubmit(this.onSubmit),
-            label: this.isEditModal ? 'Zapisz zmiany' : 'Dodaj moduł',
-            type: 'primary',
-            loading: submitting,
-          },
-          {
-            onClick: () => onClose(),
-            label: 'Anuluj',
-            disabled: submitting,
-          },
-        ]}
+        buttons={buttons}
       >
         <Top>
           <Field

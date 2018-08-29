@@ -39,7 +39,11 @@ Item.propTypes = itemProps;
 const Timeline = ({ items }) => <Container>{items.map(Item)}</Container>;
 
 Timeline.propTypes = {
-  items: arrayOf(exact(itemProps)).isRequired,
+  items: arrayOf(exact(itemProps)),
+};
+
+Timeline.defaultProps = {
+  items: [],
 };
 
 export default Timeline;
