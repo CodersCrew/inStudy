@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength } from 'utils/validators';
+import { addUserInitiative } from 'store/actions';
 import texts from './texts';
 import { Container } from './styles';
 
@@ -15,8 +16,6 @@ const sendCategoriesRequest = () => axios.get('/api/category');
 
 const sendUniversitiesRequest = cityId => axios.get(`/api/cities/universities/${cityId}`);
 
-const addInitiativeRequest = initiativeData => axios.post('/api/initiative', initiativeData);
-
 const mapResponseToOptions = responseArray => responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
 
 const valueSelector = formValueSelector('newInitiativeDetails');
@@ -25,7 +24,10 @@ const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCity
 
 const maxDescriptionLength = maxLength(260);
 
-@connect(state => ({ city: valueSelector(state, 'city') }))
+@connect(
+  state => ({ city: valueSelector(state, 'city') }),
+  { addUserInitiative },
+)
 @reduxForm({ form: 'newInitiativeDetails' })
 class Details extends PureComponent {
   state = {
@@ -60,8 +62,12 @@ class Details extends PureComponent {
   };
 
   onSubmit = async values => {
-    const addedInitiative = await addInitiativeRequest(values);
-    this.props.incrementStep(1);
+    try {
+      await this.props.addUserInitiative(values);
+      this.props.incrementStep(1);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
@@ -157,6 +163,7 @@ Details.propTypes = {
   incrementStep: func.isRequired,
   submitting: bool.isRequired,
   visible: bool,
+  addUserInitiative: func.isRequired,
 };
 
 Details.defaultProps = {

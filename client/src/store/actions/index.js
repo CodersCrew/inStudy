@@ -8,6 +8,7 @@ import {
   FETCH_MORE_INITIATIVES,
   SET_SEARCH,
   UPDATE_BASIC_USER_DATA,
+  ADD_USER_INITIATIVE,
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -63,4 +64,17 @@ export const updateBasicUserData = userData => async dispatch => {
     type: UPDATE_BASIC_USER_DATA,
     payload: userData,
   });
+};
+
+export const addUserInitiative = initiativeData => async dispatch => {
+  try {
+    await axios.post('/api/initiative', initiativeData);
+
+    return dispatch({
+      type: ADD_USER_INITIATIVE,
+      payload: initiativeData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

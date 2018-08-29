@@ -3,18 +3,15 @@ import FBCrawler from './../services/Crawler/FBCrawler';
 
 const createInitiative = (initiative, user) => {
   const Initiative = mongoose.model('initiatives');
-  return new Initiative({ ...initiative }).save((err, createdInitaitive) =>
-    assignToUser(createdInitaitive._id, user._id),
-  );
 
-  // return new FBCrawler()
-  //   .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
-  //   .scrape()
-  //   .then(fetchedProfile => {
-  //     console.log(fetchedProfile);
-  //     return new Initiative({ ...initiative, FBProfile: fetchedProfile }).save();
-  //   })
-  //   .then(createdInitaitive => assignToUser(createdInitaitive._id, user._id));
+  return new FBCrawler()
+    .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
+    .scrape()
+    .then(fetchedProfile => {
+      console.log(fetchedProfile);
+      return new Initiative({ ...initiative, FBProfile: fetchedProfile }).save();
+    })
+    .then(createdInitaitive => assignToUser(createdInitaitive._id, user._id));
 };
 
 const assignToUser = (createdInitiativeId, userId) =>

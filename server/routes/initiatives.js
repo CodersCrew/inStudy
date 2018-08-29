@@ -35,7 +35,8 @@ export default app => {
       .then(result => {
         res.status(200).json({ result });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         res.sendStatus(404);
       });
   });
