@@ -1,14 +1,26 @@
 import React, { PureComponent } from 'react';
-import { string, object } from 'prop-types';
-import ModulesConfig from '../../modulesConfig';
-import { Container, Header, Icon, Text, Content } from './styles';
+import { string, object, number } from 'prop-types';
+import { pick } from 'utils';
+import modulesConfig from '../../modulesConfig';
+import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
 class ModuleBase extends PureComponent {
+  state = {
+    isModalOpen: false,
+  };
+
+  openModal = () => this.setState({ isModalOpen: true });
+
+  closeModal = () => this.setState({ isModalOpen: false });
+
   render() {
-    console.log(this.props);
-    const ModuleComponent = ModulesConfig[this.props.type].module;
+    const modalData = modulesConfig[this.props.type];
+    const ModuleComponent = modalData.module;
+    const ModuleModal = modalData.modalContent;
+
     return (
       <Container>
+        <EditIcon className="fal fa-edit" onClick={this.openModal} />
         <Header>
           <Icon className={`fal fa-${this.props.icon}`} />
           <Text>{this.props.title}</Text>
@@ -16,6 +28,18 @@ class ModuleBase extends PureComponent {
         <Content>
           <ModuleComponent {...this.props.content} />
         </Content>
+        {this.state.isModalOpen && (
+          <ModuleModal
+            visible
+            key={this.props.type}
+            name={modalData.name}
+            icon={modalData.icon}
+            type={this.props.type}
+            onClose={this.closeModal}
+            initialValues={pick(this.props, ['title', 'icon', 'content'])}
+            moduleIndex={this.props.moduleIndex}
+          />
+        )}
       </Container>
     );
   }
@@ -26,6 +50,7 @@ ModuleBase.propTypes = {
   icon: string.isRequired,
   title: string.isRequired,
   type: string.isRequired,
+  moduleIndex: number.isRequired,
 };
 
 export default ModuleBase;

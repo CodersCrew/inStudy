@@ -3,13 +3,13 @@ import { media } from 'utils';
 
 export const Container = styled.div`
   width: 100%;
-  padding: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg) var(--space-xl) var(--space-xl);
   background-color: var(--white);
   box-shadow: var(--shadow2);
   border-radius: 4px;
   ${media.md`
     margin-top: var(--space-xl);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
   `};
 `;
 
@@ -48,5 +48,28 @@ export const Text = styled.h1`
 `;
 
 export const Content = styled.div`
-  margin-top: var(--space-xl);
+  margin-top: var(--space-lg);
+`;
+
+export const EditIcon = styled.div`
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-xl);
+  color: var(--grey5);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-in-out);
+
+  &:hover {
+    color: var(--grey6);
+  }
+
+  &:active {
+    color: var(--grey4);
+  }
 `;

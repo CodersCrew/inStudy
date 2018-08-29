@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
+import { object, string, func, bool, number } from 'prop-types';
 import { FieldArray } from 'redux-form';
+import moment from 'moment';
 import ModalBase from '../ModalBase';
 import ItemModal from './ItemModal';
 import {
@@ -14,6 +15,14 @@ import {
   Buttons,
   Button,
 } from './styles';
+
+const sortByDates = (itemA, itemB) => {
+  const [dateA, dateB] = [moment(itemA.from, 'MM-YYYY'), moment(itemB.from, 'MM-YYYY')];
+
+  if (dateA.isBefore(dateB)) return 1;
+  else if (dateA.isAfter(dateB)) return -1;
+  return 0;
+};
 
 class ItemsList extends PureComponent {
   state = {
@@ -62,14 +71,11 @@ class ItemsList extends PureComponent {
   };
 
   render() {
-    const {
-      fields,
-      meta: { error, submitFailed },
-    } = this.props;
+    const fields = this.props.fields.getAll() || [];
 
     return (
       <Container>
-        {fields.getAll()?.map(this.renderItem)}
+        {fields.sort(sortByDates).map(this.renderItem)}
         <AddItemButton onClick={this.addItem}>+ Dodaj element do osi czasu</AddItemButton>
         {this.state.isModalOpen && (
           <ItemModal
@@ -84,9 +90,13 @@ class ItemsList extends PureComponent {
   }
 }
 
+ItemsList.propTypes = {
+  fields: object.isRequired,
+};
+
 class TimeLine extends PureComponent {
   render() {
-    const { visible, onClose, name, icon, type } = this.props;
+    const { visible, onClose, name, icon, type, initialValues, moduleIndex } = this.props;
     return (
       <ModalBase
         visible={visible}
@@ -95,6 +105,8 @@ class TimeLine extends PureComponent {
         icon={icon}
         type={type}
         contentHeader="Elementy na osi czasu"
+        initialValues={initialValues}
+        moduleIndex={moduleIndex}
       >
         <FieldArray name="items" component={ItemsList} />
       </ModalBase>
@@ -103,11 +115,18 @@ class TimeLine extends PureComponent {
 }
 
 TimeLine.propTypes = {
-  text: string,
+  visible: bool.isRequired,
+  onClose: func.isRequired,
+  name: string.isRequired,
+  icon: string.isRequired,
+  type: string.isRequired,
+  initialValues: object,
+  moduleIndex: number,
 };
 
 TimeLine.defaultProps = {
-  text: 'Rich Text',
+  initialValues: null,
+  moduleIndex: null,
 };
 
 export default TimeLine;
