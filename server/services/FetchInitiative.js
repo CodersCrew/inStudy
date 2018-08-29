@@ -55,12 +55,9 @@ class FetchInitiative {
   };
 
   getSingleInitiative = shortUrl => {
-    return this.Initiative.findOne({
-      shortUrl,
-    }).then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
-    .then((profile) => mapRAWInitiativeObjectToViewReady(profile))
-  }
-    })
+    return this.Initiative.findOne({ shortUrl })
+      .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
+      .then(profile => mapRAWInitiativeObjectToViewReady(profile))
       .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
       .then(profile => mapRAWInitiativeObjectToViewReady(profile));
   };
@@ -92,9 +89,7 @@ class FetchInitiative {
   }
 
   getFBProfile = shortUrl => {
-    return new FBCrawler()
-      .addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`)
-      .scrape();
+    return new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
   };
 
   setFBProfile = (shortUrl, profile) => {
@@ -103,9 +98,7 @@ class FetchInitiative {
 }
 
 function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
-  const AboutPage = RAWInitiative.FBProfile.find(
-    page => page.content && page.content.kind === 'About',
-  );
+  const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
 
   if (AboutPage && AboutPage.content && AboutPage.content.logo) {
     RAWInitiative.image = AboutPage.content.logo;

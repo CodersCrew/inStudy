@@ -1,5 +1,6 @@
-const { addNewModule, changeBasicUserData } = require('./../services/fetchUser')
-module.exports = app => {
+import { addNewModule, changeBasicUserData } from './../services/fetchUser';
+
+export default app => {
   app.post('/api/user/module', (req, res) => {
     const module = req.body;
     const userId = req.user._id;
@@ -8,7 +9,7 @@ module.exports = app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
         res.sendStatus(404);
       });
@@ -17,14 +18,14 @@ module.exports = app => {
   app.put('/api/user/basic', (req, res) => {
     const basic = req.body;
     const userId = req.user._id;
-    console.log(basic, userId)
+    console.log(basic, userId);
     changeBasicUserData(basic, userId)
       .then(() => {
         res.sendStatus(201);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
         res.sendStatus(404);
       });
-  })
+  });
 };

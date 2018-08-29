@@ -3,15 +3,15 @@ class Storage {
     this.storage = [];
   }
 
-  find = (path) => {
-    return this.storage.find((singleElement) => {
-      console.log(singleElement, path)
+  find = path => {
+    return this.storage.find(singleElement => {
+      console.log(singleElement, path);
       return singleElement.path === path.substring(0, path.length - 1);
     });
   };
 
   save = (path, element) => {
-    this.storage = this.storage.filter((singleElement) => {
+    this.storage = this.storage.filter(singleElement => {
       return singleElement.path !== path;
     });
     this.storage.push({ path, ...element });

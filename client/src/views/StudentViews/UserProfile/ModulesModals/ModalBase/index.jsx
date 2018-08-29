@@ -8,8 +8,7 @@ import { Top, InputWrapper, ContentHeader } from './styles';
 import { required } from 'utils/validators';
 import axios from 'axios';
 
-const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData)
-
+const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData);
 @reduxForm({ form: 'addModule' })
 class ModalBase extends Component {
   shouldComponentUpdate(np) {
@@ -30,16 +29,7 @@ class ModalBase extends Component {
   };
 
   render() {
-    const {
-      visible,
-      onClose,
-      name,
-      icon,
-      handleSubmit,
-      children,
-      submitting,
-      contentHeader,
-    } = this.props;
+    const { visible, onClose, name, icon, handleSubmit, children, submitting, contentHeader } = this.props;
     return (
       <Modal
         visible={visible}

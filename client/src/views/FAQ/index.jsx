@@ -49,12 +49,7 @@ export default class FAQ extends PureComponent {
   Category = ({ iconName, title, description, name, active }) => (
     <CategoryCard active={active} onClick={() => this.changeCategory(name)}>
       <Head>
-        <SVGIcon
-          path={`/fa-icons/${iconName}-light.svg`}
-          width={24}
-          height={24}
-          fill="var(--grey1)"
-        />
+        <SVGIcon path={`/fa-icons/${iconName}-light.svg`} width={24} height={24} fill="var(--grey1)" />
         <h3>{title}</h3>
       </Head>
       <Description>{description}</Description>
@@ -70,7 +65,6 @@ export default class FAQ extends PureComponent {
       },
       state: { openIndex },
     } = this;
-    console.log(this.props);
     const currentcategoryName = params.name || 'ogolne';
     const questionsList = questions[currentcategoryName];
     const currentCategory = categories.find(c => c.name === currentcategoryName);

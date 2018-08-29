@@ -31,7 +31,6 @@ class MonthPickerField extends PureComponent {
     this.isValueString = props.input.value && typeof props.input.value === 'string';
 
     const value = this.isValueString ? moment() : props.input.value || undefined;
-    console.log(value);
 
     return (
       <FieldWrapper {...props}>

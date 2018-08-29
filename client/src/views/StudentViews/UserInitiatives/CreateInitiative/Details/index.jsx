@@ -9,11 +9,6 @@ import { required, maxLength } from 'utils/validators';
 import texts from './texts';
 import { Container } from './styles';
 
-const testPromise = () =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(true), 5000);
-  });
-
 const sendCitiesRequest = () => axios.get('/api/cities');
 
 const sendCategoriesRequest = () => axios.get('/api/category');
@@ -22,8 +17,7 @@ const sendUniversitiesRequest = cityId => axios.get(`/api/cities/universities/${
 
 const addInitiativeRequest = initiativeData => axios.post('/api/initiative', initiativeData);
 
-const mapResponseToOptions = responseArray =>
-  responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
+const mapResponseToOptions = responseArray => responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
 
 const valueSelector = formValueSelector('newInitiativeDetails');
 
@@ -43,9 +37,7 @@ class Details extends PureComponent {
 
   componentDidMount() {
     sendCitiesRequest().then(({ data }) => this.setState({ cities: mapResponseToOptions(data) }));
-    sendCategoriesRequest().then(({ data }) =>
-      this.setState({ categories: mapResponseToOptions(data) }),
-    );
+    sendCategoriesRequest().then(({ data }) => this.setState({ categories: mapResponseToOptions(data) }));
   }
 
   componentDidUpdate(prevProps) {

@@ -3,13 +3,12 @@ import Page from './Page';
 
 const FBScraper = url => {
   const pageSchema = {
-    'about': AboutSchema,
+    about: AboutSchema,
   };
 
   const key = Object.keys(pageSchema).find(singleKey => new RegExp(singleKey).test(url));
   if (!key) throw new Error('Scrape not matched');
-
-}
+};
 
 const find = (selector, type = 'innerHTML') => document.querySelector(selector)[type];
 
