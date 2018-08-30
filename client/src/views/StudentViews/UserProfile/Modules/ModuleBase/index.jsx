@@ -17,6 +17,7 @@ class ModuleBase extends PureComponent {
     const modalData = modulesConfig[this.props.type];
     const ModuleComponent = modalData.module;
     const ModuleModal = modalData.modalContent;
+    console.log(this.state.isModalOpen);
 
     return (
       <Container>
