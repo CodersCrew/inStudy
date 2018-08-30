@@ -1,6 +1,6 @@
-const storage = require('./storage');
+import storage from './storage';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const path = req.path;
   const method = req.method;
   const cache = req.instudyCache;

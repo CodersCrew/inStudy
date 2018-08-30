@@ -533,12 +533,19 @@
   background-color: rgba(0, 0, 0, 0.02);
 }
 :local .notification-title {
+  font-family: var(--headerFont);
+  font-size: var(--font-md);
+  line-height: var(--font-md-lh);
+  font-weight: var(--medium);
+  color: var(--text1);
   padding: var(--space-md) var(--space-md) 0;
 }
 :local .notification-message {
+  font-family: var(--mainFont);
   font-size: var(--font-sm);
   line-height: var(--font-sm-lh);
-  color: var(--grey2);
+  font-weight: var(--regular);
+  color: var(--text2);
   padding: var(--space-xs) var(--space-md) var(--space-md);
 }
 :local .notification--dismissible {

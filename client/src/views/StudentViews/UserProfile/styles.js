@@ -28,10 +28,8 @@ export const RightColumn = styled.div`
     min-width: 100%;
     max-width: 100%;
   `};
-`;
 
-export const NavColumn = styled.div`
-  min-width: 48px;
-  max-width: 48px;
-  margin-left: var(--space-md);
+  > div + div {
+    margin-top: var(--space-xl);
+  }
 `;

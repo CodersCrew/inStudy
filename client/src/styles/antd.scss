@@ -4,6 +4,10 @@
   font-weight: var(--regular);
 }
 
+.ant-form-item-control {
+  line-height: unset;
+}
+
 .ant-form-item-label {
   font-size: var(--font-xs);
   line-height: var(--font-xs-lh);
@@ -23,12 +27,6 @@
   color: var(--error);
 }
 
-.text-area-field-wrapper {
-  .ant-form-item-label {
-    padding-bottom: var(--space-xs);
-  }
-
-  .ant-form-explain {
-    padding-top: var(--space-xs);
-  }
+.ant-calendar-footer {
+  padding: 0;
 }

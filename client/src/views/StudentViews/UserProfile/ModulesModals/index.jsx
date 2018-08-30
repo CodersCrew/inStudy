@@ -11,12 +11,11 @@ class ModulesModals extends PureComponent {
     return (
       <Modal
         key={name}
-        id={name}
         name={modalData.name}
         icon={modalData.icon}
+        type={name}
         visible
         onClose={() => this.props.closeModal(name)}
-        validate={modalData.validate}
       />
     );
   };

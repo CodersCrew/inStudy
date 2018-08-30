@@ -8,7 +8,7 @@ const getUser = (_, { token }, req) => {
   return Promise.resolve({ googleId, image });
 };
 
-module.exports = {
+export default {
   logoutUser,
   getUser,
 };

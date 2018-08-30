@@ -1,32 +1,27 @@
-const cloudinary = require('cloudinary');
-const fs = require('fs');
-const { cloud_name, api_key, api_secret } = require('./../config/keys').file_cloud;
-cloudinary.config({
-  cloud_name,
-  api_key,
-  api_secret,
-});
+import cloudinary from 'cloudinary';
+import fs from 'fs';
+import { file_cloud } from './../config/keys';
 
-function CloudinaryAPI() {
-  this.cloudinary = cloudinary;
-}
+cloudinary.config(file_cloud);
 
-CloudinaryAPI.prototype.uploadInitiativeBackground = function(path, initiativeId) {
-  return this.cloudinary.uploader
-    .upload( path, ()=> {},
-    {
-      public_id: `${initiativeId}/background`,
-    }
-  )
-    .then((result) => {
-      removeFile(path);
-      return Promise.resolve(result);
-    });
-};
-
-function removeFile(path) {
+const removeFile = path => {
   fs.unlinkSync(path);
 };
 
+class CloudinaryAPI {
+  constructor() {
+    this.cloudinary = cloudinary;
+  }
 
-module.exports = CloudinaryAPI;
+  uploadInitiativeBackground = (path, initiativeId) =>
+    this.cloudinary.uploader
+      .upload(path, () => {}, {
+        public_id: `${initiativeId}/background`,
+      })
+      .then(result => {
+        removeFile(path);
+        return Promise.resolve(result);
+      });
+}
+
+export default CloudinaryAPI;

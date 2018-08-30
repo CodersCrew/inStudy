@@ -1,21 +1,51 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { string, arrayOf, object } from 'prop-types';
-import { Container, Image, Name, Description, Socials, Social } from './styles';
+import { pick } from 'utils';
+import { socials } from 'data';
+import CardEditModal from './CardEditModal';
+import { Container, Image, Name, Description, Socials, Social, EditIcon } from './styles';
 
-const renderSocial = ({ link, iconName }) => <Social to={link} className={`fab fa-${iconName}`} />;
+const renderSocial = ({ type, url }) => (
+  <Social color={socials[type].color} href={url} className={socials[type].icon} />
+);
+
 renderSocial.propTypes = {
-  link: string.isRequired,
-  iconName: string.isRequired,
+  type: string.isRequired,
+  url: string.isRequired,
 };
 
-const Card = ({ image, firstName, lastName, description, socials }) => (
-  <Container>
-    <Image src={image} />
-    <Name>{`${firstName} ${lastName}`}</Name>
-    <Description>{description}</Description>
-    {socials.length > 0 && <Socials>{socials.map(renderSocial)}</Socials>}
-  </Container>
-);
+const userDataToPick = ['firstName', 'lastName', 'image', 'email', 'description', 'socials'];
+
+class Card extends PureComponent {
+  state = {
+    isModalOpen: false,
+  };
+
+  openModal = () => this.setState({ isModalOpen: true });
+
+  closeModal = () => this.setState({ isModalOpen: false });
+
+  render() {
+    const { image, firstName, lastName, description, socials } = this.props;
+
+    return (
+      <Container>
+        <Image src={image} />
+        <Name>{`${firstName} ${lastName}`}</Name>
+        <Description>{description}</Description>
+        {socials.length > 0 && <Socials>{socials.map(renderSocial)}</Socials>}
+        <EditIcon className="fal fa-edit" onClick={this.openModal} />
+        {this.state.isModalOpen && (
+          <CardEditModal
+            visible={this.state.isModalOpen}
+            onClose={this.closeModal}
+            userData={pick(this.props, userDataToPick)}
+          />
+        )}
+      </Container>
+    );
+  }
+}
 
 Card.propTypes = {
   image: string.isRequired,

@@ -3,8 +3,8 @@ import { array, func } from 'prop-types';
 import EmptyState from './EmptyState';
 import ModuleBase from './ModuleBase';
 
-const renderModule = module => {
-  return <ModuleBase key={module.type} {...module} />;
+const renderModule = (module, index) => {
+  return <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} />;
 };
 
 class Modules extends PureComponent {

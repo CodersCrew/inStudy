@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
-const Cities = mongoose.model('cities');
-const Universities = mongoose.model('universities');
+import mongoose from 'mongoose';
 
-module.exports.fetchCities = () => Cities.find({});
+export const fetchCities = () => mongoose.model('cities').find({});
 
-module.exports.fetchUniversities = city =>
-  Universities.find({ city: new mongoose.mongo.ObjectId(city) });
+export const fetchUniversities = cityId =>
+  mongoose.model('universities').find({ city: new mongoose.mongo.ObjectId(cityId) });

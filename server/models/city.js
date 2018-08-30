@@ -1,8 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const citySchema = new Schema({
   name: String,
 });
 
-mongoose.model('cities', citySchema);
+export default {
+  name: 'cities',
+  schema: citySchema,
+};

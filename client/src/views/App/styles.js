@@ -16,6 +16,7 @@ export const Body = styled.div`
 
   > div > div:nth-child(1) {
     overflow-x: hidden !important;
+    background-color: var(--background);
   }
 
   > div > div:nth-child(2) {

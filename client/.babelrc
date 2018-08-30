@@ -13,6 +13,6 @@
       {
         "modules": ["react-router", "react-router-dom"]
       }
-    ],
+    ]
   ]
 }

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('users');
+import mongoose from 'mongoose';
 
 const createUser = ({ photos, id, name, emails, description = '', socials = [] }) => ({
   googleId: id,
@@ -11,17 +10,20 @@ const createUser = ({ photos, id, name, emails, description = '', socials = [] }
   socials,
 });
 
-function DBConnector() {
-  this.connection = null;
-  // this.context = context;
+class DBConnector {
+  constructor() {
+    this.connection = null;
+    // this.context = context;
+  }
+
+  prepare = context => {};
+
+  getUser = googleId => mongoose.model('users').findOne({ googleId });
+
+  putUser = profile =>
+    mongoose.model('users').findOneAndUpdate({ googleId: profile.id }, createUser(profile), { new: true });
+
+  setUser = profile => new mongoose.model('users')(createUser(profile)).save();
 }
 
-DBConnector.prototype.prepare = context => {};
-DBConnector.prototype.getUser = googleId => User.findOne({ googleId });
-
-DBConnector.prototype.putUser = profile =>
-  User.findOneAndUpdate({ googleId: profile.id }, createUser(profile), { new: true });
-
-DBConnector.prototype.setUser = profile => new User(createUser(profile)).save();
-
-module.exports = new DBConnector();
+export default new DBConnector();

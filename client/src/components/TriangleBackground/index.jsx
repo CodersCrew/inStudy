@@ -14,7 +14,7 @@ const createBackground = () => {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', window.innerWidth);
     svg.setAttribute('height', window.innerHeight);
-    document.querySelector('#bg').appendChild(svg);
+    document.querySelector('#bg')?.appendChild(svg);
 
     var unitSize = (window.innerWidth + window.innerHeight) / 20;
     numPointsX = Math.ceil(window.innerWidth / unitSize) + 1;

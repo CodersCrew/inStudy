@@ -1,16 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import cities from './cities';
+import categories from './categories';
+import authRoutes from './authRoutes';
+import initiatives from './initiatives';
+import users from './users';
 
-module.exports = app => {
-  const files = fs.readdirSync(path.join(__dirname));
-  for (let index in files) {
-    let file = files[index];
-    if (file === 'index.js') continue;
-    if (path.extname(file) != '.js') continue;
-
-    const router = require(`./${path.basename(file)}`);
-    if (typeof router === 'function') {
-      router(app);
-    }
-  }
+export default app => {
+  cities(app);
+  categories(app);
+  authRoutes(app);
+  initiatives(app);
+  users(app);
 };

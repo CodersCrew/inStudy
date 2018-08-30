@@ -1,12 +1,13 @@
-const DBConnector = require('./DBConnector');
+import DBConnector from './DBConnector';
 
-module.exports = (req, res, next) => {
-  const _DBConnector = new DBConnector({user: req.user});
+export default (req, res, next) => {
+  const _DBConnector = new DBConnector({ user: req.user });
+
   req.instudy = {
     DBConnector: _DBConnector,
     user: req.user,
   };
 
-  if(req.user) next();
+  if (req.user) next();
   else res.sendStatus(401);
 };

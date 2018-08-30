@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Card from './Card';
 import Modules from './Modules';
 import ModulesModals from './ModulesModals';
-import { MainContainer, LeftColumn, RightColumn, NavColumn } from './styles';
+import { MainContainer, LeftColumn, RightColumn } from './styles';
 
 @connect(({ auth }) => ({ user: auth }))
 class UserProfile extends PureComponent {
@@ -12,11 +12,9 @@ class UserProfile extends PureComponent {
     openedModalNames: [],
   };
 
-  openModal = name =>
-    this.setState(state => ({ openedModalNames: [...state.openedModalNames, name] }));
+  openModal = name => this.setState(state => ({ openedModalNames: [...state.openedModalNames, name] }));
 
-  closeModal = name =>
-    this.setState(state => ({ openedModalNames: state.openedModalNames.filter(n => n !== name) }));
+  closeModal = name => this.setState(state => ({ openedModalNames: state.openedModalNames.filter(n => n !== name) }));
 
   render() {
     const { user } = this.props;
@@ -31,11 +29,7 @@ class UserProfile extends PureComponent {
             <Modules modules={user?.modules} openModal={openModal} />
           </RightColumn>
         </MainContainer>
-        <ModulesModals
-          openedModalNames={openedModalNames}
-          openModal={openModal}
-          closeModal={closeModal}
-        />
+        <ModulesModals openedModalNames={openedModalNames} openModal={openModal} closeModal={closeModal} />
       </Fragment>
     );
   }

@@ -1,10 +1,8 @@
-const DBConnect = require('./DBConnector');
+import DBConnect from './DBConnector';
 
 const userExist = profile => {
   DBConnect.prepare(profile);
-  return DBConnect.getUser(profile.id).then(
-    user => (user ? DBConnect.putUser(profile) : DBConnect.setUser(profile)),
-  );
+  return DBConnect.getUser(profile.id).then(user => (user ? DBConnect.putUser(profile) : DBConnect.setUser(profile)));
 };
 
 class InitializeUserAccount {
@@ -12,9 +10,7 @@ class InitializeUserAccount {
     this.profile = profile;
   }
 
-  prepare() {
-    return userExist(this.profile);
-  }
+  prepare = () => userExist(this.profile);
 }
 
-module.exports = InitializeUserAccount;
+export default InitializeUserAccount;

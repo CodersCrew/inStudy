@@ -7,6 +7,8 @@ import {
   SET_HISTORY,
   FETCH_MORE_INITIATIVES,
   SET_SEARCH,
+  UPDATE_BASIC_USER_DATA,
+  ADD_USER_INITIATIVE,
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -40,14 +42,14 @@ export const getInitiatives = req => async dispatch => {
   if (params.page !== reqCache.page || params.query !== reqCache.query) {
     reqCache = params;
     const { data } = await axios.get('/api/initiative', { params });
-    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data.result } });
+    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data } });
   }
 };
 
 export const getMoreInitiatives = () => async dispatch => {
   const params = { ...reqCache, page: reqCache.page + 1 };
   const { data } = await axios.get('/api/initiative', { params });
-  return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data.result } });
+  return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data } });
 };
 
 export const setSearch = (searchObj, history) => ({
@@ -55,3 +57,24 @@ export const setSearch = (searchObj, history) => ({
   payload: searchObj,
   history,
 });
+
+export const updateBasicUserData = userData => async dispatch => {
+  await axios.put('/api/user/basic', userData);
+  return dispatch({
+    type: UPDATE_BASIC_USER_DATA,
+    payload: userData,
+  });
+};
+
+export const addUserInitiative = initiativeData => async dispatch => {
+  try {
+    const data = await axios.post('/api/initiative', initiativeData);
+
+    return dispatch({
+      type: ADD_USER_INITIATIVE,
+      payload: data.data.result,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

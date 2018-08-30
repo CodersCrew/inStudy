@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -10,10 +10,16 @@ const userSchema = new Schema({
   description: String,
   socials: [
     {
-      link: String,
-      iconName: String,
+      url: String,
+      socialType: String,
+      _id: false,
     },
   ],
+  initiatives: [Schema.Types.ObjectId],
+  modules: [{}],
 });
 
-mongoose.model('users', userSchema);
+export default {
+  name: 'users',
+  schema: userSchema,
+};

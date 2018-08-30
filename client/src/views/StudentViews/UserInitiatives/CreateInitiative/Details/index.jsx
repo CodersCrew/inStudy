@@ -6,13 +6,9 @@ import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength } from 'utils/validators';
+import { addUserInitiative } from 'store/actions';
 import texts from './texts';
 import { Container } from './styles';
-
-const testPromise = () =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(true), 5000);
-  });
 
 const sendCitiesRequest = () => axios.get('/api/cities');
 
@@ -20,10 +16,7 @@ const sendCategoriesRequest = () => axios.get('/api/category');
 
 const sendUniversitiesRequest = cityId => axios.get(`/api/cities/universities/${cityId}`);
 
-const addInitiativeRequest = initiativeData => axios.post('/api/initiative', initiativeData);
-
-const mapResponseToOptions = responseArray =>
-  responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
+const mapResponseToOptions = responseArray => responseArray.map(({ _id, name }) => ({ label: name, value: _id }));
 
 const valueSelector = formValueSelector('newInitiativeDetails');
 
@@ -31,7 +24,10 @@ const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCity
 
 const maxDescriptionLength = maxLength(260);
 
-@connect(state => ({ city: valueSelector(state, 'city') }))
+@connect(
+  state => ({ city: valueSelector(state, 'city') }),
+  { addUserInitiative },
+)
 @reduxForm({ form: 'newInitiativeDetails' })
 class Details extends PureComponent {
   state = {
@@ -43,9 +39,7 @@ class Details extends PureComponent {
 
   componentDidMount() {
     sendCitiesRequest().then(({ data }) => this.setState({ cities: mapResponseToOptions(data) }));
-    sendCategoriesRequest().then(({ data }) =>
-      this.setState({ categories: mapResponseToOptions(data) }),
-    );
+    sendCategoriesRequest().then(({ data }) => this.setState({ categories: mapResponseToOptions(data) }));
   }
 
   componentDidUpdate(prevProps) {
@@ -68,10 +62,12 @@ class Details extends PureComponent {
   };
 
   onSubmit = async values => {
-    console.log(values);
-    const res = await testPromise(values);
-    console.log(res);
-    this.props.incrementStep(1);
+    try {
+      await this.props.addUserInitiative(values);
+      this.props.incrementStep(1);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
@@ -167,6 +163,7 @@ Details.propTypes = {
   incrementStep: func.isRequired,
   submitting: bool.isRequired,
   visible: bool,
+  addUserInitiative: func.isRequired,
 };
 
 Details.defaultProps = {

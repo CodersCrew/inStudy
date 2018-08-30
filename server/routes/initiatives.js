@@ -1,21 +1,22 @@
-const FetchInitiative = require('./../services/FetchInitiative');
-const multer = require('multer');
-const path = require('path');
-const Cloudinary = require('./../services/Cloudinary');
-const cacher = require('../services/cacher/index');
+import FetchInitiative from './../services/FetchInitiative';
+import multer from 'multer';
+import path from 'path';
+import Cloudinary from './../services/Cloudinary';
+import cacher from '../services/cacher/index';
+import createNewInitiative from './../services/createNewInitiative';
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   },
 });
 const upload = multer({ dest: 'uploads/', storage });
 // const upload = multer({ dest: 'uploads/' });
 
-module.exports = app => {
+export default app => {
   app.get('/api/initiative', (req, res) => {
     const { page } = req.query;
     new FetchInitiative()
@@ -30,13 +31,12 @@ module.exports = app => {
 
   app.post('/api/initiative', (req, res) => {
     const initiative = req.body;
-
-    new FetchInitiative()
-      .setInitiative(initiative)
+    createNewInitiative(initiative, req.user)
       .then(result => {
         res.status(200).json({ result });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         res.sendStatus(404);
       });
   });
