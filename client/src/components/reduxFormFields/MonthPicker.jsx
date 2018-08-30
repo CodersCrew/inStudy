@@ -48,7 +48,9 @@ class MonthPickerField extends PureComponent {
           onBlur={this.onBlur}
           onChange={props.input.onChange}
           onFocus={props.input.onFocus}
-          ref={input => { this.input = input; }}
+          ref={input => {
+            this.input = input;
+          }}
         />
       </FieldWrapper>
     );

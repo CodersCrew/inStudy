@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const getViewportSize = () => {
   const width = window.innerWidth;
 
@@ -24,8 +26,15 @@ export const omit = (obj, arr) =>
     .filter(k => !arr.includes(k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 
-export const pick = (obj, arr) =>
-  arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
+export const replaceInArray = (array, value, index) => {
+  const newItem = array.slice(0);
+  newItem[index] = value;
+  return newItem;
+};
+
+export const removeFromArray = (array, index) => array.filter((item, i) => i !== index);
+
+export const pick = (obj, arr) => arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
 
 export const nl2br = text =>
   text.split('\n').map((item, key) => (

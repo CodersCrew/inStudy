@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
-import { bool, func, string, node } from 'prop-types';
+import { bool, func, string, node, object, number } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { omit } from 'utils';
+import { required } from 'utils/validators';
 import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
+import { withNotifications } from 'hocs';
+import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
+import { addNotification, updateNotification, deleteNotification } from './notifications';
 import { Top, InputWrapper, ContentHeader } from './styles';
-import { required } from 'utils/validators';
-import axios from 'axios';
 
-const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData);
-@reduxForm({ form: 'addModule' })
+const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
+
+@withNotifications
+@reduxForm({ form: 'userModuleModal' })
+@connect(
+  null,
+  { addUserModule, updateUserModule, deleteUserModule },
+)
 class ModalBase extends Component {
+  constructor(props) {
+    super(props);
+    this.isEditModal = false;
+
+    if (props.initialValues) {
+      this.isEditModal = true;
+      props.initialize(parseInitialValues(props.initialValues));
+    }
+  }
+
   shouldComponentUpdate(np) {
     return !(!np.visible && !this.props.visible);
   }
@@ -20,37 +39,60 @@ class ModalBase extends Component {
       icon: values.icon,
       title: values.title,
       type: this.props.type,
-      content: omit(values, ['icon', 'titile']),
+      content: omit(values, ['icon', 'title']),
     };
     console.log(valuesToSubmit);
-    await addModuleRequest(valuesToSubmit);
-    console.log('Module added!');
+    if (this.isEditModal) {
+      await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
+      this.props.notify(updateNotification(values));
+    } else {
+      await this.props.addUserModule(valuesToSubmit);
+      this.props.notify(addNotification(values));
+    }
     this.props.onClose();
+  };
+
+  deleteModule = async () => {
+    await this.props.deleteUserModule(this.props.moduleIndex);
+    this.props.notify(deleteNotification(this.props.initialValues));
   };
 
   render() {
     const { visible, onClose, name, icon, handleSubmit, children, submitting, contentHeader } = this.props;
+    const buttons = [
+      {
+        onClick: handleSubmit(this.onSubmit),
+        label: this.isEditModal ? 'Zapisz zmiany' : 'Dodaj moduł',
+        type: 'primary',
+        loading: submitting,
+      },
+      {
+        onClick: () => onClose(),
+        label: 'Anuluj',
+        disabled: submitting,
+      },
+    ];
+
+    if (this.isEditModal) {
+      buttons.push({
+        onClick: this.deleteModule,
+        label: 'Usuń moduł',
+        type: 'danger',
+        ghost: true,
+        disabled: submitting,
+        style: { marginRight: 'auto' },
+      });
+    }
+
     return (
       <Modal
         visible={visible}
         onClose={submitting ? () => {} : onClose}
-        title={`Dodaj moduł "${name}"`}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł "${name}"`}
         icon={`/fa-icons/${icon}-light.svg`}
         type="complex"
         width={644}
-        buttons={[
-          {
-            onClick: handleSubmit(this.onSubmit),
-            label: 'Dodaj',
-            type: 'primary',
-            loading: submitting,
-          },
-          {
-            onClick: () => onClose(),
-            label: 'Anuluj',
-            disabled: submitting,
-          },
-        ]}
+        buttons={buttons}
       >
         <Top>
           <Field
@@ -85,11 +127,20 @@ ModalBase.propTypes = {
   children: node.isRequired,
   submitting: bool,
   type: string.isRequired,
+  initialValues: object,
+  initialize: func,
+  moduleIndex: number,
+  deleteUserModule: func,
+  updateUserModule: func,
+  addUserModule: func,
+  notify: func,
 };
 
 ModalBase.defaultProps = {
   contentHeader: '',
   submitting: false,
+  initialValues: null,
+  moduleIndex: null,
 };
 
 export default ModalBase;

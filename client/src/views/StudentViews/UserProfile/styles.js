@@ -28,4 +28,8 @@ export const RightColumn = styled.div`
     min-width: 100%;
     max-width: 100%;
   `};
+
+  > div + div {
+    margin-top: var(--space-xl);
+  }
 `;
