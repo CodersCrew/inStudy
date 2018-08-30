@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { object, string, func, bool, number } from 'prop-types';
 import { FieldArray } from 'redux-form';
 import moment from 'moment';
+import { getModalBaseData } from '../userModalsUtils';
 import ModalBase from '../ModalBase';
 import ItemModal from './ItemModal';
 import {
@@ -94,39 +95,10 @@ ItemsList.propTypes = {
   fields: object.isRequired,
 };
 
-class TimeLine extends PureComponent {
-  render() {
-    const { visible, onClose, name, icon, type, initialValues, moduleIndex } = this.props;
-    return (
-      <ModalBase
-        visible={visible}
-        onClose={onClose}
-        name={name}
-        icon={icon}
-        type={type}
-        contentHeader="Elementy na osi czasu"
-        initialValues={initialValues}
-        moduleIndex={moduleIndex}
-      >
-        <FieldArray name="items" component={ItemsList} />
-      </ModalBase>
-    );
-  }
-}
-
-TimeLine.propTypes = {
-  visible: bool.isRequired,
-  onClose: func.isRequired,
-  name: string.isRequired,
-  icon: string.isRequired,
-  type: string.isRequired,
-  initialValues: object,
-  moduleIndex: number,
-};
-
-TimeLine.defaultProps = {
-  initialValues: null,
-  moduleIndex: null,
-};
+const TimeLine = props => (
+  <ModalBase {...getModalBaseData(props)} contentHeader="Elementy na osi czasu">
+    <FieldArray name="items" component={ItemsList} />
+  </ModalBase>
+);
 
 export default TimeLine;

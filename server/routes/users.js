@@ -30,7 +30,7 @@ export default app => {
   });
 
   app.put('/api/user/module', (req, res) => {
-    const module = req.body.data;
+    const module = req.body.module;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
 

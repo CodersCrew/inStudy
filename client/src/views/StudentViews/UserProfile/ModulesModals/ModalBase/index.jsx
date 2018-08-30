@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
 import { bool, func, string, node, object, number } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { omit } from 'utils';
+import { required } from 'utils/validators';
 import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
+import { withNotifications } from 'hocs';
+import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
+import { addNotification, updateNotification, deleteNotification } from './notifications';
 import { Top, InputWrapper, ContentHeader } from './styles';
-import { required } from 'utils/validators';
-import axios from 'axios';
 
-const addModuleRequest = moduleData => axios.post('/api/user/module', moduleData);
+const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
 
-const editModuleRequest = (moduleData, moduleIndex) =>
-  axios.put('/api/user/module', { data: moduleData, index: moduleIndex });
-
-const deleteModuleRequest = moduleIndex => axios.delete(`/api/user/module/${moduleIndex}`);
-
-@reduxForm({ form: 'addModule' })
+@withNotifications
+@reduxForm({ form: 'userModuleModal' })
+@connect(
+  null,
+  { addUserModule, updateUserModule, deleteUserModule },
+)
 class ModalBase extends Component {
   constructor(props) {
     super(props);
     this.isEditModal = false;
 
     if (props.initialValues) {
-      const valuesToInitialize = {
-        title: props.initialValues.title,
-        icon: props.initialValues.icon,
-        ...props.initialValues.content,
-      };
       this.isEditModal = true;
-      props.initialize(valuesToInitialize);
+      props.initialize(parseInitialValues(props.initialValues));
     }
   }
 
@@ -45,18 +43,18 @@ class ModalBase extends Component {
     };
     console.log(valuesToSubmit);
     if (this.isEditModal) {
-      await editModuleRequest(valuesToSubmit, this.props.moduleIndex);
-      console.log('Module edited!');
+      await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
+      this.props.notify(updateNotification(values));
     } else {
-      await addModuleRequest(valuesToSubmit);
-      console.log('Module added!');
+      await this.props.addUserModule(valuesToSubmit);
+      this.props.notify(addNotification(values));
     }
     this.props.onClose();
   };
 
   deleteModule = async () => {
-    await deleteModuleRequest(this.props.moduleIndex);
-    console.log('Module deleted');
+    await this.props.deleteUserModule(this.props.moduleIndex);
+    this.props.notify(deleteNotification(this.props.initialValues));
   };
 
   render() {
@@ -85,8 +83,6 @@ class ModalBase extends Component {
         style: { marginRight: 'auto' },
       });
     }
-
-    console.log(buttons);
 
     return (
       <Modal
@@ -132,8 +128,12 @@ ModalBase.propTypes = {
   submitting: bool,
   type: string.isRequired,
   initialValues: object,
-  initialize: func.isRequired,
+  initialize: func,
   moduleIndex: number,
+  deleteUserModule: func,
+  updateUserModule: func,
+  addUserModule: func,
+  notify: func,
 };
 
 ModalBase.defaultProps = {
