@@ -17,6 +17,13 @@ export const StyledEditor = styled(Editor)`
   }
 `;
 
+export const Image = styled.img`
+  display: block;
+  max-width: 100%;
+  max-height: 20em;
+  box-shadow: ${props => (props.selected ? '0 0 0 2px blue;' : 'none')};
+`;
+
 export const Button = styled.span`
   cursor: pointer;
   color: ${props =>
@@ -57,18 +64,19 @@ export const Underlined = styled.span`
 export const BlockQuote = styled.blockquote`
   clear: both;
   color: rgb(160, 160, 160);
-  background-color: rgb(235, 235, 235);
   font-size: 14px;
-  border-left: solid 1px black;
+  border-left: solid 1px rgb(160, 160, 160);
   padding-left: 5px;
 `;
 
 export const One = styled.span`
   font-size: 20px;
+  font-weight: bold;
 `;
 
 export const Two = styled.span`
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: bold;
 `;
 
 export const Ul = styled.ul`

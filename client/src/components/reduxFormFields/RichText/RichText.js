@@ -1,7 +1,12 @@
 import React from 'react';
-import { Value } from 'slate';
+import { getEventRange, getEventTransfer } from 'slate-react';
+import { Value, Block } from 'slate';
+import Video from './RichTextVideo';
+
 import 'antd';
 import { SVGIcon } from '../../index';
+import imageExtensions from 'image-extensions';
+import isUrl from 'is-url';
 import initialValue from './RichTextValue.json';
 import { isKeyHotkey } from 'is-hotkey';
 import {
@@ -16,6 +21,7 @@ import {
   Two,
   Ul,
   Ol,
+  Image,
 } from './RichTextStyle';
 
 const DEFAULT_NODE = 'paragraph';
@@ -24,6 +30,45 @@ const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
 const isCodeHotkey = isKeyHotkey('mod+`');
+
+const isImage = url => {
+  return !!imageExtensions.find(url.endsWith);
+}
+
+function insertImage(change, src, target) {
+  if (target) {
+    change.select(target)
+  }
+
+  change.insertBlock({
+    type: 'image',
+    data: {
+      src,
+    },
+  });
+}
+
+const schema = {
+  document: {
+    last: { type: 'paragraph' },
+    normalize: (change, { code, node, child }) => {
+      switch (code) {
+        case 'last_child_type_invalid': {
+          const paragraph = Block.create('paragraph');
+          return change.insertNodeByKey(node.key, node.nodes.size, paragraph);
+        }
+      }
+    },
+  },
+  blocks: {
+    image: {
+      isVoid: true,
+    },
+    video: {
+      isVoid: true,
+    },
+  },
+};
 
 class RichTextExample extends React.Component {
   state = {
@@ -52,6 +97,9 @@ class RichTextExample extends React.Component {
           {this.renderBlockButton('block-quote', 'quote-right-solid.svg')}
           {this.renderBlockButton('numbered-list', 'list-ol-solid.svg')}
           {this.renderBlockButton('bulleted-list', 'list-ul-solid.svg')}
+          <Button onMouseDown={this.onClickImage}>
+            <SVGIcon path="/fa-icons/image-solid.svg" fill="currnetColor" width="15px" height="15px"/>
+          </Button>
         </Toolbar>
         <StyledEditor
           spellCheck
@@ -59,9 +107,11 @@ class RichTextExample extends React.Component {
           placeholder="Enter some rich text..."
           value={this.state.value}
           onChange={this.onChange}
+          schema={schema}
           onKeyDown={this.onKeyDown}
           renderNode={this.renderNode}
           renderMark={this.renderMark}
+          onDrop={this.onDropOrPaste}
         />
       </div>
     );
@@ -94,7 +144,7 @@ class RichTextExample extends React.Component {
   };
 
   renderNode = props => {
-    const { attributes, children, node } = props;
+    const { attributes, children, node, isFocused } = props;
 
     switch (node.type) {
       case 'block-quote':
@@ -109,8 +159,15 @@ class RichTextExample extends React.Component {
         return <li {...attributes}>{children}</li>;
       case 'numbered-list':
         return <Ol {...attributes}>{children}</Ol>;
+      case 'image': {
+        const src = node.data.get('src')
+        return <Image src={src} selected={isFocused} {...attributes} />
+      }
+      case 'video':
+        return <Video {...props} />;
     }
-  };
+}
+
 
   renderMark = props => {
     const { children, mark, attributes } = props;
@@ -128,6 +185,46 @@ class RichTextExample extends React.Component {
   onChange = ({ value }) => {
     this.setState({ value });
   };
+
+  onClickImage = event => {
+    event.preventDefault();
+    const src = window.prompt('Enter the URL of the image:');
+    if (!src) return;
+
+    const change = this.state.value.change().call(insertImage, src);
+
+    this.onChange(change);
+  };
+
+  onDropOrPaste = (event, change, editor) => {
+    const target = getEventRange(event, change.value);
+    if (!target && event.type == 'drop') return;
+
+    const transfer = getEventTransfer(event);
+    const { type, text, files } = transfer;
+
+    if (type == 'files') {
+      for (const file of files) {
+        const reader = new FileReader()
+        const [mime] = file.type.split('/');
+        if (mime != 'image') continue;
+
+        reader.addEventListener('load', () => {
+          editor.change(c => {
+            c.call(insertImage, reader.result, target)
+          })
+        })
+
+        reader.readAsDataURL(file)
+      }
+    }
+
+    if (type == 'text') {
+      if (!isUrl(text)) return;
+      if (!isImage(text)) return;
+      change.call(insertImage, text, target)
+    }
+  }
 
   onKeyDown = (event, change) => {
     let mark;
@@ -196,5 +293,4 @@ class RichTextExample extends React.Component {
     this.onChange(change);
   };
 }
-
 export default RichTextExample;
