@@ -37,7 +37,7 @@ const isImage = url => {
 
 function insertImage(change, src, target) {
   if (target) {
-    change.select(target)
+    change.select(target);
   }
 
   change.insertBlock({
@@ -100,6 +100,7 @@ class RichTextExample extends React.Component {
           <Button onMouseDown={this.onClickImage}>
             <SVGIcon path="/fa-icons/image-solid.svg" fill="currnetColor" width="15px" height="15px"/>
           </Button>
+          {this.renderBlockButton('video', 'bold-solid.svg')}
         </Toolbar>
         <StyledEditor
           spellCheck
@@ -160,8 +161,8 @@ class RichTextExample extends React.Component {
       case 'numbered-list':
         return <Ol {...attributes}>{children}</Ol>;
       case 'image': {
-        const src = node.data.get('src')
-        return <Image src={src} selected={isFocused} {...attributes} />
+        const src = node.data.get('src');
+        return <Image src={src} selected={isFocused} {...attributes} />;
       }
       case 'video':
         return <Video {...props} />;
@@ -211,7 +212,7 @@ class RichTextExample extends React.Component {
 
         reader.addEventListener('load', () => {
           editor.change(c => {
-            c.call(insertImage, reader.result, target)
+            c.call(insertImage, reader.result, target);
           })
         })
 
@@ -222,9 +223,9 @@ class RichTextExample extends React.Component {
     if (type == 'text') {
       if (!isUrl(text)) return;
       if (!isImage(text)) return;
-      change.call(insertImage, text, target)
+      change.call(insertImage, text, target);
     }
-  }
+  };
 
   onKeyDown = (event, change) => {
     let mark;

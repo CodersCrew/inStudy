@@ -25,8 +25,10 @@ class Video extends React.Component {
 
   renderVideo = () => {
     const { node, isFocused } = this.props;
-    const video = node.data.get('video');
-
+    let video = node.data.get('video');
+    if (video){
+      video = `https://www.youtube.com/embed/${this.getIdVideo(video)}`;
+    }
     const wrapperStyle = {
       position: 'relative',
       outline: isFocused ? '2px solid #d9d9d9' : 'none',
@@ -66,22 +68,28 @@ class Video extends React.Component {
     );
   };
 
+  getIdVideo = url => {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+      return (match && match[7].length == 11) ? match[7] : false;
+  };
+
   renderInput = () => {
     const { node } = this.props;
-    const video = node.data.get('video');
+    var video = node.data.get('video');
     const style = {
       marginLeft: 'calc(50% - 200px)',
       boxSizing: 'border-box',
       width: '400px',
     };
-
     return (
-      <Input
-        name='VideoInput'
+      <input
+        name="VideoInput"
         value={video}
         onChange={this.onChange}
         onClick={this.onClick}
         style={style}
+        placeholder="Podaj adres url video"
       />
     );
   };
