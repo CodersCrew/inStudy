@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { object, string, func, bool, number } from 'prop-types';
+import { object } from 'prop-types';
 import { FieldArray } from 'redux-form';
 import moment from 'moment';
 import { getModalBaseData } from '../userModalsUtils';
