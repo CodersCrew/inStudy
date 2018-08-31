@@ -6,3 +6,5 @@ export const maxLength = maxCharactersCount => value =>
   value?.length > maxCharactersCount ? `Tekst nie może być dłuższy niż ${maxCharactersCount} znaków` : undefined;
 
 export const url = value => (urlRegExp.test(value) ? undefined : 'Błędny adres URL');
+
+//TODO: const z walidatorem maila
