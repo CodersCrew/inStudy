@@ -23,6 +23,10 @@ u {
   text-decoration: underline;
 }
 
+s {
+  text-decoration: line-through;
+}
+
 h1 {
   font-family: var(--headerFont);
   font-size: var(--font-xl);
