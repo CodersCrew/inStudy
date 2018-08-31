@@ -2,8 +2,8 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Container } from './styles';
 
-const RichText = ({ text }) => (
-	<Container>{text}</Container>
+const RichText = ({ description }) => (
+	<Container dangerouslySetInnerHTML={{ __html: description }} />
 );
 
 RichText.propTypes = {
