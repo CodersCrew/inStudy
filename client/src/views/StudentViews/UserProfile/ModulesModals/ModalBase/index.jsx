@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { omit } from 'utils';
 import { required } from 'utils/validators';
-import { Modal } from 'components';
+import { ComplexModal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
 import { withNotifications } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
@@ -85,12 +85,11 @@ class ModalBase extends Component {
     }
 
     return (
-      <Modal
+      <ComplexModal
         visible={visible}
-        onClose={submitting ? () => {} : onClose}
+        onCancel={submitting ? () => {} : onClose}
         title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł "${name}"`}
-        icon={`/fa-icons/${icon}-light.svg`}
-        type="complex"
+        iconClass="fal fa-phone"
         width={644}
         buttons={buttons}
       >
@@ -112,7 +111,7 @@ class ModalBase extends Component {
         </Top>
         {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
         {children}
-      </Modal>
+      </ComplexModal>
     );
   }
 }

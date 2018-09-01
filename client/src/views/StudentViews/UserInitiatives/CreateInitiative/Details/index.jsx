@@ -3,10 +3,11 @@ import { bool, func, number } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Modal } from 'components';
+import { ComplexModal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
+import { withCloseAnimation } from 'hocs';
 import texts from './texts';
 import { Container } from './styles';
 
@@ -24,6 +25,7 @@ const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCity
 
 const maxDescriptionLength = maxLength(260);
 
+@withCloseAnimation
 @connect(
   state => ({ city: valueSelector(state, 'city') }),
   { addUserInitiative },
@@ -75,12 +77,11 @@ class Details extends PureComponent {
     const { areUniversitiesFetching, cities, universities, categories } = this.state;
 
     return (
-      <Modal
+      <ComplexModal
         visible={visible}
-        onClose={() => decrementStep(1)}
+        onCancel={() => decrementStep(1)}
         title={texts.modalTitle}
-        icon="/fa-icons/clipboard-list-light.svg"
-        type="complex"
+        icon="fal fa-clipboard-list"
         width={644}
         buttons={[
           {
@@ -149,7 +150,7 @@ class Details extends PureComponent {
             validate={[required, maxDescriptionLength]}
           />
         </Container>
-      </Modal>
+      </ComplexModal>
     );
   }
 }

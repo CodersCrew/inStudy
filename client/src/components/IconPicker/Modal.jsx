@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { func, string } from 'prop-types';
-import { Modal } from 'components';
+import { ComplexModal } from 'components';
 import { Input } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import icons from './icons';
@@ -31,9 +31,7 @@ class IconsModal extends PureComponent {
     const arrToFilter = queryLength > this.lastValueLength ? this.state.icons : icons;
     this.lastValueLength = queryLength;
     const newIconsSet =
-      queryLength === 0
-        ? icons
-        : arrToFilter.filter(({ tags }) => tags.some(tag => tag.includes(value)));
+      queryLength === 0 ? icons : arrToFilter.filter(({ tags }) => tags.some(tag => tag.includes(value)));
     this.setState({ icons: newIconsSet, value });
   };
 
@@ -51,11 +49,10 @@ class IconsModal extends PureComponent {
     } = this;
 
     return (
-      <Modal
+      <ComplexModal
         title="Wybierz ikonkę"
         visible={open}
-        onClose={close}
-        type="complex"
+        onCancel={close}
         buttons={[
           {
             onClick: this.onSubmit,
@@ -69,11 +66,7 @@ class IconsModal extends PureComponent {
         ]}
       >
         <Content>
-          <Input
-            onChange={this.onChange}
-            value={this.state.value}
-            placeholder="Wyszukaj ikony..."
-          />
+          <Input onChange={this.onChange} value={this.state.value} placeholder="Wyszukaj ikony..." />
           <Icons>
             <Scrollbars>
               {this.state.icons.map(({ name }) => (
@@ -84,7 +77,7 @@ class IconsModal extends PureComponent {
             </Scrollbars>
           </Icons>
         </Content>
-      </Modal>
+      </ComplexModal>
     );
   }
 }

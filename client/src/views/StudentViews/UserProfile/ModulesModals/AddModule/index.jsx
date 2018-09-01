@@ -1,22 +1,22 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'components';
+import { ComplexModal } from 'components';
 import modulesConfig from '../../modulesConfig';
 import Item from './Item';
 import { Container, Label, Modules } from './styles';
 
 const AddModule = ({ visible, onClose, openModal }) => (
-  <Modal
+  <ComplexModal
     visible={visible}
-    onClose={onClose}
+    onCancel={onClose}
     title="Dodaj moduł do profilu"
-    type="complex"
+    iconClass="fal fa-phone"
     width={644}
     buttons={[
       {
+        key: 'cancel',
         onClick: onClose,
         label: 'Anuluj',
-        kind: 'grey',
       },
     ]}
   >
@@ -24,16 +24,11 @@ const AddModule = ({ visible, onClose, openModal }) => (
       <Label>Moduły statyczne</Label>
       <Modules>
         {Object.keys(modulesConfig).map(key => (
-          <Item
-            key={key}
-            data={{ ...modulesConfig[key], key }}
-            openModal={openModal}
-            onClose={onClose}
-          />
+          <Item key={key} data={{ ...modulesConfig[key], key }} openModal={openModal} onClose={onClose} />
         ))}
       </Modules>
     </Container>
-  </Modal>
+  </ComplexModal>
 );
 
 AddModule.propTypes = {

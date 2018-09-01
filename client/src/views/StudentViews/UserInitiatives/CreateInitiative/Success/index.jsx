@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'components';
+import { ConfirmationModal } from 'components';
 import texts from './texts';
 
 class Success extends PureComponent {
@@ -8,12 +8,11 @@ class Success extends PureComponent {
     const { visible, closeModal } = this.props;
 
     return (
-      <Modal
+      <ConfirmationModal
         visible={visible}
         onClose={closeModal}
         title={texts.modalTitle}
-        icon="/fa-icons/smile-beam-light.svg"
-        type="confirmation"
+        iconClass="fal fa-smile-beam"
         width={644}
         buttons={[
           {
@@ -24,7 +23,7 @@ class Success extends PureComponent {
         ]}
       >
         {texts.modalContent}
-      </Modal>
+      </ConfirmationModal>
     );
   }
 }

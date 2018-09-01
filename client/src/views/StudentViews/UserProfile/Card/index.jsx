@@ -35,13 +35,11 @@ class Card extends PureComponent {
         <Description>{description}</Description>
         {socials.length > 0 && <Socials>{socials.map(renderSocial)}</Socials>}
         <EditIcon className="fal fa-edit" onClick={this.openModal} />
-        {this.state.isModalOpen && (
-          <CardEditModal
-            visible={this.state.isModalOpen}
-            onClose={this.closeModal}
-            userData={pick(this.props, userDataToPick)}
-          />
-        )}
+        <CardEditModal
+          visible={this.state.isModalOpen}
+          onClose={this.closeModal}
+          userData={pick(this.props, userDataToPick)}
+        />
       </Container>
     );
   }
