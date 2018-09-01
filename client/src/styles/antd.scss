@@ -54,6 +54,25 @@ button.ant-btn {
   }
 }
 
+button.ant-btn.ant-btn-primary {
+  color: var(--white);
+  background-color: var(--primary2);
+  border-color: var(--primary2);
+
+  &:hover,
+  &:focus {
+    color: var(--white);
+    background-color: var(--primary2-hover);
+    border-color: var(--primary2-hover);
+  }
+
+  &:active {
+    color: var(--white);
+    background-color: var(--primary2-active);
+    border-color: var(--primary2-active);
+  }
+}
+
 .ant-btn.ant-btn-background-ghost {
   color: var(--white);
 

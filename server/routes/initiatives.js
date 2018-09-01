@@ -35,9 +35,10 @@ export default app => {
       .then(result => {
         res.status(200).json({ result });
       })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(404);
+      .catch(err => {
+        if (err === 'ITEM_EXIST') {
+          res.sendStatus(409);
+        }
       });
   });
 

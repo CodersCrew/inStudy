@@ -56,8 +56,10 @@ export const changeBasicUserData = (basic, userId) => {
 };
 
 export const mapUserToView = RAWUser => {
-  RAWUser = RAWUser.toObject();
-  RAWUser.socials = [...RAWUser.socials];
-  RAWUser.socials = RAWUser.socials.map(singleSocial => ({ url: singleSocial.url, type: singleSocial.socialType }));
+  if (RAWUser) {
+    RAWUser = RAWUser.toObject();
+    RAWUser.socials = [...RAWUser.socials];
+    RAWUser.socials = RAWUser.socials.map(singleSocial => ({ url: singleSocial.url, type: singleSocial.socialType }));
+  }
   return RAWUser;
 };

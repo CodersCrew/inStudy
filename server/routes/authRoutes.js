@@ -25,16 +25,16 @@ export default app => {
     const mapUser = mapUserToView(req.user);
     Initiative.find({
       _id: {
-        $in: mapUser.initiatives.map(initiative => new mongoose.mongo.ObjectId(initiative)),
-      }
+        $in: mapUser?.initiatives?.map(initiative => new mongoose.mongo.ObjectId(initiative)),
+      },
     })
-      .then((initiatives) => {
-        if(initiatives.length) res.json({...mapUser, initiatives});
-        else res.json(mapUser)
+      .then(initiatives => {
+        if (initiatives.length) res.json({ ...mapUser, initiatives });
+        else res.json(mapUser);
       })
       .catch(error => {
         console.log(error);
         res.sendStatus(404);
-      })
+      });
   });
 };

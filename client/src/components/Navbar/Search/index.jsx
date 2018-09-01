@@ -49,7 +49,7 @@ class Search extends PureComponent {
     window.resizeHomeDown = location.pathname === '/';
     window.disableAnimation = true;
 
-    if (!location.pathname === '/inicjatywy') {
+    if (location.pathname !== '/inicjatywy') {
       history.push(`/inicjatywy${window.location.search}`);
     }
 
