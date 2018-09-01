@@ -39,7 +39,7 @@
   }
 }
 
-button.ant-btn {
+.ant-btn {
   color: var(--text1);
 
   &:hover,
@@ -54,7 +54,7 @@ button.ant-btn {
   }
 }
 
-button.ant-btn.ant-btn-primary {
+.ant-btn.ant-btn-primary {
   color: var(--white);
   background-color: var(--primary2);
   border-color: var(--primary2);

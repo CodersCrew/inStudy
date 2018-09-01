@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import { object } from 'prop-types';
+import { connect } from 'react-redux';
 import CreateInitiative from './CreateInitiative';
+import InitiativeCard from './InitiativeCard';
 import { MainContainer, Wrapper, Icon, Header, StyledButton } from './styles';
 
+@connect(state => ({ initiatives: state?.auth?.initiatives }))
 class UserInitiatives extends PureComponent {
   state = {
     isModalOpen: false,
@@ -14,21 +17,28 @@ class UserInitiatives extends PureComponent {
 
   goToInitiatives = () => this.props.history.push('/inicjatywy');
 
+  renderEmptyView = () => (
+    <Wrapper>
+      <Icon className="fal fa-grin-beam-sweat" />
+      <Header>
+        Obecnie nie działasz w żadnej inicjatywie. Oznacza to, że w ramach tej zkaładki masz 2 możliwości.
+      </Header>
+      <StyledButton size="large" onClick={this.goToInitiatives}>
+        Wyszukaj istniejącą inicjatywę
+      </StyledButton>
+      <StyledButton size="large" onClick={this.openModal}>
+        Utwórz nową inicjatywę
+      </StyledButton>
+    </Wrapper>
+  );
+
+  renderInitiatives = () => this.props.initiatives.map(initiative => <InitiativeCard {...initiative} />);
+
   render() {
+    console.log(this.props);
     return (
       <MainContainer>
-        <Wrapper>
-          <Icon className="fal fa-grin-beam-sweat" />
-          <Header>
-            Obecnie nie działasz w żadnej inicjatywie. Oznacza to, że w ramach tej zkaładki masz 2 możliwości.
-          </Header>
-          <StyledButton size="large" onClick={this.goToInitiatives}>
-            Wyszukaj istniejącą inicjatywę
-          </StyledButton>
-          <StyledButton size="large" onClick={this.openModal}>
-            Utwórz nową inicjatywę
-          </StyledButton>
-        </Wrapper>
+        {this.props.initiatives?.length ? this.renderInitiatives() : this.renderEmptyView()}
         <CreateInitiative closeModal={this.closeModal} visible={this.state.isModalOpen} />
       </MainContainer>
     );
