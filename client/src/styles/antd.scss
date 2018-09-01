@@ -30,3 +30,43 @@
 .ant-calendar-footer {
   padding: 0;
 }
+
+/* BUTTONS */
+.ant-btn-sm {
+  span {
+    position: relative;
+    top: -1px;
+  }
+}
+
+button.ant-btn {
+  color: var(--text1);
+
+  &:hover,
+  &:focus {
+    border: 1px solid var(--grey7);
+    color: var(--text2);
+  }
+
+  &:active {
+    border: 1px solid var(--grey6);
+    color: var(--text1);
+  }
+}
+
+.ant-btn.ant-btn-background-ghost {
+  color: var(--white);
+
+  &:hover,
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--grey7);
+    color: var(--grey7);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid var(--grey6);
+    color: var(--grey6);
+  }
+}

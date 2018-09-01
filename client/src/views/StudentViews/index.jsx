@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import TriangleBackground from 'components/TriangleBackground';
+import { withAuth } from 'hocs';
 import UserNav from './UserNav';
 import UserProfile from './UserProfile';
 import UserInitiatives from './UserInitiatives';
@@ -21,4 +22,4 @@ const StudentViews = () => (
   </Fragment>
 );
 
-export default StudentViews;
+export default withAuth(['authorizedUser'])(StudentViews);
