@@ -5,3 +5,5 @@ export Navbar from './Navbar';
 export Modal from './Modal';
 export SVGIcon from './SVGIcon';
 export IconPicker from './IconPicker';
+export ComplexModal from './ComplexModal';
+export ConfirmationModal from './ConfirmationModal';

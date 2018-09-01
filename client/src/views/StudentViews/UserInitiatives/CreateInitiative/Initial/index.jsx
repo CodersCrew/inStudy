@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { Modal } from 'components';
+import { ConfirmationModal } from 'components';
 import texts from './texts';
 
 class Initial extends PureComponent {
@@ -8,12 +8,11 @@ class Initial extends PureComponent {
     const { visible, closeModal, incrementStep } = this.props;
 
     return (
-      <Modal
+      <ConfirmationModal
         visible={visible}
-        onClose={closeModal}
+        onCancel={closeModal}
         title={texts.modalTitle}
-        icon="/fa-icons/smile-plus-light.svg"
-        type="confirmation"
+        iconClass="fal fa-smile-plus"
         width={644}
         buttons={[
           {
@@ -24,7 +23,7 @@ class Initial extends PureComponent {
         ]}
       >
         {texts.modalContent}
-      </Modal>
+      </ConfirmationModal>
     );
   }
 }

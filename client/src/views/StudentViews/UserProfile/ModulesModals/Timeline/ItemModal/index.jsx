@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { bool, func, object } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import moment from 'moment';
-import { Modal } from 'components';
+import { ComplexModal } from 'components';
 import { Input, TextArea, MonthPicker } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
 import { omit } from 'utils';
@@ -38,18 +38,15 @@ class ItemModal extends PureComponent {
     closePicker();
   };
 
-  renderActualButton = closePicker => (
-    <Actual onClick={() => this.setActual(closePicker)}>Nadal trwa</Actual>
-  );
+  renderActualButton = closePicker => <Actual onClick={() => this.setActual(closePicker)}>Nadal trwa</Actual>;
 
   render() {
     return (
-      <Modal
-        onClose={this.props.onClose}
+      <ComplexModal
+        onCancel={this.props.onClose}
         visible={this.props.visible}
         title="Dodaj element do osi czasu"
-        icon="/fa-icons/history-light.svg"
-        type="complex"
+        icon="fal fa-history"
         width={644}
         buttons={[
           {
@@ -66,12 +63,7 @@ class ItemModal extends PureComponent {
         ]}
       >
         <Container>
-          <Field
-            name="from"
-            component={MonthPicker}
-            props={{ label: 'Data (od)' }}
-            validate={[required]}
-          />
+          <Field name="from" component={MonthPicker} props={{ label: 'Data (od)' }} validate={[required]} />
           <Field
             name="to"
             component={MonthPicker}
@@ -96,7 +88,7 @@ class ItemModal extends PureComponent {
             validate={[required]}
           />
         </Container>
-      </Modal>
+      </ComplexModal>
     );
   }
 }

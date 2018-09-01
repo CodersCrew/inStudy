@@ -116,7 +116,7 @@ export const Socials = styled.div`
   `};
 `;
 
-export const Social = styled.a`
+export const SocialItem = styled.a`
   display: block;
   font-size: var(--font-xl);
   text-align: center;
