@@ -5,6 +5,7 @@ import searchReducer from './searchReducer';
 import authReducer from './authReducer';
 import initiativesReducer from './initiativesReducer';
 import uiReducer from './uiReducer';
+import publicProfileReducer from './publicProfileReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   form: formReducer,
   search: searchReducer,
   notifications: notificationsReducer(),
+  publicProfile: publicProfileReducer,
 });

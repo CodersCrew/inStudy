@@ -65,10 +65,10 @@ class Details extends PureComponent {
 
   onSubmit = async values => {
     try {
-      await this.props.addUserInitiative(values);
-      this.props.incrementStep(1);
+      const initiative = await this.props.addUserInitiative(values);
+      if (initiative) this.props.incrementStep(1);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

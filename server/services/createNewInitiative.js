@@ -14,6 +14,7 @@ const createInitiative = (initiative, user) => {
 };
 
 const assignToUser = async (createdInitiative, userId) => {
+  console.log(createdInitiative);
   await mongoose.model('users').findByIdAndUpdate(userId, {
     $addToSet: {
       initiatives: new mongoose.mongo.ObjectId(createdInitiative._id),
@@ -31,7 +32,7 @@ const initiativeNotExist = initiative => {
     })
     .then(initiative => {
       if (initiative) {
-        return Promise.reject('Dana inicjatywa już istnieje');
+        return Promise.reject('ITEM_EXIST');
       }
 
       return true;

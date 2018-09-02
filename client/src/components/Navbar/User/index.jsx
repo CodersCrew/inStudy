@@ -9,12 +9,12 @@ import { StyledButton, UserImage, StyledTooltip } from './styles';
 
 const goToRegistrationPage = ({ push }) => push('/rejestracja');
 
-const goToProfile = ({ push }) => push('student/profil');
+const goToProfile = ({ push }) => push('/student/profil');
 
 const User = ({ sizeName, logout, auth, history }) => (
   <Fragment>
-    {auth === false ? (
-      <StyledButton ghost size="small" kind="white" onClick={()=>goToRegistrationPage(history)}>
+    {!auth ? (
+      <StyledButton ghost size="small" kind="white" onClick={() => goToRegistrationPage(history)}>
         {sizeName === 'xs' ? <span className="fas fa-user" /> : <span>Moje konto</span>}
       </StyledButton>
     ) : (

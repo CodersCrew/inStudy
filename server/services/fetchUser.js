@@ -1,5 +1,16 @@
 import mongoose from 'mongoose';
 
+export const getUserData = userId =>
+  new Promise((resolve, reject) => {
+    mongoose.model('users').findById(userId, (error, user) => {
+      if (error) {
+        reject(error.name);
+      } else {
+        resolve(user);
+      }
+    });
+  });
+
 export const addNewModule = (module, userId) => {
   return mongoose.model('users').findByIdAndUpdate(userId, {
     $addToSet: {
@@ -56,8 +67,10 @@ export const changeBasicUserData = (basic, userId) => {
 };
 
 export const mapUserToView = RAWUser => {
-  RAWUser = RAWUser.toObject();
-  RAWUser.socials = [...RAWUser.socials];
-  RAWUser.socials = RAWUser.socials.map(singleSocial => ({ url: singleSocial.url, type: singleSocial.socialType }));
+  if (RAWUser) {
+    RAWUser = RAWUser.toObject();
+    RAWUser.socials = [...RAWUser.socials];
+    RAWUser.socials = RAWUser.socials.map(singleSocial => ({ url: singleSocial.url, type: singleSocial.socialType }));
+  }
   return RAWUser;
 };

@@ -18,7 +18,11 @@ class ComplexModal extends PureComponent {
         title={title}
         onCancel={this.props.onCancel}
         width={this.props.width}
-        footer={this.props?.buttons?.reverse().map(button => <Button {...button}>{button.label}</Button>)}
+        footer={this.props?.buttons?.reverse().map(button => (
+          <Button key={button.label} {...button}>
+            {button.label}
+          </Button>
+        ))}
       >
         {this.props.children}
       </StyledModal>

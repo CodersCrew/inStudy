@@ -38,31 +38,35 @@ class FetchInitiative {
     }
   };
 
-  getShortInitiativeProfile = page => {
-    return this.getInitiative(page).then(initiatives =>
+  getShortInitiativeProfile = page =>
+    this.getInitiative(page).then(initiatives =>
       initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),
     );
-  };
 
-  setInitiative = initiative => {
-    return initiativeExist(initiative.shortUrl).then(foundInitiative => {
+  setInitiative = initiative =>
+    initiativeExist(initiative.shortUrl).then(foundInitiative => {
       if (foundInitiative) {
         return Promise.resolve(foundInitiative);
       } else {
         return new this.Initiative(initiative).save();
       }
     });
-  };
 
-  getSingleInitiative = shortUrl => {
-    return this.Initiative.findOne({ shortUrl })
-      .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
-      .then(profile => mapRAWInitiativeObjectToViewReady(profile))
-      .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
-      .then(profile => mapRAWInitiativeObjectToViewReady(profile));
-  };
+  getSingleInitiative = shortUrl =>
+    new Promise((resolve, reject) => {
+      this.Initiative.findOne({ shortUrl }, (err, initiative) => {
+        if (initiative === null) {
+          reject('NOT_FOUND');
+        } else {
+          const profile = { ...initiative.toObject(), profileCompleted: true };
+          resolve(mapRAWInitiativeObjectToViewReady(profile));
+        }
+      });
+    });
 
   addInitiativeModule = (initiativeId, module) => {
+    console.log(initiativeId);
+    console.log(module);
     module._id = new mongoose.mongo.ObjectId();
 
     return this.Initiative.findByIdAndUpdate(initiativeId, {
@@ -72,36 +76,63 @@ class FetchInitiative {
     });
   };
 
-  getAllModules = initiativeId => {
-    return this.Initiative.findById(initiativeId).then(result => {
-      return Promise.resolve(result.modules);
-    });
-  };
+  getAllModules = initiativeId =>
+    this.Initiative.findById(initiativeId).then(result => Promise.resolve(result.modules));
 
-  deleteModule(initiativeId, moduleId) {
-    return this.Initiative.findByIdAndUpdate(initiativeId, {
+  updateModule = (module, initiativeId, moduleId) =>
+    new Promise((resolve, reject) => {
+      this.Initiative.findById(initiativeId, (err, initiative) => {
+        let newModule;
+
+        const updatedModules = initiative.modules.map(item => {
+          if (String(item._id) === String(moduleId)) {
+            newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
+            return newModule;
+          }
+          return item;
+        });
+
+        this.Initiative.findByIdAndUpdate(
+          initiativeId,
+          {
+            $set: {
+              modules: updatedModules,
+            },
+          },
+          err => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(newModule);
+            }
+          },
+        );
+      });
+    });
+
+  deleteModule = (initiativeId, moduleId) =>
+    this.Initiative.findByIdAndUpdate(initiativeId, {
       $pull: {
         modules: {
           _id: new mongoose.mongo.ObjectId(moduleId),
         },
       },
     });
-  }
 
-  getFBProfile = shortUrl => {
-    return new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
-  };
+  getFBProfile = shortUrl =>
+    new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
 
-  setFBProfile = (shortUrl, profile) => {
-    return this.Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
-  };
+  setFBProfile = (shortUrl, profile) =>
+    this.Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
 }
 
 function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
-  const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
+  if (RAWInitiative) {
+    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
 
-  if (AboutPage && AboutPage.content && AboutPage.content.logo) {
-    RAWInitiative.image = AboutPage.content.logo;
+    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
+      RAWInitiative.image = AboutPage.content.logo;
+    }
   }
 
   return RAWInitiative;
