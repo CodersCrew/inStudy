@@ -10,7 +10,9 @@ import Initiatives from './Initiatives';
 import { Container } from './styles';
 
 const InitiativeViews = ({ location: { pathname } }) => {
-  const isProfile = pathname.includes('profil');
+  const pathnameArr = pathname.split('/');
+  const isProfile =
+    pathnameArr[1] === 'inicjatywy' && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
 
   return (
     <Fragment>
@@ -20,6 +22,24 @@ const InitiativeViews = ({ location: { pathname } }) => {
           <Route
             path="/inicjatywy/:shortUrl/profil"
             component={withAuth(['authorizedUser'])(InitiativePrivateProfile)}
+          />
+          <Route
+            path="/inicjatywy/:shortUrl/czlonkowie"
+            component={withAuth(['authorizedUser'])(() => (
+              <div>członkowie</div>
+            ))}
+          />
+          <Route
+            path="/inicjatywy/:shortUrl/projekty"
+            component={withAuth(['authorizedUser'])(() => (
+              <div>projekty</div>
+            ))}
+          />
+          <Route
+            path="/inicjatywy/:shortUrl/rekrutacja"
+            component={withAuth(['authorizedUser'])(() => (
+              <div>rekrutacja</div>
+            ))}
           />
           <Route path="/inicjatywy/:shortUrl" component={InitiativePublicProfile} />
           <Route exact path="/inicjatywy" component={Initiatives} />
