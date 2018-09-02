@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { bool, func, string, node, object, number } from 'prop-types';
+import { bool, func, string, node, object, number, array } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { omit } from 'utils';
 import { required } from 'utils/validators';
 import { ComplexModal } from 'components';
@@ -14,21 +15,31 @@ import { Top, InputWrapper, ContentHeader } from './styles';
 
 const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
 
-@withNotifications
-@reduxForm({ form: 'userModuleModal' })
-@connect(
-  ({ auth }) => ({
-    initiatives: auth.initiatives.reduce((acc, { _id, shortUrl }) => ({ ...acc, [shortUrl]: _id }), {}),
-  }),
-  {
-    addUserModule,
-    updateUserModule,
-    deleteUserModule,
-    addInitiativeModule,
-    updateInitiativeModule,
-    deleteInitiativeModule,
-  },
-)
+const isInitiativeView = () => window.location.pathname.includes('inicjatywy');
+
+const mapStateToProps = ({ auth }) => ({
+  initiatives: auth.initiatives.reduce((acc, { _id, shortUrl }) => ({ ...acc, [shortUrl]: _id }), {}),
+});
+
+const actions = {
+  addUserModule,
+  updateUserModule,
+  deleteUserModule,
+  addInitiativeModule,
+  updateInitiativeModule,
+  deleteInitiativeModule,
+};
+
+const withHocs = compose(
+  withNotifications,
+  reduxForm({ form: 'moduleModal' }),
+  connect(
+    mapStateToProps,
+    actions,
+  ),
+);
+
+@withHocs
 class ModalBase extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +49,6 @@ class ModalBase extends Component {
       this.isEditModal = true;
       props.initialize(parseInitialValues(props.initialValues));
     }
-  }
-
-  shouldComponentUpdate(np) {
-    return !(!np.visible && !this.props.visible);
   }
 
   getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
@@ -55,17 +62,15 @@ class ModalBase extends Component {
     };
 
     if (this.isEditModal) {
-      if (window.location.pathname.includes('inicjatywy')) {
-        const initiativeId = this.getInitiativeId();
-        await this.props.updateInitiativeModule(valuesToSubmit, initiativeId, this.props.id);
+      if (isInitiativeView()) {
+        await this.props.updateInitiativeModule(valuesToSubmit, this.getInitiativeId(), this.props.id);
       } else {
         await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
       }
       this.props.notify(updateNotification(values));
     } else {
-      if (window.location.pathname.includes('inicjatywy')) {
-        const initiativeId = this.getInitiativeId();
-        await this.props.addInitiativeModule(initiativeId, valuesToSubmit);
+      if (isInitiativeView()) {
+        await this.props.addInitiativeModule(this.getInitiativeId(), valuesToSubmit);
       } else {
         await this.props.addUserModule(valuesToSubmit);
       }
@@ -75,10 +80,8 @@ class ModalBase extends Component {
   };
 
   deleteModule = async () => {
-    if (window.location.pathname.includes('inicjatywy')) {
-      const initiativeId = this.getInitiativeId();
-      console.log(this.props.id);
-      await this.props.deleteInitiativeModule(initiativeId, this.props.id);
+    if (isInitiativeView()) {
+      await this.props.deleteInitiativeModule(this.getInitiativeId(), this.props.id);
     } else {
       await this.props.deleteUserModule(this.props.moduleIndex);
     }
@@ -86,7 +89,6 @@ class ModalBase extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { visible, onClose, name, iconClass, handleSubmit, children, submitting, contentHeader } = this.props;
     const buttons = [
       {
@@ -162,9 +164,11 @@ ModalBase.propTypes = {
   updateUserModule: func,
   addUserModule: func,
   addInitiativeModule: func,
-  notify: func.isRequired,
+  notify: func,
+  updateInitiativeModule: func,
   deleteInitiativeModule: func,
   id: string,
+  initiatives: array,
 };
 
 ModalBase.defaultProps = {
