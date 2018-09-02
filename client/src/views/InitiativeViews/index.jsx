@@ -13,11 +13,12 @@ const InitiativeViews = ({ location: { pathname } }) => {
   const pathnameArr = pathname.split('/');
   const isProfile =
     pathnameArr[1] === 'inicjatywy' && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
+  const isSingleView = pathnameArr.length === 3;
 
   return (
     <Fragment>
       {isProfile && <InitiativeNav />}
-      <Container isProfile={isProfile}>
+      <Container isProfile={isProfile} isSingleView={isSingleView}>
         <Switch>
           <Route
             path="/inicjatywy/:shortUrl/profil"
