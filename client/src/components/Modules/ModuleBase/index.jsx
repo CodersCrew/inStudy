@@ -39,6 +39,7 @@ class EditableModuleBase extends PureComponent {
           <ModuleModal
             visible
             key={this.props.type}
+            id={this.props._id}
             name={modalData.name}
             iconClass={modalData.iconClass}
             type={this.props.type}
@@ -52,7 +53,8 @@ class EditableModuleBase extends PureComponent {
   }
 }
 
-EditableModuleBase.propTypes = { ...staticProps, moduleIndex: number.isRequired };
+EditableModuleBase.propTypes = { ...staticProps, moduleIndex: number.isRequired, id: string };
+EditableModuleBase.defaultProps = { id: '' };
 
 const StaticModuleBase = props => {
   const modalData = modulesConfig[props.type];

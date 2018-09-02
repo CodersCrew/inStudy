@@ -20,19 +20,21 @@ class InitiativePublicProfile extends PureComponent {
 
   render() {
     const { auth, match } = this.props;
-    const initiative = auth.initiatives.find(({ shortUrl }) => shortUrl === match.params.shortUrl);
+    const initiative = auth?.initiatives.find(({ shortUrl }) => shortUrl === match.params.shortUrl);
 
-    if (auth && !initiative) {
+    if ((auth && !initiative) || auth === false) {
       return <Redirect to="/404" />;
     }
 
     return (
-      <ProfileBase
-        editable
-        data={initiative}
-        accessibleModals={['richText', 'timeline', 'contact']}
-        cardEditModal={CardEditModal}
-      />
+      auth && (
+        <ProfileBase
+          editable
+          data={initiative}
+          accessibleModals={['richText', 'timeline', 'contact']}
+          cardEditModal={CardEditModal}
+        />
+      )
     );
   }
 }

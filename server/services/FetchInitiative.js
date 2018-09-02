@@ -65,6 +65,8 @@ class FetchInitiative {
     });
 
   addInitiativeModule = (initiativeId, module) => {
+    console.log(initiativeId);
+    console.log(module);
     module._id = new mongoose.mongo.ObjectId();
 
     return this.Initiative.findByIdAndUpdate(initiativeId, {
@@ -76,6 +78,37 @@ class FetchInitiative {
 
   getAllModules = initiativeId =>
     this.Initiative.findById(initiativeId).then(result => Promise.resolve(result.modules));
+
+  updateModule = (module, initiativeId, moduleId) =>
+    new Promise((resolve, reject) => {
+      this.Initiative.findById(initiativeId, (err, initiative) => {
+        let newModule;
+
+        const updatedModules = initiative.modules.map(item => {
+          if (String(item._id) === String(moduleId)) {
+            newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
+            return newModule;
+          }
+          return item;
+        });
+
+        this.Initiative.findByIdAndUpdate(
+          initiativeId,
+          {
+            $set: {
+              modules: updatedModules,
+            },
+          },
+          err => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(newModule);
+            }
+          },
+        );
+      });
+    });
 
   deleteModule = (initiativeId, moduleId) =>
     this.Initiative.findByIdAndUpdate(initiativeId, {

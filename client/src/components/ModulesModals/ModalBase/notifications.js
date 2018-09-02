@@ -1,6 +1,6 @@
 export const addNotification = ({ title }) => ({
   title: 'Dodałeś moduł',
-  message: `Do Twojego profilu został dodany moduł ${title}.`,
+  message: `Do profilu został dodany moduł ${title}.`,
   status: 'success',
   dismissible: true,
   dismissAfter: 3000,
@@ -16,7 +16,7 @@ export const updateNotification = ({ title }) => ({
 
 export const deleteNotification = ({ title }) => ({
   title: 'Usunąłeś moduł',
-  message: `Moduł ${title} został usunięty z Twojego profilu`,
+  message: `Moduł ${title} został usunięty z profilu`,
   status: 'success',
   dismissible: true,
   dismissAfter: 3000,

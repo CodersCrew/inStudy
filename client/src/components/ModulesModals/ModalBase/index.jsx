@@ -8,6 +8,7 @@ import { ComplexModal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
 import { withNotifications } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
+import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
 import { Top, InputWrapper, ContentHeader } from './styles';
 
@@ -16,8 +17,17 @@ const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...cont
 @withNotifications
 @reduxForm({ form: 'userModuleModal' })
 @connect(
-  null,
-  { addUserModule, updateUserModule, deleteUserModule },
+  ({ auth }) => ({
+    initiatives: auth.initiatives.reduce((acc, { _id, shortUrl }) => ({ ...acc, [shortUrl]: _id }), {}),
+  }),
+  {
+    addUserModule,
+    updateUserModule,
+    deleteUserModule,
+    addInitiativeModule,
+    updateInitiativeModule,
+    deleteInitiativeModule,
+  },
 )
 class ModalBase extends Component {
   constructor(props) {
@@ -34,6 +44,8 @@ class ModalBase extends Component {
     return !(!np.visible && !this.props.visible);
   }
 
+  getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
+
   onSubmit = async values => {
     const valuesToSubmit = {
       icon: values.icon,
@@ -41,23 +53,40 @@ class ModalBase extends Component {
       type: this.props.type,
       content: omit(values, ['icon', 'title']),
     };
-    console.log(valuesToSubmit);
+
     if (this.isEditModal) {
-      await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
+      if (window.location.pathname.includes('inicjatywy')) {
+        const initiativeId = this.getInitiativeId();
+        await this.props.updateInitiativeModule(valuesToSubmit, initiativeId, this.props.id);
+      } else {
+        await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
+      }
       this.props.notify(updateNotification(values));
     } else {
-      await this.props.addUserModule(valuesToSubmit);
+      if (window.location.pathname.includes('inicjatywy')) {
+        const initiativeId = this.getInitiativeId();
+        await this.props.addInitiativeModule(initiativeId, valuesToSubmit);
+      } else {
+        await this.props.addUserModule(valuesToSubmit);
+      }
       this.props.notify(addNotification(values));
     }
     this.props.onClose();
   };
 
   deleteModule = async () => {
-    await this.props.deleteUserModule(this.props.moduleIndex);
+    if (window.location.pathname.includes('inicjatywy')) {
+      const initiativeId = this.getInitiativeId();
+      console.log(this.props.id);
+      await this.props.deleteInitiativeModule(initiativeId, this.props.id);
+    } else {
+      await this.props.deleteUserModule(this.props.moduleIndex);
+    }
     this.props.notify(deleteNotification(this.props.initialValues));
   };
 
   render() {
+    console.log(this.props);
     const { visible, onClose, name, iconClass, handleSubmit, children, submitting, contentHeader } = this.props;
     const buttons = [
       {
@@ -132,7 +161,10 @@ ModalBase.propTypes = {
   deleteUserModule: func,
   updateUserModule: func,
   addUserModule: func,
-  notify: func,
+  addInitiativeModule: func,
+  notify: func.isRequired,
+  deleteInitiativeModule: func,
+  id: string,
 };
 
 ModalBase.defaultProps = {
@@ -140,6 +172,7 @@ ModalBase.defaultProps = {
   submitting: false,
   initialValues: null,
   moduleIndex: null,
+  id: '',
 };
 
 export default ModalBase;
