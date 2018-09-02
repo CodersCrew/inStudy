@@ -58,7 +58,7 @@ class ModalBase extends Component {
   };
 
   render() {
-    const { visible, onClose, name, icon, handleSubmit, children, submitting, contentHeader } = this.props;
+    const { visible, onClose, name, iconClass, handleSubmit, children, submitting, contentHeader } = this.props;
     const buttons = [
       {
         onClick: handleSubmit(this.onSubmit),
@@ -89,7 +89,7 @@ class ModalBase extends Component {
         visible={visible}
         onCancel={submitting ? () => {} : onClose}
         title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł "${name}"`}
-        iconClass="fal fa-phone"
+        iconClass={iconClass}
         width={644}
         buttons={buttons}
       >
@@ -120,7 +120,7 @@ ModalBase.propTypes = {
   contentHeader: string,
   handleSubmit: func,
   name: string.isRequired,
-  icon: string.isRequired,
+  iconClass: string.isRequired,
   visible: bool.isRequired,
   onClose: func.isRequired,
   children: node.isRequired,

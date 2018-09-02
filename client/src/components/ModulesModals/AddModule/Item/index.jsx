@@ -10,7 +10,7 @@ const Item = ({ data, openModal, onClose }) => (
     }}
   >
     <Circle>
-      <i className={`fal fa-${data.icon}`} />
+      <i className={data.iconClass} />
     </Circle>
     <Content>
       <Name>{data.name}</Name>

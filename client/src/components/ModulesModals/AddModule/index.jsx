@@ -10,7 +10,7 @@ const AddModule = ({ visible, onClose, openModal, accessibleModals }) => (
     visible={visible}
     onCancel={onClose}
     title="Dodaj moduł do profilu"
-    iconClass="fal fa-phone"
+    iconClass="fal fa-plus"
     width={644}
     buttons={[
       {

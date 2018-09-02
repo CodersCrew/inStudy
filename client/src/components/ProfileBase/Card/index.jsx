@@ -2,7 +2,6 @@ import React from 'react';
 import { string, arrayOf, object, bool, func } from 'prop-types';
 import { compose, withState, withHandlers } from 'recompose';
 import { socials } from 'data';
-import { omit } from 'utils';
 import { Container, Image, Name, Description, Socials, SocialItem, EditIcon } from './styles';
 
 const staticProps = {

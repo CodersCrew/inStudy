@@ -45,6 +45,7 @@ class IconPicker extends PureComponent {
             size={size}
             value={value}
             onClick={openModal}
+            onChange={() => {}}
           />
           {value && (
             <IconWrapper>
@@ -52,9 +53,7 @@ class IconPicker extends PureComponent {
             </IconWrapper>
           )}
         </Container>
-        {isModalOpen && (
-          <Modal onSubmit={handleChange} open={isModalOpen} close={closeModal} icon={value} />
-        )}
+        {isModalOpen && <Modal onSubmit={handleChange} open={isModalOpen} close={closeModal} icon={value} />}
       </Fragment>
     );
   }

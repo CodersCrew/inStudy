@@ -5,6 +5,7 @@ import { modulesConfig } from 'data';
 
 class ModulesModals extends PureComponent {
   renderModal = name => {
+    console.log(name);
     const modalData = modulesConfig[name];
     const Modal = modalData.modalContent;
     console.log(modalData);
@@ -12,7 +13,7 @@ class ModulesModals extends PureComponent {
       <Modal
         key={name}
         name={modalData.name}
-        icon={modalData.icon}
+        iconClass={modalData.iconClass}
         type={name}
         visible
         onClose={() => this.props.closeModal(name)}

@@ -32,10 +32,10 @@ class UserInitiatives extends PureComponent {
     </Wrapper>
   );
 
-  renderInitiatives = () => this.props.initiatives.map(initiative => <InitiativeCard key={initiative._id} {...initiative} />);
+  renderInitiatives = () =>
+    this.props.initiatives.map(initiative => <InitiativeCard key={initiative._id} {...initiative} />);
 
   render() {
-    console.log(this.props);
     return (
       <MainContainer>
         {this.props.initiatives?.length ? this.renderInitiatives() : this.renderEmptyView()}

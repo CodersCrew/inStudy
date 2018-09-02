@@ -1,43 +1,35 @@
 import React, { PureComponent } from 'react';
-import { object, func } from 'prop-types';
+import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { getInitiativePublicProfile, cleanPublicProfile } from 'store/actions/publicProfile';
 import { ProfileBase } from 'components';
 import CardEditModal from './CardEditModal';
 
-@connect(
-  ({ publicProfile }) => ({ initiative: publicProfile }),
-  { getInitiativePublicProfile, cleanPublicProfile },
-)
+@connect(({ auth }) => ({ auth }))
 class InitiativePublicProfile extends PureComponent {
   constructor(props) {
     super(props);
     window.disableHomeAnimation = true;
   }
 
-  componentDidMount() {
-    this.props.getInitiativePublicProfile(this.props.match.params.shortUrl);
-  }
-
   componentWillUnmount() {
     setTimeout(() => {
       window.disableHomeAnimation = false;
     }, 100);
-    this.props.cleanPublicProfile();
   }
 
   render() {
-    const { initiative } = this.props;
+    const { auth, match } = this.props;
+    const initiative = auth.initiatives.find(({ shortUrl }) => shortUrl === match.params.shortUrl);
 
-    if (initiative === false) {
+    if (auth && !initiative) {
       return <Redirect to="/404" />;
     }
 
     return (
       <ProfileBase
         editable
-        data={this.props.initiative}
+        data={initiative}
         accessibleModals={['richText', 'timeline', 'contact']}
         cardEditModal={CardEditModal}
       />
@@ -46,16 +38,12 @@ class InitiativePublicProfile extends PureComponent {
 }
 
 InitiativePublicProfile.propTypes = {
-  initiative: object,
-  getInitiativePublicProfile: func,
-  cleanPublicProfile: func,
+  auth: object,
   match: object.isRequired,
 };
 
 InitiativePublicProfile.defaultProps = {
-  initiative: null,
-  getInitiativePublicProfile: () => {},
-  cleanPublicProfile: () => {},
+  auth: null,
 };
 
 export default InitiativePublicProfile;

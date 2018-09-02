@@ -40,7 +40,7 @@ class EditableModuleBase extends PureComponent {
             visible
             key={this.props.type}
             name={modalData.name}
-            icon={modalData.icon}
+            iconClass={modalData.iconClass}
             type={this.props.type}
             onClose={this.closeModal}
             initialValues={pick(this.props, ['title', 'icon', 'content'])}

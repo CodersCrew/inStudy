@@ -13,28 +13,28 @@ import ContactModal from 'components/ModulesModals/Contact';
 export default {
   richText: {
     name: 'Tekst',
-    icon: 'font',
+    iconClass: 'fal fa-font',
     description: 'Pole tekstowe z możliwością dodawania linków, zdjęć i filmików.',
     module: RichTextModule,
     modalContent: RichTextModal,
   },
   skills: {
     name: 'Umiejętności',
-    icon: 'chart-line',
+    iconClass: 'fal fa-chart-line',
     description: 'Wykresy prezentujące poziom opanowania wybranych umiejętności.',
     module: SkillsModule,
     modalContent: SkillsModal,
   },
   timeline: {
     name: 'Oś czasu',
-    icon: 'history',
+    iconClass: 'fal fa-history',
     description: 'Zbiór ułożonych hronologicznie wydarzeń.',
     module: TimelineModule,
     modalContent: TimelineModal,
   },
   contact: {
     name: 'Formularz kontaktowy',
-    icon: 'phone',
+    iconClass: 'fal fa-phone',
     description: 'Pola umożliwiające kontakt z Tobą bez konieczności ujawniania Twojego maila.',
     module: ContactModule,
     modalContent: ContactModal,
