@@ -9,7 +9,7 @@ import { StyledButton, UserImage, StyledTooltip } from './styles';
 
 const goToRegistrationPage = ({ push }) => push('/rejestracja');
 
-const goToProfile = ({ push }) => push('student/profil');
+const goToProfile = ({ push }) => push('/student/profil');
 
 const User = ({ sizeName, logout, auth, history }) => (
   <Fragment>

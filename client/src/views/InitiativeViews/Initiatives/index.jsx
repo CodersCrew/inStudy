@@ -2,8 +2,8 @@ import React, { PureComponent, Fragment } from 'react';
 import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
-import { getMoreInitiatives } from '../../store/actions';
-import Home from '../Home';
+import { getMoreInitiatives } from 'store/actions';
+import Home from '../../Home';
 import InitiativesList from './InitiativesList';
 
 @connect(
@@ -24,9 +24,7 @@ class Initiatives extends PureComponent {
         <Home listView />
         <InitiativesList
           initiatives={initiatives.items}
-          waypoint={() =>
-            initiatives.items.length % 10 === 0 && <Waypoint onEnter={this.handleWaypointEnter} />
-          }
+          waypoint={() => initiatives.items.length % 10 === 0 && <Waypoint onEnter={this.handleWaypointEnter} />}
         />
       </Fragment>
     );

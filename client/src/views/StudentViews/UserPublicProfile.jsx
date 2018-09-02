@@ -1,5 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
-import { object } from 'prop-types';
+import React, { PureComponent } from 'react';
+import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { getUserPublicProfile, cleanPublicProfile } from 'store/actions/publicProfile';
@@ -25,16 +25,28 @@ class UserProfile extends PureComponent {
       return <Redirect to="/404" />;
     }
 
-    return <ProfileBase data={this.props.user} />;
+    return (
+      <ProfileBase
+        data={{
+          ...user,
+          name: `${user.firstName} ${user.lastName}`,
+        }}
+      />
+    );
   }
 }
 
 UserProfile.propTypes = {
   user: object,
+  getUserPublicProfile: func,
+  cleanPublicProfile: func,
+  match: object.isRequired,
 };
 
 UserProfile.defaultProps = {
   user: null,
+  getUserPublicProfile: () => {},
+  cleanPublicProfile: () => {},
 };
 
 export default UserProfile;

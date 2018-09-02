@@ -13,12 +13,13 @@ export const Header = styled.div`
   align-items: flex-start;
 `;
 
-export const Logo = styled.img`
+export const Logo = styled.div`
   max-width: 96px;
   max-height: 96px;
   min-width: 96px;
   min-height: 96px;
   border-radius: 4px;
+  background: url('${props => props.src}') no-repeat center/contain;
 `;
 
 export const StyledAvatar = styled(Avatar)`

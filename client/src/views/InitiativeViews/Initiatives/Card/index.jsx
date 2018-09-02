@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, object, bool } from 'prop-types';
 import Fade from 'react-reveal/Fade';
-import { sliceText } from '../../../utils';
+import { sliceText } from 'utils';
 import {
   Container,
   Head,

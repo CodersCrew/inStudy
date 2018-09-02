@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { array } from 'prop-types';
+import { array, func } from 'prop-types';
 import Card from '../Card';
 import { StyledContainer } from './styles';
 
@@ -16,6 +16,7 @@ const InitiativesList = ({ initiatives, waypoint }) => (
 
 InitiativesList.propTypes = {
   initiatives: array.isRequired,
+  waypoint: func.isRequired,
 };
 
 export default InitiativesList;

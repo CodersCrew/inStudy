@@ -47,10 +47,14 @@ export default app => {
     new FetchInitiative()
       .getSingleInitiative(shortUrl)
       .then(singleInitiative => {
-        res.status(200).json({ result: singleInitiative });
+        res.status(200).json(singleInitiative);
       })
-      .catch(() => {
-        res.sendStatus(404);
+      .catch(err => {
+        if (err === 'NOT_FOUND') {
+          res.sendStatus(404);
+        } else {
+          console.error(err);
+        }
       });
   });
 

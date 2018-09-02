@@ -2,14 +2,13 @@ import React from 'react';
 import { string, arrayOf, object, bool, func } from 'prop-types';
 import { compose, withState, withHandlers } from 'recompose';
 import { socials } from 'data';
-import CardEditModal from './CardEditModal';
+import { omit } from 'utils';
 import { Container, Image, Name, Description, Socials, SocialItem, EditIcon } from './styles';
 
 const staticProps = {
   email: string.isRequired,
   image: string.isRequired,
-  firstName: string.isRequired,
-  lastName: string.isRequired,
+  name: string.isRequired,
   description: string,
   socials: arrayOf(object),
 };
@@ -35,39 +34,29 @@ const withHocs = compose(
   }),
 );
 
-const EditableCard = ({
-  firstName,
-  lastName,
-  description,
-  image,
-  email,
-  socials,
-  isModalOpen,
-  openModal,
-  closeModal,
-}) => (
-  <Container editable>
-    <Image src={image} />
-    <Name>{`${firstName} ${lastName}`}</Name>
-    <Description>{description}</Description>
-    {socials.length > 0 && <Socials>{socials.map(Social)}</Socials>}
-    <EditIcon className="fal fa-edit" onClick={openModal} />
-    <CardEditModal
-      visible={isModalOpen}
-      onClose={closeModal}
-      userData={{ firstName, lastName, image, email, description, socials }}
-    />
-  </Container>
-);
+const EditableCard = props => {
+  const EditModal = props.cardEditModal;
+
+  return (
+    <Container editable>
+      <Image src={props.image} />
+      <Name>{props.name}</Name>
+      <Description>{props.description}</Description>
+      {props.socials.length > 0 && <Socials>{props.socials.map(Social)}</Socials>}
+      <EditIcon className="fal fa-edit" onClick={props.openModal} />
+      <EditModal visible={props.isModalOpen} onClose={props.closeModal} data={props} />
+    </Container>
+  );
+};
 
 EditableCard.propTypes = { ...staticProps, ...dynamicProps };
 
 const EnhancedEditableCard = withHocs(EditableCard);
 
-const StaticCard = ({ firstName, lastName, description, image, socials }) => (
+const StaticCard = ({ name, description, image, socials }) => (
   <Container>
     <Image src={image} />
-    <Name>{`${firstName} ${lastName}`}</Name>
+    <Name>{name}</Name>
     <Description>{description}</Description>
     {socials.length > 0 && <Socials>{socials.map(Social)}</Socials>}
   </Container>

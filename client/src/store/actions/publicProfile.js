@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER_PUBLIC_PROFILE, CLEAN_PUBLIC_PROFILE } from './types';
+import { GET_USER_PUBLIC_PROFILE, GET_INITIATIVE_PUBLIC_PROFILE, CLEAN_PUBLIC_PROFILE } from './types';
 
 export const getUserPublicProfile = userId => async dispatch => {
   try {
@@ -13,6 +13,23 @@ export const getUserPublicProfile = userId => async dispatch => {
     console.error({ ...e });
     return dispatch({
       type: GET_USER_PUBLIC_PROFILE,
+      payload: false,
+    });
+  }
+};
+
+export const getInitiativePublicProfile = shortUrl => async dispatch => {
+  try {
+    const { data } = await axios.get(`/api/initiative/${shortUrl}`);
+
+    return dispatch({
+      type: GET_INITIATIVE_PUBLIC_PROFILE,
+      payload: data,
+    });
+  } catch (e) {
+    console.error({ ...e });
+    return dispatch({
+      type: GET_INITIATIVE_PUBLIC_PROFILE,
       payload: false,
     });
   }
