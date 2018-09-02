@@ -3,7 +3,7 @@ import { media } from 'utils';
 
 export const Container = styled.div`
   position: sticky;
-  top: 80px;
+  top: ${props => (props.editable ? '80px' : '24px')};
   display: flex;
   flex-direction: column;
   align-items: center;

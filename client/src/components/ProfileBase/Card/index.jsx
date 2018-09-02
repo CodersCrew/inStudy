@@ -5,6 +5,21 @@ import { socials } from 'data';
 import CardEditModal from './CardEditModal';
 import { Container, Image, Name, Description, Socials, SocialItem, EditIcon } from './styles';
 
+const staticProps = {
+  email: string.isRequired,
+  image: string.isRequired,
+  firstName: string.isRequired,
+  lastName: string.isRequired,
+  description: string,
+  socials: arrayOf(object),
+};
+
+const dynamicProps = {
+  isModalOpen: bool.isRequired,
+  openModal: func.isRequired,
+  closeModal: func.isRequired,
+};
+
 const Social = ({ type, url }) => <SocialItem color={socials[type].color} href={url} className={socials[type].icon} />;
 
 Social.propTypes = {
@@ -20,8 +35,18 @@ const withHocs = compose(
   }),
 );
 
-const Card = ({ firstName, lastName, description, image, email, socials, isModalOpen, openModal, closeModal }) => (
-  <Container>
+const EditableCard = ({
+  firstName,
+  lastName,
+  description,
+  image,
+  email,
+  socials,
+  isModalOpen,
+  openModal,
+  closeModal,
+}) => (
+  <Container editable>
     <Image src={image} />
     <Name>{`${firstName} ${lastName}`}</Name>
     <Description>{description}</Description>
@@ -35,16 +60,25 @@ const Card = ({ firstName, lastName, description, image, email, socials, isModal
   </Container>
 );
 
+EditableCard.propTypes = { ...staticProps, ...dynamicProps };
+
+const EnhancedEditableCard = withHocs(EditableCard);
+
+const StaticCard = ({ firstName, lastName, description, image, socials }) => (
+  <Container>
+    <Image src={image} />
+    <Name>{`${firstName} ${lastName}`}</Name>
+    <Description>{description}</Description>
+    {socials.length > 0 && <Socials>{socials.map(Social)}</Socials>}
+  </Container>
+);
+
+StaticCard.propTypes = staticProps;
+
+const Card = props => (props.editable ? <EnhancedEditableCard {...props} /> : <StaticCard {...props} />);
+
 Card.propTypes = {
-  email: string.isRequired,
-  image: string.isRequired,
-  firstName: string.isRequired,
-  lastName: string.isRequired,
-  description: string,
-  socials: arrayOf(object),
-  isModalOpen: bool.isRequired,
-  openModal: func.isRequired,
-  closeModal: func.isRequired,
+  editable: bool.isRequired,
 };
 
 Card.defaultProps = {
@@ -52,4 +86,4 @@ Card.defaultProps = {
   socials: [],
 };
 
-export default withHocs(Card);
+export default Card;

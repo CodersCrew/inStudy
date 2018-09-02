@@ -1,14 +1,14 @@
-import RichTextModule from './Modules/RichText';
-import RichTextModal from './ModulesModals/RichText';
+import RichTextModule from 'components/Modules/RichText';
+import RichTextModal from 'components/ModulesModals/RichText';
 
-import SkillsModule from './Modules/Skills';
-import SkillsModal from './ModulesModals/Skills';
+import SkillsModule from 'components/Modules/Skills';
+import SkillsModal from 'components/ModulesModals/Skills';
 
-import TimelineModule from './Modules/Timeline';
-import TimelineModal from './ModulesModals/Timeline';
+import TimelineModule from 'components/Modules/Timeline';
+import TimelineModal from 'components/ModulesModals/Timeline';
 
-import ContactModule from './Modules/Contact';
-import ContactModal from './ModulesModals/Contact';
+import ContactModule from 'components/Modules/Contact';
+import ContactModal from 'components/ModulesModals/Contact';
 
 export default {
   richText: {

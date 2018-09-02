@@ -7,3 +7,5 @@ export SVGIcon from './SVGIcon';
 export IconPicker from './IconPicker';
 export ComplexModal from './ComplexModal';
 export ConfirmationModal from './ConfirmationModal';
+export Modules from './Modules';
+export ProfileBase from './ProfileBase';

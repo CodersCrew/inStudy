@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, string, func, oneOfType, object, shape, number } from 'prop-types';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
-import { antdColors } from 'data';
+import antdColors from 'data/antdColors';
 import { editorStyles } from './styles';
 import FieldWrapper from './FieldWrapper';
 

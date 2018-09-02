@@ -89,3 +89,8 @@
     color: var(--grey6);
   }
 }
+
+.ant-btn.ant-btn-danger.ant-btn-background-ghost {
+  border-color: var(--error);
+  color: var(--error);
+}

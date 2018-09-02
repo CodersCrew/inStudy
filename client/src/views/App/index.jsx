@@ -53,6 +53,7 @@ class App extends PureComponent {
                 <Route path="/inicjatywy/:initiative" component={InitiativeProfile} />
                 <Route path="/inicjatywy" component={Initiatives} />
                 <Route path="/student/profil" component={StudentViews} />
+                <Route path="/student" component={StudentViews} />
                 <Route path="/rejestracja" component={Registration} />
                 <Route path="/polityka_prywatnosci" component={Policy} />
                 <Route path="/regulamin" component={Statute} />

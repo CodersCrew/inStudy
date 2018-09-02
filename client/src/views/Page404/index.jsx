@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Portal } from 'react-portal';
 import VideoCover from 'react-background-video-player';
-import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 import { Container, Error, Description } from './styles';
 
 export default class Page404 extends PureComponent {
@@ -27,8 +27,6 @@ export default class Page404 extends PureComponent {
     });
   };
 
-  backHome = () => this.props.history.push('/inicjatywy');
-
   render() {
     return (
       <Fragment>
@@ -45,10 +43,10 @@ export default class Page404 extends PureComponent {
         </Portal>
         <Container>
           <Error>404</Error>
-          <Description>Nie znaleźliśmy inicjatywy, której szukasz 😑</Description>
-          <Button onClick={this.backHome} size="large" ghost>
-            Odkryj inne inicjatywy
-          </Button>
+          <Description>Niestety, strona której szukasz nie istnieje 😑</Description>
+          <Link className="ant-btn ant-btn-lg ant-btn-background-ghost" to="/">
+            Wróć na stronę główną
+          </Link>
         </Container>
       </Fragment>
     );

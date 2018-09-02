@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { array, func } from 'prop-types';
 import AddModule from './AddModule';
-import modulesConfig from '../modulesConfig';
+import { modulesConfig } from 'data';
 
 class ModulesModals extends PureComponent {
   renderModal = name => {
@@ -21,7 +21,7 @@ class ModulesModals extends PureComponent {
   };
 
   render() {
-    const { openedModalNames, openModal, closeModal } = this.props;
+    const { openedModalNames, openModal, closeModal, accessibleModals } = this.props;
 
     return (
       <Fragment>
@@ -29,6 +29,7 @@ class ModulesModals extends PureComponent {
           visible={openedModalNames.includes('AddModule')}
           onClose={() => closeModal('AddModule')}
           openModal={openModal}
+          accessibleModals={accessibleModals}
         />
         {!openedModalNames.includes('AddModule') && openedModalNames.length
           ? this.renderModal(openedModalNames[0])
@@ -42,6 +43,7 @@ ModulesModals.propTypes = {
   openedModalNames: array.isRequired,
   openModal: func.isRequired,
   closeModal: func.isRequired,
+  accessibleModals: array.isRequired,
 };
 
 export default ModulesModals;

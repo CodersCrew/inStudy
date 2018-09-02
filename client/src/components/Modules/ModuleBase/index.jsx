@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react';
-import { string, object, number } from 'prop-types';
+import { string, object, number, bool } from 'prop-types';
 import { pick } from 'utils';
-import modulesConfig from '../../modulesConfig';
+import { modulesConfig } from 'data';
 import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
-class ModuleBase extends PureComponent {
+const staticProps = {
+  content: object.isRequired,
+  icon: string.isRequired,
+  title: string.isRequired,
+  type: string.isRequired,
+};
+
+class EditableModuleBase extends PureComponent {
   state = {
     isModalOpen: false,
   };
@@ -45,12 +52,33 @@ class ModuleBase extends PureComponent {
   }
 }
 
+EditableModuleBase.propTypes = { ...staticProps, moduleIndex: number.isRequired };
+
+const StaticModuleBase = props => {
+  const modalData = modulesConfig[props.type];
+  const ModuleComponent = modalData.module;
+
+  return (
+    <Container>
+      <Header>
+        <Icon className={`fal fa-${props.icon}`} />
+        <Text>{props.title}</Text>
+      </Header>
+      <Content>
+        <ModuleComponent {...props.content} />
+      </Content>
+    </Container>
+  );
+};
+
+StaticModuleBase.propTypes = staticProps;
+
+const ModuleBase = props => (props.editable ? <EditableModuleBase {...props} /> : <StaticModuleBase {...props} />);
+
 ModuleBase.propTypes = {
-  content: object.isRequired,
-  icon: string.isRequired,
-  title: string.isRequired,
-  type: string.isRequired,
+  ...staticProps,
   moduleIndex: number.isRequired,
+  editable: bool.isRequired,
 };
 
 export default ModuleBase;
