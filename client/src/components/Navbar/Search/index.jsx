@@ -67,7 +67,6 @@ class Search extends PureComponent {
 
   render() {
     const { active, value } = this.state;
-    console.log(this.state.active);
 
     return (
       <Container active={active}>
