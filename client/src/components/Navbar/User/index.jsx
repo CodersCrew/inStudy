@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import { oneOfType, bool, object, string, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import tooltipConfig from '../tooltipConfig';
-import { logout } from '../../../store/actions';
-import { MenuItems, MenuItem } from '../Menu';
-import { StyledButton, UserImage, StyledTooltip } from './styles';
+import { Menu, Dropdown } from 'antd';
+import { logout } from 'store/actions';
+import { MenuItem } from '../Menu';
+import { StyledButton, UserImage } from './styles';
 
 const goToRegistrationPage = ({ push }) => push('/rejestracja');
 
@@ -18,18 +18,22 @@ const User = ({ sizeName, logout, auth, history }) => (
         {sizeName === 'xs' ? <span className="fas fa-user" /> : <span>Moje konto</span>}
       </StyledButton>
     ) : (
-      <StyledTooltip
-        html={
-          <MenuItems>
-            <MenuItem text="Mój profil" onClick={() => goToProfile(history)} />
-            <MenuItem text="Wyloguj się" onClick={logout} />
-          </MenuItems>
+      <Dropdown
+        overlay={
+          <Menu>
+            <Menu.Item>
+              <MenuItem text="Mój profil" onClick={() => goToProfile(history)} />
+            </Menu.Item>
+            <Menu.Item>
+              <MenuItem text="Wyloguj się" onClick={logout} />
+            </Menu.Item>
+          </Menu>
         }
-        distance={12}
-        {...tooltipConfig}
+        trigger={['click']}
+        placement="bottomRight"
       >
         <UserImage src={auth?.image} />
-      </StyledTooltip>
+      </Dropdown>
     )}
   </Fragment>
 );

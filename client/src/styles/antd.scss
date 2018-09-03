@@ -94,3 +94,12 @@
   border-color: var(--error);
   color: var(--error);
 }
+
+
+/* DROPDOWN */
+
+.ant-dropdown-menu-item > a,
+.ant-dropdown-menu-submenu-title > a {
+  margin: 0;
+  padding: 0;
+}

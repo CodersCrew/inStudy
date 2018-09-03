@@ -26,6 +26,13 @@ export const NavItemLink = styled(Link)`
   font-size: var(--font-sm);
   line-height: 1;
   cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--white);
+    text-decoration: none;
+  }
 `;
 
 export const Icon = styled.div`
