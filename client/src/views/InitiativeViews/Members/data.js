@@ -6,6 +6,7 @@ export const members = [
     lastName: 'Jensen',
     role: 'Game hero',
     permisions: 'administrator',
+    email: 'adam.jensen@sarif.com',
     roleDescription:
       'Główny bohater gry Deus Ex: Bunt Ludzkości oraz Deus Ex: Rozłam Ludzkości. Początkowo pracownik Sarif Industries, później dołączył do Task Force 29.',
   },
@@ -17,6 +18,7 @@ export const members = [
     lastName: 'Auditore',
     role: 'Game hero',
     permisions: 'członek',
+    email: 'ezio.auditore@revelations.com',
     roleDescription:
       "Włoski szlachcic i asasyn, syn Giovanniego i Marii Auditore, brat Federico, Petrucio i Claudi Auditore, przodek Edwarda i Haythama Kenway'ów oraz Ratonhnhaké:tona, Williama i Desmonda Milesów. Mąż Sofii Sartor. Ojciec Flavii oraz Marcella.",
   },
@@ -27,6 +29,7 @@ export const members = [
     lastName: 'Wayne',
     role: 'DC hero',
     permisions: 'członek',
+    email: 'batman@gotham.com',
     roleDescription:
       'Jest milionerem, który w dzieciństwie został osierocony – jego rodzice zostali zamordowani przez złodzieja. Po tym wydarzeniu chłopak postanowił poświęcić się walce ze złem. Jako dorosły mężczyzna zaczął patrolować ulice swojego rodzinnego miasta.',
   },
@@ -38,6 +41,7 @@ export const members = [
     lastName: 'Stark',
     role: 'Marvel hero',
     permisions: 'członek',
+    email: 'stark@industries.com',
     roleDescription:
       'Studiował już w wieku piętnastu lat i jako młody geniusz, był najlepszym uczniem w klasie. W wieku dwudziestu jeden lat przejął firmę swojego ojca, Stark Industries, po tym jak jego rodzice zginęli w wypadku samochodowym.',
   },

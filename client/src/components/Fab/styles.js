@@ -40,12 +40,12 @@ export const Container = styled.div`
   ${props => getPosition(props)} width: 56px;
   height: 56px;
   z-index: 110;
-  & > div:first-child > div > div:first-child {
+  & > div:first-child > div > i:first-child {
     transition: all 0.3s;
     opacity: ${props => (props.open ? 0 : 1)};
     transform: scale(${props => (props.open ? 0 : 1)});
   }
-  & > div:first-child > div > div:last-child {
+  & > div:first-child > div > i:last-child {
     transition: all 0.3s;
     opacity: ${props => (props.open ? 1 : 0)};
     transform: scale(${props => (props.open ? 1 : 0)});
@@ -96,11 +96,12 @@ export const BigFab = styled(Tooltip)`
   border-radius: 100%;
   background-color: var(--primary2);
   transition: all 0.3s;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   box-shadow: 1px 1px 3px var(--grey1);
-  display: flex !important;
   cursor: pointer;
+
   > i {
     position: absolute;
     top: 18px;
@@ -108,14 +109,28 @@ export const BigFab = styled(Tooltip)`
     left: 18px;
     right: 18px;
   }
+
+  i[class*='fa-'] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xl);
+    text-align: center;
+    color: var(--white);
+  }
 `;
 
 export const SmallFab = styled(Tooltip)`
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  align-items: center;
   display: flex !important;
+  align-items: center;
   justify-content: center;
   cursor: pointer;
 
@@ -124,6 +139,12 @@ export const SmallFab = styled(Tooltip)`
   }
   &:active {
     background-color: var(--primary2-active);
+  }
+
+  i[class*='fa-'] {
+    font-size: var(--font-md);
+    text-align: center;
+    color: var(--white);
   }
 `;
 
@@ -140,10 +161,4 @@ export const Wrapper = styled.div`
   justify-content: center;
   box-shadow: 1px 1px 3px var(--grey1);
   opacity: ${({ pos }) => (pos ? 1 : 0)};
-`;
-
-export const Icon = styled.i`
-  font-size: var(--font-lg);
-  text-align: center;
-  color: var(--white);
 `;

@@ -10,7 +10,19 @@ export const MainContainer = styled(Container)`
     font-size: var(--font-md);
     line-height: var(--font-md-lh);
     font-weight: var(--regular);
-    color: var(--text2);
+    color: var(--text1);
+  }
+
+  .ant-table-expanded-row {
+    td {
+      font-size: var(--font-md);
+      line-height: var(--font-md-lh);
+      color: var(--text2);
+    }
+
+    &:hover td {
+      background-color: #fbfbfb;
+    }
   }
 
   .ant-table-row-expand-icon-cell,

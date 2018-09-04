@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import enhanceWithClickOutside from 'react-click-outside';
-import { Container, BigFab, Wrapper, SmallFab, Badge, Icon } from './styles';
+import { Container, BigFab, Wrapper, SmallFab, Badge } from './styles';
 
 const getTooltipPosition = position => {
   if (position.includes('right')) return 'left';
@@ -23,7 +23,7 @@ const calculateDistance = (elem, mouseX, mouseY) => {
 const renderSmallFab = ({ title, iconClass, onClick }, i, position, isOpen) => (
   <Wrapper pos={isOpen && i + 1} onClick={onClick} position={position}>
     <SmallFab title={title} size="small" position={getTooltipPosition(position)}>
-      <Icon className={iconClass} />
+      <i className={iconClass} />
     </SmallFab>
   </Wrapper>
 );
@@ -88,8 +88,8 @@ class Fab extends PureComponent {
       >
         <Badge count={count}>
           <BigFab disabled={open} title={title} position={getTooltipPosition(position)} touchHold>
-            <Icon className={iconClass} />
-            <Icon className={iconOpenClass || iconClass} />
+            <i className={iconClass} />
+            <i className={iconOpenClass || iconClass} />
           </BigFab>
         </Badge>
         {items.map((p, i) => renderSmallFab(p, i, position, open))}

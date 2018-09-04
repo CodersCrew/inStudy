@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
 import { Table, Button } from 'antd';
+import { Fab } from 'components';
 import { members } from './data';
 import { MainContainer, Image, Name } from './styles';
 
@@ -29,19 +30,25 @@ class Members extends PureComponent {
           title: 'Rola w inicjatywie',
           dataIndex: 'role',
           key: 'role',
-          render: this.renderRole,
+          render: role => role,
           className: 'role',
+        },
+        {
+          title: 'E-mail',
+          dataIndex: 'email',
+          render: email => email,
+          className: 'email',
         },
         {
           title: 'Poziom kontroli',
           dataIndex: 'permisions',
-          render: this.renderPermisions,
+          render: permisions => permisions,
           className: 'permisions',
         },
         {
           title: 'Edycja',
           dataIndex: '_id',
-          render: this.renderDatailsIcon,
+          render: this.renderEditButton,
           align: 'center',
           className: 'editButton',
         },
@@ -59,11 +66,7 @@ class Members extends PureComponent {
 
   renderName = (x, { firstName, lastName }) => <Name>{`${firstName} ${lastName}`}</Name>;
 
-  renderRole = role => role;
-
-  renderPermisions = permisions => permisions;
-
-  renderDatailsIcon = userId => <Button onClick={e => this.openEditModal(e, userId)}>Edytuj</Button>;
+  renderEditButton = userId => <Button onClick={e => this.openEditModal(e, userId)}>Edytuj</Button>;
 
   renderDetails = ({ roleDescription }) => <p>{roleDescription}</p>;
 
@@ -76,6 +79,25 @@ class Members extends PureComponent {
           columns={this.state.columns}
           dataSource={members}
           expandedRowRender={this.renderDetails}
+        />
+        <Fab
+          title="Konfiguracja członków"
+          iconClass="fal fa-ellipsis-v"
+          iconOpenClass="fal fa-times"
+          items={[
+            {
+              title: 'Ustawienia ról',
+              iconClass: 'fal fa-users-crown',
+            },
+            {
+              title: 'Zaproś do inicjatywy',
+              iconClass: 'fal fa-user-plus',
+            },
+            {
+              title: 'Wyślij grupowego maila',
+              iconClass: 'fal fa-mail-bulk',
+            },
+          ]}
         />
       </MainContainer>
     );
