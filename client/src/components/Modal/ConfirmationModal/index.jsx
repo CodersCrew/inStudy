@@ -10,8 +10,8 @@ const renderTitle = (iconClass, title) => (
   </TitleContainer>
 );
 
-const renderButtons = (buttons = []) =>
-  buttons.reverse().map(button => (
+const renderButtons = buttons =>
+  buttons?.reverse().map(button => (
     <Button key={button.label} {...button}>
       {button.label}
     </Button>
