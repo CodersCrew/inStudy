@@ -3,7 +3,7 @@ import { bool, func, object } from 'prop-types';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import { updateBasicUserData } from 'store/actions';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { Input, TextArea, ImagePicker, SingleSelect } from 'components/reduxFormFields';
 import { required, maxLength, url } from 'utils/validators';
 import { socials } from 'data';
@@ -85,7 +85,8 @@ class CardEditModal extends PureComponent {
 
   render() {
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         visible={this.props.visible}
         onCancel={this.props.onClose}
         title="Edytuj swoje podstawowe dane"
@@ -118,7 +119,7 @@ class CardEditModal extends PureComponent {
           />
           <FieldArray name="socials" component={this.renderSocials} />
         </Container>
-      </ComplexModal>
+      </Modal>
     );
   }
 }

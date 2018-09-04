@@ -1,12 +1,13 @@
 import React from 'react';
 import { bool, func, array } from 'prop-types';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { modulesConfig } from 'data';
 import Item from './Item';
 import { Container, Label, Modules } from './styles';
 
 const AddModule = ({ visible, onClose, openModal, accessibleModals }) => (
-  <ComplexModal
+  <Modal
+    type="complex"
     visible={visible}
     onCancel={onClose}
     title="Dodaj moduł do profilu"
@@ -30,7 +31,7 @@ const AddModule = ({ visible, onClose, openModal, accessibleModals }) => (
           ))}
       </Modules>
     </Container>
-  </ComplexModal>
+  </Modal>
 );
 
 AddModule.propTypes = {

@@ -3,7 +3,7 @@ import { bool, func, number } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
@@ -77,7 +77,8 @@ class Details extends PureComponent {
     const { areUniversitiesFetching, cities, universities, categories } = this.state;
 
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         visible={visible}
         onCancel={() => decrementStep(1)}
         title={texts.modalTitle}
@@ -150,7 +151,7 @@ class Details extends PureComponent {
             validate={[required, maxDescriptionLength]}
           />
         </Container>
-      </ComplexModal>
+      </Modal>
     );
   }
 }

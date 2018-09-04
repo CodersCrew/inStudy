@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { ConfirmationModal } from 'components';
+import { Modal } from 'components';
 import texts from './texts';
 
 class Initial extends PureComponent {
@@ -8,7 +8,8 @@ class Initial extends PureComponent {
     const { visible, closeModal, incrementStep } = this.props;
 
     return (
-      <ConfirmationModal
+      <Modal
+        type="confirmation"
         visible={visible}
         onCancel={closeModal}
         title={texts.modalTitle}
@@ -23,7 +24,7 @@ class Initial extends PureComponent {
         ]}
       >
         {texts.modalContent}
-      </ConfirmationModal>
+      </Modal>
     );
   }
 }

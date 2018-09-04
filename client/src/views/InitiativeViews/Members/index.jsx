@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { string } from 'prop-types';
-import { Table, Button } from 'antd';
+import { Table, Button, Tag } from 'antd';
 import { Fab } from 'components';
 import { members } from './data';
-import { MainContainer, Image, Name } from './styles';
+import { MainContainer, Image, Name, Tags } from './styles';
 
 const getRowKey = ({ _id }) => _id;
 
@@ -68,7 +68,22 @@ class Members extends PureComponent {
 
   renderEditButton = userId => <Button onClick={e => this.openEditModal(e, userId)}>Edytuj</Button>;
 
-  renderDetails = ({ roleDescription }) => <p>{roleDescription}</p>;
+  renderDetails = ({ roleDescription, tags }) => (
+    <Fragment>
+      <div>{roleDescription}</div>
+      {this.renderTags(tags)}
+    </Fragment>
+  );
+
+  renderTags = tags => (
+    <Tags>
+      {tags.map(tag => (
+        <Tag key={tag} color="blue">
+          {tag}
+        </Tag>
+      ))}
+    </Tags>
+  );
 
   render() {
     return (

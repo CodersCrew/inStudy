@@ -69,3 +69,7 @@ export const Name = styled.h2`
   font-weight: var(--bold);
   color: var(--text1);
 `;
+
+export const Tags = styled.div`
+  padding-top: var(--space-md);
+`;

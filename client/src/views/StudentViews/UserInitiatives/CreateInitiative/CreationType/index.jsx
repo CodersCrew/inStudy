@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import { bool, func } from 'prop-types';
-import { ConfirmationModal } from 'components';
+import { Modal } from 'components';
 import texts from './texts';
 
 class CreationType extends PureComponent {
   render() {
     const { visible, closeModal, incrementStep } = this.props;
     return (
-      <ConfirmationModal
+      <Modal
+        type="confirmation"
         visible={visible}
         onCancel={closeModal}
         title={texts.modalTitle}
@@ -26,7 +27,7 @@ class CreationType extends PureComponent {
         ]}
       >
         {texts.modalContent}
-      </ConfirmationModal>
+      </Modal>
     );
   }
 }
