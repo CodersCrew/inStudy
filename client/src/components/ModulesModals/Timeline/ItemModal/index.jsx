@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { bool, func, object } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import moment from 'moment';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { Input, TextArea, MonthPicker } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
 import { omit } from 'utils';
@@ -42,7 +42,8 @@ class ItemModal extends PureComponent {
 
   render() {
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         onCancel={this.props.onClose}
         visible={this.props.visible}
         title="Dodaj element do osi czasu"
@@ -88,7 +89,7 @@ class ItemModal extends PureComponent {
             validate={[required]}
           />
         </Container>
-      </ComplexModal>
+      </Modal>
     );
   }
 }

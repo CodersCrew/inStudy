@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import TriangleBackground from 'components/TriangleBackground';
 import { withAuth } from 'hocs';
 import InitiativeNav from './InitiativeNav';
 import InitiativePublicProfile from './InitiativePublicProfile';
 import InitiativePrivateProfile from './InitiativePrivateProfile';
 import Initiatives from './Initiatives';
+import Members from './Members';
 import { Container } from './styles';
 
 const InitiativeViews = ({ location: { pathname } }) => {
@@ -24,12 +24,7 @@ const InitiativeViews = ({ location: { pathname } }) => {
             path="/inicjatywy/:shortUrl/profil"
             component={withAuth(['authorizedUser'])(InitiativePrivateProfile)}
           />
-          <Route
-            path="/inicjatywy/:shortUrl/czlonkowie"
-            component={withAuth(['authorizedUser'])(() => (
-              <div>członkowie</div>
-            ))}
-          />
+          <Route path="/inicjatywy/:shortUrl/czlonkowie" component={withAuth(['authorizedUser'])(Members)} />
           <Route
             path="/inicjatywy/:shortUrl/projekty"
             component={withAuth(['authorizedUser'])(() => (
@@ -46,7 +41,6 @@ const InitiativeViews = ({ location: { pathname } }) => {
           <Route exact path="/inicjatywy" component={Initiatives} />
         </Switch>
       </Container>
-      <TriangleBackground />
     </Fragment>
   );
 };

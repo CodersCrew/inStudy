@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { func, string } from 'prop-types';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { Input } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import icons from './icons';
@@ -49,7 +49,8 @@ class IconsModal extends PureComponent {
     } = this;
 
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         title="Wybierz ikonkę"
         visible={open}
         onCancel={close}
@@ -77,7 +78,7 @@ class IconsModal extends PureComponent {
             </Scrollbars>
           </Icons>
         </Content>
-      </ComplexModal>
+      </Modal>
     );
   }
 }

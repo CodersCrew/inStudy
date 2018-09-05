@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import TriangleBackground from 'components/TriangleBackground';
 import { withAuth } from 'hocs';
 import UserNav from './UserNav';
 import UserPrivateProfile from './UserPrivateProfile';
@@ -24,10 +23,9 @@ const StudentViews = ({ location: { pathname } }) => {
           <Route path="/student/:userId" component={UserPublicProfile} />
         </Switch>
       </Container>
-      <TriangleBackground />
     </Fragment>
   );
-}
+};
 
 StudentViews.propTypes = {
   location: object.isRequired,
