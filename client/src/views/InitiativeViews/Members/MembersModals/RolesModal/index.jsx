@@ -186,7 +186,7 @@ class RolesModal extends PureComponent {
 
 RolesModal.propTypes = {
   roles: array,
-  errors: oneOfType(array, object),
+  errors: oneOfType([array, object]),
   initialize: func,
   visible: bool,
   onCancel: func,
