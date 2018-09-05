@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'antd';
 
 const disabledActionStyles = `
   color: var(--grey4);
@@ -90,4 +91,8 @@ export const Action = styled.div`
   }
 
   ${props => props.isDisabled && disabledActionStyles};
+`;
+
+export const StyledButton = styled(Button)`
+  margin: var(--space-md);
 `;

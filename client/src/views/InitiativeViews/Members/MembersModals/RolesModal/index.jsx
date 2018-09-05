@@ -1,15 +1,21 @@
 import React, { PureComponent, Fragment } from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, oneOfType, array, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, FieldArray, Field, getFormSyncErrors } from 'redux-form';
-import { Table, Tag, Button } from 'antd';
+import { Table, Tag } from 'antd';
 import { withCloseAnimation } from 'hocs';
 import { Input, TextArea, TagsSelect } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
 import { Modal } from 'components';
-import { TableWrapper, Actions, Action } from './styles';
+import { TableWrapper, Actions, Action, StyledButton } from './styles';
 
 const getRowKey = ({ _id }) => _id;
+
+const renderTag = tag => (
+  <Tag color="blue" key={tag}>
+    {tag}
+  </Tag>
+);
 
 @withCloseAnimation
 @reduxForm({ form: 'rolesModalForm' })
@@ -73,39 +79,37 @@ class RolesModal extends PureComponent {
   startRoleEditing = (editingRowIndex, rowValuesSnapshot) => this.setState({ editingRowIndex, rowValuesSnapshot });
 
   cancelRoleEditing = (insert, remove) => {
+    const { rowValuesSnapshot } = this.state;
+
     remove();
-    if (this.state.rowValuesSnapshot.name) {
-      insert(this.state.rowValuesSnapshot);
+    if (rowValuesSnapshot.name) {
+      insert(rowValuesSnapshot);
     }
+
     this.setState({ editingRowIndex: null, rowValuesSnapshot: {} });
   };
 
   saveRoleEditing = () => this.setState({ editingRowIndex: null, rowValuesSnapshot: {} });
 
-  renderName = (name, { index, rfName }) =>
-    this.isEditing(index) ? <Field name={`${rfName}.name`} component={Input} validate={[required]} /> : name;
+  renderField = (name, component) => <Field name={name} component={component} validate={[required]} />;
 
-  renderDefaultDescription = (defaultDescription, { index, rfName }) =>
-    this.isEditing(index) ? (
-      <Field name={`${rfName}.defaultDescription`} component={TextArea} validate={[required]} />
-    ) : (
-      defaultDescription
-    );
+  renderName = (name, { index, rfName }) => (this.isEditing(index) ? this.renderField(`${rfName}.name`, Input) : name);
 
-  renderDefaultTags = (defaultTags, { index, rfName }) =>
-    this.isEditing(index) ? (
-      <Field name={`${rfName}.defaultTags`} component={TagsSelect} validate={[required]} />
-    ) : (
-      defaultTags.map(tag => (
-        <Tag color="blue" key={tag}>
-          {tag}
-        </Tag>
-      ))
-    );
+  renderDefaultDescription = (defaultDescription, { index, rfName }) => this.isEditing(index)
+    ? this.renderField(`${rfName}.defaultDescription`, TextArea)
+    : defaultDescription;
 
-  renderActions = (x, { index, remove, insert, error, name, defaultDescription, defaultTags, _id }) => {
+  renderDefaultTags = (defaultTags, { index, rfName }) => this.isEditing(index)
+    ? this.renderField(`${rfName}.defaultTags`, TagsSelect)
+    : defaultTags.map(renderTag);
+
+  renderActions = (x, {
+    index, remove, insert, error, name, defaultDescription, defaultTags, _id,
+  }) => {
     const isDisabled = (!this.isEditing(index) && this.state.editingRowIndex !== null) || error;
-    const valuesSnapshot = { name, defaultDescription, defaultTags, _id };
+    const valuesSnapshot = {
+      name, defaultDescription, defaultTags, _id,
+    };
     return (
       <Actions>
         {this.isEditing(index) ? (
@@ -117,7 +121,10 @@ class RolesModal extends PureComponent {
           </Fragment>
         ) : (
           <Fragment>
-            <Action isDisabled={isDisabled} onClick={() => this.startRoleEditing(index, valuesSnapshot)}>
+            <Action
+              isDisabled={isDisabled}
+              onClick={() => this.startRoleEditing(index, valuesSnapshot)}
+            >
               Edytuj
             </Action>
             <Action isDisabled={isDisabled} onClick={remove}>
@@ -130,11 +137,10 @@ class RolesModal extends PureComponent {
   };
 
   renderRolesTable = ({ fields }) => {
-    const tableData = [];
-    const error =
-      Array.isArray(this.props.errors?.roles) && this.props.errors.roles.find(role => role && Object.keys(role).length);
+    const { props: { errors }, state: { editingRowIndex } } = this;
+    const error = Array.isArray(errors?.roles) && errors.roles.find(role => role && Object.keys(role).length);
 
-    fields.map((rfName, index) => {
+    const tableData = fields.map((rfName, index) => {
       const enhanceField = {
         index,
         rfName,
@@ -142,35 +148,36 @@ class RolesModal extends PureComponent {
         error,
         remove: () => fields.remove(index),
       };
-      tableData.push({ ...fields.get(index), ...enhanceField });
+      return { ...fields.get(index), ...enhanceField };
     });
 
     return (
       <TableWrapper>
         <Table columns={this.columns} dataSource={tableData} pagination={false} rowKey={getRowKey} />
-        {!error &&
-          !this.state.editingRowIndex && (
-            <Button type="primary" onClick={() => this.addRole(fields.length, fields.push)}>
-              Dodaj rolę
-            </Button>
-          )}
+        {(!error && editingRowIndex === null) && (
+          <StyledButton type="primary" onClick={() => this.addRole(fields.length, fields.push)}>
+            Dodaj rolę
+          </StyledButton>
+        )}
       </TableWrapper>
     );
   };
 
   render() {
+    const { props: { visible, onCancel }, state: { editingRowsIds } } = this;
+
     return (
       <Modal
         title="Edytuj role w inicjatywie"
         type="empty"
-        visible={this.props.visible}
-        onCancel={this.props.onCancel}
+        visible={visible}
+        onCancel={onCancel}
         width={960}
       >
         <FieldArray
           name="roles"
           component={this.renderRolesTable}
-          props={{ editingRowsIds: this.state.editingRowsIds }}
+          props={{ editingRowsIds }}
         />
       </Modal>
     );
@@ -178,13 +185,19 @@ class RolesModal extends PureComponent {
 }
 
 RolesModal.propTypes = {
+  roles: array,
+  errors: oneOfType(array, object),
+  initialize: func,
   visible: bool,
   onCancel: func,
 };
 
 RolesModal.defaultProps = {
+  roles: [],
+  errors: {},
+  initialize: () => {},
   visible: false,
-  onCancel: func,
+  onCancel: () => {},
 };
 
 export default RolesModal;
