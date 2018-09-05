@@ -1,5 +1,7 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const MemberSchema = require('./member');
 const { Schema } = mongoose;
+
 
 const schema = new Schema({
   name: String,
@@ -13,6 +15,7 @@ const schema = new Schema({
   modules: [{}],
   FBProfile: [{}],
   image: String,
+  members: [MemberSchema],
 });
 
 module.exports = mongoose.model('initiatives', schema);

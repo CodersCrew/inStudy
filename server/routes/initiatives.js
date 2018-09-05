@@ -66,12 +66,6 @@ module.exports = app => {
       console.log(result);
       res.status(200).json({ result });
     });
-
-    // app.post('/initiative/:shortUrl', upload.single('image'), (req, res) => {
-    //   const { shortUrl } = req.params;
-    //   new FetchInitiative()
-    //     .putInitiative()
-    // });
   });
 
   app.post('/api/initiative/:initId/module', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res, next) => {
