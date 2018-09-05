@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const schema = new Schema({
   googleId: String,
   image: String,
   firstName: String,
@@ -19,7 +19,4 @@ const userSchema = new Schema({
   modules: [{}],
 });
 
-export default {
-  name: 'users',
-  schema: userSchema,
-};
+module.exports = mongoose.model('users', schema);

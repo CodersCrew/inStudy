@@ -1,6 +1,8 @@
 import { addNewModule, changeBasicUserData, updateModule, deleteModule } from './../services/fetchUser';
+import { createModuleValidators } from './validators/user-validators';
+import { userLogged } from './validators/auth';
 
-export default app => {
+module.exports = app => {
   app.post('/api/user/module', (req, res) => {
     const module = req.body;
     const userId = req.user._id;
@@ -15,10 +17,10 @@ export default app => {
       });
   });
 
-  app.put('/api/user/basic', (req, res) => {
+  app.put('/api/user/basic', userLogged, createModuleValidators, (req, res) => {
     const basic = req.body;
     const userId = req.user._id;
-    console.log(basic, userId);
+
     changeBasicUserData(basic, userId)
       .then(() => {
         res.sendStatus(201);
@@ -29,7 +31,7 @@ export default app => {
       });
   });
 
-  app.put('/api/user/module', (req, res) => {
+  app.put('/api/user/module', userLogged, createModuleValidators, (req, res) => {
     const module = req.body.module;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
@@ -44,7 +46,7 @@ export default app => {
       });
   });
 
-  app.delete('/api/user/module/:moduleIndex', (req, res) => {
+  app.delete('/api/user/module/:moduleIndex', userLogged, createModuleValidators, (req, res) => {
     const { moduleIndex } = req.params;
     const userId = req.user._id;
 

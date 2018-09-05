@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const initiativeSchema = new Schema({
+const schema = new Schema({
   name: String,
   description: String,
   email: String,
@@ -15,7 +15,4 @@ const initiativeSchema = new Schema({
   image: String,
 });
 
-export default {
-  name: 'initiatives',
-  schema: initiativeSchema,
-};
+module.exports = mongoose.model('initiatives', schema);

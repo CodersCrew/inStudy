@@ -4,6 +4,12 @@ import path from 'path';
 import Cloudinary from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
 import createNewInitiative from './../services/createNewInitiative';
+import { userLogged, permissionGranted } from './validators/auth';
+import { MODIFY_INITIATIVE } from './validators/consts';
+import { inviteUserValidators, invitationResponse } from './validators/initiative-validators';
+import mailSender, { INVITE_EMAIL } from './../services/mail-sender';
+import config from '../config/keys';
+import jsonwebtoken from 'jsonwebtoken';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -16,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ dest: 'uploads/', storage });
 // const upload = multer({ dest: 'uploads/' });
 
-export default app => {
+module.exports = app => {
   app.get('/api/initiative', (req, res) => {
     const { page } = req.query;
     new FetchInitiative()
@@ -29,7 +35,7 @@ export default app => {
       });
   });
 
-  app.post('/api/initiative', (req, res) => {
+  app.post('/api/initiative', userLogged, (req, res) => {
     const initiative = req.body;
     createNewInitiative(initiative, req.user)
       .then(result => {
@@ -68,9 +74,7 @@ export default app => {
     // });
   });
 
-  app.post(
-    '/api/initiative/:initId/module',
-    (req, res, next) => {
+  app.post('/api/initiative/:initId/module', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res, next) => {
       const initId = req.params.initId;
       const module = req.body.module;
 
@@ -92,7 +96,7 @@ export default app => {
     });
   });
 
-  app.delete('/api/initiative/:initId/module/:modId', (req, res) => {
+  app.delete('/api/initiative/:initId/module/:modId', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res) => {
     const initId = req.params.initId;
     const modId = req.params.modId;
 
@@ -101,11 +105,31 @@ export default app => {
     });
   });
 
-  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
+  app.post('/api/initiative/:shortUrl/fetch', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res) => {
     const shortUrl = req.params.shortUrl;
     new FetchInitiative()
       .getFBProfile(shortUrl)
       .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
       .then(() => res.sendStatus(201));
   });
+
+  app.post('/api/initiative/:initId/invite', inviteUserValidators, (req, res) => {
+    const { email } = req.body;
+    mailSender(email, INVITE_EMAIL, { initiativeID: req.params.initId})
+      .then(() => res.sendStatus(201))
+      .catch(() => res.sendStatus(500));
+
+  })
+
+  app.get('/api/invite', invitationResponse, (req, res) => {
+    const { jwt } = req.query;
+
+    const { initiativeID } = jsonwebtoken.verify(jwt, config.cookieKey);
+    const { user } = req;
+
+    new FetchInitiative()
+      .assignInitiative(user._id, initiativeID)
+      .then(() => res.sendStatus(201))
+      .catch(() => res.sendStatus(500));
+  })
 };
