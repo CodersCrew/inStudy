@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { bool, func } from 'prop-types';
-import { reduxForm, FieldArray, Field } from 'redux-form';
-import { Table, Tag } from 'antd';
+import { connect } from 'react-redux';
+import { reduxForm, FieldArray, Field, getFormSyncErrors } from 'redux-form';
+import { Table, Tag, Button } from 'antd';
 import { withCloseAnimation } from 'hocs';
 import { Input, TextArea, TagsSelect } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
@@ -12,6 +13,9 @@ const getRowKey = ({ _id }) => _id;
 
 @withCloseAnimation
 @reduxForm({ form: 'rolesModalForm' })
+@connect(state => ({
+  errors: getFormSyncErrors('rolesModalForm')(state),
+}))
 class RolesModal extends PureComponent {
   constructor(props) {
     super(props);
@@ -61,11 +65,18 @@ class RolesModal extends PureComponent {
 
   isEditing = index => this.state.editingRowIndex === index;
 
+  addRole = (index, push) => {
+    push({ name: '', defaultDescription: '', defaultTags: [], _id: `new-${Math.random()}` });
+    this.startRoleEditing(index, { name: '', defaultDescription: '', defaultTags: [] });
+  };
+
   startRoleEditing = (editingRowIndex, rowValuesSnapshot) => this.setState({ editingRowIndex, rowValuesSnapshot });
 
   cancelRoleEditing = (insert, remove) => {
     remove();
-    insert(this.state.rowValuesSnapshot);
+    if (this.state.rowValuesSnapshot.name) {
+      insert(this.state.rowValuesSnapshot);
+    }
     this.setState({ editingRowIndex: null, rowValuesSnapshot: {} });
   };
 
@@ -92,14 +103,16 @@ class RolesModal extends PureComponent {
       ))
     );
 
-  renderActions = (x, { index, remove, insert, name, defaultDescription, defaultTags, _id }) => {
-    const isDisabled = !this.isEditing(index) && this.state.editingRowIndex !== null;
+  renderActions = (x, { index, remove, insert, error, name, defaultDescription, defaultTags, _id }) => {
+    const isDisabled = (!this.isEditing(index) && this.state.editingRowIndex !== null) || error;
     const valuesSnapshot = { name, defaultDescription, defaultTags, _id };
     return (
       <Actions>
         {this.isEditing(index) ? (
           <Fragment>
-            <Action onClick={() => this.saveRoleEditing(index)}>Zapisz</Action>
+            <Action isDisabled={isDisabled} onClick={() => this.saveRoleEditing(index)}>
+              Zapisz
+            </Action>
             <Action onClick={() => this.cancelRoleEditing(insert, remove)}>Anuluj</Action>
           </Fragment>
         ) : (
@@ -118,22 +131,29 @@ class RolesModal extends PureComponent {
 
   renderRolesTable = ({ fields }) => {
     const tableData = [];
+    const error =
+      Array.isArray(this.props.errors?.roles) && this.props.errors.roles.find(role => role && Object.keys(role).length);
 
-    fields.map((name, index) => {
+    fields.map((rfName, index) => {
       const enhanceField = {
         index,
-        rfName: name,
+        rfName,
         insert: value => fields.insert(index, value),
+        error,
         remove: () => fields.remove(index),
       };
       tableData.push({ ...fields.get(index), ...enhanceField });
     });
 
-    console.log(tableData);
-
     return (
       <TableWrapper>
         <Table columns={this.columns} dataSource={tableData} pagination={false} rowKey={getRowKey} />
+        {!error &&
+          !this.state.editingRowIndex && (
+            <Button type="primary" onClick={() => this.addRole(fields.length, fields.push)}>
+              Dodaj rolę
+            </Button>
+          )}
       </TableWrapper>
     );
   };
