@@ -17,12 +17,12 @@ export default fa => {
     });
     enhanceHead('link', {
       rel: 'stylesheet prefetch',
-      href: 'https://pro-staging.fontawesome.com/releases/v5.2.0/css/all.css',
+      href: 'https://pro-staging.fontawesome.com/releases/v5.3.1/css/all.css',
     });
   } else {
     enhanceHead('link', {
       rel: 'stylesheet',
-      href: 'https://pro.fontawesome.com/releases/v5.2.0/css/all.css',
+      href: 'https://pro.fontawesome.com/releases/v5.3.1/css/all.css',
       integrity: fa,
       crossorigin: 'anonymous',
     });

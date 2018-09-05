@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Tooltip } from 'react-tippy';
 import { Button } from 'antd';
 import { media } from 'utils';
 
@@ -40,10 +39,4 @@ export const UserImage = styled.img`
   ${media.sm`
     margin-left: var(--space-md);
   `};
-`;
-
-export const StyledTooltip = styled(Tooltip)`
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
 `;

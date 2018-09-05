@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { notify } from 'reapop';
 import {
   FETCH_USER,
   LOGOUT,
@@ -75,6 +76,12 @@ export const addUserInitiative = initiativeData => async dispatch => {
       payload: data.data.result,
     });
   } catch (e) {
-    console.log(e);
+    if (e.response.status === 409) {
+      const message = 'Inicjatywa o podanej nazwie lub adresie fanpage już istnieje.';
+      dispatch(notify({ title: 'Inicjatywa już istnieje', message, status: 409 }));
+      throw message;
+    } else {
+      console.error({ ...e });
+    }
   }
 };

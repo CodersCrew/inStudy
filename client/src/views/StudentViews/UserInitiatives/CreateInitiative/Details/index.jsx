@@ -7,6 +7,7 @@ import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
+import { withCloseAnimation } from 'hocs';
 import texts from './texts';
 import { Container } from './styles';
 
@@ -24,6 +25,7 @@ const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCity
 
 const maxDescriptionLength = maxLength(260);
 
+@withCloseAnimation
 @connect(
   state => ({ city: valueSelector(state, 'city') }),
   { addUserInitiative },
@@ -63,10 +65,10 @@ class Details extends PureComponent {
 
   onSubmit = async values => {
     try {
-      await this.props.addUserInitiative(values);
-      this.props.incrementStep(1);
+      const initiative = await this.props.addUserInitiative(values);
+      if (initiative) this.props.incrementStep(1);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -76,11 +78,11 @@ class Details extends PureComponent {
 
     return (
       <Modal
-        visible={visible}
-        onClose={() => decrementStep(1)}
-        title={texts.modalTitle}
-        icon="/fa-icons/clipboard-list-light.svg"
         type="complex"
+        visible={visible}
+        onCancel={() => decrementStep(1)}
+        title={texts.modalTitle}
+        icon="fal fa-clipboard-list"
         width={644}
         buttons={[
           {

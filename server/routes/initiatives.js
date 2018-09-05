@@ -41,9 +41,10 @@ module.exports = app => {
       .then(result => {
         res.status(200).json({ result });
       })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(404);
+      .catch(err => {
+        if (err === 'ITEM_EXIST') {
+          res.sendStatus(409);
+        }
       });
   });
 
@@ -52,10 +53,14 @@ module.exports = app => {
     new FetchInitiative()
       .getSingleInitiative(shortUrl)
       .then(singleInitiative => {
-        res.status(200).json({ result: singleInitiative });
+        res.status(200).json(singleInitiative);
       })
-      .catch(() => {
-        res.sendStatus(404);
+      .catch(err => {
+        if (err === 'NOT_FOUND') {
+          res.sendStatus(404);
+        } else {
+          console.error(err);
+        }
       });
   });
 
@@ -70,13 +75,11 @@ module.exports = app => {
 
   app.post('/api/initiative/:initId/module', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res, next) => {
       const initId = req.params.initId;
-      const module = req.body.module;
+      const module = req.body;
 
       new FetchInitiative().addInitiativeModule(initId, module).then(() => {
         req.instudyCache = module;
-        next();
-        // res
-        //   .sendStatus(201);
+        res.status(200).json(module);
       });
     },
     cacher,
@@ -88,6 +91,20 @@ module.exports = app => {
     new FetchInitiative().getAllModules(initId).then(modules => {
       res.status(200).json(modules);
     });
+  });
+
+  app.put('/api/initiative/:initId/module/:modId', (req, res) => {
+    const initId = req.params.initId;
+    const modId = req.params.modId;
+    const module = req.body;
+
+    new FetchInitiative()
+      .updateModule(module, initId, modId)
+      .then(module => {
+        console.log(module);
+        res.status(200).json(module);
+      })
+      .catch(err => console.error(err));
   });
 
   app.delete('/api/initiative/:initId/module/:modId', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res) => {

@@ -25,11 +25,11 @@ module.exports = app => {
     const mapUser = mapUserToView(req.user);
     Initiative.find({
       _id: {
-        $in: mapUser.initiatives.map(initiative => new mongoose.mongo.ObjectId(initiative)),
+        $in: mapUser?.initiatives?.map(initiative => new mongoose.mongo.ObjectId(initiative)),
       },
     })
       .then(initiatives => {
-        if(initiatives.length) res.json({...mapUser, initiatives});
+        if (initiatives.length) res.json({ ...mapUser, initiatives });
         else res.json(mapUser);
       })
       .catch(error => {

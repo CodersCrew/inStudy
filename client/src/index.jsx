@@ -7,6 +7,7 @@ import WebfontLoader from '@dr-kobros/react-webfont-loader';
 import App from './views/App';
 import reducers from './store/reducers';
 
+import 'react-tippy/dist/tippy.css';
 import 'react-quill/dist/quill.snow.css';
 import './styles/main.less';
 import './styles/main.scss';

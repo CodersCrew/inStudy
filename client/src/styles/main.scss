@@ -1,13 +1,16 @@
 @import "./reset.scss";
 @import "./variables.scss";
 @import "./antd.scss";
-@import "./modal.scss";
 
 body {
   font-family: var(--mainFont);
   font-weight: var(--regular);
-}
 
-.tippy-tooltip.tippy-tooltip--regular.light-theme {
-  padding: 0;
+  a, div, p, span, input, button, textarea, label {
+    font-family: var(--mainFont);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--headerFont);
+  }
 }
