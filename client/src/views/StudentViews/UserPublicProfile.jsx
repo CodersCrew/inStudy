@@ -20,12 +20,13 @@ class UserProfile extends PureComponent {
 
   render() {
     const { user } = this.props;
+    console.log(user);
 
     if (user === false) {
       return <Redirect to="/404" />;
     }
 
-    return (
+    return user && (
       <ProfileBase
         data={{
           ...user,
