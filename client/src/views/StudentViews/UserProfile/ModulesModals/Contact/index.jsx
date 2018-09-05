@@ -8,12 +8,9 @@ import { getModalBaseData } from '../userModalsUtils';
 
 class Contatct extends PureComponent {
   render() {
-    const { visible, onClose, name, icon } = this.props;
     return (
-      <ModalBase
-        {...getModalBaseData(this.props)}
-      >
-        sdfsdfsdf
+      <ModalBase {...getModalBaseData(this.props)}>
+
       </ModalBase>
     );
   }

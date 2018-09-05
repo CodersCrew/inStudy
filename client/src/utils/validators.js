@@ -8,3 +8,7 @@ export const maxLength = maxCharactersCount => value =>
 export const url = value => (urlRegExp.test(value) ? undefined : 'Błędny adres URL');
 
 //TODO: const z walidatorem maila
+
+const emialRegExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+
+export const mail = value => (emialRegExp.test(value) ? undefined : 'Błędny adres email');
