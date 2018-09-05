@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Container } from 'components';
 
 export const MainContainer = styled(Container)`
-  box-sizing: border-box;
-
   td {
     vertical-align: middle;
     font-family: var(--mainFont);

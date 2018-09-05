@@ -13,6 +13,12 @@ const FormItem = styled(Form.Item)`
   .ant-form-explain {
     padding-top: var(--space-xs);
   }
+
+  .ant-select.ant-select-enabled,
+  .ant-select-selection--multiple,
+  .ant-select-selection--multiple > div {
+    min-width: 100%;
+  }
 `;
 
 const getValidateStatus = ({ touched, error }, isValidating) => {

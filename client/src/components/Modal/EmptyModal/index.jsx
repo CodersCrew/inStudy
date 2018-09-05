@@ -3,7 +3,7 @@ import { bool, func, node, number } from 'prop-types';
 import { StyledModal } from './styles';
 
 const EmptyModal = ({ visible, onCancel, width, children }) => (
-  <StyledModal destroyOnClose visible={visible} onCancel={onCancel} width={width}>
+  <StyledModal destroyOnClose closable={false} visible={visible} onCancel={onCancel} width={width}>
     {children}
   </StyledModal>
 );

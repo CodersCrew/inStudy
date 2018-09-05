@@ -7,7 +7,8 @@ export const StyledModal = styled(Modal)`
   }
 
   .ant-modal-body {
-    padding: var(--space-lg);
+    padding: 0;
+    border-radius: 4px;
   }
 
   .ant-modal-footer {

@@ -50,3 +50,20 @@ export const members = [
       'Studiował już w wieku piętnastu lat i jako młody geniusz, był najlepszym uczniem w klasie. W wieku dwudziestu jeden lat przejął firmę swojego ojca, Stark Industries, po tym jak jego rodzice zginęli w wypadku samochodowym.',
   },
 ];
+
+export const roles = [
+  {
+    _id: '1',
+    name: 'Członek inicjatywy',
+    defaultTags: ['aaa', 'bbb', 'ccc'],
+    defaultDescription:
+      'Ham jerky turducken tri-tip ball tip turkey ham hock, sausage t-bone pancetta short ribs. Pork belly bresaola pancetta rump, pork meatball tail. Rump tri-tip tail fatback ham hock ',
+  },
+  {
+    _id: '2',
+    name: 'Koordynator projektu',
+    defaultTags: ['111', '222', '333'],
+    defaultDescription:
+      'Bacon ipsum dolor amet prosciutto biltong bacon, brisket t-bone pork loin tenderloin filet mignon swine drumstick burgdoggen.',
+  },
+];

@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { string } from 'prop-types';
 import { Table, Button, Tag } from 'antd';
 import { Fab } from 'components';
-import { members } from './data';
+import { members, roles } from './data';
 import MembersModals from './MembersModals';
 import { MainContainer, Image, Name, Tags } from './styles';
 
@@ -60,7 +60,7 @@ class Members extends PureComponent {
     ];
   }
 
-  openRolesModal = () => this.setState({ openedModal: 'roles' });
+  openRolesModal = () => this.setState({ openedModal: 'roles', modalData: { roles } });
 
   openInvitationModal = () => this.setState({ openedModal: 'invitation' });
 
