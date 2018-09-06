@@ -1,5 +1,4 @@
 import React, { PureComponent, Fragment } from 'react';
-import { string } from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
 import { Input, InputNumber } from 'components/reduxFormFields';
 import { required } from 'utils/validators';
@@ -12,14 +11,13 @@ const parser = value => value.replace('%', '');
 
 class Skills extends PureComponent {
   renderSkillRow = (rfName, index, fields) => {
-    const skillName = fields.get(index).name;
     const isLast = fields.getAll().length - 1 === index;
     const validate = isLast ? [] : [required];
 
     return (
       <Row>
         <Field name={`${rfName}.name`} component={Input} props={{ label: 'Nazwa umiejętności' }} validate={validate} />
-        {(!isLast || (isLast && skillName)) && (
+        {!isLast && (
           <Fragment>
             <Field
               name={`${rfName}.value`}
