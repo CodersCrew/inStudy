@@ -5,7 +5,6 @@ import { socials } from 'data';
 import { Container, Image, Name, Description, Socials, SocialItem, EditIcon, StyledAvatar } from './styles';
 
 const staticProps = {
-  email: string.isRequired,
   image: string.isRequired,
   name: string.isRequired,
   description: string,
@@ -18,10 +17,11 @@ const dynamicProps = {
   closeModal: func.isRequired,
 };
 
-const Social = ({ type, url }) => <SocialItem color={socials[type].color} href={url} className={socials[type].icon} />;
+const Social = ({ socialType, url }) =>
+  <SocialItem color={socials[socialType].color} href={url} className={socials[socialType].icon} />;
 
 Social.propTypes = {
-  type: string.isRequired,
+  socialType: string.isRequired,
   url: string.isRequired,
 };
 
@@ -33,7 +33,7 @@ const withHocs = compose(
   }),
 );
 
-const EditableCard = props => {
+const EditableCard = (props) => {
   const EditModal = props.cardEditModal;
 
   return (

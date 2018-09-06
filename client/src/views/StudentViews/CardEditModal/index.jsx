@@ -15,7 +15,7 @@ const maxDescriptionLength = maxLength(260);
 
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
 
-const areAllFieldsFilled = fields => fields.reduce((acc, { type, url }) => acc && (type || url), true);
+const areAllFieldsFilled = fields => fields.reduce((acc, { socialType, url }) => acc && (socialType || url), true);
 
 @withCloseAnimation
 @reduxForm({ form: 'cardEditModal' })
@@ -31,16 +31,15 @@ class CardEditModal extends PureComponent {
     props.initialize(initialData);
   }
 
-  onSubmit = values => {
-    const parsedSocials = values.socials.filter(({ type, url }) => type && url);
-    console.log({ ...values, socials: parsedSocials });
+  onSubmit = (values) => {
+    const parsedSocials = values.socials.filter(({ socialType, url: socialUrl }) => socialType && socialUrl);
     this.props.updateBasicUserData({ ...values, socials: parsedSocials });
     this.props.onClose();
   };
 
   renderSocialTypeSelect = social => (
     <Field
-      name={`${social}.type`}
+      name={`${social}.socialType`}
       component={SingleSelect}
       props={{
         noWrapper: true,
@@ -77,8 +76,7 @@ class CardEditModal extends PureComponent {
       <Fragment>
         <Label>Social media</Label>
         {fields.map((social, index) =>
-          this.renderSocialInput(social, index, index !== lastSocialIndex && fields.remove),
-        )}
+          this.renderSocialInput(social, index, index !== lastSocialIndex && fields.remove),)}
       </Fragment>
     );
   };

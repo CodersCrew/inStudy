@@ -14,3 +14,18 @@ body {
     font-family: var(--headerFont);
   }
 }
+
+/* TOOLTIP */
+
+.tippy-tooltip--small {
+  font-size: var(--font-sm);
+}
+
+.arrow-small {
+  left: unset !important;
+  right: 0 !important;
+}
+
+.tippy-popper {
+  z-index: 1000 !important;
+}
