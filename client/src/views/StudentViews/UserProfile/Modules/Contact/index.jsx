@@ -12,7 +12,6 @@ class Contact extends PureComponent {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Container>
         <Field name="email" component={EmailInput} props={{ label: 'E-mail' }} validate={[required, mail]} />
