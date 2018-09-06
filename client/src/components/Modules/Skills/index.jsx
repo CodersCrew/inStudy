@@ -2,13 +2,13 @@ import React from 'react';
 import { string, arrayOf, exact, oneOfType, number } from 'prop-types';
 import { Container, Skill, SkillName, SkillBar, Bar, StyledTooltip } from './styles';
 
-const renderSkill = ({ name, value }) => (
+const renderSkill = skill => (
   <Skill>
-    <SkillName>{name}</SkillName>
+    <SkillName>{skill.name}</SkillName>
     <SkillBar>
       <StyledTooltip
-        width={value}
-        title={value}
+        width={skill.value}
+        title={skill.value}
         arrow
         position="top-end"
         size="small"
