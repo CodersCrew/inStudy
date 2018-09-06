@@ -6,3 +6,4 @@ export TextArea from './TextArea';
 export MonthPicker from './MonthPicker';
 export ImagePicker from './ImagePicker';
 export RichText from './RichText';
+export InputNumber from './InputNumber';

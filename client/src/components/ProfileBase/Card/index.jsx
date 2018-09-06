@@ -5,7 +5,6 @@ import { socials } from 'data';
 import { Container, Image, Name, Description, Socials, SocialItem, EditIcon, StyledAvatar } from './styles';
 
 const staticProps = {
-  email: string.isRequired,
   image: string.isRequired,
   name: string.isRequired,
   description: string,
