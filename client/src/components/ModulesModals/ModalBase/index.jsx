@@ -53,7 +53,7 @@ class ModalBase extends Component {
 
   getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
 
-  onSubmit = async values => {
+  onSubmit = async (values) => {
     const valuesToSubmit = {
       icon: values.icon,
       title: values.title,
