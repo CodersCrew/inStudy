@@ -17,6 +17,7 @@ const schema = new Schema({
   ],
   initiatives: [Schema.Types.ObjectId],
   modules: [{}],
+  shortUrl: String,
 });
 
 module.exports = mongoose.model('users', schema);
