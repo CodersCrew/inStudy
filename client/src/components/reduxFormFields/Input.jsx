@@ -33,7 +33,7 @@ InputField.propTypes = {
   prefix: oneOfType([string, node]),
   size: oneOf(['small', 'default', 'large']),
   suffix: oneOfType([string, node]),
-  type: oneOf(['text', 'password']),
+  type: oneOf(['text', 'password', 'number']),
   onPressEnter: func,
 };
 
