@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
+    "start": "webpack-dev-server --config webpack.dev.js -c-1",
     "build": "webpack --config webpack.prod.js"
   },
   "author": "Konrad Szwarc",
