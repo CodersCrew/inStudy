@@ -2,9 +2,12 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Container } from './styles';
 
-const People = ({ text }) => (
-  <Container>{text}</Container>
-);
+const People = (props) => {
+  console.log(props);
+  return (
+    <Container>{props.text}</Container>
+  );
+};
 
 People.propTypes = {
   text: string,

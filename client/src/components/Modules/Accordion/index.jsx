@@ -2,9 +2,12 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Container } from './styles';
 
-const Accordion = ({ text }) => (
-  <Container>{text}</Container>
-);
+const Accordion = (props) => {
+  console.log(props);
+  return (
+    <Container>{props.text}</Container>
+  );
+}
 
 Accordion.propTypes = {
   text: string,
