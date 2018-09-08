@@ -1293,103 +1293,6 @@ export default [
     name: 'glass-martini-alt',
     tags: ['klub', 'napój', 'koktajl', 'alkohol', 'drink', 'impreza', 'ludzie', 'spotkanie', 'martini', 'pub', 'bar'],
   },
-
-  {
-    name: 'volume',
-    tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
-  },
-  {
-    name: 'volume-down',
-    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
-  },
-  {
-    name: 'volume-mute',
-    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
-  },
-  {
-    name: 'volume-off',
-    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
-  },
-  {
-    name: 'volume-slash',
-    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
-  },
-  {
-    name: 'volume-up',
-    tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
-  },
-  {
-    name: 'walking',
-    tags: ['chodzenie', 'spacer', 'wyjście', 'pośpiech', 'bieg', 'ruch', 'przemieszczanie się', 'wędrówka'],
-  },
-  {
-    name: 'wallet',
-    tags: ['portfel', 'portmonetka', 'pieniądze', 'gotówka', 'drobne', 'karta', 'skóra', 'dokumenty'],
-  },
-  {
-    name: 'warehouse',
-    tags: ['magazyn', 'składować', 'pudła', 'kartony', 'przechowywanie', 'pakowanie'],
-  },
-  {
-    name: 'warehouse-alt',
-    tags: ['magazyn', 'składować', 'pudła', 'kartony', 'przechowywanie', 'pakowanie'],
-  },
-  {
-    name: 'watch',
-    tags: ['zegar', 'czas', 'wskazówki', 'spóźnienie', 'budzik', 'minutnik', 'stoper', 'timer', 'mierzyć', 'pomiar', 'data', 'godzina', 'minuta', 'sekunda'],
-  },
-  {
-    name: 'watch-fitness',
-    tags: ['fit', 'fitness', 'czas', 'bieganie', 'jogging', 'zegarek', 'sport', 'mierzyć', 'pomiar', 'tętno', 'serce', 'puls', 'krokomierz', 'stoper', 'timer'],
-  },
-  {
-    name: 'weight',
-    tags: ['waga', 'ważyć', 'kilogram', 'gram', 'kuchenna'],
-  },
-  {
-    name: 'weight-hanging',
-    tags: ['podnoszenie', 'ciężar',, 'waga', 'siłacz', 'siłownia', 'trening', 'zawody', 'olimpiada', 'mistrz', 'medalista', 'atleta', 'ciężki', 'silny'],
-  },
-  {
-    name: 'wheelchair',
-    tags: ['wózek', 'niepełnosprawny', 'operacja', 'wypadek', 'paraolimpiada'],
-  },
-  {
-    name: 'whistle',
-    tags: ['gwizdek', 'gwizdać', 'zawody', 'wyścigi', 'trener', 'bieg', 'wf', 'pe', 'szkoła', 'trening', 'motywacja'],
-  },
-  {
-    name: 'wifi',
-    tags: ['wifi', 'online', 'internet', 'sieć', 'wireless', 'połączenie', 'zasięg'],
-  },
-  {
-    name: 'wifi-slash',
-    tags: ['wifi', 'brak', 'offline', 'internet', 'sieć', 'wireless', 'połączenie', 'zasięg'],
-  },
-  {
-    name: 'window',
-    tags: ['okno', 'strona', 'karta', 'program', 'witryna'],
-  },
-  {
-    name: 'window-alt',
-    tags: ['okno', 'strona', 'karta', 'program', 'witryna'],
-  },
-  {
-    name: 'window-close',
-    tags: ['okno', 'zamknięcie', 'close', 'koniec', 'krzyżyk', 'end'],
-  },
-  {
-    name: 'window-maximize',
-    tags: ['maksymalizacja', 'okno', 'otworzyć', 'przywrócić', 'karta'],
-  },
-  {
-    name: 'window-minimize',
-    tags: ['okno', 'minimalizuj', 'zminimalizowanie', 'karta'],
-  },
-  {
-    name: 'window-restore',
-    tags: ['przywracanie', 'okno', 'karta', 'nowy', 'przeglądarka', 'strona', 'witryna'],
-  },
   {
     name: 'glasses',
     tags: ['nauka', 'studia', 'naukowiec', 'okulary', 'wzrok', 'okulista', 'badanie'],
@@ -1585,6 +1488,103 @@ export default [
   {
     name: 'hourglass',
     tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
+  },
+
+  {
+    name: 'volume',
+    tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
+  },
+  {
+    name: 'volume-down',
+    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
+  },
+  {
+    name: 'volume-mute',
+    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
+  },
+  {
+    name: 'volume-off',
+    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
+  },
+  {
+    name: 'volume-slash',
+    tags: ['dźwięk', 'głośność', 'ściszyć', 'wyciszyć', 'zmniejszyć', 'cisza', 'brak', 'cisza'],
+  },
+  {
+    name: 'volume-up',
+    tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
+  },
+  {
+    name: 'walking',
+    tags: ['chodzenie', 'spacer', 'wyjście', 'pośpiech', 'bieg', 'ruch', 'przemieszczanie się', 'wędrówka'],
+  },
+  {
+    name: 'wallet',
+    tags: ['portfel', 'portmonetka', 'pieniądze', 'gotówka', 'drobne', 'karta', 'skóra', 'dokumenty'],
+  },
+  {
+    name: 'warehouse',
+    tags: ['magazyn', 'składować', 'pudła', 'kartony', 'przechowywanie', 'pakowanie'],
+  },
+  {
+    name: 'warehouse-alt',
+    tags: ['magazyn', 'składować', 'pudła', 'kartony', 'przechowywanie', 'pakowanie'],
+  },
+  {
+    name: 'watch',
+    tags: ['zegar', 'czas', 'wskazówki', 'spóźnienie', 'budzik', 'minutnik', 'stoper', 'timer', 'mierzyć', 'pomiar', 'data', 'godzina', 'minuta', 'sekunda'],
+  },
+  {
+    name: 'watch-fitness',
+    tags: ['fit', 'fitness', 'czas', 'bieganie', 'jogging', 'zegarek', 'sport', 'mierzyć', 'pomiar', 'tętno', 'serce', 'puls', 'krokomierz', 'stoper', 'timer'],
+  },
+  {
+    name: 'weight',
+    tags: ['waga', 'ważyć', 'kilogram', 'gram', 'kuchenna'],
+  },
+  {
+    name: 'weight-hanging',
+    tags: ['podnoszenie', 'ciężar', , 'waga', 'siłacz', 'siłownia', 'trening', 'zawody', 'olimpiada', 'mistrz', 'medalista', 'atleta', 'ciężki', 'silny'],
+  },
+  {
+    name: 'wheelchair',
+    tags: ['wózek', 'niepełnosprawny', 'operacja', 'wypadek', 'paraolimpiada'],
+  },
+  {
+    name: 'whistle',
+    tags: ['gwizdek', 'gwizdać', 'zawody', 'wyścigi', 'trener', 'bieg', 'wf', 'pe', 'szkoła', 'trening', 'motywacja'],
+  },
+  {
+    name: 'wifi',
+    tags: ['wifi', 'online', 'internet', 'sieć', 'wireless', 'połączenie', 'zasięg'],
+  },
+  {
+    name: 'wifi-slash',
+    tags: ['wifi', 'brak', 'offline', 'internet', 'sieć', 'wireless', 'połączenie', 'zasięg'],
+  },
+  {
+    name: 'window',
+    tags: ['okno', 'strona', 'karta', 'program', 'witryna'],
+  },
+  {
+    name: 'window-alt',
+    tags: ['okno', 'strona', 'karta', 'program', 'witryna'],
+  },
+  {
+    name: 'window-close',
+    tags: ['okno', 'zamknięcie', 'close', 'koniec', 'krzyżyk', 'end'],
+  },
+  {
+    name: 'window-maximize',
+    tags: ['maksymalizacja', 'okno', 'otworzyć', 'przywrócić', 'karta'],
+  },
+  {
+    name: 'window-minimize',
+    tags: ['okno', 'minimalizuj', 'zminimalizowanie', 'karta'],
+  },
+  {
+    name: 'window-restore',
+    tags: ['przywracanie', 'okno', 'karta', 'nowy', 'przeglądarka', 'strona', 'witryna'],
   },
   {
     name: 'wine-glass',
