@@ -2,12 +2,24 @@
 
 export default [
   {
+    name: 'abacus',
+    tags: ['matematyka', 'liczydło', 'kalkulator', 'dodawanie', 'liczenie', 'liczba', 'koraliki', 'dodawanie'],
+  },
+  {
+    name: 'ad',
+    tags: ['reklama', 'telewizja', 'marketing', 'promocja', 'sprzedaż', 'internet', 'komercja', 'billboard', 'baner'],
+  },
+  {
     name: 'address-book',
     tags: ['adres', 'książka', 'kontakt', 'lista', 'notes', 'dane'],
   },
   {
     name: 'address-card',
     tags: ['dane', 'informacje', 'id', 'wizytówka', 'identyfikator', 'plakietka'],
+  },
+  {
+    name: 'air-freshener',
+    tags: ['choinka', 'drzewo', 'odświeżacz', 'samochód', 'zapach', 'pachnieć', 'jodełka', 'sosna', 'auto'],
   },
   {
     name: 'alarm-clock',
@@ -34,16 +46,60 @@ export default [
     tags: ['ambulans', 'karetka', 'choroba', 'szpital', 'pojazd', 'medycyna', 'pogotowie'],
   },
   {
+    name: 'analytics',
+    tags: ['analiza', 'analityka', 'wykres', 'tabela', 'dane', 'excel', 'liczby', 'cyferki', 'statystyka', 'google'],
+  },
+  {
     name: 'anchor',
     tags: ['kotwica', 'statek', 'morze', 'żeglowanie'],
+  },
+  {
+    name: 'angry',
+    tags: ['złość', 'desperacja', 'zły', 'wkurzony', 'zdenerwowany', 'nerwy', 'kłótnia'],
+  },
+  {
+    name: 'apple-alt',
+    tags: ['apple', 'jabłko', 'bogaty', 'laptop', 'macbook', 'air', 'pro', 'retina', 'iphone', 'ipod', 'burżuazja', 'gruszka'],
   },
   {
     name: 'archive',
     tags: ['archiwum', 'pudełko', 'box', 'opakowanie'],
   },
   {
+    name: 'archway',
+    tags: ['mur', 'most', 'łuk', 'tunel', 'wjazd', 'przejazd', 'zabytek', 'Paryż'],
+  },
+  {
+    name: 'asterisk',
+    tags: ['gwiazda', 'asteroida', 'niebo', 'miga', 'święta', 'star'],
+  },
+  {
     name: 'at',
     tags: ['małpa', 'email', 'e-mail', 'symbol', 'znak'],
+  },
+  {
+    name: 'atlas',
+    tags: ['atlas', 'geografia', 'mapa', 'góry', 'książka', 'samochodowy', 'szkoła', 'nauka'],
+  },
+  {
+    name: 'atom',
+    tags: ['atom', 'fizyka', 'react', 'programowanie', 'frontend', 'developer', 'it', 'kod', 'native', 'redux'],
+  },
+  {
+    name: 'award',
+    tags: ['nagroda', 'medal', 'wyróżnienie', 'dyplom', 'certyfikat', 'gratulacje', 'brawo', 'złoty', 'odznaka'],
+  },
+  {
+    name: 'backpack',
+    tags: ['plecak', 'torba', 'szkoła', 'wyjazd', 'podróż', 'laptop', 'pokrowiec', 'etui', 'przechować', 'schować'],
+  },
+  {
+    name: 'backspace',
+    tags: ['usunąć', 'cofnąć', 'delete', 'wstecz', 'wrócić', 'powrót'],
+  },
+  {
+    name: 'backward',
+    tags: ['cofnąć', 'wstecz', 'wrócić', 'powrót', 'przewinąć', 'poprzedni'],
   },
   {
     name: 'badge',
@@ -68,6 +124,10 @@ export default [
   {
     name: 'barcode',
     tags: ['kod kreskowy', 'sklep', 'produkt', 'oznaczenie', 'towar'],
+  },
+  {
+    name: 'bars',
+    tags: ['pasek', 'hamburger', 'menu', 'opcje', 'więcej', 'ustawienia'],
   },
   {
     name: 'baseball',
@@ -127,11 +187,11 @@ export default [
   },
   {
     name: 'bell',
-    tags: ['dzwonek', 'powiadomienie'],
+    tags: ['dzwonek', 'powiadomienie', 'dźwięk', 'głośność'],
   },
   {
     name: 'bell-slash',
-    tags: ['dzwonek', 'powiadomienie'],
+    tags: ['dzwonek', 'powiadomienie', 'dźwięk', 'głośność'],
   },
   {
     name: 'bicycle',
@@ -144,6 +204,10 @@ export default [
   {
     name: 'birthday-cake',
     tags: ['tort', 'ciasto', 'deser', 'słodycze', 'świeczki', 'urodziny', 'impreza'],
+  },
+  {
+    name: 'blanket',
+    tags: ['koc', 'ciepło', 'kołdra', 'nakryć', 'narzuta', 'kapa', 'pled'],
   },
   {
     name: 'blender',
@@ -166,12 +230,28 @@ export default [
     tags: ['bomba', 'wybuch', 'eksplozja', 'katastrofa', 'pirotechnika'],
   },
   {
+    name: 'bone',
+    tags: ['kość', 'pies', 'zoo', 'jedzenie', 'szkielet'],
+  },
+  {
     name: 'book',
     tags: ['książka', 'podręcznik', 'nauka', 'edukacja', 'lektura', 'szkoła', 'wiedza'],
   },
   {
+    name: 'book-open',
+    tags: ['książka', 'podręcznik', 'nauka', 'edukacja', 'lektura', 'szkoła', 'wiedza', 'otwarta', 'księga', 'mądrość'],
+  },
+  {
+    name: 'book-reader',
+    tags: ['czytelnik', 'książka', 'czytanie', 'rozdział', 'ebook', 'kindle', 'zapisywanie', 'postęp', 'wkuwanie', 'pamięć'],
+  },
+  {
     name: 'bookmark',
     tags: ['zakładka', 'książka', 'czytanie', 'rozdział', 'strona', 'internetowa', 'zapisywanie', 'postęp'],
+  },
+  {
+    name: 'books',
+    tags: ['biblioteka', 'książki', 'wypożyczanie', 'rozdział', 'strona', 'internetowa', 'zapisywanie', 'postęp', 'zakładka'],
   },
   {
     name: 'bowling-ball',
@@ -202,6 +282,10 @@ export default [
     tags: ['niewidomy', 'ślepy', 'indwalida', 'wypadek', 'dotyk', 'czytanie', 'braille'],
   },
   {
+    name: 'brain',
+    tags: ['mózg', 'mądry', 'iq', 'inteligencja', 'półkule', 'lewa', 'prawa', 'burza', 'design thinking', 'rozwój', 'wiedza'],
+  },
+  {
     name: 'briefcase',
     tags: ['walizka', 'biznes', 'firma', 'teczka', 'dokumenty', 'laptop', 'korpo'],
   },
@@ -220,6 +304,10 @@ export default [
   {
     name: 'browser',
     tags: ['wyszukiwarka', 'chrome', 'edge', 'explorer', 'internet', 'opera', 'firefox', 'safari', 'google'],
+  },
+  {
+    name: 'brush',
+    tags: ['rysunek', 'malowanie', 'obraz', 'artystyczny', 'szkic', 'kreatywny', 'kolor', 'farba', 'barwa'],
   },
   {
     name: 'bug',
@@ -244,6 +332,14 @@ export default [
   {
     name: 'bus',
     tags: ['komunikacja', 'auto', 'miejski', 'transport', 'kierowca', 'przewóz', 'bilet', 'kanar', 'autobus'],
+  },
+  {
+    name: 'business-time',
+    tags: ['organizacja', 'czas', 'spotkanie', 'lunch', 'boss', 'szef', 'menedżer', 'praca'],
+  },
+  {
+    name: 'cabinet-filing',
+    tags: ['administracja', 'biuro', 'porządek', 'papiery', 'dokumenty', 'archiwum', 'biurokracja', 'segregacja', 'akta', 'dane', 'koperta', 'list'],
   },
   {
     name: 'calculator',
@@ -302,6 +398,14 @@ export default [
     tags: ['samochód', 'auto', 'podróż', 'pojazd', 'trasa', 'transport', 'bryka', 'mechanika'],
   },
   {
+    name: 'car-battery',
+    tags: ['samochód', 'auto', 'akumulator', 'energia', 'zasilanie', 'bateria', 'plus', 'minus', 'prąd', 'napięcie'],
+  },
+  {
+    name: 'car-side',
+    tags: ['samochód', 'auto', 'podróż', 'pojazd', 'trasa', 'transport', 'bryka', 'mechanika'],
+  },
+  {
     name: 'caret-circle-down',
     tags: ['strzałka', 'dół', 'down', 'scroll', 'zmniejsz', 'odejmij'],
   },
@@ -350,6 +454,14 @@ export default [
     tags: ['strzałka', 'góra', 'powrót', 'up'],
   },
   {
+    name: 'chalkboard',
+    tags: ['tablica', 'kreda', 'szkoła', 'lekcja', 'notatki', 'klasa', 'pisanie', 'informacje'],
+  },
+  {
+    name: 'charging-station',
+    tags: ['prąd', 'gniazdko', 'zasilanie', 'energia', 'napięcie', 'plus', 'minus', 'elektryka', 'fizyka', 'obwód'],
+  },
+  {
     name: 'chart-area',
     tags: ['wykres', 'biznes', 'obliczenia', 'schemat', 'wyniki', 'wykaz'],
   },
@@ -363,7 +475,11 @@ export default [
   },
   {
     name: 'chart-pie',
-    tags: ['wykres', 'biznes', 'wyniki', 'diagram', 'wykaz'],
+    tags: ['wykres', 'biznes', 'wyniki', 'diagram', 'wykaz', 'statystyka', 'analiza', 'liczby'],
+  },
+  {
+    name: 'chart-pie-alt',
+    tags: ['wykres', 'biznes', 'wyniki', 'diagram', 'wykaz', 'statystyka', 'analiza', 'liczby'],
   },
   {
     name: 'check',
@@ -388,6 +504,14 @@ export default [
   {
     name: 'chess-board',
     tags: ['szachy', 'mat', 'szachownica', 'plansza', 'pionek', 'figura', 'gra'],
+  },
+  {
+    name: 'chess-clock',
+    tags: ['szachy', 'mat', 'szachownica', 'plansza', 'pionek', 'figura', 'gra', 'czas', 'zegar', 'minutnik', 'timer'],
+  },
+  {
+    name: 'chess-clock-alt',
+    tags: ['szachy', 'mat', 'szachownica', 'plansza', 'pionek', 'figura', 'gra', 'czas', 'zegar', 'minutnik', 'timer'],
   },
   {
     name: 'chess-king',
@@ -502,8 +626,16 @@ export default [
     tags: ['koło', 'okrąg', 'geometria', 'pi', '360'],
   },
   {
+    name: 'city',
+    tags: ['miasto', 'budynek', 'metropolia', 'biurowiec', 'blok', 'perspektywy', 'rozwój', 'ludzie', 'praca', 'życie'],
+  },
+  {
     name: 'clipboard',
     tags: ['podkładka', 'notatki', 'wklej'],
+  },
+  {
+    name: 'clipboard-check',
+    tags: ['podkładka', 'notatki', 'wklej', 'todolist', 'odhaczania', 'zadania', 'checkbox', 'lista', 'do zrobienia', 'done', 'to do'],
   },
   {
     name: 'clipboard-list',
@@ -522,8 +654,28 @@ export default [
     tags: ['chmura', 'dysk', 'obłok', 'pogoda', 'pochmurno'],
   },
   {
+    name: 'cloud-download',
+    tags: ['chmura', 'dysk', 'obłok', 'pogoda', 'pochmurno', 'pobieranie', 'ściąganie', 'dane', 'download', 'zapisywanie', 'rozpakowywanie', 'zip'],
+  },
+  {
+    name: 'cloud-download-alt',
+    tags: ['chmura', 'dysk', 'obłok', 'pogoda', 'pochmurno', 'pobieranie', 'ściąganie', 'dane', 'download', 'zapisywanie', 'rozpakowywanie', 'zip'],
+  },
+  {
+    name: 'cloud-upload',
+    tags: ['chmura', 'dysk', 'obłok', 'pogoda', 'pochmurno', 'upload', 'wysyłanie', 'dane', 'zapisywanie', 'odzyskiwanie'],
+  },
+  {
+    name: 'cloud-upload-alt',
+    tags: ['chmura', 'dysk', 'obłok', 'pogoda', 'pochmurno', 'upload', 'wysyłanie', 'dane', 'zapisywanie', 'odzyskiwanie'],
+  },
+  {
     name: 'club',
     tags: ['trefl', 'karty', 'poker', 'brydż', 'blackjack', 'texas holdem'],
+  },
+  {
+    name: 'cocktail',
+    tags: ['klub', 'napój', 'koktajl', 'piwo', 'alkohol', 'wino', 'drink', 'impreza', 'ludzie', 'spotkanie', 'martini', 'pub', 'bar'],
   },
   {
     name: 'code',
@@ -531,11 +683,19 @@ export default [
   },
   {
     name: 'code-branch',
-    tags: ['gałąź', 'git', 'github', 'merge', 'repozytorium'],
+    tags: ['gałąź', 'git', 'github', 'merge', 'repozytorium', 'commit', 'kod'],
+  },
+  {
+    name: 'code-commit',
+    tags: ['gałąź', 'git', 'github', 'merge', 'repozytorium', 'commit', 'kod'],
+  },
+  {
+    name: 'code-merge',
+    tags: ['gałąź', 'git', 'github', 'merge', 'repozytorium', 'commit', 'kod'],
   },
   {
     name: 'coffee',
-    tags: ['kawa', 'poranek', 'kofeina', 'energia', 'arabica', 'robusta'],
+    tags: ['kawa', 'poranek', 'kofeina', 'energia', 'arabica', 'robusta', 'rozmowa', 'spotkanie', 'kawiarnia'],
   },
   {
     name: 'cog',
@@ -544,6 +704,10 @@ export default [
   {
     name: 'cogs',
     tags: ['ustawienia', 'konfiguracja', 'zębatki', 'maszyny'],
+  },
+  {
+    name: 'coins',
+    tags: ['kasyno', 'pieniądze', 'wypłata', 'kasa', 'monety', 'gotówka', 'drobne', 'złoto', 'grosze', 'portfel', 'portmonetka', 'bogactwo', 'bank', 'możliwości', 'praca'],
   },
   {
     name: 'columns',
@@ -558,28 +722,80 @@ export default [
     tags: ['komentarz', 'rozmowa', 'konwersacja', 'czat'],
   },
   {
+    name: 'comment-smile',
+    tags: ['komentarz', 'rozmowa', 'konwersacja', 'czat', 'uśmiech', 'buźka'],
+  },
+  {
     name: 'comments',
     tags: ['komentarze', 'rozmowa', 'konwersacja', 'czat'],
+  },
+  {
+    name: 'comments-alt',
+    tags: ['komentarze', 'rozmowa', 'konwersacja', 'czat'],
+  },
+  {
+    name: 'compact-disc',
+    tags: ['dysk', 'dane', 'odczyt', 'CD', 'płyta', 'krążek', 'DVD', 'komputer', 'napęd'],
   },
   {
     name: 'compass',
     tags: ['kompas', 'geografia', 'orientacja w terenie', 'kierunki'],
   },
   {
+    name: 'cookie',
+    tags: ['ciastko', 'słodycz', 'gastro', 'kulinarny', 'cukier', 'kawa', 'kalorie', 'przekąska', 'jedzenie', 'żywienie', 'posiłek'],
+  },
+  {
+    name: 'cookie-bite',
+    tags: ['ciastko', 'słodycz', 'gastro', 'kulinarny', 'cukier', 'kawa', 'kalorie', 'przekąska', 'jedzenie', 'żywienie', 'posiłek'],
+  },
+  {
     name: 'copy',
     tags: ['kopiowanie', 'kopia', 'dokumenty', 'papiery', 'dokumentacja'],
+  },
+  {
+    name: 'copyright',
+    tags: ['prawa', 'autorstwo', 'treść', 'tekst', 'content'],
+  },
+  {
+    name: 'couch',
+    tags: ['kanapa', 'relaks', 'odpoczynek', 'meble', 'chill'],
   },
   {
     name: 'credit-card',
     tags: ['karta kredytowa', 'karta debetowa', 'pieniądze', 'płatnosci'],
   },
   {
+    name: 'credit-card-blank',
+    tags: ['karta kredytowa', 'karta debetowa', 'pieniądze', 'płatnosci'],
+  },
+  {
+    name: 'credit-card-front',
+    tags: ['karta kredytowa', 'karta debetowa', 'pieniądze', 'płatnosci'],
+  },
+  {
+    name: 'cricket',
+    tags: ['sport', 'zawody', 'krykiet', 'gra'],
+  },
+  {
     name: 'crop',
+    tags: ['przycinanie', 'kadrowanie'],
+  },
+  {
+    name: 'crop-alt',
     tags: ['przycinanie', 'kadrowanie'],
   },
   {
     name: 'crosshairs',
     tags: ['celownik', 'snajper', 'wojna', 'broń'],
+  },
+  {
+    name: 'crow',
+    tags: ['natura', 'biologia', 'zoologia', 'ptak', 'wiosna', 'zwierzę', 'ornitologia'],
+  },
+  {
+    name: 'crown',
+    tags: ['korona', 'król', 'królowa', 'tytuł', 'stanowisko', 'nagroda', 'CEO'],
   },
   {
     name: 'cube',
@@ -606,20 +822,108 @@ export default [
     tags: ['desktop', 'komputer stacjonarny', 'macbook', 'monitor', 'wyświetlacz'],
   },
   {
+    name: 'dharmachakra',
+    tags: ['koło', 'ster', 'statek', 'żeglowanie', 'żaglowiec', 'morze', 'ocean', 'ratunek', 'SOS'],
+  },
+  {
+    name: 'diagnoses',
+    tags: ['diagnoza', 'lek', 'leczenie', 'lekarz', 'zdrowie', 'doktor', 'szpital', 'ratunek', 'pomoc', 'medycyna'],
+  },
+  {
     name: 'diamond',
     tags: ['karo', 'karty', 'poker', 'brydż', 'blackjack', 'texas holdem'],
+  },
+  {
+    name: 'dice',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-one',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-two',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-three',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-four',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-five',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'dice-six',
+    tags: ['gra', 'planszówka', 'kostka', 'ruch', 'rzucanie', 'wygrana'],
+  },
+  {
+    name: 'digital-tachograph',
+    tags: ['technologie', 'zegar', 'prędkościomierz', 'urządzenie', 'pomiar'],
+  },
+  {
+    name: 'diploma',
+    tags: ['nauka', 'studia', 'certyfikat', 'dyplom', 'ukończenie', 'kurs', 'uczelnia', 'student', 'dokument', 'potwierdzenie', 'zaświadczenie'],
+  },
+  {
+    name: 'directions',
+    tags: ['kierunek', 'skręt', 'znak', 'kierunkowskaz', 'wskazówka'],
+  },
+  {
+    name: 'divide',
+    tags: ['dzielenie', 'matematyka', 'rozdzielanie', 'podział', 'liczenie', 'algebra', 'arytmetyka'],
+  },
+  {
+    name: 'dna',
+    tags: ['chemia', 'laboratorium', 'badanie', 'krew', 'gen', 'analityka', 'medycyna'],
   },
   {
     name: 'dollar-sign',
     tags: ['dolar', 'waluta', 'pieniądze', 'hajs', 'kantor', 'wymiana-walut'],
   },
   {
+    name: 'donate',
+    tags: ['pieniądze', 'dotacja', 'transfer', 'dofinansowanie', 'fundacja'],
+  },
+  {
+    name: 'dove',
+    tags: ['natura', 'biologia', 'zoologia', 'ptak', 'wiosna', 'zwierzę', 'ornitologia'],
+  },
+  {
     name: 'download',
     tags: ['pobierz', 'pobieranie', 'zapisz'],
   },
   {
+    name: 'drafting-compass',
+    tags: ['cyrkiel', 'rysunek', 'techniczny', 'precyzja', 'linie', 'obwód'],
+  },
+  {
+    name: 'draw-circle',
+    tags: ['algorytm', 'schemat', 'wykres', 'dane', 'excel', 'cykl', 'proces'],
+  },
+  {
+    name: 'draw-polygon',
+    tags: ['algorytm', 'schemat', 'wykres', 'dane', 'excel', 'cykl', 'proces'],
+  },
+  {
+    name: 'draw-square',
+    tags: ['algorytm', 'schemat', 'wykres', 'dane', 'excel', 'cykl', 'proces'],
+  },
+  {
+    name: 'drum',
+    tags: ['muzyka', 'instrument', 'gra', 'bęben', 'perkusja', 'koncert', 'zespół'],
+  },
+  {
     name: 'dumbbell',
     tags: ['siłownia', 'ćwiczenia', 'hantle', 'hantelki', 'ciężary', 'masa', 'waga'],
+  },
+  {
+    name: 'ear',
+    tags: ['ucho', 'słuch', 'zmysł', 'równowaga', 'anatomia', 'dźwięk'],
   },
   {
     name: 'edit',
@@ -654,8 +958,16 @@ export default [
     tags: ['koperta', 'poczta', 'wiadomość', 'list', 'przesyłka'],
   },
   {
+    name: 'envelope-open-text',
+    tags: ['koperta', 'poczta', 'wiadomość', 'list', 'przesyłka'],
+  },
+  {
     name: 'envelope-square',
     tags: ['koperta', 'poczta', 'wiadomość', 'list', 'przesyłka'],
+  },
+  {
+    name: 'equals',
+    tags: ['równy', 'równość', 'działanie', 'matematyka', 'obliczenia', 'wynik', 'rezultat', 'symbol', 'identyczny'],
   },
   {
     name: 'eraser',
