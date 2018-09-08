@@ -983,22 +983,26 @@ export default [
   },
   {
     name: 'exclamation',
-    tags: ['wykrzyknik', 'niebezppieczeństwo', 'uwaga', 'ostrzeenie', 'problem'],
+    tags: ['wykrzyknik', 'niebezpieczeństwo', 'uwaga', 'ostrzeżenie', 'problem'],
   },
   {
     name: 'exclamation-circle',
-    tags: ['wykrzyknik', 'niebezppieczeństwo', 'uwaga', 'ostrzeenie', 'problem'],
+    tags: ['wykrzyknik', 'niebezpieczeństwo', 'uwaga', 'ostrzeżenie', 'problem'],
   },
   {
     name: 'exclamation-square',
-    tags: ['wykrzyknik', 'niebezppieczeństwo', 'uwaga', 'ostrzeenie', 'problem'],
+    tags: ['wykrzyknik', 'niebezpieczeństwo', 'uwaga', 'ostrzeżenie', 'problem'],
   },
   {
     name: 'exclamation-triangle',
-    tags: ['wykrzyknik', 'niebezppieczeństwo', 'uwaga', 'ostrzeenie', 'problem'],
+    tags: ['wykrzyknik', 'niebezpieczeństwo', 'uwaga', 'ostrzeżenie', 'problem'],
   },
   {
     name: 'expand',
+    tags: ['pełny ekran', 'rozszerzanie', 'powiększenie'],
+  },
+  {
+    name: 'expand-alt',
     tags: ['pełny ekran', 'rozszerzanie', 'powiększenie'],
   },
   {
@@ -1033,4 +1037,277 @@ export default [
     name: 'female',
     tags: ['kobieta', 'dziewczyna', 'płeć', 'postać', 'człowiek'],
   },
+  {
+    name: 'field-hockey',
+    tags: ['sport', 'hokej', 'dyscyplina', 'drużyna', 'wyścigi', 'zawody', 'kij', 'krążek', 'ruch', 'lód', 'stadion', 'zawodnik'],
+  },
+  {
+    name: 'fighter-jet',
+    tags: ['samolot', 'pocisk', 'wojna', 'transport', 'niebezpieczeństwo', 'środek transportu', 'wojsko', 'żołnierz', 'rakieta', 'niebo', 'lot', 'wysokość'],
+  },
+  {
+    name: 'file',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-alt',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-alt',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-archive',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-audio',
+    tags: ['plik', 'muzyka', 'audio', 'dźwięk', 'sygnał', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-certificate',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'certyfikat', 'dyplom', 'nagroda', 'wyróżnienie', 'odznaka', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-chart-line',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'wykres', 'analiza', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-chart-pie',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'wykres', 'analiza', 'udział', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-check',
+    tags: ['plik', 'dokument', 'archiwum', 'todolist', 'odhaczania', 'zadania', 'checkbox', 'lista', 'do zrobienia', 'done', 'to do', 'notatki', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-code',
+    tags: ['plik', 'dokument', 'archiwum', 'kod', 'ukośnik', 'repozytorium', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-contract',
+    tags: ['plik', 'dokument', 'umowa', 'porozumienie', 'zgoda', 'powiadomienie', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-download',
+    tags: ['plik', 'dokument', 'archiwum', 'dane', 'folder', 'teczka', 'dysk', 'pobieranie', 'ściąganie'],
+  },
+  {
+    name: 'file-edit',
+    tags: ['plik', 'edytowanie', 'poprawka', 'zmiana', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-excel',
+    tags: ['plik', 'dokument', 'archiwum', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-exclamation',
+    tags: ['plik', 'uwaga', 'błąd', 'wykrzyknik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-export',
+    tags: ['plik', 'eksport', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-image',
+    tags: ['plik', 'obrazek', 'rysunek', 'grafika', 'wizualizacja', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-import',
+    tags: ['plik', 'import', 'przeniesienie', 'wprowadzanie', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-invoice',
+    tags: ['plik', 'faktura', 'zestawienie', 'liczby', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-invoice-dollar',
+    tags: ['plik', 'faktura', 'wypłata', 'wynagrodzenie', 'kwota', 'pieniądze', 'waluta', 'dolar', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-pdf',
+    tags: ['plik', 'odczyt', 'acrobat', 'pdf', 'format', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-plus',
+    tags: ['plik', 'dodawanie', 'plus', 'nowy', 'pusty', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-powerpoint',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-signature',
+    tags: ['plik', 'podpis', 'akceptacja', 'potwierdenie', 'pismo', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-spreadsheet',
+    tags: ['plik', 'dokument', 'arkusz', 'tabela', 'wyliczanie', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-upload',
+    tags: ['plik', 'dokument', 'upload', 'wysyłanie', 'odzyskiwanie', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-user',
+    tags: ['plik', 'użytkownik', 'user', 'osoba', 'człowiek', 'prywatny', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-video',
+    tags: ['plik', 'film', 'nagranie', 'kamera', 'odtwarzanie', 'odczyt', 'akcja', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'file-word',
+    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
+  },
+  {
+    name: 'fill',
+    tags: ['płyn', 'wlewanie', 'napełnianie', 'pełny', 'dzbanek', 'woda', 'napój'],
+  },
+  {
+    name: 'fill-drip',
+    tags: ['płyn', 'wlewanie', 'napełnianie', 'pełny', 'dzbanek', 'kropla', 'woda', 'napój'],
+  },
+  {
+    name: 'film',
+    tags: ['plik', 'film', 'nagranie', 'kamera', 'odtwarzanie', 'odczyt', 'akcja', 'kadr', 'archiwum', 'show'],
+  },
+  {
+    name: 'film-alt',
+    tags: ['plik', 'film', 'nagranie', 'kamera', 'odtwarzanie', 'odczyt', 'akcja', 'kadr', 'archiwum', 'show'],
+  },
+  {
+    name: 'filter',
+    tags: ['chemia', 'płyn', 'lejek', 'przelewanie', 'oddzielanie', 'filtrowanie', 'sortowanie'],
+  },
+  {
+    name: 'fingerprint',
+    tags: ['odcisk', 'palec', 'rozblokowanie', 'potwierdzenie', 'działanie', 'dane', 'linie', 'unikalność'],
+  },
+  {
+    name: 'fire',
+    tags: ['ogień', 'pożar', 'płomień', 'chęć', 'gorący', 'niszczenie'],
+  },
+  {
+    name: 'fire-extinguisher',
+    tags: ['ogień', 'pożar', 'płomień', 'chęć', 'gorący', 'piana', 'usuwanie'],
+  },
+  {
+    name: 'first-aid',
+    tags: ['pierwsza pomoc', 'pomoc', 'apteczka', 'pogotowie', 'leki', 'tabletki', 'ratunek'],
+  },
+  {
+    name: 'fish',
+    tags: ['zoologia', 'biologia', 'łowiectwo', 'ryby', 'jedzenie', 'żywienie', 'gastro'],
+  },
+  {
+    name: 'flag',
+    tags: ['flaga', 'symbol', 'kraj', 'start', 'finisz', 'odznaka', 'nagroda', 'koniec', 'początek'],
+  },
+  {
+    name: 'flag-checkered',
+    tags: ['flaga', 'symbol', 'kraj', 'start', 'finisz', 'odznaka', 'nagroda', 'koniec', 'początek'],
+  },
+  {
+    name: 'flask',
+    tags: ['chemia', 'płyn', 'pojemnik', 'zbiornik', 'lekcja', 'laboratorium'],
+  },
+  {
+    name: 'folder',
+    tags: ['folder', 'teczka', 'segregator', 'kuwetka', 'archiwum', 'dostęp', 'dane'],
+  },
+  {
+    name: 'folder-open',
+    tags: ['folder', 'teczka', 'segregator', 'kuwetka', 'archiwum', 'dostęp', 'dane'],
+  },
+  {
+    name: 'folders',
+    tags: ['folder', 'teczka', 'segregator', 'kuwetka', 'archiwum', 'dostęp', 'dane'],
+  },
+  {
+    name: 'font',
+    tags: ['czcionka', 'art', 'litera', 'a', 'word', 'edycja', 'font'],
+  },
+  {
+    name: 'football-ball',
+    tags: ['piłka', 'sport', 'boisko', 'stadion', 'zawody', 'piłka ręczna'],
+  },
+  {
+    name: 'football-helmet',
+    tags: ['ochrona', 'zabezpieczenie', 'kask', 'hełm', 'hokej', 'sport', 'zawody'],
+  },
+  {
+    name: 'forward',
+    tags: ['przewijanie', 'naprzód', 'dalej', 'strzałka'],
+  },
+  {
+    name: 'fragile',
+    tags: ['kryształ', 'szkło', 'kieliszek', 'kielich', 'kufel', 'kufelek', 'rysa', 'pęknięcie', 'złamanie'],
+  },
+  {
+    name: 'frog',
+    tags: ['żywienie', 'żaba', 'żabka', 'zoologia', 'biologia', 'zwierzę', 'nauka', 'eksperyment'],
+  },
+  {
+    name: 'function',
+    tags: ['funkcja', 'całka', 'pochodna', 'matematyka', 'działnie', 'nauka', 'algebra'],
+  },
+  {
+    name: 'funnel-dollar',
+    tags: ['lejek sprzedaży', 'przychód', 'kasa', 'pieniądze', 'zysk', 'kwota', 'wynagrodzenie', 'dieta', 'awans'],
+  },
+  {
+    name: 'futbol',
+    tags: ['piłka', 'sport', 'boisko', 'stadion', 'zawody', 'piłka nożna'],
+  },
+  {
+    name: 'gamepad',
+    tags: ['gra', 'konsola', 'dżojstik', 'odpoczynek', 'play'],
+  },
+  {
+    name: 'gas-pump',
+    tags: ['gaz', 'pompka', 'zasilanie', 'tankowanie', 'benzyna', 'stacja'],
+  },
+  {
+    name: 'gavel',
+    tags: ['młotek', 'budownictwo', 'sąd', 'rozkaz', 'decyzja', 'potwierdzenie', 'turkot', 'pukanie', 'stukanie'],
+  },
+  {
+    name: 'gem',
+    tags: ['diament', 'brylant', 'bogactwo', 'szlifowanie', 'klejnot', 'skarb', 'stras', 'ozdoba', 'jubilerski'],
+  },
+  {
+    name: 'gift',
+    tags: ['prezent', 'święto', 'obdarowanie', 'pakowanie'],
+  },
+  {
+    name: 'gift-card',
+    tags: ['prezent', 'święto', 'obdarowanie', 'karta podarunkowa'],
+  },
+  {
+    name: 'glass-martini',
+    tags: ['klub', 'napój', 'koktajl', 'alkohol', 'drink', 'impreza', 'ludzie', 'spotkanie', 'martini', 'pub', 'bar'],
+  },
+  {
+    name: 'glass-martini-alt',
+    tags: ['klub', 'napój', 'koktajl', 'alkohol', 'drink', 'impreza', 'ludzie', 'spotkanie', 'martini', 'pub', 'bar'],
+  },
+  {
+    name: 'wine-glass',
+    tags: ['wino', 'czerwony', 'biały', 'kolacja', 'wytrawne', 'słodkie', 'randka', 'wieczór', 'obiad'],
+  },
+  {
+    name: 'wine-glass-alt',
+    tags: ['wino', 'czerwony', 'biały', 'kolacja', 'wytrawne', 'słodkie', 'randka', 'wieczór', 'obiad'],
+  },
+  {
+    name: 'wrench',
+    tags: ['klucz francuski', 'majsterkowanie', 'warsztat', 'przykręcanie', 'naprawa', 'mężczyzna'],
+  },
+  {
+    name: 'x-ray',
+    tags: ['rentgen', 'szpital', 'prześwietlenie', 'zdjęcie', 'negatyw', 'promieniowanie'],
+  },
+
 ];
