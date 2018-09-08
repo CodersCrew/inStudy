@@ -2,9 +2,12 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Container } from './styles';
 
-const Logos = ({ text }) => (
-  <Container>{text}</Container>
-);
+const Logos = (props) => {
+  console.log(props);
+  return (
+    <Container>{props.text}</Container>
+  );
+};
 
 Logos.propTypes = {
   text: string,
