@@ -111,7 +111,7 @@ module.exports = app => {
     const initId = req.params.initId;
     const modId = req.params.modId;
 
-    new FetchInitiative().deleteModule(initId, modId).then(() => {
+    new FetchInitiative().deleteModule(initId, modId).then(() => { //TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
       res.sendStatus(201);
     });
   });

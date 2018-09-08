@@ -1,9 +1,8 @@
 const multer  = require('multer');
-const { sendInitiativeImage } = require('./../services/Cloudinary');
+const { sendInitiativeImage, sendModuleImage } = require('./../services/Cloudinary');
 const getFileType = (filename) => {
   const splitedFilename = filename.split('.');
-  console.log(splitedFilename)
-  return splitedFilename[splitedFilename.length-1];
+  return splitedFilename[splitedFilename.length - 1];
 };
 
 const storage = multer.diskStorage({
@@ -13,19 +12,21 @@ const storage = multer.diskStorage({
 
 module.exports = (app) => {
   app.post('/api/picture', multer({ storage }).single('picture'), (req, res) => {
-    const { where, initiativeId } = req.body;
+    const { where, initiativeId, moduleId } = req.body;
 
-    const path = `${req.file.path}`;
+    const { path, filename } = req.file;
 
     const locationDispatcher = {
       image: () => sendInitiativeImage(path)(initiativeId),
+      module: () => sendModuleImage(path, filename)(initiativeId, moduleId),
     };
 
     const result = locationDispatcher[where];
     if (result) {
       return result()
-        .then(() => {
-          res.sendStatus(201);
+        .then(({ url }) => {
+          res.status(200)
+             .json({ url });
         })
         .catch((error) => {
           console.log(error)
