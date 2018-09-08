@@ -9,11 +9,11 @@ class Success extends PureComponent {
 
     return (
       <Modal
-        visible={visible}
-        onClose={closeModal}
-        title={texts.modalTitle}
-        icon="/fa-icons/smile-beam-light.svg"
         type="confirmation"
+        visible={visible}
+        onCancel={closeModal}
+        title={texts.modalTitle}
+        iconClass="fal fa-smile-beam"
         width={644}
         buttons={[
           {

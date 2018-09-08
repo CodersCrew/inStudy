@@ -8,11 +8,11 @@ class CreationType extends PureComponent {
     const { visible, closeModal, incrementStep } = this.props;
     return (
       <Modal
-        visible={visible}
-        onClose={closeModal}
-        title={texts.modalTitle}
-        icon="/fa-icons/file-import-light.svg"
         type="confirmation"
+        visible={visible}
+        onCancel={closeModal}
+        title={texts.modalTitle}
+        iconClass="fal fa-file-import"
         width={644}
         buttons={[
           {

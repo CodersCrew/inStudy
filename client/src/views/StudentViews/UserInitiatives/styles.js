@@ -1,12 +1,22 @@
 import styled from 'styled-components';
 import { Container } from 'components';
 import { Button } from 'antd';
+import { media } from 'utils';
 
 export const MainContainer = styled(Container)`
-  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: var(--space-xl);
+  ${media.lg`
+    grid-template-columns: 1fr 1fr;
+  `};
+  ${media.sm`
+    grid-template-columns: 1fr;
+  `};
 `;
 
 export const Wrapper = styled.div`
+  grid-area: 1/1/2/4;
   display: flex;
   flex-direction: column;
   align-items: center;

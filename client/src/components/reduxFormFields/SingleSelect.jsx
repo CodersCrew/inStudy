@@ -8,38 +8,6 @@ const { Option } = Select;
 const filterOptions = (query, option) => option.props.children.includes(query);
 
 class SingleSelect extends PureComponent {
-  state = {
-    isOpen: false,
-  };
-
-  blurIfOpened = () => {
-    if (this.state.isOpen) {
-      this.setState({ isOpen: false });
-      this.props.input.onBlur();
-    }
-  };
-
-  onFocus = () => {
-    if (!this.state.isOpen) {
-      this.focus();
-    }
-  };
-
-  onSelect = value => {
-    this.props.onSelect(value);
-    this.blurIfOpened();
-  };
-
-  onChange = value => {
-    this.props.input.onChange(value);
-    this.blurIfOpened();
-  };
-
-  focus = () => {
-    this.setState({ isOpen: true });
-    this.props.input.onFocus();
-  };
-
   render() {
     const props = this.props;
 
@@ -58,12 +26,10 @@ class SingleSelect extends PureComponent {
         size={props.size}
         style={props.style}
         value={props.input.value || undefined}
-        onBlur={this.blurIfOpened}
-        onChange={this.onChange}
-        onFocus={this.onFocus}
+        onBlur={props.input.onBlur}
+        onChange={props.input.onChange}
+        onFocus={props.input.onFocus}
         onSearch={props.input.onSearch}
-        onSelect={this.onSelect}
-        open={this.state.isOpen}
       >
         {props.options.map(({ label, value }) => (
           <Option key={value} value={value}>
@@ -76,6 +42,7 @@ class SingleSelect extends PureComponent {
         <Select
           allowClear={props.allowClear}
           autoFocus={props.autoFocus}
+          className={props.className}
           defaultActiveFirstOption={props.defaultActiveFirstOption}
           disabled={props.disabled}
           filterOption={filterOptions}
@@ -84,13 +51,12 @@ class SingleSelect extends PureComponent {
           placeholder={props.placeholder}
           showSearch={props.showSearch}
           size={props.size}
+          style={props.style}
           value={props.input.value || undefined}
-          onBlur={this.blurIfOpened}
-          onChange={this.onChange}
-          onFocus={this.onFocus}
+          onBlur={props.input.onBlur}
+          onChange={props.input.onChange}
+          onFocus={props.input.onFocus}
           onSearch={props.input.onSearch}
-          onSelect={this.onSelect}
-          open={this.state.isOpen}
         >
           {props.options.map(({ label, value }) => (
             <Option key={value} value={value}>

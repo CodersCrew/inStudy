@@ -31,9 +31,7 @@ class IconsModal extends PureComponent {
     const arrToFilter = queryLength > this.lastValueLength ? this.state.icons : icons;
     this.lastValueLength = queryLength;
     const newIconsSet =
-      queryLength === 0
-        ? icons
-        : arrToFilter.filter(({ tags }) => tags.some(tag => tag.includes(value)));
+      queryLength === 0 ? icons : arrToFilter.filter(({ tags }) => tags.some(tag => tag.includes(value)));
     this.setState({ icons: newIconsSet, value });
   };
 
@@ -52,10 +50,10 @@ class IconsModal extends PureComponent {
 
     return (
       <Modal
+        type="complex"
         title="Wybierz ikonkę"
         visible={open}
-        onClose={close}
-        type="complex"
+        onCancel={close}
         buttons={[
           {
             onClick: this.onSubmit,
@@ -69,11 +67,7 @@ class IconsModal extends PureComponent {
         ]}
       >
         <Content>
-          <Input
-            onChange={this.onChange}
-            value={this.state.value}
-            placeholder="Wyszukaj ikony..."
-          />
+          <Input onChange={this.onChange} value={this.state.value} placeholder="Wyszukaj ikony..." />
           <Icons>
             <Scrollbars>
               {this.state.icons.map(({ name }) => (

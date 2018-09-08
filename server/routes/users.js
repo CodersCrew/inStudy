@@ -1,6 +1,21 @@
-import { addNewModule, changeBasicUserData, updateModule, deleteModule } from './../services/fetchUser';
+import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from './../services/fetchUser';
 
 export default app => {
+  app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params;
+
+    getUserData(userId)
+      .then(user => {
+        res.status(200).json(user);
+      })
+      .catch(errorName => {
+        if (errorName === 'CastError') {
+          res.sendStatus(404);
+        }
+        console.error(errorName);
+      });
+  });
+
   app.post('/api/user/module', (req, res) => {
     const module = req.body;
     const userId = req.user._id;
