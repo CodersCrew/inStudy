@@ -1391,6 +1391,202 @@ export default [
     tags: ['przywracanie', 'okno', 'karta', 'nowy', 'przeglądarka', 'strona', 'witryna'],
   },
   {
+    name: 'glasses',
+    tags: ['nauka', 'studia', 'naukowiec', 'okulary', 'wzrok', 'okulista', 'badanie'],
+  },
+  {
+    name: 'glasses-alt',
+    tags: ['nauka', 'studia', 'naukowiec', 'okulary', 'wzrok', 'okulista', 'badanie'],
+  },
+  {
+    name: 'globe',
+    tags: ['geografia', 'kula', 'ziemia', 'świat', 'internet'],
+  },
+  {
+    name: 'globe-africa',
+    tags: ['geografia', 'kula', 'ziemia', 'świat', 'Afryka'],
+  },
+  {
+    name: 'globe-americas',
+    tags: ['geografia', 'kula', 'ziemia', 'świat', 'Ameryka'],
+  },
+  {
+    name: 'globe-asia',
+    tags: ['geografia', 'kula', 'ziemia', 'świat', 'Azja'],
+  },
+  {
+    name: 'globe-stand',
+    tags: ['geografia', 'kula', 'ziemia', 'globus', 'świat'],
+  },
+  {
+    name: 'golf-ball',
+    tags: ['golf', 'sport', 'zawody', 'gra', 'piłka'],
+  },
+  {
+    name: 'golf-club',
+    tags: ['golf', 'sport', 'zawody', 'gra', 'piłka', 'klub'],
+  },
+  {
+    name: 'gopuram',
+    tags: ['świątynia', 'Indie', 'gopuram', 'wieża', 'zabytek', 'kultura'],
+  },
+  {
+    name: 'graduation-cup',
+    tags: ['ukończenie', 'studia', 'magister', 'licencjat', 'doktor', 'nauka', 'wiedza', 'tytuł', 'czapka'],
+  },
+  {
+    name: 'greater-than',
+    tags: ['matematyka', 'działanie', 'algebra', 'nierówność', 'więcej'],
+  },
+  {
+    name: 'greater-than-equal',
+    tags: ['matematyka', 'działanie', 'algebra', 'nierówność', 'więcej', 'równe'],
+  },
+  {
+    name: 'hand-heart',
+    tags: ['ręka', 'gest', 'życzliwość', 'przekazywanie', 'miłosierność', 'serce'],
+  },
+  {
+    name: 'hand-holding',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie'],
+  },
+  {
+    name: 'hand-holding-box',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie', 'obdarowywanie', 'wręczanie', 'prezent'],
+  },
+  {
+    name: 'hand-holding-heart',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie', 'miłosierność', 'serce'],
+  },
+  {
+    name: 'hand-holding-seedling',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie', 'rolnictwo', 'ziarno', 'zarodek', 'roślina'],
+  },
+  {
+    name: 'hand-holding-usd',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie', 'wypłata', 'wynagrodzenie', 'dolar', 'pieniądze', 'waluta'],
+  },
+  {
+    name: 'hand-holding-water',
+    tags: ['ręka', 'trzymanie', 'gest', 'życzliwość', 'przekazywanie', 'woda', 'kropla'],
+  },
+  {
+    name: 'hand-paper',
+    tags: ['ręka', 'gest', 'życzliwość', 'przekaz', 'stop', 'uwaga'],
+  },
+  {
+    name: 'hand-point-down',
+    tags: ['ręka', 'palec', 'wskazywanie', 'kierunek', 'dół', 'strzałka'],
+  },
+  {
+    name: 'hand-point-left',
+    tags: ['ręka', 'palec', 'wskazywanie', 'kierunek', 'lewo', 'strzałka'],
+  },
+  {
+    name: 'hand-point-right',
+    tags: ['ręka', 'palec', 'wskazywanie', 'kierunek', 'prawo', 'strzałka'],
+  },
+  {
+    name: 'hand-point-up',
+    tags: ['ręka', 'palec', 'wskazywanie', 'kierunek', 'góra', 'strzałka'],
+  },
+  {
+    name: 'hand-pointer',
+    tags: ['ręka', 'palec', 'wskazywanie', 'kierunek', 'góra', 'strzałka'],
+  },
+  {
+    name: 'hands',
+    tags: ['ręce', 'prośba', 'wskazywanie', 'kierunek'],
+  },
+  {
+    name: 'hands-helping',
+    tags: ['ręce', 'współpraca', 'umowa', 'porozumienie', 'pomoc', 'uścisk'],
+  },
+  {
+    name: 'handshake',
+    tags: ['ręce', 'współpraca', 'umowa', 'porozumienie', 'pomoc', 'uścisk'],
+  },
+  {
+    name: 'handshake-alt',
+    tags: ['ręce', 'współpraca', 'umowa', 'porozumienie', 'pomoc', 'uścisk'],
+  },
+  {
+    name: 'hashtag',
+    tags: ['hasztag', 'siatka', 'oznaczanie', 'znaczenie'],
+  },
+  {
+    name: 'headphones',
+    tags: ['słuchawki', 'muzyka', 'słuchanie', 'relaks', 'hobby', 'gadżet'],
+  },
+  {
+    name: 'headphones-alt',
+    tags: ['słuchawki', 'muzyka', 'słuchanie', 'relaks', 'hobby', 'gadżet'],
+  },
+  {
+    name: 'headset',
+    tags: ['słuchawki', 'muzyka', 'słuchanie', 'relaks', 'hobby', 'mikrofon', 'rozmowa', 'gadżet', 'konferencja', 'Skype', 'wypowiedź'],
+  },
+  {
+    name: 'heart',
+    tags: ['medycyna', 'serce', 'kardiologia', 'lekarz', 'pomoc', 'miłosierność', 'życzliwość', 'życie', 'miłość'],
+  },
+  {
+    name: 'heart-rate',
+    tags: ['medycyna', 'serce', 'kardiologia', 'lekarz', 'pomoc', 'ciśnienie', 'życie', 'bicie'],
+  },
+  {
+    name: 'heartbeat',
+    tags: ['medycyna', 'serce', 'kardiologia', 'lekarz', 'pomoc', 'ciśnienie', 'życie', 'bicie'],
+  },
+  {
+    name: 'helicopter',
+    tags: ['transport', 'helikopter', 'przemieszczenie', 'podróż'],
+  },
+  {
+    name: 'hexagon',
+    tags: ['matematyka', 'geometria', 'figura', 'hexagon'],
+  },
+  {
+    name: 'highlighter',
+    tags: ['kolor', 'mazak', 'marker', 'zaznaczanie', 'podkreślanie', 'rysowanie'],
+  },
+  {
+    name: 'history',
+    tags: ['historia', 'przedmiot', 'nauka', 'lekcja', 'przeszłość', 'czas', 'odliczanie'],
+  },
+  {
+    name: 'hockey-puck',
+    tags: ['sport', 'hokej', 'dyscyplina', 'drużyna', 'wyścigi', 'zawody', 'kij', 'krążek', 'ruch', 'lód', 'stadion', 'zawodnik'],
+  },
+  {
+    name: 'hockey-sticks',
+    tags: ['sport', 'hokej', 'dyscyplina', 'drużyna', 'wyścigi', 'zawody', 'kij', 'krążek', 'ruch', 'lód', 'stadion', 'zawodnik'],
+  },
+  {
+    name: 'home',
+    tags: ['dom', 'budynek', 'budownictwo', 'mieszkanie'],
+  },
+  {
+    name: 'hospital',
+    tags: ['szpital', 'budynek', 'przychodnia', 'pierwsza pomoc'],
+  },
+  {
+    name: 'hospital-alt',
+    tags: ['szpital', 'budynek', 'przychodnia', 'pierwsza pomoc'],
+  },
+  {
+    name: 'hot-tub',
+    tags: ['wanna', 'relaks', 'odpoczynek', 'łazienka'],
+  },
+  {
+    name: 'hotel',
+    tags: ['hotel', 'budynek', 'budownictwo', 'noclegi'],
+  },
+  {
+    name: 'hourglass',
+    tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
+  },
+  {
     name: 'wine-glass',
     tags: ['wino', 'czerwony', 'biały', 'kolacja', 'wytrawne', 'słodkie', 'randka', 'wieczór', 'obiad'],
   },
