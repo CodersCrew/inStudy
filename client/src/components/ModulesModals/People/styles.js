@@ -72,7 +72,7 @@ export const Subtitle = styled.div`
 export const Description = styled.div`
   grid-area: 3/1/4/3;
   width: 100%;
-  margin-top: var(--space-sm);
+  margin: var(--space-sm) 0;
   font-family: var(--headerFont);
   font-size: var(--font-xs);
   line-height: var(--font-xs-lh);
