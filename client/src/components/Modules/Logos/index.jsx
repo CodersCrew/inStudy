@@ -1,20 +1,18 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { Container } from './styles';
+import { Container, Icon, Image, StyledTooltip } from './styles';
 
-const Logos = (props) => {
-  console.log(props);
-  return (
-    <Container>{props.text}</Container>
-  );
-};
+const Logo = ({ image, title, url }) => (
+  <StyledTooltip title={title} duration={300} distance={-10}>
+    <Icon href={url} rel="nofollow">
+      <Image src={image} />
+    </Icon>
+  </StyledTooltip>
+);
 
-Logos.propTypes = {
-  text: string,
-};
-
-Logos.defaultProps = {
-  text: 'Moduł loga',
-};
+const Logos = ({ items }) => (
+  <Container>
+    {items.map(Logo)}
+  </Container>
+);
 
 export default Logos;

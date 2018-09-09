@@ -5,7 +5,7 @@ import { ImagePicker, Input } from 'components/reduxFormFields';
 import { required, url } from 'utils/validators';
 import { getModalBaseData } from '../userModalsUtils';
 import ModalBase from '../ModalBase';
-import { Container, EditCard, Actions, Action, AddTrait, StaticCard, Image, Name, Description } from './styles';
+import { Container, EditCard, Actions, Action, AddTrait, StaticCard, Image, Data, Name, Description } from './styles';
 
 @connect(state => ({
   errors: getFormSyncErrors('moduleModal')(state),
@@ -19,8 +19,8 @@ class Logos extends PureComponent {
   isEditing = index => this.state.editingCardIndex === index;
 
   addTrait = (index, push) => {
-    push({ icon: '', name: '', description: '' });
-    this.startTraitEditing(index, { icon: '', name: '', description: '' });
+    push({ image: '', title: '', url: '' });
+    this.startTraitEditing(index, { image: '', title: '', url: '' });
   };
 
   startTraitEditing = (editingCardIndex, cardValuesSnapshot) => this.setState({ editingCardIndex, cardValuesSnapshot });
@@ -53,8 +53,10 @@ class Logos extends PureComponent {
   renderLogostaticView = (index, isDisabled, remove, traitValue) => (
     <StaticCard>
       <Image src={(typeof traitValue.image === 'string') ? traitValue.image : traitValue.image?.preview} />
-      <Name>{traitValue.title}</Name>
-      <Description>{traitValue.url}</Description>
+      <Data>
+        <Name>{traitValue.title}</Name>
+        <Description>{traitValue.url}</Description>
+      </Data>
       <Actions>
         <Action isDisabled={isDisabled} onClick={() => this.startTraitEditing(index, traitValue)}>Edytuj</Action>
         <Action isDisabled={isDisabled} onClick={remove}>Usuń</Action>
@@ -75,7 +77,7 @@ class Logos extends PureComponent {
 
   renderLogos = ({ fields }) => {
     const { props: { errors }, state: { editingCardIndex } } = this;
-    this.error = Array.isArray(errors?.logos) && errors.logos.find(trait => trait && Object.keys(trait).length);
+    this.error = Array.isArray(errors?.items) && errors.items.find(trait => trait && Object.keys(trait).length);
 
     return (
       <Container>
@@ -92,7 +94,7 @@ class Logos extends PureComponent {
 
     return (
       <ModalBase {...getModalBaseData(this.props)} contentHeader="Lista logotypów">
-        <FieldArray name="logos" component={this.renderLogos} props={{ editingCardIndex }} />
+        <FieldArray name="items" component={this.renderLogos} props={{ editingCardIndex }} />
       </ModalBase>
     );
   }

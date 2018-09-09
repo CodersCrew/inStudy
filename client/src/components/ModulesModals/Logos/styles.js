@@ -33,15 +33,11 @@ export const EditCard = styled.div`
   }
 
   > div:nth-of-type(1) {
-    grid-area: 1/1/3/2;
+    grid-area: 1/1/2/2;
   }
 
   > div:nth-of-type(2) {
     grid-area: 1/2/2/3;
-  }
-
-  > div:nth-of-type(3) {
-    grid-area: 2/2/3/3;
   }
 `;
 
@@ -137,7 +133,7 @@ export const AddTrait = styled.div`
 export const StaticCard = styled.div`
   display: grid;
   grid-template-columns: 72px 1fr;
-  grid-template-rows: fit-content(100%) 1fr 21px;
+  grid-template-rows: auto auto 21px;
   grid-gap: var(--space-xs) var(--space-sm);
   max-height: 288px;
   border: 1px solid var(--grey3);
@@ -148,9 +144,15 @@ export const StaticCard = styled.div`
 `;
 
 export const Image = styled.div`
+  height: 72px;
+  width: 72px;
   grid-area: 1/1/3/2;
   background: url('${props => props.src}') no-repeat center/contain;
   border-radius: 4px;
+`;
+
+export const Data = styled.div`
+  padding-left: var(--space-md);
 `;
 
 export const Name = styled.div`
@@ -158,7 +160,6 @@ export const Name = styled.div`
   line-height: var(--font-md-lh);
   font-weight: var(--medium);
   color: var(--text1);
-  grid-area: 1/2/2/3;
 `;
 
 export const Description = styled.div`
@@ -166,7 +167,6 @@ export const Description = styled.div`
   line-height: var(--font-sm-lh);
   font-weight: var(--regular);
   color: var(--text2);
-  grid-area: 2/2/3/3;
   overflow-y: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
