@@ -72,7 +72,7 @@ export const Overlay = styled.figcaption`
   color: transparent;
   background-color: transparent;
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   bottom: 0;
   left: 0;
   width: 100%;
