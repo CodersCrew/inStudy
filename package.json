@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/index.js",
-    "server": "nodemon --exec \"npm run parse-server && node dist/index.js\"",
+    "server": "nodemon --exec \"yarn run parse-server && node dist/index.js\"",
     "parse-server": "rimraf dist/ && babel ./server/ --out-dir dist/ --ignore ./node_modules",
-    "client": "cd client && npm run start",
-    "build": "cd client && npm run build",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "install:all": "npm install && cd client && npm install",
-    "lint": "npm run eslint --ext .jsx --ext .js client/"
+    "client": "cd client && yarn run start",
+    "build": "cd client && yarn run build",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "install:all": "yarn install && cd client && yarn install",
+    "lint": "yarn run eslint --ext .jsx --ext .js client/"
   },
   "author": "Konrad Szwarc",
   "license": "MIT",
