@@ -1490,6 +1490,236 @@ export default [
     tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
   },
 
+
+
+  {
+    name: 'umbrella',
+    tags: ['parasol', 'deszcz', 'mokro', 'jesień', 'wiosna', 'pogoda', 'wilgoć', 'wilgotność', 'ulewa', 'leje', 'burza', 'błyskawica', 'chmury', 'grzmot', 'wiatr', 'tęcza'],
+  },
+  {
+    name: 'umbrella-beach',
+    tags: ['parasol', 'plaża', 'słońce', 'plażowy', 'wakacje', 'opalanie', 'morze'],
+  },
+  {
+    name: 'underline',
+    tags: ['podkreślenie', 'underline', 'literka', 'u'],
+  },
+  {
+    name: 'undo',
+    tags: ['jeszcze raz', 'powtórz', 'again', 'znów', 'znowu', 'powtarzanie', 'wstecz', 'cofnij', 'back'],
+  },
+  {
+    name: 'undo-alt',
+    tags: ['jeszcze raz', 'powtórz', 'again', 'znów', 'znowu', 'powtarzanie', 'wstecz', 'cofnij', 'back'],
+  },
+  {
+    name: 'union',
+    tags: ['unia', 'razem', 'połączenie', 'zrzeszenie', 'stowarzyszenie', 'związek', 'zjednoczenie', 'literka', 'u'],
+  },
+  {
+    name: 'universal-access',
+    tags: ['uniwersalny', 'wszechstronny', 'powszechny', 'dostęp', 'ludzik', 'człowiek', 'koło', 'okrąg', 'circle'],
+  },
+  {
+    name: 'university',
+    tags: ['szkoła', 'studia', 'uniwersytet', 'budynek', 'graduate', 'student', 'magister', 'licencjat', 'kampus', 'doktorat', 'profesor', 'absolwent'],
+  },
+  {
+    name: 'unlink',
+    tags: ['link', 'unlink', 'odczepić', 'odpinać', 'udostępnianie', 'brak', 'dostęp'],
+  },
+  {
+    name: 'unlock',
+    tags: ['odblokowany', 'unlocked', 'kłódka', 'blokada', 'otwarty', 'klucz', 'hasło', 'kod', 'password', 'login', 'logout', 'dostęp'],
+  },
+  {
+    name: 'unlock-alt',
+    tags: ['odblokowany', 'unlocked', 'kłódka', 'blokada', 'otwarty', 'klucz', 'hasło', 'kod', 'password', 'login', 'logout', 'dostęp'],
+  },
+  {
+    name: 'upload',
+    tags: ['upload', 'wysyłanie', 'wrzucanie', 'ładowanie', 'załadowanie', 'udostępnianie'],
+  },
+  {
+    name: 'usd-circle',
+    tags: ['pieniądze', 'dolar', 'gotówka', 'banknot', 'cash', 'portfel', 'portmonetka', 'drobne', 'płacić'],
+  },
+  {
+    name: 'usd-square',
+    tags: ['pieniądze', 'dolar', 'gotówka', 'banknot', 'cash', 'portfel', 'portmonetka', 'drobne', 'płacić', 'moneta'],
+  },
+  {
+    name: 'user',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo'],
+  },
+  {
+    name: 'user-alt',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo'],
+  },
+  {
+    name: 'user-alt-slash',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo', 'usunięcie', 'delete', 'brak', 'usuń'],
+  },
+  {
+    name: 'user-astronaut',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo', 'kosmonauta', 'astronauta', 'kosmos', 'rakieta', 'podróż'],
+  },
+  {
+    name: 'user-chart',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo', 'analityk', 'wykres', 'praca', 'projekt', 'spotkanie', 'prezentacja', 'przedstawienie', 'wystąpienie'],
+  },
+  {
+    name: 'user-check',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo', 'checkbox', 'check', 'zaznaczanie', 'tick'],
+  },
+  {
+    name: 'user-circle',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'członkostwo'],
+  },
+  {
+    name: 'user-clock',
+    tags: ['użytkownik', 'zegar', 'społeczność', 'ludzie', 'członkostwo', 'czas', 'time', 'data'],
+  },
+  {
+    name: 'user-cog',
+    tags: ['użytkownik', 'ustawienia', 'społeczność', 'ludzie', 'członkostwo', 'opcje'],
+  },
+  {
+    name: 'user-crown',
+    tags: ['korona', 'król', 'królowa', 'władca', 'książę', 'księżniczka', 'bal', 'rządzić'],
+  },
+  {
+    name: 'user-edit',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'edycja', 'znajomy', 'opcje', 'edit', 'edytuj', 'zmień', 'zmiana', 'edytować'],
+  },
+  {
+    name: 'user-friends',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'przyjaciel', 'znajomy', 'kolega', 'koleżanka', 'relacja', 'więź'],
+  },
+  {
+    name: 'user-graduate',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'graduate', 'student', 'magister', 'licencjat', 'czapka', 'uniwersytet', 'doktorat', 'profesor', 'absolwent'],
+  },
+  {
+    name: 'user-lock',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'kłódka', 'blokada', 'zablokowany', 'prywatność', 'sekret', 'locked'],
+  },
+  {
+    name: 'user-md',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'lekarz', 'medycyna', 'badanie', 'stetoskop', 'doktor', 'leczyć'],
+  },
+  {
+    name: 'user-minus',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'usunąć', 'usuń', 'minus', 'zmniejsz', 'redukcja', 'usuwanie'],
+  },
+  {
+    name: 'user-ninja',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'ninja', 'członkostwo', 'walka', 'sport', 'niebezpieczny', 'spryt', 'szybkość', 'miecz'],
+  },
+  {
+    name: 'user-plus',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'dodanie', 'członkostwo', 'nowy', 'dodaj', 'plus'],
+  },
+  {
+    name: 'user-secret',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'incognito', 'członkostwo', 'sekret', 'secret', 'tajemnica', 'detektyw'],
+  },
+  {
+    name: 'user-shield',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'tarcza', 'członkostwo', 'obrona', 'walka'],
+  },
+  {
+    name: 'user-slash',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'usunięcie', 'członkostwo', 'delete', 'brak'],
+  },
+  {
+    name: 'user-tag',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'tag', 'członkostwo', 'plakietka', 'etykieta'],
+  },
+  {
+    name: 'user-tie',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'krawat', 'członkostwo', 'elegancki', 'praca', 'work', 'spotkanie'],
+  },
+  {
+    name: 'user-times',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'usunięcie', 'członkostwo', 'delete', 'usuń'],
+  },
+  {
+    name: 'users',
+    tags: ['użytkownik', 'społeczność', 'ludzie', 'człowiek', 'członkostwo'],
+  },
+  {
+    name: 'users-class',
+    tags: ['użytkownik', 'klasa', 'ludzie', 'dzieci', 'szkoła', 'nauka', 'tablica', 'społeczność', 'członkostwo'],
+  },
+  {
+    name: 'users-cog',
+    tags: ['użytkownik', 'ustawienia', 'społeczność', 'ludzie', 'członkostwo', 'opcje'],
+  },
+  {
+    name: 'users-crown',
+    tags: ['korona', 'król', 'królowa', 'władca', 'książę', 'księżniczka', 'bal', 'rządzić'],
+  },
+  {
+    name: 'utensil-fork',
+    tags: ['sztućce', 'nóż', 'restauracja', 'jedzenie', 'obiad', 'kolacja', 'kroić', 'ostrze', 'ostry'],
+  },
+  {
+    name: 'utensil-knife',
+    tags: ['sztućce', 'widelec', 'restauracja', 'jedzenie', 'obiad', 'kolacja', 'nabijać', 'jeść'],
+  },
+  {
+    name: 'utensil-spoon',
+    tags: ['sztućce', 'łyżka', 'restauracja', 'jedzenie', 'obiad', 'kolacja', 'miska', 'zupa'],
+  },
+  {
+    name: 'utensils',
+    tags: ['sztućce', 'widelec', 'nóż', 'restauracja', 'jedzenie', 'obiad', 'kolacja'],
+  },
+  {
+    name: 'utensils-alt',
+    tags: ['sztućce', 'widelec', 'nóż', 'restauracja', 'jedzenie', 'obiad', 'kolacja'],
+  },
+  {
+    name: 'value-absolute',
+    tags: ['wartość', 'wartość bezwzględna', 'matematyka', 'iks', 'niewiadoma', 'równanie'],
+  },
+  {
+    name: 'vector-square',
+    tags: ['rysunek', 'wektor', 'szkic', 'kwadrat', 'schemat'],
+  },
+  {
+    name: 'venus',
+    tags: ['wenus', 'planeta', 'kobieta', 'płeć'],
+  },
+  {
+    name: 'venus-mars',
+    tags: ['wenus', 'mars', 'kobieta', 'mężczyzna', 'kobieta', 'płeć', 'planeta'],
+  },
+  {
+    name: 'vial',
+    tags: ['probówki', 'chemia', 'eksperyment', 'doświadczenie', 'laboratorium'],
+  },
+  {
+    name: 'vials',
+    tags: ['probówki', 'chemia', 'eksperyment', 'doświadczenie', 'laboratorium'],
+  },
+  {
+    name: 'video',
+    tags: ['video', 'kamera', 'nagranie', 'nagrywanie', 'film'],
+  },
+  {
+    name: 'video-plus',
+    tags: ['video', 'kamera', 'dodanie video', 'nowe', 'film', 'nagranie'],
+  },
+  {
+    name: 'video-slash',
+    tags: ['stop', 'kamera', 'nagrywanie', 'video', 'przerwany'],
+  },
+  {
+    name: 'volleyball-ball',
+    tags: ['siatka', 'siatkówka', 'piłka', 'plażowa', 'drużyna', 'zawodnik', 'gra', 'mecz'],
+  },
   {
     name: 'volume',
     tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
