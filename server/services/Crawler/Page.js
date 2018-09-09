@@ -8,10 +8,10 @@ class Page {
   openNewPage = async (browserInstance, scrapeFunction) => {
     try {
       this.page = await browserInstance.newPage();
+
       await this.page.goto(this.url);
       await this.page.waitFor(1000);
-
-      return await this.page.evaluate(scrapeFunction);
+      return this.page.evaluate(scrapeFunction);
     } catch (e) {
       console.error(e);
     }

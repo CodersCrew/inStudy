@@ -1,14 +1,16 @@
-import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from './../services/fetchUser';
+import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from '../services/fetchUser';
+import { createModuleValidators } from './validators/user-validators';
+import { userLogged } from './validators/auth';
 
-export default app => {
+module.exports = (app) => {
   app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params;
 
     getUserData(userId)
-      .then(user => {
+      .then((user) => {
         res.status(200).json(user);
       })
-      .catch(errorName => {
+      .catch((errorName) => {
         if (errorName === 'CastError') {
           res.sendStatus(404);
         }
@@ -24,27 +26,27 @@ export default app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
   });
 
-  app.put('/api/user/basic', (req, res) => {
+  app.put('/api/user/basic', userLogged, (req, res) => {
     const basic = req.body;
     const userId = req.user._id;
-    console.log(basic, userId);
+
     changeBasicUserData(basic, userId)
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
   });
 
-  app.put('/api/user/module', (req, res) => {
+  app.put('/api/user/module', userLogged, (req, res) => {
     const module = req.body.module;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
@@ -53,13 +55,13 @@ export default app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
   });
 
-  app.delete('/api/user/module/:moduleIndex', (req, res) => {
+  app.delete('/api/user/module/:moduleIndex', userLogged, (req, res) => {
     const { moduleIndex } = req.params;
     const userId = req.user._id;
 
@@ -67,7 +69,7 @@ export default app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });

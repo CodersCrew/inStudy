@@ -2,7 +2,7 @@ import passport from 'passport';
 import mongoose from 'mongoose';
 import { mapUserToView } from './../services/fetchUser';
 
-export default app => {
+module.exports = app => {
   app.get(
     '/auth/google',
     passport.authenticate('google', {
