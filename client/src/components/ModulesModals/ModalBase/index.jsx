@@ -7,7 +7,7 @@ import { omit } from 'utils';
 import { required } from 'utils/validators';
 import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
-import { withNotifications } from 'hocs';
+import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
@@ -31,6 +31,7 @@ const actions = {
 };
 
 const withHocs = compose(
+  withCloseAnimation,
   withNotifications,
   reduxForm({ form: 'moduleModal' }),
   connect(

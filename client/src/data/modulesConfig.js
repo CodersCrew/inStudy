@@ -87,7 +87,7 @@ export default {
   },
   logos: {
     name: 'Loga',
-    iconClass: 'fal fa-grip-horizontal',
+    iconClass: 'fal fa-images',
     description: 'Lista logotypów z linkami do zewnętrznych stron.',
     module: LogosModule,
     modalContent: LogosModal,
