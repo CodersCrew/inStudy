@@ -5,7 +5,7 @@ import { Modal } from 'components';
 import { Input, ImagePicker, RichText, SingleSelect } from 'components/reduxFormFields';
 import { required, url } from 'utils/validators';
 import { omit } from 'utils';
-import socials from '../../../../data/socials';
+import socials from 'data/socials';
 import { Container, TrashIcon, Label, Socials, Images, Overlay } from './styles';
 
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
@@ -166,6 +166,7 @@ class ItemModal extends PureComponent {
 }
 
 ItemModal.propTypes = {
+  initialize: func,
   onClose: func.isRequired,
   handleSubmit: func.isRequired,
   submitting: bool.isRequired,
@@ -175,6 +176,7 @@ ItemModal.propTypes = {
 };
 
 ItemModal.defaultProps = {
+  initialize: () => {},
   visible: false,
   itemData: {},
 };

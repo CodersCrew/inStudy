@@ -1,11 +1,17 @@
 import React, { PureComponent } from 'react';
 import { bool, func, object } from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Modal } from 'components';
-import { Input, TextArea, ImagePicker } from 'components/reduxFormFields';
-import { required } from 'utils/validators';
+import { Input, TextArea, ImagePicker, SingleSelect } from 'components/reduxFormFields';
+import { required, url } from 'utils/validators';
 import { omit } from 'utils';
-import { Container } from './styles';
+import socials from 'data/socials';
+import { Container, Socials, Label, TrashIcon } from './styles';
+
+const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
+
+const areAllFieldsFilled = fields =>
+  fields.reduce((acc, { socialType, url, image }) => acc && (socialType || url || image), true);
 
 @reduxForm({ form: 'personItemForm' })
 class ItemModal extends PureComponent {
@@ -20,6 +26,50 @@ class ItemModal extends PureComponent {
   onSubmit = (values) => {
     this.props.onSubmit(values, this.props.itemData.index);
     this.props.onClose();
+  };
+
+  renderSocialTypeSelect = social => (
+    <Field
+      name={`${social}.socialType`}
+      component={SingleSelect}
+      props={{
+        noWrapper: true,
+        options: socialsOptions,
+        placeholder: 'Nazwa portalu',
+        style: { width: 160 },
+      }}
+    />
+  );
+
+  renderSocialInput = (social, index, remove) => (
+    <Field
+      key={social}
+      name={`${social}.url`}
+      component={Input}
+      props={{
+        addonBefore: this.renderSocialTypeSelect(social),
+        addonAfter: remove && <TrashIcon onClick={() => remove(index)} />,
+        placeholder: 'Pełen adres URL',
+      }}
+      validate={remove ? [url] : []}
+    />
+  );
+
+  renderSocials = ({ fields = [] }) => {
+    const fieldsValues = fields.getAll();
+    const lastSocialIndex = fields.length - 1;
+
+    if (fields.length === 0 || areAllFieldsFilled(fieldsValues)) {
+      fields.push({});
+    }
+
+    return (
+      <Socials>
+        <Label>Social media</Label>
+        {fields.map((social, index) =>
+          this.renderSocialInput(social, index, index !== lastSocialIndex && fields.remove))}
+      </Socials>
+    );
   };
 
   render() {
@@ -75,6 +125,7 @@ class ItemModal extends PureComponent {
             props={{ label: 'Opis' }}
             validate={[required]}
           />
+          <FieldArray name="socials" component={this.renderSocials} />
         </Container>
       </Modal>
     );
@@ -82,6 +133,7 @@ class ItemModal extends PureComponent {
 }
 
 ItemModal.propTypes = {
+  initialize: func,
   onClose: func.isRequired,
   handleSubmit: func.isRequired,
   submitting: bool.isRequired,
@@ -91,6 +143,7 @@ ItemModal.propTypes = {
 };
 
 ItemModal.defaultProps = {
+  initialize: () => {},
   visible: false,
   itemData: {},
 };
