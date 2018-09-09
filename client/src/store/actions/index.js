@@ -12,12 +12,12 @@ import {
   ADD_USER_INITIATIVE,
 } from './types';
 
-export const fetchUser = () => async dispatch => {
+export const fetchUser = () => async (dispatch) => {
   const { data } = await axios.get('/api/current_user');
   return dispatch({ type: FETCH_USER, payload: data });
 };
 
-export const logout = () => async dispatch => {
+export const logout = () => async (dispatch) => {
   await axios.get('/api/logout');
   return dispatch({ type: LOGOUT });
 };
@@ -34,7 +34,7 @@ export const setHistory = history => ({
 
 let reqCache = {};
 
-export const getInitiatives = req => async dispatch => {
+export const getInitiatives = req => async (dispatch) => {
   const params = {
     page: req?.page || 0,
     query: req?.query || '',
@@ -47,7 +47,7 @@ export const getInitiatives = req => async dispatch => {
   }
 };
 
-export const getMoreInitiatives = () => async dispatch => {
+export const getMoreInitiatives = () => async (dispatch) => {
   const params = { ...reqCache, page: reqCache.page + 1 };
   const { data } = await axios.get('/api/initiative', { params });
   return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data } });
@@ -59,7 +59,7 @@ export const setSearch = (searchObj, history) => ({
   history,
 });
 
-export const updateBasicUserData = userData => async dispatch => {
+export const updateBasicUserData = userData => async (dispatch) => {
   await axios.put('/api/user/basic', userData);
   return dispatch({
     type: UPDATE_BASIC_USER_DATA,
@@ -67,7 +67,7 @@ export const updateBasicUserData = userData => async dispatch => {
   });
 };
 
-export const addUserInitiative = initiativeData => async dispatch => {
+export const addUserInitiative = initiativeData => async (dispatch) => {
   try {
     const data = await axios.post('/api/initiative', initiativeData);
 

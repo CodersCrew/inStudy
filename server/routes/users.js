@@ -1,16 +1,16 @@
-import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from './../services/fetchUser';
+import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from '../services/fetchUser';
 import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
 
-module.exports = app => {
+module.exports = (app) => {
   app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params;
 
     getUserData(userId)
-      .then(user => {
+      .then((user) => {
         res.status(200).json(user);
       })
-      .catch(errorName => {
+      .catch((errorName) => {
         if (errorName === 'CastError') {
           res.sendStatus(404);
         }
@@ -26,7 +26,7 @@ module.exports = app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
@@ -40,7 +40,7 @@ module.exports = app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
@@ -55,7 +55,7 @@ module.exports = app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });
@@ -69,7 +69,7 @@ module.exports = app => {
       .then(() => {
         res.sendStatus(201);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         res.sendStatus(404);
       });

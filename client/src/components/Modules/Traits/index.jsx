@@ -1,20 +1,27 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { Container } from './styles';
+import { array, string } from 'prop-types';
+import { Container, TraitContainer, Icon, Name, Description } from './styles';
 
-const Traits = (props) => {
-  console.log(props);
-  return (
-    <Container>{props.text}</Container>
-  );
-}
+const Trait = ({ icon, name, description }) => (
+  <TraitContainer>
+    <Icon className={`fal fa-${icon}`} />
+    <Name>{name}</Name>
+    <Description>{description}</Description>
+  </TraitContainer>
+);
 
-Traits.propTypes = {
-  text: string,
+Trait.propTypes = {
+  icon: string.isRequired,
+  name: string.isRequired,
+  description: string.isRequired,
 };
 
-Traits.defaultProps = {
-  text: 'Moduł cechy',
+const Traits = ({ items }) => {
+  return null;
+};
+
+Traits.propTypes = {
+  items: array.isRequired,
 };
 
 export default Traits;
