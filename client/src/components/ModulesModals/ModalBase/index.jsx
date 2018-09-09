@@ -131,7 +131,6 @@ class ModalBase extends Component {
             name="icon"
             component={IconPicker}
             props={{ label: 'Ikona', disabled: submitting }}
-            validate={[required]}
           />
           <InputWrapper>
             <Field

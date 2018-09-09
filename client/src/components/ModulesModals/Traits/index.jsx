@@ -82,7 +82,7 @@ class Traits extends PureComponent {
 
   renderTraits = ({ fields }) => {
     const { props: { errors }, state: { editingCardIndex } } = this;
-    this.error = Array.isArray(errors?.traits) && errors.traits.find(trait => trait && Object.keys(trait).length);
+    this.error = Array.isArray(errors?.items) && errors.items.find(trait => trait && Object.keys(trait).length);
 
     return (
       <Container>
@@ -99,7 +99,7 @@ class Traits extends PureComponent {
 
     return (
       <ModalBase {...getModalBaseData(this.props)} contentHeader="Lista cech">
-        <FieldArray name="traits" component={this.renderTraits} props={{ editingCardIndex }} />
+        <FieldArray name="items" component={this.renderTraits} props={{ editingCardIndex }} />
       </ModalBase>
     );
   }

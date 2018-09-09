@@ -32,7 +32,7 @@ module.exports = (app) => {
       });
   });
 
-  app.put('/api/user/basic', userLogged, createModuleValidators, (req, res) => {
+  app.put('/api/user/basic', userLogged, (req, res) => {
     const basic = req.body;
     const userId = req.user._id;
 
@@ -46,7 +46,7 @@ module.exports = (app) => {
       });
   });
 
-  app.put('/api/user/module', userLogged, createModuleValidators, (req, res) => {
+  app.put('/api/user/module', userLogged, (req, res) => {
     const module = req.body.module;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
@@ -61,7 +61,7 @@ module.exports = (app) => {
       });
   });
 
-  app.delete('/api/user/module/:moduleIndex', userLogged, createModuleValidators, (req, res) => {
+  app.delete('/api/user/module/:moduleIndex', userLogged, (req, res) => {
     const { moduleIndex } = req.params;
     const userId = req.user._id;
 

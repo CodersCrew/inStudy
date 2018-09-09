@@ -17,7 +17,12 @@ Trait.propTypes = {
 };
 
 const Traits = ({ items }) => {
-  return null;
+  console.log(items);
+  return (
+    <Container>
+      {items.map(Trait)}
+    </Container>
+  );
 };
 
 Traits.propTypes = {

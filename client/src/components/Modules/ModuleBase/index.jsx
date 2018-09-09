@@ -6,7 +6,7 @@ import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
 const staticProps = {
   content: object.isRequired,
-  icon: string.isRequired,
+  icon: string,
   title: string.isRequired,
   type: string.isRequired,
 };
@@ -29,7 +29,7 @@ class EditableModuleBase extends PureComponent {
       <Container>
         <EditIcon className="fal fa-edit" onClick={this.openModal} />
         <Header>
-          <Icon className={`fal fa-${this.props.icon}`} />
+          {this.props.icon && <Icon className={`fal fa-${this.props.icon}`} />}
           <Text>{this.props.title}</Text>
         </Header>
         <Content>
@@ -56,7 +56,7 @@ class EditableModuleBase extends PureComponent {
 EditableModuleBase.propTypes = { ...staticProps, moduleIndex: number.isRequired, id: string };
 EditableModuleBase.defaultProps = { id: '' };
 
-const StaticModuleBase = props => {
+const StaticModuleBase = (props) => {
   const modalData = modulesConfig[props.type];
   const ModuleComponent = modalData.module;
 
