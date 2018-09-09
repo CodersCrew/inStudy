@@ -37,8 +37,8 @@ class Numbers extends PureComponent {
 
   render() {
     return (
-      <ModalBase {...getModalBaseData(this.props)} contentHeader="Lista umiejętności">
-        <FieldArray name="numbers" component={this.renderNumbers} />
+      <ModalBase {...getModalBaseData(this.props)} contentHeader="Liczby">
+        <FieldArray name="items" component={this.renderNumbers} />
       </ModalBase>
     );
   }

@@ -1,18 +1,28 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { Container } from './styles';
+import { string, array } from 'prop-types';
+import { Container, NumberContainer, NumberValue, Line, Title} from './styles';
 
-const Numbers = (props) => {
-  console.log(props);
-  return <Container>{props.text}</Container>;
+const Number = ({ number, title }) => (
+  <NumberContainer>
+    <NumberValue>{number}</NumberValue>
+    <Line />
+    <Title>{title}</Title>
+  </NumberContainer>
+);
+
+Number.defaultProps = {
+  number: string.isRequired,
+  title: string.isRequired,
 };
+
+const Numbers = ({ items }) => (
+  <Container>
+    {items.map(item => item && <Number key={item.title} {...item} />)}
+  </Container>
+);
 
 Numbers.propTypes = {
-  text: string,
-};
-
-Numbers.defaultProps = {
-  text: 'Moduł liczby',
+  items: array.isRequired,
 };
 
 export default Numbers;

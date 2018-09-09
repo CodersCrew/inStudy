@@ -1,4 +1,5 @@
 import React from 'react';
+import { oneOfType, string, object, array } from 'prop-types';
 import { Container, Icon, Image, StyledTooltip } from './styles';
 
 const Logo = ({ image, title, url }) => (
@@ -9,10 +10,20 @@ const Logo = ({ image, title, url }) => (
   </StyledTooltip>
 );
 
+Logo.propTypes = {
+  image: oneOfType([string, object]).isRequired,
+  title: string.isRequired,
+  url: string.isRequired,
+};
+
 const Logos = ({ items }) => (
   <Container>
     {items.map(Logo)}
   </Container>
 );
+
+Logos.propTypes = {
+  items: array,
+};
 
 export default Logos;

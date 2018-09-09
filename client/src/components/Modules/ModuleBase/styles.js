@@ -42,10 +42,6 @@ export const Text = styled.h1`
     font-size: var(--font-xl);
     line-height: var(--font-xl-lh);
   `};
-  ${media.md`
-    font-size: var(--font-lg);
-    line-height: var(--font-lg-lh);
-  `};
 `;
 
 export const Content = styled.div`
