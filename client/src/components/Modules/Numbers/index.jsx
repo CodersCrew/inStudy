@@ -1,8 +1,8 @@
 import React from 'react';
 import { string, array } from 'prop-types';
-import { Container, NumberContainer, NumberValue, Line, Title} from './styles';
+import { Container, NumberContainer, NumberValue, Line, Title } from './styles';
 
-const Number = ({ number, title }) => (
+const NumberItem = ({ number, title }) => (
   <NumberContainer>
     <NumberValue>{number}</NumberValue>
     <Line />
@@ -10,14 +10,14 @@ const Number = ({ number, title }) => (
   </NumberContainer>
 );
 
-Number.defaultProps = {
+NumberItem.propTypes = {
   number: string.isRequired,
   title: string.isRequired,
 };
 
 const Numbers = ({ items }) => (
   <Container>
-    {items.map(item => item && <Number key={item.title} {...item} />)}
+    {items.map(item => item && <NumberItem key={item.title} {...item} />)}
   </Container>
 );
 
