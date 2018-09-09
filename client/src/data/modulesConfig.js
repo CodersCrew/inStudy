@@ -28,9 +28,6 @@ import ProjectsModal from 'components/ModulesModals/Projects';
 import LogosModule from 'components/Modules/Logos';
 import LogosModal from 'components/ModulesModals/Logos';
 
-import VideoModule from 'components/Modules/Video';
-import VideoModal from 'components/ModulesModals/Video';
-
 export default {
   richText: {
     name: 'Tekst',
@@ -94,13 +91,6 @@ export default {
     description: 'Lista logotypów z linkami do zewnętrznych stron.',
     module: LogosModule,
     modalContent: LogosModal,
-  },
-  video: {
-    name: 'Filmik',
-    iconClass: 'fal fa-grip-horizontal',
-    description: 'Video wgrane z dowolnego serwisu z filmikami.',
-    module: VideoModule,
-    modalContent: VideoModal,
   },
   contact: {
     name: 'Formularz kontaktowy',

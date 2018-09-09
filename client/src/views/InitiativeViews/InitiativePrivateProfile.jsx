@@ -31,7 +31,7 @@ class InitiativePublicProfile extends PureComponent {
         <ProfileBase
           editable
           data={initiative}
-          accessibleModals={['richText', 'timeline', 'traits', 'numbers', 'accordion', 'people', 'projects', 'logos', 'video', 'contact']}
+          accessibleModals={['richText', 'timeline', 'traits', 'numbers', 'accordion', 'people', 'projects', 'logos', 'contact']}
           cardEditModal={CardEditModal}
         />
       )

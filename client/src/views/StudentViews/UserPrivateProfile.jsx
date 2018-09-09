@@ -16,7 +16,7 @@ class UserProfile extends PureComponent {
             ...user,
             name: `${user.firstName} ${user.lastName}`,
           }}
-          accessibleModals={['richText', 'skills', 'timeline', 'traits', 'numbers', 'accordion', 'people', 'projects', 'logos', 'video', 'contact']}
+          accessibleModals={['richText', 'skills', 'timeline', 'traits', 'numbers', 'accordion', 'people', 'projects', 'logos', 'contact']}
           cardEditModal={CardEditModal}
         />
       )
