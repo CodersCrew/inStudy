@@ -59,4 +59,4 @@ export const changeBasicUserData = (basic, userId) => {
   });
 };
 
-export const mapUserToView = RAWUser => RAWUser.toObject();
+export const mapUserToView = RAWUser => RAWUser ? RAWUser.toObject() : RAWUser;
