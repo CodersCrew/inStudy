@@ -118,6 +118,15 @@ export default app => {
     });
   });
 
+  app.delete('/api/initiative/:initId', (req, res) => {
+    const initId = req.params.initId;
+    console.log(initId);
+
+    new FetchInitiative().deleteInitiative(initId).then(() => {
+      res.sendStatus(200);
+    });
+  });
+
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
     new FetchInitiative()
