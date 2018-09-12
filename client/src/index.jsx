@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import WebfontLoader from '@dr-kobros/react-webfont-loader';
+import Raven from 'raven-js';
 import App from './views/App';
 import reducers from './store/reducers';
 
@@ -17,6 +18,10 @@ const config = {
     families: ['Roboto:300,400,500,700:latin,latin-ext'],
   },
 };
+
+Raven.config('https://f8a65787b57542d5b3f1491053941fc1@sentry.io/1279118', {
+  whitelistUrls: [/instudy-prod.herokuapp\.com/],
+});
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(

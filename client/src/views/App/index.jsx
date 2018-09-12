@@ -3,12 +3,10 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { notificationsTheme } from 'utils';
+import { getFontAwesome, notificationsTheme } from 'utils';
 import NotificationsSystem from 'reapop';
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
-
-import { getFontAwesome } from 'utils';
 
 import Navbar from '../../components/Navbar';
 import UIObserver from '../../components/UIObserver';

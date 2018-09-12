@@ -1,14 +1,7 @@
 import mongoose from 'mongoose';
 import keys from '../config/keys';
-import moduleLoader from './../utils/moduleLoader';
+import moduleLoader from '../utils/moduleLoader';
 
-mongoose.connect(
-  keys.mongoURI,
-  {
-    user: keys.mongoLogin,
-    pass: keys.mongoPassword,
-    useNewUrlParser: true,
-  },
-);
+mongoose.connect(keys.mongoURI);
 
 export default () => moduleLoader(__dirname, 'index.js');
