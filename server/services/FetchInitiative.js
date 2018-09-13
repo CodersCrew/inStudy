@@ -11,7 +11,7 @@ const initiativeExist = initiativeShortUrl =>
 const shortenInitiativeProfile = singleInitiative => {
   const { image, name, description, shortUrl } = singleInitiative;
   return {
-    image,
+    image: singleInitiative.FBProfile[0]?.content?.logo,
     name,
     description,
     profileCompleted: true,

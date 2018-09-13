@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 initializeRoutes(app);
 
 app.get('/', function(req, res) {
-  res.render('index', {});
+  res.render(path.resolve(__dirname, '..', 'server', 'views', 'index'), {});
 });
 
 if (process.env.NODE_ENV === 'production') {
