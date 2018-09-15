@@ -68,12 +68,11 @@ module.exports = app => {
     const path = req.file.path;
     // console.log(req.file)
     new Cloudinary().uploadInitiativeBackground(path, '34234').then(result => {
-      console.log(result);
       res.status(200).json({ result });
     });
   });
 
-  app.post('/api/initiative/:initId/module', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res, next) => {
+  app.post('/api/initiative/:initId/module', userLogged, (req, res, next) => {
       const initId = req.params.initId;
       const module = req.body;
 
@@ -107,7 +106,7 @@ module.exports = app => {
       .catch(err => console.error(err));
   });
 
-  app.delete('/api/initiative/:initId/module/:modId', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res) => {
+  app.delete('/api/initiative/:initId/module/:modId', userLogged, (req, res) => {
     const initId = req.params.initId;
     const modId = req.params.modId;
 
@@ -137,7 +136,6 @@ module.exports = app => {
 
     const { initiativeID } = jsonwebtoken.verify(jwt, config.cookieKey);
     const { user } = req;
-
     new FetchInitiative()
       .assignInitiative(user._id, initiativeID)
       .then(() => res.sendStatus(201))
