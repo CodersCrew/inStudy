@@ -10,6 +10,7 @@ import {
   ADD_INITIATIVE_MODULE,
   UPDATE_INITIATIVE_MODULE,
   DELETE_INITIATIVE_MODULE,
+  UPDATE_BASIC_INITIATIVE_DATA,
 } from '../actions/types';
 
 const getInitiative = (state, payload) => {
@@ -71,6 +72,15 @@ export default (state = null, { type, payload }) => {
       };
 
       return { ...state, initiatives: replaceInArray(state.initiatives, updatedInitiative, initiativeIndex) };
+    }
+
+    case UPDATE_BASIC_INITIATIVE_DATA: {
+      const { initiativeData, id } = payload;
+      const image = typeof initiativeData.image === 'string' ? initiativeData.image : initiativeData.image.preview;
+      const initiative = state.initiatives.find(({ _id }) => _id === id);
+      const updatedInitiative = { ...initiative, image };
+
+      return { ...state, initiatives: state.initiatives.map(ini => ini._id === id ? updatedInitiative : ini) };
     }
 
     case FETCH_USER:

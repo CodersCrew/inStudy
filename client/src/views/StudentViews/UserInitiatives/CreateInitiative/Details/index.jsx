@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
-import { required, maxLength } from 'utils/validators';
+import { required, maxLength, url } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
 import { withCloseAnimation } from 'hocs';
 import texts from './texts';
@@ -58,12 +58,12 @@ class Details extends PureComponent {
     });
   };
 
-  updateUniversities = universities => {
+  updateUniversities = (universities) => {
     this.setState({ universities, areUniversitiesFetching: false });
     this.props.change('university', universities[0].value);
   };
 
-  onSubmit = async values => {
+  onSubmit = async (values) => {
     try {
       const initiative = await this.props.addUserInitiative(values);
       if (initiative) this.props.incrementStep(1);
@@ -142,7 +142,7 @@ class Details extends PureComponent {
             name="facebookUrl"
             component={Input}
             props={{ label: 'Adres fanpage na facebooku', disabled: submitting }}
-            validate={[required]}
+            validate={[required, url]}
           />
           <Field
             name="description"
