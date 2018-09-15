@@ -11,22 +11,22 @@ class MonthPickerField extends PureComponent {
     open: false,
   };
 
-  togglePicker = () => this.setState(state => ({ open: !state.open }));
-
-  closePicker = () => this.setState({ open: false });
-
   componentDidUpdate() {
     if (this.isValueString) {
       this.input.picker.input.value = this.props.input.value;
     }
   }
 
+  togglePicker = () => this.setState(state => ({ open: !state.open }));
+
+  closePicker = () => this.setState({ open: false });
+
   onBlur = () => {
     this.props.input.onBlur();
   };
 
   render() {
-    const props = this.props;
+    const { props } = this;
 
     this.isValueString = props.input.value && typeof props.input.value === 'string';
 
@@ -48,7 +48,7 @@ class MonthPickerField extends PureComponent {
           onBlur={this.onBlur}
           onChange={props.input.onChange}
           onFocus={props.input.onFocus}
-          ref={input => {
+          ref={(input) => {
             this.input = input;
           }}
         />

@@ -10,6 +10,7 @@ import {
   SET_SEARCH,
   UPDATE_BASIC_USER_DATA,
   ADD_USER_INITIATIVE,
+  UPDATE_BASIC_INITIATIVE_DATA,
 } from './types';
 
 export const fetchUser = () => async (dispatch) => {
@@ -64,6 +65,15 @@ export const updateBasicUserData = userData => async (dispatch) => {
   return dispatch({
     type: UPDATE_BASIC_USER_DATA,
     payload: userData,
+  });
+};
+
+export const updateBasicInitiativeData = (initiativeData, id) => async (dispatch) => {
+  console.log(initiativeData);
+  // await axios.put('/api/user/basic', initiativeData);
+  return dispatch({
+    type: UPDATE_BASIC_INITIATIVE_DATA,
+    payload: { initiativeData, id },
   });
 };
 
