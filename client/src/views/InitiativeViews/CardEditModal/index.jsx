@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { updateBasicInitiativeData } from 'store/actions';
 import { Modal } from 'components';
-import { Input, TextArea, ImagePicker, SingleSelect } from 'components/reduxFormFields';
+import { Input, TextArea, ImagePicker, SingleSelect, ColorSelect } from 'components/reduxFormFields';
 import { required, maxLength, url } from 'utils/validators';
-import { socials } from 'data';
+import { socials, antdColors } from 'data';
 import { withCloseAnimation } from 'hocs';
 import { pick } from 'utils';
 import { Container, Label, TrashIcon } from './styles';
+
+const dataProperties = ['name', 'email', 'description', 'image', 'socials', 'facebookUrl', 'city', 'university', 'category', 'color'];
 
 const maxDescriptionLength = maxLength(260);
 
@@ -47,7 +49,7 @@ class CardEditModal extends PureComponent {
       areUniversitiesFetching: false,
     };
 
-    const initialData = pick(props.data, ['name', 'email', 'description', 'image', 'socials', 'facebookUrl', 'city', 'university', 'category']);
+    const initialData = pick(props.data, dataProperties);
     props.initialize(initialData);
   }
 
@@ -176,6 +178,12 @@ class CardEditModal extends PureComponent {
               disabled: this.props.submitting || !this.props.city || areUniversitiesFetching,
               isValidating: areUniversitiesFetching,
             }}
+            validate={[required]}
+          />
+          <Field
+            name="color"
+            component={ColorSelect}
+            props={{ label: 'Kolor profilu', colorsList: antdColors }}
             validate={[required]}
           />
           <Field

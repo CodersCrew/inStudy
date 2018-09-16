@@ -7,3 +7,4 @@ export MonthPicker from './MonthPicker';
 export ImagePicker from './ImagePicker';
 export RichText from './RichText';
 export InputNumber from './InputNumber';
+export ColorSelect from './ColorSelect';

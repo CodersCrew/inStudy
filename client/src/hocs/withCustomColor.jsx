@@ -1,5 +1,22 @@
 import React, { PureComponent } from 'react';
 
+const sliceHex = (color, start, stop) => parseInt(color.substring(start, stop), 16);
+
+const shadeToDecimal = (color, percent) => parseInt(color * (100 + percent) / 100, 10);
+
+const removeOverplus = color => (color < 255) ? color : 255;
+
+const parseToHex = color => (color.toString(16).length === 1) ? `0${color.toString(16)}` : color.toString(16);
+
+const shadeColor = (color, percent) => {
+  const [R, G, B] = [sliceHex(color, 1, 3), sliceHex(color, 3, 5), sliceHex(color, 5, 7)]
+    .map(hex => shadeToDecimal(hex, percent))
+    .map(removeOverplus)
+    .map(parseToHex);
+
+  return `#${R}${G}${B}`;
+};
+
 const withCustomColor = WrappedComponent =>
   class Wrapper extends PureComponent {
     constructor(props) {
@@ -17,6 +34,8 @@ const withCustomColor = WrappedComponent =>
 
     componentWillUnmount() {
       document.body.style.setProperty('--customColor', 'var(--primary2)');
+      document.body.style.setProperty('--customColor-hover', 'var(--primary2-hover)');
+      document.body.style.setProperty('--customColor-active', 'var(--primary2-active)');
     }
 
     getInitiativeColor = () => {
@@ -48,6 +67,8 @@ const withCustomColor = WrappedComponent =>
 
       if (this.colorToSet && this.colorToSet !== currentCustomColor) {
         document.body.style.setProperty('--customColor', this.colorToSet);
+        document.body.style.setProperty('--customColor-hover', shadeColor(this.colorToSet, 20));
+        document.body.style.setProperty('--customColor-active', shadeColor(this.colorToSet, -10));
       }
     };
 

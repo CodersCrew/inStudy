@@ -4,9 +4,9 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import { updateBasicUserData } from 'store/actions';
 import { Modal } from 'components';
-import { Input, TextArea, ImagePicker, SingleSelect } from 'components/reduxFormFields';
+import { Input, TextArea, ImagePicker, SingleSelect, ColorSelect } from 'components/reduxFormFields';
 import { required, maxLength, url } from 'utils/validators';
-import { socials } from 'data';
+import { socials, antdColors } from 'data';
 import { withCloseAnimation } from 'hocs';
 import { pick } from 'utils';
 import { Container, Label, TrashIcon } from './styles';
@@ -27,7 +27,7 @@ class CardEditModal extends PureComponent {
   constructor(props) {
     super(props);
 
-    const initialData = pick(props.data, ['firstName', 'lastName', 'email', 'description', 'image', 'socials']);
+    const initialData = pick(props.data, ['firstName', 'lastName', 'email', 'description', 'image', 'socials', 'color']);
     props.initialize(initialData);
   }
 
@@ -109,6 +109,12 @@ class CardEditModal extends PureComponent {
           <Field name="firstName" component={Input} props={{ label: 'Imię' }} validate={[required]} />
           <Field name="lastName" component={Input} props={{ label: 'Nazwisko' }} validate={[required]} />
           <Field name="email" component={Input} props={{ label: 'E-mail kontaktowy' }} validate={[required]} />
+          <Field
+            name="color"
+            component={ColorSelect}
+            props={{ label: 'Kolor profilu', colorsList: antdColors }}
+            validate={[required]}
+          />
           <Field
             name="description"
             component={TextArea}

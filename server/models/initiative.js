@@ -12,6 +12,7 @@ const schema = new Schema({
   university: String,
   facebookUrl: String,
   shortUrl: String,
+  color: String,
   modules: [{}],
   FBProfile: [{}],
   image: String,

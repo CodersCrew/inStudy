@@ -8,6 +8,7 @@ import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
 import { required, maxLength, url } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
 import { withCloseAnimation } from 'hocs';
+import { antdColors } from 'data';
 import texts from './texts';
 import { Container } from './styles';
 
@@ -65,7 +66,8 @@ class Details extends PureComponent {
 
   onSubmit = async (values) => {
     try {
-      const initiative = await this.props.addUserInitiative(values);
+      const color = antdColors[Math.floor(Math.random() * (antdColors.length - 1))];
+      const initiative = await this.props.addUserInitiative({ ...values, color });
       if (initiative) this.props.incrementStep(1);
     } catch (e) {
       console.error(e);

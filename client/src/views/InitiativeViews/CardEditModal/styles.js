@@ -32,6 +32,14 @@ export const Container = styled.div`
   > div:nth-child(6) {
     grid-area: 4/2/5/3;
   }
+
+  > div:nth-child(7) {
+    grid-area: 5/1/6/2;
+  }
+
+  > div:nth-child(8) {
+    grid-area: 5/2/6/3;
+  }
 `;
 
 export const Label = styled.div`
