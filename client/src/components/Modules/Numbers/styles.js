@@ -27,14 +27,14 @@ export const NumberValue = styled.div`
   font-size: var(--font-xxl);
   line-height: 1;
   font-weight: var(--medium);
-  color: var(--primary2);
+  color: var(--customColor);
 `;
 
 export const Line = styled.div`
   height: 2px;
   width: 32px;
   margin: var(--space-sm) 0;
-  background-color: var(--primary2);
+  background-color: var(--customColor);
 `;
 
 export const Title = styled.div`

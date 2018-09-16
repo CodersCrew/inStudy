@@ -13,8 +13,8 @@ export const Container = styled.div`
 
     > h3 {
       border-radius: 4px 4px 0 0;
-      border: 1px solid var(--primary2);
-      background-color: var(--primary2);
+      border: 1px solid var(--customColor);
+      background-color: var(--customColor);
       color: var(--white);
 
       > i {

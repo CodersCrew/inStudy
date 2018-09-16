@@ -8,6 +8,7 @@ const schema = new Schema({
   lastName: String,
   email: String,
   description: String,
+  color: String,
   socials: [
     {
       url: String,

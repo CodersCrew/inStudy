@@ -123,6 +123,8 @@ export const StyledButton = styled(Button)`
   left: calc(50% - 36px);
   right: calc(50% - 36px);
   position: absolute !important;
+  background-color: var(--customColor) !important;
+  border-color: var(--customColor) !important;
   z-index: 2;
   opacity: 0;
   transition: all 0.3s var(--ease-in-out);

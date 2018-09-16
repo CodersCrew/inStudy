@@ -68,7 +68,7 @@ export const SearchIcon = styled.div`
   &::before {
     width: 19px;
     height: 19px;
-    background: var(--primary1);
+    background: var(--customColor);
     border-radius: 10px;
     margin: 3px;
     transform: rotate(45deg);
