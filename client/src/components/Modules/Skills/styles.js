@@ -40,7 +40,7 @@ export const SkillBar = styled.div`
 export const Bar = styled.div`
   width: 100%;
   height: 100%;
-  background-color: var(--primary2);
+  background-color: var(--customColor);
   animation: ${growToFullWidth} 1.2s var(--ease-in-out);
 `;
 

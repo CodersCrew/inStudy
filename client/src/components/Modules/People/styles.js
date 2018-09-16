@@ -42,7 +42,6 @@ export const Wrapper = styled.div`
     figcaption {
       visibility: visible;
       color: var(--white);
-      background: rgba(0, 97, 233, 0.85);
       height: 100%;
       transition: all 0.3s var(--ease-in-out);
 
@@ -81,6 +80,17 @@ export const Overlay = styled.figcaption`
   overflow: hidden;
   visibility: hidden;
   transition: all 0.3s var(--ease-in-out);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--customColor);
+    opacity: 0.85;
+  }
 `;
 
 export const Description = styled(Scrollbars)`
@@ -101,6 +111,7 @@ export const Socials = styled.ul`
   margin-top: auto;
   list-style: none;
   visibility: visible;
+  z-index: inherit;
 `;
 
 export const Name = styled.h4`

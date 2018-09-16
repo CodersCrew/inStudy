@@ -87,6 +87,12 @@
   --background: hsl(240, 100%, 99%);
   --overlay: hsla(0, 0%, 16%, 65%);
 
+  --customColor: var(--warning);
+  --customColor-hover: var(--warning-hover);
+  --customColor-active: var(--warning-active);
+
+  /* SHADOWS */
+
   --shadow1: 0 4px 6px hsl(0, 0%, 16%, 0.2);
   --shadow2: 0 2px 6px hsl(0, 0%, 16%, 0.2);
   --shadow3: 0 1px 2px hsl(0, 0%, 16%, 0.12);

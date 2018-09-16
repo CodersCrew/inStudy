@@ -24,7 +24,7 @@ export const Icon = styled.h1`
   margin-right: var(--space-lg);
   font-size: var(--font-xxl);
   line-height: var(--font-xxl-lh);
-  color: var(--primary2);
+  color: var(--customColor);
   ${media.xl`
     font-size: var(--font-xl);
     line-height: var(--font-xl-lh);

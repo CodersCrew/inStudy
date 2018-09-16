@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { withCustomColor } from 'hocs';
 import { getUserPublicProfile, cleanPublicProfile } from 'store/actions/publicProfile';
 import { ProfileBase } from 'components';
 
@@ -9,6 +10,7 @@ import { ProfileBase } from 'components';
   ({ publicProfile }) => ({ user: publicProfile }),
   { getUserPublicProfile, cleanPublicProfile },
 )
+@withCustomColor
 class UserProfile extends PureComponent {
   componentDidMount() {
     this.props.getUserPublicProfile(this.props.match.params.userId);
