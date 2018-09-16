@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, oneOfType, object, array } from 'prop-types';
+import { compose, withState, withHandlers } from 'recompose';
 import socialsList from 'data/socials';
 import { Container, ProjectContainer, Card, Text, Name, Header, StyledButton } from './styles';
 
@@ -20,15 +21,24 @@ Social.propTypes = {
   url: string.isRequired,
 };
 
-const Project = ({ name, header, description, image, images, socials }) => (
+const withHocs = compose(
+  withState('isModalOpen', 'setModal', false),
+  withHandlers({
+    openModal: ({ setModal }) => () => setModal(() => true),
+    closeModal: ({ setModal }) => () => setModal(() => false),
+  }),
+);
+
+const Project = withHocs(({ name, header, description, image, images, socials, openModal, isModalOpen }) => (
   <ProjectContainer>
     <div>
       <Card src={image} />
       <Text>
         <Name>{name}</Name>
         <Header>{header}</Header>
+        {console.log(isModalOpen)}
       </Text>
-      <StyledButton type="primary">Więcej</StyledButton>
+      <StyledButton type="primary" onClick={openModal}>Więcej</StyledButton>
     </div>
     {/* <img src={(typeof image === 'string') ? image : image?.preview} alt={`Logo projektu ${name}`} />
     <div>{name}</div>
@@ -41,7 +51,7 @@ const Project = ({ name, header, description, image, images, socials }) => (
       {socials.map(social => social && <Social key={social.url} {...social} />)}
     </div> */}
   </ProjectContainer>
-);
+));
 
 Project.propTypes = {
   name: string.isRequired,
@@ -54,7 +64,7 @@ Project.propTypes = {
 
 const Projects = ({ items }) => (
   <Container>
-    {items.map(Project)}
+    {items.map(item => <Project key={item.name} {...item} />)}
   </Container>
 );
 
