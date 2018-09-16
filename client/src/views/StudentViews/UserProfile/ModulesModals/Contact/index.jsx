@@ -9,7 +9,7 @@ class Contatct extends PureComponent {
   render() {
     return (
       <ModalBase {...getModalBaseData(this.props)}>
-        <Field name="user-email" component={Input} props={{ label: 'E-mail' }} validate={[required, mail]} />
+        <Field name="userEmail" component={Input} props={{ label: 'E-mail' }} validate={[required, mail]} />
       </ModalBase>
     );
   }
