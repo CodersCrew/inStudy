@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { object, func, oneOfType, string } from 'prop-types';
 import FieldWrapper from '../FieldWrapper';
 import { StyledDropzone, StyledOverlay } from './styles';
-import blobToBase64 from 'utils/blobToBase64';
 
 const DefaultOverlay = ({ preview }) => <StyledOverlay preview={preview}><i className="fal fa-edit" /></StyledOverlay>;
 
@@ -22,10 +21,8 @@ const getPreview = (value) => {
 
 class ImagePicker extends PureComponent {
   onDrop = (acceptedFiles) => {
-    blobToBase64(acceptedFiles[0], (base64) => {
-      this.props.input.onChange({blob: base64, imageName: acceptedFiles[0].name});
-      this.props.input.onBlur();
-    })
+    this.props.input.onChange(acceptedFiles[0]);
+    this.props.input.onBlur();
   };
 
   render() {
