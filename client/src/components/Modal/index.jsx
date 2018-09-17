@@ -5,7 +5,7 @@ import ComplexModal from './ComplexModal';
 import ConfirmationModal from './ConfirmationModal';
 import EmptyModal from './EmptyModal';
 
-const Modal = props => {
+const Modal = (props) => {
   const modalProps = omit(props, ['type']);
   const { type } = props;
 
