@@ -1493,6 +1493,114 @@ export default [
 
 
   {
+    name: 'traffic-cone',
+    tags: ['słupek', 'wypadek', 'roboty drogowe', 'pomarańczowy', 'żółty', 'ostrzegawczy', 'ostrzeżenie', 'zwolnić', 'stać'],
+  },
+  {
+    name: 'traffic-light',
+    tags: ['światło', 'stop', 'zielony', 'czerwony', 'pomarańczowy', 'żółty', 'korek', 'jechać', 'ruszać', 'zwolnić', 'stać', 'sygnalizacja'],
+  },
+  {
+    name: 'traffic-light-go',
+    tags: ['światło', 'stop', 'zielony', 'korek', 'jechać', 'ruszać', 'sygnalizacja'],
+  },
+  {
+    name: 'traffic-light-slow',
+    tags: ['światło', 'stop', 'pomarańczowy', 'korek', 'zwolnić', 'sygnalizacja'],
+  },
+  {
+    name: 'traffic-light-stop',
+    tags: ['światło', 'stop', 'czerwony', 'korek', 'stać', 'sygnalizacja'],
+  },
+  {
+    name: 'train',
+    tags: ['train', 'pociąg', 'kolej', 'regio', 'intercity', 'trasa', 'linie', 'podróż', 'jazda', 'bilet', 'komunikacja'],
+  },
+  {
+    name: 'transgender',
+    tags: ['transpłciowość', 'kobieta', 'mężczyzna', 'gender', 'płeć'],
+  },
+  {
+    name: 'transgender-alt',
+    tags: ['transpłciowość', 'kobieta', 'mężczyzna', 'gender', 'płeć'],
+  },
+  {
+    name: 'trash',
+    tags: ['kosz', 'śmietnik', 'śmieci', 'kontener', 'śmiecie'],
+  },
+  {
+    name: 'trash-alt',
+    tags: ['kosz', 'śmietnik', 'śmieci', 'kontener', 'śmiecie'],
+  },
+  {
+    name: 'tree',
+    tags: ['drzewo', 'las', 'przyroda', 'roślina', 'liść', 'choinka'],
+  },
+  {
+    name: 'tree-alt',
+    tags: ['drzewo', 'las', 'przyroda', 'roślina', 'liść'],
+  },
+  {
+    name: 'triangle',
+    tags: ['trójkąt', 'kształt', 'ostrzegawczy', 'ostrzeżenie', 'figura', 'geometria', 'znak'],
+  },
+  {
+    name: 'trophy',
+    tags: ['trofeum', 'puchar', 'zwycięstwo', 'medal', 'miejsce', 'wygrana', 'certyfikat', 'dyplom'],
+  },
+  {
+    name: 'trophy-alt',
+    tags: ['trofeum', 'puchar', 'zwycięstwo', 'medal', 'miejsce', 'wygrana', 'certyfikat', 'dyplom'],
+  },
+  {
+    name: 'truck',
+    tags: ['truck', 'jazda', 'kierować', 'bagażnik', 'przyczepa', 'kierowca', 'pakować', 'ładować', 'container', 'trasa', 'tir', 'ciężarówka', 'auto', 'samochód'],
+  },
+  {
+    name: 'truck-container',
+    tags: ['truck', 'jazda', 'kierować', 'bagażnik', 'przyczepa', 'kierowca', 'pakować', 'ładować', 'container', 'trasa', 'tir', 'ciężarówka', 'auto', 'samochód'],
+  },
+  {
+    name: 'truck-couch',
+    tags: ['truck', 'load', 'pakowanie', 'wyprowadzka', 'przeprowadzka', 'rozpakowywanie', 'pudło', 'karton', 'bagażnik', 'przyczepa', 'kierowca', 'pakować', 'ładować', 'kanapa', 'sofa', 'couch', 'fotel', 'meble', 'ciężarówka', 'auto', 'samochód'],
+  },
+  {
+    name: 'truck-loading',
+    tags: ['truck', 'load', 'pakowanie', 'wyprowadzka', 'przeprowadzka', 'rozpakowywanie', 'pudło', 'karton', 'bagażnik', 'przyczepa', 'kierowca', 'pakować', 'ładować', 'ciężarówka', 'auto', 'samochód'],
+  },
+  {
+    name: 'truck-monster',
+    tags: ['truck', 'monster', 'terenowy', 'jazda', 'kierowanie', 'bagażnik', 'jeżdżenie', 'auto', 'samochód', 'trasa', 'kierowca', 'czołg', 'taranować'],
+  },
+  {
+    name: 'truck-moving',
+    tags: ['truck', 'move', 'ruch', 'jazda', 'kierowanie', 'bagażnik', 'jeżdżenie', 'auto', 'samochód', 'trasa', 'kierowca'],
+  },
+  {
+    name: 'truck-pickup',
+    tags: ['truck', 'pickup', 'auto', 'samomchód', 'jazda', 'kierowanie', 'bagażnik', 'jeżdżenie'],
+  },
+  {
+    name: 'truck-ramp',
+    tags: ['tir', 'wjazd', 'rampa', 'truck', 'ciężarówka', 'samochód', 'podjazd', 'otwarte', 'bagażnik'],
+  },
+  {
+    name: 'tshirt',
+    tags: ['tshirt', 'bluzka', 'koszulka', 'ubierać się', 'ciuchy', 'garderoba', 'nadruk', 'logo'],
+  },
+  {
+    name: 'tty',
+    tags: ['telefon', 'klawiatura', 'dzwonić', 'call', 'dzwonienie', 'numer', 'słuchawka', 'powiadomienie', 'wiadomość', 'stacjonarny'],
+  },
+  {
+    name: 'tv',
+    tags: ['tv', 'telewizor', 'plazma', 'program', 'film', 'serial', 'antena', 'wilgotność', 'pilot', 'wiadomości', 'dekoder', 'satelita'],
+  },
+  {
+    name: 'tv-retro',
+    tags: ['tv', 'telewizor', 'retro', 'program', 'film', 'serial', 'antena', 'wilgotność', 'pilot', 'wiadomości'],
+  },
+  {
     name: 'umbrella',
     tags: ['parasol', 'deszcz', 'mokro', 'jesień', 'wiosna', 'pogoda', 'wilgoć', 'wilgotność', 'ulewa', 'leje', 'burza', 'błyskawica', 'chmury', 'grzmot', 'wiatr', 'tęcza'],
   },
