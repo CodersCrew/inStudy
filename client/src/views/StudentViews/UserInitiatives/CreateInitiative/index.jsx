@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 import { withCloseAnimation } from 'hocs';
 import InitialModal from './Initial';
 import CreationTypeModal from './CreationType';
@@ -44,7 +44,12 @@ class CreateInitiative extends PureComponent {
 }
 
 CreateInitiative.propTypes = {
+  visible: bool,
   closeModal: func.isRequired,
+};
+
+CreateInitiative.defaultProps = {
+  visible: false,
 };
 
 export default CreateInitiative;

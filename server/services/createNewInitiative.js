@@ -1,14 +1,21 @@
 import mongoose from 'mongoose';
+const Initiative = mongoose.model('initiatives');
+const Member = mongoose.model('member');
 import FBCrawler from './../services/Crawler/FBCrawler';
 
 const createInitiative = (initiative, user) => {
-  const Initiative = mongoose.model('initiatives');
 
   return new FBCrawler()
     .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
     .scrape()
     .then(fetchedProfile => {
-      return new Initiative({ ...initiative, FBProfile: fetchedProfile }).save();
+      const newMember = new Member({
+        user: new mongoose.mongo.ObjectId(user._id),
+        role: 'admin',
+        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
+      });
+
+      return new Initiative({ ...initiative, FBProfile: fetchedProfile, members: [newMember] }).save();
     })
     .then(createdInitiative => assignToUser(createdInitiative, user._id));
 };
@@ -55,4 +62,5 @@ const mapUserInputToSave = RAWInputData => {
 };
 
 export default (initiative, user) =>
-  initiativeNotExist(mapUserInputToSave(initiative)).then(() => createInitiative(initiative, user));
+  initiativeNotExist(mapUserInputToSave(initiative))
+    .then(() => createInitiative(initiative, user));

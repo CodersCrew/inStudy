@@ -11,6 +11,7 @@ const TextAreaField = props => (
       disabled={props.disabled}
       name={props.input.name}
       placeholder={props.placeholder}
+      rows={props.rows}
       value={props.input.value}
       onBlur={props.input.onBlur}
       onChange={props.input.onChange}
@@ -26,14 +27,16 @@ TextAreaField.propTypes = {
   disabled: bool,
   input: object.isRequired,
   placeholder: string,
+  rows: number,
   onPressEnter: func,
 };
 
 TextAreaField.defaultProps = {
-  autosize: { minRows: 3, maxRows: 10 },
+  autosize: false,
   className: '',
   disabled: false,
   placeholder: '',
+  rows: 2,
   onPressEnter: () => {},
 };
 

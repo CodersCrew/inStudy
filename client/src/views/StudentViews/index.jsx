@@ -1,12 +1,18 @@
 import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { withAuth } from 'hocs';
+import { compose } from 'recompose';
+import { withAuth, withCustomColor } from 'hocs';
 import UserNav from './UserNav';
 import UserPrivateProfile from './UserPrivateProfile';
 import UserPublicProfile from './UserPublicProfile';
 import UserInitiatives from './UserInitiatives';
 import { Container } from './styles';
+
+const hocs = compose(
+  withAuth(['authorizedUser']),
+  withCustomColor,
+);
 
 const StudentViews = ({ location: { pathname } }) => {
   const isProfile = pathname.includes('profil');
@@ -16,10 +22,10 @@ const StudentViews = ({ location: { pathname } }) => {
       {isProfile && <UserNav />}
       <Container isProfile={isProfile}>
         <Switch>
-          <Route path="/student/profil/inicjatywy" component={withAuth(['authorizedUser'])(UserInitiatives)} />
-          <Route path="/student/profil/wydarzenia" component={() => <div>wydarzenia</div>} />
-          <Route path="/student/profil/osiagniecia" component={() => <div>osiągnięcia</div>} />
-          <Route path="/student/profil" component={withAuth(['authorizedUser'])(UserPrivateProfile)} />
+          <Route path="/student/profil/inicjatywy" component={hocs(UserInitiatives)} />
+          <Route path="/student/profil/wydarzenia" component={hocs(() => <div>wydarzenia</div>)} />
+          <Route path="/student/profil/osiagniecia" component={hocs(() => <div>osiągnięcia</div>)} />
+          <Route path="/student/profil" component={hocs(UserPrivateProfile)} />
           <Route path="/student/:userId" component={UserPublicProfile} />
         </Switch>
       </Container>

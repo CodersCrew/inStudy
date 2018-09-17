@@ -1,10 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { array, func } from 'prop-types';
-import AddModule from './AddModule';
 import { modulesConfig } from 'data';
+import AddModule from './AddModule';
 
 class ModulesModals extends PureComponent {
-  renderModal = name => {
+  renderModal = (name) => {
     const modalData = modulesConfig[name];
     const Modal = modalData.modalContent;
 

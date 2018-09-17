@@ -1,27 +1,41 @@
-import cloudinary from 'cloudinary';
+const mongoose = require('mongoose');
+import Cloudinary from 'cloudinary';
 import fs from 'fs';
-import { file_cloud } from './../config/keys';
+import { cloudinaryConfig } from './../config/keys';
 
-cloudinary.config(file_cloud);
+const Initiative = mongoose.model('initiatives');
 
-const removeFile = path => {
-  fs.unlinkSync(path);
+Cloudinary.config(cloudinaryConfig);
+
+const removeFile = path => fs.unlinkSync(path);
+
+
+module.exports.sendInitiativeImage = path => (initiativeId) => {
+  return Cloudinary.uploader.upload(path, () => {}, {
+    public_id: `/image`,
+    folder: initiativeId,
+  })
+    .then((cloudinaryResponse) => {
+      return Initiative.findByIdAndUpdate(initiativeId, {
+        $set: {
+          image: cloudinaryResponse.url,
+        },
+      })
+        .then(() => cloudinaryResponse);
+    })
+    .then((result) => {
+      removeFile(path);
+      return result;
+    });
 };
 
-class CloudinaryAPI {
-  constructor() {
-    this.cloudinary = cloudinary;
-  }
-
-  uploadInitiativeBackground = (path, initiativeId) =>
-    this.cloudinary.uploader
-      .upload(path, () => {}, {
-        public_id: `${initiativeId}/background`,
-      })
-      .then(result => {
-        removeFile(path);
-        return Promise.resolve(result);
-      });
-}
-
-export default CloudinaryAPI;
+module.exports.sendModuleImage = (path, filename) => (initiativeId, moduleId) => {
+  return Cloudinary.uploader.upload(path, () => {}, {
+    public_id: `/${filename.split('.')[0]}`,
+    folder: `${initiativeId}/modules/${moduleId}`,
+  })
+    .then((result) => {
+      removeFile(path);
+      return result;
+    });
+};

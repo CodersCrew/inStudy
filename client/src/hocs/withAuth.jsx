@@ -9,9 +9,9 @@ const withHocs = compose(
   connect(state => ({ auth: state.auth })),
 );
 
-const withAuth = conditions => WrappedComponent => {
+const withAuth = conditions => (WrappedComponent) => {
   if (conditions.includes('authorizedUser')) {
-    const Component = props => {
+    const Component = (props) => {
       if (props.auth !== false) {
         return <WrappedComponent {...props} />;
       }

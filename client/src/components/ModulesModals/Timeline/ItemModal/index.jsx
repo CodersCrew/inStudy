@@ -22,7 +22,7 @@ class ItemModal extends PureComponent {
     }
   }
 
-  onSubmit = values => {
+  onSubmit = (values) => {
     const valuesToSave = {
       ...values,
       from: values.from.format('MM-YYYY'),
@@ -33,7 +33,7 @@ class ItemModal extends PureComponent {
     this.props.onClose();
   };
 
-  setActual = closePicker => {
+  setActual = (closePicker) => {
     this.props.change('to', 'obecnie');
     closePicker();
   };
