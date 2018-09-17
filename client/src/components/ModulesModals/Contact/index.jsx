@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Field } from 'redux-form';
-import { Input } from 'components/reduxFormFields';
 import ModalBase from '../ModalBase';
-import { required, mail } from 'utils/validators';
 import { getModalBaseData } from '../userModalsUtils';
+import { Text } from './styles';
 
 class Contatct extends PureComponent {
   render() {
     return (
       <ModalBase {...getModalBaseData(this.props)}>
-        <Field name="userEmail" component={Input} props={{ label: 'E-mail' }} validate={[required, mail]} />
+        <Text>
+          Ten moduł nie wymaga dodatkowej konfiguracji. Wszystkie maile będą wywyłane na adres ustawiony w profilu.
+        </Text>
       </ModalBase>
     );
   }

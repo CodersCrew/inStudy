@@ -19,4 +19,4 @@ export const maxLength = maxCharactersCount => value => value?.length > maxChara
 
 export const url = value => !urlRegExp.test(value) && 'Błędny adres URL';
 
-export const isEemail = value => !emailRegExp.test(value) && 'Błędny adres e-mail';
+export const isEmail = value => !emailRegExp.test(value) && 'Błędny adres e-mail';

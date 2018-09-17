@@ -5,7 +5,6 @@ import { modulesConfig } from 'data';
 import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
 const staticProps = {
-  content: object.isRequired,
   icon: string,
   title: string.isRequired,
   type: string.isRequired,
@@ -24,7 +23,6 @@ class EditableModuleBase extends PureComponent {
     const modalData = modulesConfig[this.props.type];
     const ModuleComponent = modalData.module;
     const ModuleModal = modalData.modalContent;
-    console.log(this.state.isModalOpen);
 
     return (
       <Container>
@@ -82,6 +80,11 @@ ModuleBase.propTypes = {
   ...staticProps,
   moduleIndex: number.isRequired,
   editable: bool.isRequired,
+  content: object,
+};
+
+ModuleBase.defaultProps = {
+  content: {},
 };
 
 export default ModuleBase;

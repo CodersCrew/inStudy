@@ -1,34 +1,28 @@
+/* eslint-disable react/prop-types */
+
 import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { Button } from 'antd';
+import { required, isEmail } from 'utils/validators';
+import { Input, TextArea } from 'components/reduxFormFields';
 import { Container } from './styles';
-import { required, mail } from 'utils/validators';
-import { EmailInput, TitleInput, ContentTextArea, ButtonSubmit } from './styles';
 
 @reduxForm({ form: 'contactForm' })
 class Contact extends PureComponent {
-  onSubmit = values => {
+  onSubmit = (values) => {
     console.log(values);
   };
 
   render() {
     return (
       <Container>
-        <Field name="email" component={EmailInput} props={{ label: 'E-mail' }} validate={[required, mail]} />
-        <Field name="title" component={TitleInput} props={{ label: 'Tytuł wiadomości' }} validate={[required]} />
-        <Field name="content" component={ContentTextArea} props={{ label: 'Treść wiadomości' }} validate={[required]} />
-        <ButtonSubmit type="primary" onClick={this.props.handleSubmit(this.onSubmit)}>Wyślij</ButtonSubmit>
+        <Field name="email" component={Input} props={{ label: 'E-mail' }} validate={[required, isEmail]} />
+        <Field name="title" component={Input} props={{ label: 'Tytuł wiadomości' }} validate={[required]} />
+        <Field name="content" component={TextArea} props={{ label: 'Treść wiadomości' }} validate={[required]} />
+        <Button type="primary" onClick={this.props.handleSubmit(this.onSubmit)}>Wyślij</Button>
       </Container>
     );
   }
 }
-
-Contact.propTypes = {
-  text: string,
-};
-
-Contact.defaultProps = {
-  text: 'Moduł kontakt',
-};
 
 export default Contact;
