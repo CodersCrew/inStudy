@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { string } from 'prop-types';
+import { reduxForm, Field } from 'redux-form';
 import { Container } from './styles';
+import { required, mail } from 'utils/validators';
+import { EmailInput, TitleInput, ContentTextArea, ButtonSubmit } from './styles';
 
-const Contact = ({ text }) => (
-	<Container>{text}</Container>
-);
+@reduxForm({ form: 'contactForm' })
+class Contact extends PureComponent {
+  onSubmit = values => {
+    console.log(values);
+  };
+
+  render() {
+    return (
+      <Container>
+        <Field name="email" component={EmailInput} props={{ label: 'E-mail' }} validate={[required, mail]} />
+        <Field name="title" component={TitleInput} props={{ label: 'Tytuł wiadomości' }} validate={[required]} />
+        <Field name="content" component={ContentTextArea} props={{ label: 'Treść wiadomości' }} validate={[required]} />
+        <ButtonSubmit type="primary" onClick={this.props.handleSubmit(this.onSubmit)}>Wyślij</ButtonSubmit>
+      </Container>
+    );
+  }
+}
 
 Contact.propTypes = {
   text: string,
