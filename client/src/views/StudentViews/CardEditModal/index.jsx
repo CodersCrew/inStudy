@@ -10,6 +10,7 @@ import { socials, antdColors } from 'data';
 import { withCloseAnimation } from 'hocs';
 import { pick } from 'utils';
 import { Container, Label, TrashIcon } from './styles';
+import blobToBase64 from 'utils/blobToBase64';
 
 const maxDescriptionLength = maxLength(260);
 
@@ -33,8 +34,11 @@ class CardEditModal extends PureComponent {
 
   onSubmit = (values) => {
     const parsedSocials = values.socials.filter(({ socialType, url: socialUrl }) => socialType && socialUrl);
-    this.props.updateBasicUserData({ ...values, socials: parsedSocials });
-    this.props.onClose();
+
+    blobToBase64(values.image, (base64) => {
+      this.props.updateBasicUserData({ ...values, blob: base64, imageName: values.image.name, socials: parsedSocials });
+      this.props.onClose();
+    });
   };
 
   renderSocialTypeSelect = social => (
