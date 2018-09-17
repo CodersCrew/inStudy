@@ -115,7 +115,16 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/initiative/:shortUrl/fetch', userLogged, permissionGranted(MODIFY_INITIATIVE), (req, res) => {
+  app.delete('/api/initiative/:initId', (req, res) => {
+    const initId = req.params.initId;
+    console.log(initId);
+
+    new FetchInitiative().deleteInitiative(initId).then(() => {
+      res.sendStatus(200);
+    });
+  });
+
+  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
     const shortUrl = req.params.shortUrl;
     new FetchInitiative()
       .getFBProfile(shortUrl)
