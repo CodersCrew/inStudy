@@ -9,11 +9,11 @@ class Initial extends PureComponent {
 
     return (
       <Modal
-        visible={visible}
-        onClose={closeModal}
-        title={texts.modalTitle}
-        icon="/fa-icons/smile-plus-light.svg"
         type="confirmation"
+        visible={visible}
+        onCancel={closeModal}
+        title={texts.modalTitle}
+        iconClass="fal fa-smile-plus"
         width={644}
         buttons={[
           {

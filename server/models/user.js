@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const schema = new Schema({
   googleId: String,
   image: String,
   firstName: String,
   lastName: String,
   email: String,
   description: String,
+  color: String,
   socials: [
     {
       url: String,
@@ -17,9 +18,7 @@ const userSchema = new Schema({
   ],
   initiatives: [Schema.Types.ObjectId],
   modules: [{}],
+  shortUrl: String,
 });
 
-export default {
-  name: 'users',
-  schema: userSchema,
-};
+module.exports = mongoose.model('users', schema);

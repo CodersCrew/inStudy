@@ -5,8 +5,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
-import { required, maxLength } from 'utils/validators';
+import { required, maxLength, url } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
+import { withCloseAnimation } from 'hocs';
+import { antdColors } from 'data';
 import texts from './texts';
 import { Container } from './styles';
 
@@ -24,6 +26,7 @@ const hasCityChanged = (previousCityId, newCityId) => previousCityId !== newCity
 
 const maxDescriptionLength = maxLength(260);
 
+@withCloseAnimation
 @connect(
   state => ({ city: valueSelector(state, 'city') }),
   { addUserInitiative },
@@ -56,17 +59,18 @@ class Details extends PureComponent {
     });
   };
 
-  updateUniversities = universities => {
+  updateUniversities = (universities) => {
     this.setState({ universities, areUniversitiesFetching: false });
     this.props.change('university', universities[0].value);
   };
 
-  onSubmit = async values => {
+  onSubmit = async (values) => {
     try {
-      await this.props.addUserInitiative(values);
-      this.props.incrementStep(1);
+      const color = antdColors[Math.floor(Math.random() * (antdColors.length - 1))];
+      const initiative = await this.props.addUserInitiative({ ...values, color });
+      if (initiative) this.props.incrementStep(1);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -76,11 +80,11 @@ class Details extends PureComponent {
 
     return (
       <Modal
-        visible={visible}
-        onClose={() => decrementStep(1)}
-        title={texts.modalTitle}
-        icon="/fa-icons/clipboard-list-light.svg"
         type="complex"
+        visible={visible}
+        onCancel={() => decrementStep(1)}
+        title={texts.modalTitle}
+        icon="fal fa-clipboard-list"
         width={644}
         buttons={[
           {
@@ -140,7 +144,7 @@ class Details extends PureComponent {
             name="facebookUrl"
             component={Input}
             props={{ label: 'Adres fanpage na facebooku', disabled: submitting }}
-            validate={[required]}
+            validate={[required, url]}
           />
           <Field
             name="description"

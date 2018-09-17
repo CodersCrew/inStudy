@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import FBCrawler from './Crawler/FBCrawler';
 
+const Initiative = mongoose.model('initiatives');
+const User = mongoose.model('users');
 const initiativeExist = initiativeShortUrl =>
   mongoose.model('initiatives').findOne({
     shortUrl: initiativeShortUrl,
@@ -9,7 +11,7 @@ const initiativeExist = initiativeShortUrl =>
 const shortenInitiativeProfile = singleInitiative => {
   const { image, name, description, shortUrl } = singleInitiative;
   return {
-    image,
+    image: singleInitiative.FBProfile[0]?.content?.logo,
     name,
     description,
     profileCompleted: true,
@@ -25,47 +27,58 @@ const shortenInitiativeProfile = singleInitiative => {
 //logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 class FetchInitiative {
   constructor() {
-    this.Initiative = mongoose.model('initiatives');
+    // Initiative = mongoose.model('initiatives');
   }
 
   getInitiative = page => {
     if (page) {
-      return this.Initiative.find({})
+      return Initiative.find({})
         .skip(page * 10)
         .limit(10);
     } else {
-      return this.Initiative.find({});
+      return Initiative.find({});
     }
   };
 
-  getShortInitiativeProfile = page => {
-    return this.getInitiative(page).then(initiatives =>
+  deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
+
+  getShortInitiativeProfile = page =>
+    this.getInitiative(page).then(initiatives =>
       initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),
     );
-  };
 
-  setInitiative = initiative => {
-    return initiativeExist(initiative.shortUrl).then(foundInitiative => {
+  setInitiative = initiative =>
+    initiativeExist(initiative.shortUrl).then(foundInitiative => {
       if (foundInitiative) {
         return Promise.resolve(foundInitiative);
       } else {
-        return new this.Initiative(initiative).save();
+        return new Initiative(initiative).save();
       }
     });
-  };
 
-  getSingleInitiative = shortUrl => {
-    return this.Initiative.findOne({ shortUrl })
-      .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
-      .then(profile => mapRAWInitiativeObjectToViewReady(profile))
-      .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
-      .then(profile => mapRAWInitiativeObjectToViewReady(profile));
-  };
+  // getSingleInitiative = shortUrl => {
+  //   return Initiative.findOne({ shortUrl })
+  //     .then(singleInitiative => ({ ...singleInitiative.toObject(), profileCompleted: true }))
+  //     .then(profile => mapRAWInitiativeObjectToViewReady(profile));
+  // };
+  getSingleInitiative = shortUrl =>
+    new Promise((resolve, reject) => {
+      Initiative.findOne({ shortUrl }, (err, initiative) => {
+        if (initiative === null) {
+          reject('NOT_FOUND');
+        } else {
+          const profile = { ...initiative.toObject(), profileCompleted: true };
+          resolve(mapRAWInitiativeObjectToViewReady(profile));
+        }
+      });
+    });
 
   addInitiativeModule = (initiativeId, module) => {
+    console.log(initiativeId);
+    console.log(module);
     module._id = new mongoose.mongo.ObjectId();
 
-    return this.Initiative.findByIdAndUpdate(initiativeId, {
+    return Initiative.findByIdAndUpdate(initiativeId, {
       $addToSet: {
         modules: module,
       },
@@ -73,35 +86,72 @@ class FetchInitiative {
   };
 
   getAllModules = initiativeId => {
-    return this.Initiative.findById(initiativeId).then(result => {
-      return Promise.resolve(result.modules);
-    });
+    return Initiative.findById(initiativeId).then(result => result.modules);
   };
 
-  deleteModule(initiativeId, moduleId) {
-    return this.Initiative.findByIdAndUpdate(initiativeId, {
+  updateModule = (module, initiativeId, moduleId) =>
+    new Promise((resolve, reject) => {
+      Initiative.findById(initiativeId, (err, initiative) => {
+        let newModule;
+
+        const updatedModules = initiative.modules.map(item => {
+          if (String(item._id) === String(moduleId)) {
+            newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
+            return newModule;
+          }
+          return item;
+        });
+
+        Initiative.findByIdAndUpdate(
+          initiativeId,
+          {
+            $set: {
+              modules: updatedModules,
+            },
+          },
+          err => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(newModule);
+            }
+          },
+        );
+      });
+    });
+
+  deleteModule = (initiativeId, moduleId) =>
+    Initiative.findByIdAndUpdate(initiativeId, {
       $pull: {
         modules: {
           _id: new mongoose.mongo.ObjectId(moduleId),
         },
       },
     });
-  }
 
-  getFBProfile = shortUrl => {
-    return new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
-  };
+  getFBProfile = shortUrl =>
+    new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
 
   setFBProfile = (shortUrl, profile) => {
-    return this.Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
+    return Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
   };
+
+  assignInitiative = (userId, initiativeId) => {
+    return User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        initiatives: initiativeId,
+      }
+    })
+  }
 }
 
 function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
-  const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
+  if (RAWInitiative) {
+    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
 
-  if (AboutPage && AboutPage.content && AboutPage.content.logo) {
-    RAWInitiative.image = AboutPage.content.logo;
+    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
+      RAWInitiative.image = AboutPage.content.logo;
+    }
   }
 
   return RAWInitiative;
