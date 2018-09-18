@@ -22,9 +22,9 @@ const StudentViews = ({ location: { pathname } }) => {
       {isProfile && <UserNav />}
       <Container isProfile={isProfile}>
         <Switch>
-          <Route path="/student/profil/inicjatywy" component={hocs(UserInitiatives)} />
-          <Route path="/student/profil/wydarzenia" component={hocs(() => <div>wydarzenia</div>)} />
-          <Route path="/student/profil/osiagniecia" component={hocs(() => <div>osiągnięcia</div>)} />
+          <Route path="/student/profil/inicjatywy" component={withAuth(['authorizedUser'])(UserInitiatives)} />
+          <Route path="/student/profil/wydarzenia" component={withAuth(['authorizedUser'])(() => <div>wydarzenia</div>)} />
+          <Route path="/student/profil/osiagniecia" component={withAuth(['authorizedUser'])(() => <div>osiągnięcia</div>)} />
           <Route path="/student/profil" component={hocs(UserPrivateProfile)} />
           <Route path="/student/:userId" component={UserPublicProfile} />
         </Switch>
