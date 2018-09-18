@@ -7798,6 +7798,10 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-image-crop@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-5.0.0.tgz#4bff29b8324834a546fa08a92bcec7b375b654b3"
+
 react-image-gallery@^0.8.11:
   version "0.8.11"
   resolved "https://registry.yarnpkg.com/react-image-gallery/-/react-image-gallery-0.8.11.tgz#1ea1b6c032fe508600270582e3bf144232065c05"
