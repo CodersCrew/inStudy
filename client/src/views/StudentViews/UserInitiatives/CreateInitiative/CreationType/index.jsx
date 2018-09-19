@@ -31,6 +31,7 @@ const CreationType = ({ visible, closeModal, incrementStep }) => (
     width={644}
     buttons={[
       {
+        onClick: () => incrementStep(3),
         label: texts.importButtonLabel,
         size: 'large',
       },
