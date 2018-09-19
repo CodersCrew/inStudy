@@ -15,13 +15,18 @@ DefaultOverlay.defaultProps = {
 };
 
 const imageFromFile = file => new Promise((resolve) => {
+
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = (e) => {
     const image = new Image();
     image.src = e.target.result;
-    image.onload = ({ path }) => {
-      resolve(path[0]);
+    image.onload = (imageSource) => {
+      const base64Url = imageSource.path
+        ? imageSource.path[0]
+        : imageSource.target
+
+      resolve(base64Url);
     };
   };
 });
@@ -29,7 +34,7 @@ const imageFromFile = file => new Promise((resolve) => {
 class ImagePicker extends PureComponent {
   state = {
     imageToCrop: null,
-  }
+  };
 
   onDrop = async (acceptedFiles) => {
     let [file] = acceptedFiles;
