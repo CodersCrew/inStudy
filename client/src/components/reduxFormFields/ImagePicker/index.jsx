@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { object, func, oneOfType, string } from 'prop-types';
+import { object, func, oneOfType, string, number } from 'prop-types';
 import FieldWrapper from '../FieldWrapper';
+import CropModal from './CropModal';
 import { StyledDropzone, StyledOverlay } from './styles';
-import blobToBase64 from 'utils/blobToBase64';
 
 const DefaultOverlay = ({ preview }) => <StyledOverlay preview={preview}><i className="fal fa-edit" /></StyledOverlay>;
 
@@ -14,47 +14,89 @@ DefaultOverlay.defaultProps = {
   preview: null,
 };
 
-const getPreview = (value) => {
-  if (!value) return '';
-  if (typeof value === 'string') return value;
-  return value.preview;
-};
+const imageFromFile = file => new Promise((resolve) => {
+
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (e) => {
+    const image = new Image();
+    image.src = e.target.result;
+    image.onload = (imageSource) => {
+      const base64Url = imageSource.path
+        ? imageSource.path[0]
+        : imageSource.target
+
+      resolve(base64Url);
+    };
+  };
+});
 
 class ImagePicker extends PureComponent {
-  onDrop = (acceptedFiles) => {
-    blobToBase64(acceptedFiles[0], (base64) => {
-      this.props.input.onChange({blob: base64, imageName: acceptedFiles[0].name});
-      this.props.input.onBlur();
-    })
+  state = {
+    imageToCrop: null,
   };
+
+  onDrop = async (acceptedFiles) => {
+    let [file] = acceptedFiles;
+    const { input, aspect } = this.props;
+    const image = await imageFromFile(file);
+
+    if (aspect && image.width / image.height !== aspect) {
+      file = await this.openCropModal(image);
+      if (!file) { return null; }
+      this.setState({ imageToCrop: null });
+    }
+
+    file = await imageFromFile(file);
+
+    input.onChange(file.src);
+    input.onBlur();
+  }
+
+  openCropModal = image => new Promise((resolve) => {
+    this.resolveCrop = resolve;
+    this.setState({ imageToCrop: image });
+  });
+
+  closeCropModal = () => this.setState({ imageToCrop: null });
 
   render() {
     const { props } = this;
-    const { value } = props.input;
-    const preview = getPreview(value);
+    const { value, onBlur, onFocus } = props.input;
+    const { imageToCrop } = this.state;
     const Overlay = props.overlay || DefaultOverlay;
 
     return (
       <FieldWrapper {...props}>
         <StyledDropzone
-          preview={preview}
+          preview={value}
           onDrop={this.onDrop}
-          onFileDialogCancel={props.input.onBlur}
-          onClick={props.input.onFocus}
+          onFileDialogCancel={onBlur}
+          onClick={onFocus}
         >
-          <Overlay preview={preview} />
+          <Overlay preview={value} />
         </StyledDropzone>
+        <CropModal
+          onCancel={this.closeCropModal}
+          visible={!!imageToCrop}
+          imageToCrop={imageToCrop}
+          resolveCrop={this.resolveCrop}
+          aspect={this.props.aspect}
+          name="picture"
+        />
       </FieldWrapper>
     );
   }
 }
 
 ImagePicker.propTypes = {
+  aspect: number,
   input: object.isRequired,
   overlay: func,
 };
 
 ImagePicker.defaultProps = {
+  aspect: null,
   overlay: null,
 };
 

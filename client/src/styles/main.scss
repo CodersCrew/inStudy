@@ -1,6 +1,8 @@
 @import "./reset.scss";
 @import "./variables.scss";
 @import "./antd.scss";
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
+@import "node_modules/react-image-crop/lib/ReactCrop.scss";
 
 body {
   font-family: var(--mainFont);

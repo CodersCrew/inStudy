@@ -40,6 +40,8 @@ class FetchInitiative {
     }
   };
 
+  deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
+
   getShortInitiativeProfile = page =>
     this.getInitiative(page).then(initiatives =>
       initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),

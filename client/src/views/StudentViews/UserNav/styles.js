@@ -28,14 +28,16 @@ export const Item = styled(NavLink)`
 
   &:hover {
     background-color: var(--grey7);
+    color: var(--customColor-hover);
   }
 
   &:active {
     background-color: var(--grey6);
+    color: var(--customColor-active);
   }
 
   &.active {
-    border-bottom: 2px solid var(--primary2);
+    border-bottom: 2px solid var(--customColor);
     background-color: var(--grey7);
     color: default;
   }

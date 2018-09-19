@@ -3,7 +3,7 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { bool, func } from 'prop-types';
 import { Icon } from 'antd';
 import { withCloseAnimation } from 'hocs';
-import { required, isEemail } from 'utils/validators';
+import { required, isEmail } from 'utils/validators';
 import { Input } from 'components/reduxFormFields';
 import { Modal } from 'components';
 import { EmailsList } from './styles';
@@ -26,7 +26,7 @@ class InvitationModal extends PureComponent {
 
     return fields.map((rfName, index) => {
       const isLastRow = index === fieldsLength - 1;
-      const validate = isLastRow ? [] : [required, isEemail];
+      const validate = isLastRow ? [] : [required, isEmail];
 
       return (
         <EmailsList>

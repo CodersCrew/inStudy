@@ -20,7 +20,7 @@ export const TraitContainer = styled.div`
 export const Icon = styled.div`
   margin-bottom: var(--space-md);
   font-size: var(--font-xxl);
-  color: var(--primary2);
+  color: var(--customColor);
 `;
 
 export const Name = styled.div`

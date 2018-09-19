@@ -5,7 +5,6 @@ import { modulesConfig } from 'data';
 import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
 const staticProps = {
-  content: object.isRequired,
   icon: string,
   title: string.isRequired,
   type: string.isRequired,
@@ -81,6 +80,11 @@ ModuleBase.propTypes = {
   ...staticProps,
   moduleIndex: number.isRequired,
   editable: bool.isRequired,
+  content: object,
+};
+
+ModuleBase.defaultProps = {
+  content: {},
 };
 
 export default ModuleBase;

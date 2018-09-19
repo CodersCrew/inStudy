@@ -1,21 +1,18 @@
 import React, { PureComponent } from 'react';
-import { string } from 'prop-types';
-import { Container } from './styles';
+import ModalBase from '../ModalBase';
+import { getModalBaseData } from '../userModalsUtils';
+import { Text } from './styles';
 
 class Contatct extends PureComponent {
   render() {
     return (
-      <Container>{this.props.text}</Container>
+      <ModalBase {...getModalBaseData(this.props)}>
+        <Text>
+          Ten moduł nie wymaga dodatkowej konfiguracji. Wszystkie maile będą wywyłane na adres ustawiony w profilu.
+        </Text>
+      </ModalBase>
     );
   }
 }
-
-Contatct.propTypes = {
-  text: string,
-};
-
-Contatct.defaultProps = {
-  text: 'Contact',
-};
 
 export default Contatct;

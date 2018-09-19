@@ -28,6 +28,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
     'implicit-arrow-linebreak': 'off',
+    'consistent-return': 'off',
     'max-len': ['error', { 'code': 120 }],
   },
   settings: {

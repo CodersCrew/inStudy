@@ -6,10 +6,11 @@ export const StyledDropzone = styled(Dropzone)`
   width: 100%;
   height: 0;
   padding-top: 100%;
-  border: 1px solid var(--grey5);
+  box-shadow: 0 0 0 1px var(--grey5);
   border-radius: 4px;
-  background: url('${props => props.preview}') no-repeat center/cover;
+  background: url('${props => props.preview}') no-repeat center/contain;
   cursor: pointer;
+  overflow: hidden;
 `;
 
 export const StyledOverlay = styled.div`

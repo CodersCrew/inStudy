@@ -16,14 +16,11 @@ Trait.propTypes = {
   description: string.isRequired,
 };
 
-const Traits = ({ items }) => {
-  console.log(items);
-  return (
-    <Container>
-      {items.map(Trait)}
-    </Container>
-  );
-};
+const Traits = ({ items }) => (
+  <Container>
+    {items.map(Trait)}
+  </Container>
+);
 
 Traits.propTypes = {
   items: array.isRequired,

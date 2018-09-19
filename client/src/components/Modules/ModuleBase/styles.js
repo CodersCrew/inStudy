@@ -24,7 +24,7 @@ export const Icon = styled.h1`
   margin-right: var(--space-lg);
   font-size: var(--font-xxl);
   line-height: var(--font-xxl-lh);
-  color: var(--primary2);
+  color: var(--customColor);
   ${media.xl`
     font-size: var(--font-xl);
     line-height: var(--font-xl-lh);
@@ -33,6 +33,7 @@ export const Icon = styled.h1`
 `;
 
 export const Text = styled.h1`
+  padding-right: var(--space-md);
   font-family: var(--headerFont);
   font-size: var(--font-xxl);
   line-height: var(--font-xxl-lh);
@@ -41,6 +42,9 @@ export const Text = styled.h1`
   ${media.xl`
     font-size: var(--font-xl);
     line-height: var(--font-xl-lh);
+  `};
+  ${media.xs`
+    font-size: var(--font-xl);
   `};
 `;
 
@@ -69,4 +73,10 @@ export const EditIcon = styled.div`
   &:active {
     color: var(--grey4);
   }
+
+  ${media.xs`
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-lg);
+  `};
 `;
