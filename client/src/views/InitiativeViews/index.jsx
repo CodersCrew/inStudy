@@ -30,16 +30,16 @@ const InitiativeViews = ({ location: { pathname } }) => {
             path="/inicjatywy/:shortUrl/profil"
             component={hocs(InitiativePrivateProfile)}
           />
-          <Route path="/inicjatywy/:shortUrl/czlonkowie" component={hocs(Members)} />
+          <Route path="/inicjatywy/:shortUrl/czlonkowie" component={withAuth(['authorizedUser'])(Members)} />
           <Route
             path="/inicjatywy/:shortUrl/projekty"
-            component={hocs(() => (
+            component={withAuth(['authorizedUser'])(() => (
               <div>projekty</div>
             ))}
           />
           <Route
             path="/inicjatywy/:shortUrl/rekrutacja"
-            component={hocs(() => (
+            component={withAuth(['authorizedUser'])(() => (
               <div>rekrutacja</div>
             ))}
           />

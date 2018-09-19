@@ -33,11 +33,15 @@ export const EditCard = styled.div`
   }
 
   > div:nth-of-type(1) {
-    grid-area: 1/1/2/2;
+    grid-area: 1/1/3/2;
   }
 
   > div:nth-of-type(2) {
     grid-area: 1/2/2/3;
+  }
+
+  > div:nth-of-type(3) {
+    grid-area: 2/2/3/3;
   }
 `;
 

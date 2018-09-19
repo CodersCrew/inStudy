@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { media } from 'utils';
 
 export const Container = styled.div`
   position: fixed;
@@ -41,4 +42,14 @@ export const Item = styled(NavLink)`
     background-color: var(--grey7);
     color: default;
   }
+
+  span:first-child {
+    padding-right: var(--space-sm);
+  }
+
+  ${media.sm`
+    span:last-child {
+      display: none;
+    }
+  `}
 `;

@@ -66,6 +66,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.4.2",
     "react-dropzone": "^5.0.1",
+    "react-image-crop": "^5.0.0",
     "react-image-gallery": "^0.8.11",
     "react-motion": "^0.5.2",
     "react-portal": "^4.1.5",

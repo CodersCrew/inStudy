@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, bool, func, arrayOf, object, node, number } from 'prop-types';
+import { connect } from 'react-redux';
 import { Button } from 'antd';
 import { StyledModal, TitleContainer, Icon, TitleText } from './styles';
 
@@ -17,9 +18,11 @@ const renderButtons = buttons =>
     </Button>
   ));
 
-const ComplexModal = ({ visible, iconClass, title, onCancel, width, buttons, children }) => (
+const ComplexModal = ({ visible, iconClass, title, onCancel, width, buttons, children, size, className }) => (
   <StyledModal
     destroyOnClose
+    className={className}
+    centered={size <= 480}
     visible={visible}
     title={renderTitle(iconClass, title)}
     onCancel={onCancel}
@@ -38,6 +41,7 @@ ComplexModal.propTypes = {
   buttons: arrayOf(object),
   children: node.isRequired,
   width: number,
+  size: number.isRequired,
 };
 
 ComplexModal.defaultProps = {
@@ -47,4 +51,4 @@ ComplexModal.defaultProps = {
   width: 560,
 };
 
-export default ComplexModal;
+export default connect(state => ({ size: state.ui.size.value }))(ComplexModal);

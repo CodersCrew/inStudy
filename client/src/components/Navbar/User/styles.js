@@ -15,13 +15,11 @@ export const StyledButton = styled(Button)`
     width: 24px;
     height: 24px;
     min-width: 0;
-    padding: 0;
+    padding: 0 !important;
     border-radius: 100%;
 
     span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: -2px !important;
       min-width: 14px;
       max-width: 14px;
       min-height: 14px;
