@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { Tooltip } from 'react-tippy';
+import { media } from 'utils';
 
 const growToFullWidth = keyframes`
   from {
@@ -16,6 +17,9 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: var(--space-xl) var(--space-xxl);
   padding: var(--space-sm) var(--space-md) var(--space-md);
+  ${media.xs`
+    grid-template-columns: 1fr;
+  `}
 `;
 
 export const Skill = styled.div`
