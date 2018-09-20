@@ -17,7 +17,7 @@ NumberItem.propTypes = {
 
 const Numbers = ({ items }) => (
   <Container>
-    {items.map(item => item && <NumberItem key={item.title} {...item} />)}
+    {items.map(item => (item && item["number"] && item["title"]) ? <NumberItem key={item.title} {...item} /> : null)}
   </Container>
 );
 
