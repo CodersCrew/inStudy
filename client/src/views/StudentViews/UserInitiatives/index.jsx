@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
+import { Fab } from 'components';
 import CreateInitiative from './CreateInitiative';
 import InitiativeCard from './InitiativeCard';
 import { MainContainer, Wrapper, Icon, Header, StyledButton } from './styles';
@@ -32,8 +33,14 @@ class UserInitiatives extends PureComponent {
     </Wrapper>
   );
 
-  renderInitiatives = () =>
-    this.props.initiatives.map(initiative => <InitiativeCard key={initiative._id} {...initiative} />);
+  renderInitiatives = () => (
+    <Fragment>
+      {this.props.initiatives.map(initiative => (
+        <InitiativeCard key={initiative._id} {...initiative} />
+      ))}
+      <Fab iconClass="fal fa-plus" title="Dodaj nową inicjatywę" onClick={this.openModal} />
+    </Fragment>
+  );
 
   render() {
     return (

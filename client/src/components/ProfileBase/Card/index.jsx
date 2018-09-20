@@ -2,10 +2,9 @@ import React from 'react';
 import { string, arrayOf, object, bool, func } from 'prop-types';
 import { compose, withState, withHandlers } from 'recompose';
 import { socials } from 'data';
-import { Container, Image, Name, Description, Socials, SocialItem, EditIcon } from './styles';
+import { Container, Image, Name, Description, Socials, SocialItem, EditIcon, StyledAvatar } from './styles';
 
 const staticProps = {
-  email: string.isRequired,
   image: string.isRequired,
   name: string.isRequired,
   description: string,
@@ -18,10 +17,11 @@ const dynamicProps = {
   closeModal: func.isRequired,
 };
 
-const Social = ({ type, url }) => <SocialItem color={socials[type].color} href={url} className={socials[type].icon} />;
+const Social = ({ socialType, url }) =>
+  <SocialItem color={socials[socialType].color} href={url} className={socials[socialType].icon} />;
 
 Social.propTypes = {
-  type: string.isRequired,
+  socialType: string.isRequired,
   url: string.isRequired,
 };
 
@@ -33,12 +33,16 @@ const withHocs = compose(
   }),
 );
 
-const EditableCard = props => {
+const EditableCard = (props) => {
   const EditModal = props.cardEditModal;
 
   return (
     <Container editable>
-      <Image src={props.image} />
+      {props.image ? (
+        <Image src={props.image} alt={`${props.name} - zdjęcie profilowe`} />
+      ) : (
+        <StyledAvatar name={props.name} />
+      )}
       <Name>{props.name}</Name>
       <Description>{props.description}</Description>
       {props.socials.length > 0 && <Socials>{props.socials.map(Social)}</Socials>}
@@ -54,7 +58,7 @@ const EnhancedEditableCard = withHocs(EditableCard);
 
 const StaticCard = ({ name, description, image, socials }) => (
   <Container>
-    <Image src={image} />
+    {image ? <Image src={image} alt={`${name} - zdjęcie profilowe`} /> : <StyledAvatar name={name} />}
     <Name>{name}</Name>
     <Description>{description}</Description>
     {socials.length > 0 && <Socials>{socials.map(Social)}</Socials>}

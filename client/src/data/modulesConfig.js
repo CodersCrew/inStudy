@@ -10,6 +10,24 @@ import TimelineModal from 'components/ModulesModals/Timeline';
 import ContactModule from 'components/Modules/Contact';
 import ContactModal from 'components/ModulesModals/Contact';
 
+import TraitsModule from 'components/Modules/Traits';
+import TraitsModal from 'components/ModulesModals/Traits';
+
+import NumbersModule from 'components/Modules/Numbers';
+import NumbersModal from 'components/ModulesModals/Numbers';
+
+import AccordionModule from 'components/Modules/Accordion';
+import AccordionModal from 'components/ModulesModals/Accordion';
+
+import PeopleModule from 'components/Modules/People';
+import PeopleModal from 'components/ModulesModals/People';
+
+import ProjectsModule from 'components/Modules/Projects';
+import ProjectsModal from 'components/ModulesModals/Projects';
+
+import LogosModule from 'components/Modules/Logos';
+import LogosModal from 'components/ModulesModals/Logos';
+
 export default {
   richText: {
     name: 'Tekst',
@@ -32,10 +50,52 @@ export default {
     module: TimelineModule,
     modalContent: TimelineModal,
   },
+  traits: {
+    name: 'Cechy',
+    iconClass: 'fal fa-list-alt',
+    description: 'Lista cech składających się z ikony, tytułu i opisu.',
+    module: TraitsModule,
+    modalContent: TraitsModal,
+  },
+  numbers: {
+    name: 'Liczby',
+    iconClass: 'fal fa-calculator-alt',
+    description: 'Liczby opisujące Ciebie i Twoje dokonania.',
+    module: NumbersModule,
+    modalContent: NumbersModal,
+  },
+  accordion: {
+    name: 'Lista rozwijana',
+    iconClass: 'fal fa-bars',
+    description: 'Lista składająca się z nagłówków i rozwijanych opisów.',
+    module: AccordionModule,
+    modalContent: AccordionModal,
+  },
+  people: {
+    name: 'Ludzie',
+    iconClass: 'fal fa-user-circle',
+    description: 'Kafelki pozwalające zaprezentować i opisać osoby.',
+    module: PeopleModule,
+    modalContent: PeopleModal,
+  },
+  projects: {
+    name: 'Projekty',
+    iconClass: 'fal fa-grip-horizontal',
+    description: 'Kafelki pozwalające zaprezentować i opisać projekty.',
+    module: ProjectsModule,
+    modalContent: ProjectsModal,
+  },
+  logos: {
+    name: 'Loga',
+    iconClass: 'fal fa-images',
+    description: 'Lista logotypów z linkami do zewnętrznych stron.',
+    module: LogosModule,
+    modalContent: LogosModal,
+  },
   contact: {
     name: 'Formularz kontaktowy',
     iconClass: 'fal fa-phone',
-    description: 'Pola umożliwiające kontakt z Tobą bez konieczności ujawniania Twojego maila.',
+    description: 'Pole umożliwiające kontakt z Tobą bez konieczności ujawniania Twojego maila.',
     module: ContactModule,
     modalContent: ContactModal,
   },

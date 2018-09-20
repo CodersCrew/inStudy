@@ -1,11 +1,8 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const categorySchema = new Schema({
+const schema = new Schema({
   name: String,
 });
 
-export default {
-  name: 'categories',
-  schema: categorySchema,
-};
+module.exports = mongoose.model('categories', schema);

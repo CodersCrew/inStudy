@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from 'utils';
 
 export const Container = styled.div`
   box-sizing: border-box;
@@ -14,6 +15,12 @@ export const DateWrapper = styled.div`
   width: 160px;
   padding: var(--space-md) 19px var(--space-md) 0;
   border-right: 2px solid var(--grey6);
+  display: ${props => props.small ? 'none' : 'block'};
+  ${media.xs`
+    display: ${props => props.small ? 'flex' : 'none'};
+    border-right: none;
+    padding: 0;
+  `}
 `;
 
 export const DateText = styled.div`
@@ -22,7 +29,7 @@ export const DateText = styled.div`
   line-height: var(--font-md-lh);
   font-weight: var(--medium);
   text-align: right;
-  color: var(--primary2);
+  color: var(--customColor);
 `;
 
 export const Dot = styled.div`
@@ -32,7 +39,10 @@ export const Dot = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 100%;
-  border: 2px solid var(--primary2);
+  border: 2px solid var(--customColor);
+  ${media.xs`
+    display: none;
+  `}
 
   &::before {
     position: absolute;
@@ -42,13 +52,16 @@ export const Dot = styled.div`
     right: 4px;
     bottom: 4px;
     border-radius: 100%;
-    background-color: var(--primary2);
+    background-color: var(--customColor);
   }
 `;
 
 export const ContentWrapper = styled.div`
   padding: var(--space-md) 0 var(--space-md) 27px;
   width: calc(100% - 160px);
+  ${media.xs`
+    width: 100%;
+  `}
 `;
 
 export const Title = styled.div`

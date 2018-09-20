@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { omit } from 'utils';
 import { required } from 'utils/validators';
-import { ComplexModal } from 'components';
+import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
-import { withNotifications } from 'hocs';
+import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
@@ -31,6 +31,7 @@ const actions = {
 };
 
 const withHocs = compose(
+  withCloseAnimation,
   withNotifications,
   reduxForm({ form: 'moduleModal' }),
   connect(
@@ -53,7 +54,7 @@ class ModalBase extends Component {
 
   getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
 
-  onSubmit = async values => {
+  onSubmit = async (values) => {
     const valuesToSubmit = {
       icon: values.icon,
       title: values.title,
@@ -116,7 +117,8 @@ class ModalBase extends Component {
     }
 
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         visible={visible}
         onCancel={submitting ? () => {} : onClose}
         title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł "${name}"`}
@@ -129,7 +131,6 @@ class ModalBase extends Component {
             name="icon"
             component={IconPicker}
             props={{ label: 'Ikona', disabled: submitting }}
-            validate={[required]}
           />
           <InputWrapper>
             <Field
@@ -142,7 +143,7 @@ class ModalBase extends Component {
         </Top>
         {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
         {children}
-      </ComplexModal>
+      </Modal>
     );
   }
 }

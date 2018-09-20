@@ -23,7 +23,7 @@ class DBConnector {
   putUser = profile =>
     mongoose.model('users').findOneAndUpdate({ googleId: profile.id }, createUser(profile), { new: true });
 
-  setUser = profile => new mongoose.model('users')(createUser(profile)).save();
+  setUser = profile => mongoose.model('users')(createUser(profile)).save();
 }
 
 export default new DBConnector();

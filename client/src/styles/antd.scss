@@ -40,16 +40,17 @@
 }
 
 .ant-btn {
+  border-color: var(--grey5);
   color: var(--text1);
 
   &:hover,
   &:focus {
-    border: 1px solid var(--grey7);
+    border-color: var(--grey6);
     color: var(--text2);
   }
 
   &:active {
-    border: 1px solid var(--grey6);
+    border-color: var(--grey4);
     color: var(--text1);
   }
 }
@@ -93,4 +94,13 @@
 .ant-btn.ant-btn-danger.ant-btn-background-ghost {
   border-color: var(--error);
   color: var(--error);
+}
+
+
+/* DROPDOWN */
+
+.ant-dropdown-menu-item > a,
+.ant-dropdown-menu-submenu-title > a {
+  margin: 0;
+  padding: 0;
 }

@@ -1,32 +1,27 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { bool, func } from 'prop-types';
-import { ConfirmationModal } from 'components';
+import { Modal } from 'components';
 import texts from './texts';
 
-class Success extends PureComponent {
-  render() {
-    const { visible, closeModal } = this.props;
-
-    return (
-      <ConfirmationModal
-        visible={visible}
-        onClose={closeModal}
-        title={texts.modalTitle}
-        iconClass="fal fa-smile-beam"
-        width={644}
-        buttons={[
-          {
-            onClick: closeModal,
-            label: texts.buttonLabel,
-            size: 'large',
-          },
-        ]}
-      >
-        {texts.modalContent}
-      </ConfirmationModal>
-    );
-  }
-}
+const Success = ({ visible, closeModal }) => (
+  <Modal
+    type="confirmation"
+    visible={visible}
+    onCancel={closeModal}
+    title={texts.modalTitle}
+    iconClass="fal fa-smile-beam"
+    width={644}
+    buttons={[
+      {
+        onClick: closeModal,
+        label: texts.buttonLabel,
+        size: 'large',
+      },
+    ]}
+  >
+    {texts.modalContent}
+  </Modal>
+);
 
 Success.propTypes = {
   visible: bool,

@@ -48,6 +48,7 @@ export const Title = styled.h3`
   font-family: var(--headerFont);
   font-weight: var(--bold);
   color: var(--text1);
+  text-overflow: ellipsis;
   ${media.xs`
     font-size: var(--font-sm);
   `};
@@ -118,6 +119,8 @@ export const Description = styled.div`
   font-size: var(--font-sm);
   line-height: 1.3;
   color: var(--text2);
+  overflow: hidden;
+  text-overflow: ellipsis;
   ${media.xs`
     font-size: var(--font-xs);
   `};

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import TriangleBackground from 'components/TriangleBackground';
 import { withAuth } from 'hocs';
 import {
   Container,
@@ -50,7 +49,6 @@ class Registration extends PureComponent {
             Zaloguj się przez Google
           </StyledButton>
         </Message>
-        <TriangleBackground />
       </Container>
     );
   }

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Tooltip } from 'react-tippy';
 import { Button } from 'antd';
 import { media } from 'utils';
 
@@ -16,13 +15,11 @@ export const StyledButton = styled(Button)`
     width: 24px;
     height: 24px;
     min-width: 0;
-    padding: 0;
+    padding: 0 !important;
     border-radius: 100%;
 
     span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: -2px !important;
       min-width: 14px;
       max-width: 14px;
       min-height: 14px;
@@ -40,10 +37,4 @@ export const UserImage = styled.img`
   ${media.sm`
     margin-left: var(--space-md);
   `};
-`;
-
-export const StyledTooltip = styled(Tooltip)`
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
 `;

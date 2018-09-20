@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Avatar from 'react-avatar';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: var(--space-lg);
   background-color: var(--white);
   border-radius: 4px;
@@ -68,6 +70,7 @@ export const Description = styled.div`
 `;
 
 export const Footer = styled.div`
+  margin-top: auto;
   display: flex;
   justify-content: flex-end;
 `;

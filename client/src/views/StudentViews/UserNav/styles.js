@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { media } from 'utils';
 
 export const Container = styled.div`
   position: fixed;
@@ -28,15 +29,27 @@ export const Item = styled(NavLink)`
 
   &:hover {
     background-color: var(--grey7);
+    color: var(--customColor-hover);
   }
 
   &:active {
     background-color: var(--grey6);
+    color: var(--customColor-active);
   }
 
   &.active {
-    border-bottom: 2px solid var(--primary2);
+    border-bottom: 2px solid var(--customColor);
     background-color: var(--grey7);
     color: default;
   }
+
+  span:first-child {
+    padding-right: var(--space-sm);
+  }
+
+  ${media.sm`
+    span:last-child {
+      display: none;
+    }
+  `}
 `;

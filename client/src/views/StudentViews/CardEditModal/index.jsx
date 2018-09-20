@@ -3,10 +3,10 @@ import { bool, func, object } from 'prop-types';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import { updateBasicUserData } from 'store/actions';
-import { ComplexModal } from 'components';
-import { Input, TextArea, ImagePicker, SingleSelect } from 'components/reduxFormFields';
+import { Modal } from 'components';
+import { Input, TextArea, ImagePicker, SingleSelect, ColorSelect } from 'components/reduxFormFields';
 import { required, maxLength, url } from 'utils/validators';
-import { socials } from 'data';
+import { socials, antdColors } from 'data';
 import { withCloseAnimation } from 'hocs';
 import { pick } from 'utils';
 import { Container, Label, TrashIcon } from './styles';
@@ -15,7 +15,7 @@ const maxDescriptionLength = maxLength(260);
 
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
 
-const areAllFieldsFilled = fields => fields.reduce((acc, { type, url }) => acc && (type || url), true);
+const areAllFieldsFilled = fields => fields.reduce((acc, { socialType, url }) => acc && (socialType || url), true);
 
 @withCloseAnimation
 @reduxForm({ form: 'cardEditModal' })
@@ -27,20 +27,19 @@ class CardEditModal extends PureComponent {
   constructor(props) {
     super(props);
 
-    const initialData = pick(props.data, ['firstName', 'lastName', 'email', 'description', 'image', 'socials']);
+    const initialData = pick(props.data, ['firstName', 'lastName', 'email', 'description', 'image', 'socials', 'color']);
     props.initialize(initialData);
   }
 
-  onSubmit = values => {
-    const parsedSocials = values.socials.filter(({ type, url }) => type && url);
-    console.log({ ...values, socials: parsedSocials });
+  onSubmit = (values) => {
+    const parsedSocials = values.socials.filter(({ socialType, url: socialUrl }) => socialType && socialUrl);
     this.props.updateBasicUserData({ ...values, socials: parsedSocials });
     this.props.onClose();
   };
 
   renderSocialTypeSelect = social => (
     <Field
-      name={`${social}.type`}
+      name={`${social}.socialType`}
       component={SingleSelect}
       props={{
         noWrapper: true,
@@ -77,15 +76,15 @@ class CardEditModal extends PureComponent {
       <Fragment>
         <Label>Social media</Label>
         {fields.map((social, index) =>
-          this.renderSocialInput(social, index, index !== lastSocialIndex && fields.remove),
-        )}
+          this.renderSocialInput(social, index, index !== lastSocialIndex && fields.remove),)}
       </Fragment>
     );
   };
 
   render() {
     return (
-      <ComplexModal
+      <Modal
+        type="complex"
         visible={this.props.visible}
         onCancel={this.props.onClose}
         title="Edytuj swoje podstawowe dane"
@@ -111,6 +110,12 @@ class CardEditModal extends PureComponent {
           <Field name="lastName" component={Input} props={{ label: 'Nazwisko' }} validate={[required]} />
           <Field name="email" component={Input} props={{ label: 'E-mail kontaktowy' }} validate={[required]} />
           <Field
+            name="color"
+            component={ColorSelect}
+            props={{ label: 'Kolor profilu', colorsList: antdColors }}
+            validate={[required]}
+          />
+          <Field
             name="description"
             component={TextArea}
             props={{ label: 'Krótki opis' }}
@@ -118,7 +123,7 @@ class CardEditModal extends PureComponent {
           />
           <FieldArray name="socials" component={this.renderSocials} />
         </Container>
-      </ComplexModal>
+      </Modal>
     );
   }
 }

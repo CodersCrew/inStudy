@@ -1,11 +1,8 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const citySchema = new Schema({
+const schema = new Schema({
   name: String,
 });
 
-export default {
-  name: 'cities',
-  schema: citySchema,
-};
+module.exports = mongoose.model('cities', schema);

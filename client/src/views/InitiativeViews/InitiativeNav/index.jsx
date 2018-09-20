@@ -15,30 +15,34 @@ const InitiativeNav = ({ location: { pathname } }) => {
       <Item
         to={`/inicjatywy/${shortUrl}/profil`}
         activeClassName="active"
-        isActive={(match, { pathname }) => checkActive(pathname, 'profil')}
+        isActive={() => checkActive(pathname, 'profil')}
       >
-        Profil
+        <span className="fal fa-id-card" />
+        <span>Profil</span>
       </Item>
       <Item
         to={`/inicjatywy/${shortUrl}/czlonkowie`}
         activeClassName="active"
-        isActive={(match, { pathname }) => checkActive(pathname, 'czlonkowie')}
+        isActive={() => checkActive(pathname, 'czlonkowie')}
       >
-        Członkowie
+        <span className="fal fa-users" />
+        <span>Członkowie</span>
       </Item>
       <Item
         to={`/inicjatywy/${shortUrl}/projekty`}
         activeClassName="active"
-        isActive={(match, { pathname }) => checkActive(pathname, 'projekty')}
+        isActive={() => checkActive(pathname, 'projekty')}
       >
-        Projekty
+        <span className="fal fa-rocket" />
+        <span>Projekty</span>
       </Item>
       <Item
         to={`/inicjatywy/${shortUrl}/rekrutacja`}
         activeClassName="active"
-        isActive={(match, { pathname }) => checkActive(pathname, 'rekrutacja')}
+        isActive={() => checkActive(pathname, 'rekrutacja')}
       >
-        Rekrutacja
+        <span className="fal fa-user-plus" />
+        <span>Rekrutacja</span>
       </Item>
     </Container>
   );

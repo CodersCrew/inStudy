@@ -1,7 +1,9 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const MemberSchema = require('./member');
 const { Schema } = mongoose;
 
-const initiativeSchema = new Schema({
+
+const schema = new Schema({
   name: String,
   description: String,
   email: String,
@@ -10,12 +12,11 @@ const initiativeSchema = new Schema({
   university: String,
   facebookUrl: String,
   shortUrl: String,
+  color: String,
   modules: [{}],
   FBProfile: [{}],
   image: String,
+  members: [MemberSchema],
 });
 
-export default {
-  name: 'initiatives',
-  schema: initiativeSchema,
-};
+module.exports = mongoose.model('initiatives', schema);
