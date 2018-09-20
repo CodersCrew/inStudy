@@ -21,7 +21,7 @@ const sortByDates = (itemA, itemB) => {
   const [dateA, dateB] = [moment(itemA.from, 'MM-YYYY'), moment(itemB.from, 'MM-YYYY')];
 
   if (dateA.isBefore(dateB)) return 1;
-  else if (dateA.isAfter(dateB)) return -1;
+  if (dateA.isAfter(dateB)) return -1;
   return 0;
 };
 
@@ -52,8 +52,7 @@ class ItemsList extends PureComponent {
 
   removeItem = index => this.props.fields.remove(index);
 
-  renderItem = ({ from, to, title, subtitle, description }, index) => {
-    return (
+  renderItem = ({ from, to, title, subtitle, description }, index) => (
       <ItemContainer key={title}>
         <Dates>{`${from} - ${to}`}</Dates>
         <Title>{title}</Title>
@@ -69,7 +68,6 @@ class ItemsList extends PureComponent {
         </Buttons>
       </ItemContainer>
     );
-  };
 
   render() {
     const fields = this.props.fields.getAll() || [];
