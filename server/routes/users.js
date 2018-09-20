@@ -1,6 +1,9 @@
 import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from '../services/fetchUser';
 import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
+const fs = require('fs');
+import path from 'path';
+import { sendInitiativeImage, sendUserImage } from '../services/Cloudinary';
 
 module.exports = (app) => {
   app.get('/api/user/:userId', (req, res) => {
@@ -18,39 +21,68 @@ module.exports = (app) => {
       });
   });
 
-  app.post('/api/user/module', (req, res) => {
+  app.post('/api/user/module', async (req, res) => {
     const module = req.body;
-    const userId = req.user._id;
+    const { _id: userId } = req.user;
 
-    addNewModule(module, userId)
-      .then(() => {
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.sendStatus(404);
+    try {
+      const parsedContent = module.content.items.map(async (singleItem) => {
+        if (singleItem.image) {
+          const { secure_url } = await sendUserImage(singleItem.image)(userId);
+          singleItem.image = secure_url;
+        }
+
+        if (singleItem.images) {
+          const images = singleItem.images.map(async item => {
+            if (item.image) {
+              item.image = await sendUserImage(item.image)(userId);
+              item.image = item.image.secure_url;
+            }
+            return item;
+          });
+
+          singleItem.images = await Promise.all(images);
+        }
+
+        return singleItem;
       });
+
+      module.content.items = await Promise.all(parsedContent);
+      addNewModule(module, userId)
+        .then(() => res.sendStatus(201))
+        .catch((error) => {
+          console.error(error);
+          res.sendStatus(404);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   });
 
   app.put('/api/user/basic', userLogged, (req, res) => {
     const basic = req.body;
     const userId = req.user._id;
 
-    changeBasicUserData(basic, userId)
-      .then(() => {
-        res.sendStatus(201);
+    sendInitiativeImage(req.body.image)(req.user._id)
+      .then((result) => {
+        changeBasicUserData({ ...basic, image: result.secure_url}, userId)
+          .then(() => {
+            res.sendStatus(201);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.sendStatus(404);
+          });
       })
-      .catch((error) => {
-        console.error(error);
-        res.sendStatus(404);
+      .catch(e => {
+        console.log(e)
       });
   });
 
   app.put('/api/user/module', userLogged, (req, res) => {
-    const module = req.body.module;
+    const { module } = req.body;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
-
     updateModule(module, userId, moduleIndex)
       .then(() => {
         res.sendStatus(201);
