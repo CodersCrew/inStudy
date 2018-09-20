@@ -2,18 +2,27 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import { SVGIcon } from 'components';
 import { Link } from 'react-router-dom';
+import { media } from 'utils';
 
 export const Container = styled.div`
-  box-sizing: border-box;
+
   background-color: var(--primary2);
-  height: 150vh;
+  height: 96vh;
   opacity: 0.95;
-  display: flex;
-  justify-content: center;
+  ${media.sm`
+    height: 225vh;
+  `};
 `;
 
+export const Background = styled.div`
+  background: url(/img/bg-registration.jpg);
+  background-size: cover;
+`;
 export const Message = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   top: 260px;
   left: 31%;
   right: 31%;
@@ -48,8 +57,8 @@ export const StyledSVGIcon = styled(SVGIcon)`
 export const StyledButton = styled(Button)`
   display: flex !important;
   align-items: center;
-  min-width: 240px;
   margin: 0 auto;
+  max-width: 240px;
 `;
 
 export const StyledLink = styled(Link)`
