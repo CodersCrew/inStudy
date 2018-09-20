@@ -5,27 +5,21 @@ import { Link } from 'react-router-dom';
 import { media } from 'utils';
 
 export const Container = styled.div`
-
   background-color: var(--primary2);
-  height: 96vh;
+  background-size:cover;
   opacity: 0.95;
-  ${media.sm`
-    height: 225vh;
-  `};
 `;
 
 export const Background = styled.div`
   background: url(/img/bg-registration.jpg);
   background-size: cover;
+  height: 100%;
 `;
 export const Message = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  top: 260px;
-  left: 31%;
-  right: 31%;
+  padding: 15% 30%;
   text-align: center;
   color: var(--white);
 `;

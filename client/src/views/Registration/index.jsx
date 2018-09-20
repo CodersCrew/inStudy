@@ -48,7 +48,6 @@ class Registration extends PureComponent {
             </CautionText>
             <StyledButton size="large" onClick={goToGoogleLogin}>
               <StyledSVGIcon path="/img/google_icon.svg" width={32} height={32} />
-              {/* <span>Zaloguj się przez Google</span> */}
               <span>Zaloguj się</span>
             </StyledButton>
           </Message>
