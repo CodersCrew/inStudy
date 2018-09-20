@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   box-sizing: border-box;
   background-color: var(--primary2);
-  height: 100%;
+  height: 150vh;
   opacity: 0.95;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Message = styled.div`
@@ -36,7 +38,7 @@ export const MiddleText = styled.div`
 
 export const CautionText = styled.div`
   color: var(--white);
-  margin-bottom: 20px;
+  margin: 20px auto;
 `;
 
 export const StyledSVGIcon = styled(SVGIcon)`
