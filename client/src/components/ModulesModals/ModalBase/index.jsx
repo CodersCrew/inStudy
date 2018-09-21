@@ -3,6 +3,7 @@ import { bool, func, string, node, object, number, array } from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { Tooltip } from 'react-tippy';
 import { omit } from 'utils';
 import { required } from 'utils/validators';
 import { Modal } from 'components';
@@ -11,7 +12,7 @@ import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
-import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal, ItemsError } from './styles';
+import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal, HideConfirmationModal, ItemsError } from './styles';
 
 const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
 
@@ -60,6 +61,7 @@ class ModalBase extends Component {
 
     this.state = {
       isModalOpen: false,
+      isModuleHidden: props?.initialValues?.isHidden || false,
       itemsError: null,
     };
   }
@@ -79,6 +81,7 @@ class ModalBase extends Component {
         icon: values.icon,
         title: values.title,
         type: this.props.type,
+        isHidden: this.state.isModuleHidden,
         content: omit(values, ['icon', 'title']),
       };
 
@@ -110,12 +113,15 @@ class ModalBase extends Component {
     this.props.notify(deleteNotification(this.props.initialValues));
   };
 
+  toggleHide = () => this.setState(state => ({ isModuleHidden: !state.isModuleHidden }));
+
   openConfiramtionModal = () => this.setState({ isModalOpen: true });
 
-  closeConfiramtionModal = () => this.setState({ isModalOpen: false });
+  closeConfirmationModal = () => this.setState({ isModalOpen: false });
 
   render() {
     const { visible, onClose, name, iconClass, handleSubmit, children, submitting, contentHeader } = this.props;
+    const { isModalOpen, isModuleHidden, itemsError } = this.state;
     const buttons = [
       {
         onClick: handleSubmit(this.onSubmit),
@@ -128,16 +134,31 @@ class ModalBase extends Component {
         label: 'Anuluj',
         disabled: submitting,
       },
+      {
+        key: 'hide',
+        onClick: this.toggleHide,
+        label: (
+          <Tooltip title={isModuleHidden ? 'Pokaż moduł' : 'Ukryj moduł'} size="small">
+            <i className={`fal fa-eye${isModuleHidden ? '' : '-slash'}`} />
+          </Tooltip>
+        ),
+        disabled: submitting,
+        style: { marginRight: 'auto' },
+      },
     ];
 
     if (this.isEditModal) {
       buttons.push({
+        key: 'delete',
         onClick: this.openConfiramtionModal,
-        label: 'Usuń moduł',
+        label: (
+          <Tooltip title="Usuń moduł" size="small">
+            <i className="fal fa-trash-alt" />
+          </Tooltip>
+        ),
         type: 'danger',
         ghost: true,
         disabled: submitting,
-        style: { marginRight: 'auto' },
       });
     }
 
@@ -167,10 +188,10 @@ class ModalBase extends Component {
           </InputWrapper>
         </Top>
         {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
-        {this.state.itemsError && <ItemsError>{this.state.itemsError}</ItemsError>}
+        {itemsError && <ItemsError>{itemsError}</ItemsError>}
         {children}
         <DeleteConfirmationModal
-          visible={this.state.isModalOpen}
+          visible={isModalOpen}
           type="confirmation"
           onCancel={this.closeConfirmationModal}
           title="Czy jesteś pewien, że chcesz usunąć ten moduł?"

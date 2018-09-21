@@ -6,8 +6,9 @@ export const Container = styled.div`
   width: 100%;
   padding: var(--space-lg) var(--space-xl) var(--space-xl);
   background-color: var(--white);
-  box-shadow: var(--shadow2);
+  box-shadow: ${props => props.isHidden ? 'none' : 'var(--shadow2)'};
   border-radius: 4px;
+  opacity: ${props => props.isHidden ? 0.6 : 1};
   ${media.md`
     margin-top: var(--space-xl);
     padding: var(--space-md) var(--space-lg) var(--space-lg);
