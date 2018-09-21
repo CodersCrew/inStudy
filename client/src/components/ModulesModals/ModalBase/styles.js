@@ -11,6 +11,14 @@ export const InputWrapper = styled.div`
   width: 100%;
 `;
 
+export const ItemsError = styled.div`
+  padding-bottom: var(--space-md);
+  font-size: var(--font-xs);
+  line-height: var(--font-xs-lh);
+  font-weight: var(--regular);
+  color: var(--error);
+`;
+
 export const ContentHeader = styled.h6`
   margin-bottom: var(--space-sm);
   font-family: var(--headerFont);

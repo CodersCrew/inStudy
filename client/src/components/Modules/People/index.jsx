@@ -17,7 +17,7 @@ import {
   Title,
 } from './styles';
 
-const Social = ({ socialType, url }) => (
+const Social = ({ socialType, url }) => socialType && url && (
   <SocialWrapper>
     <Link href={url}>
       <Icon className={socialsList[socialType].icon} />

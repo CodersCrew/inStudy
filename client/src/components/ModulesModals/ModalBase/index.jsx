@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bool, func, string, node, object, number, array } from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { omit } from 'utils';
@@ -11,15 +11,22 @@ import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
-import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal } from './styles';
+import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal, ItemsError } from './styles';
 
 const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
 
 const isInitiativeView = () => window.location.pathname.includes('inicjatywy');
 
-const mapStateToProps = ({ auth }) => ({
-  initiatives: auth.initiatives.reduce((acc, { _id, shortUrl }) => ({ ...acc, [shortUrl]: _id }), {}),
+const valueSelector = formValueSelector('moduleModal');
+
+const typesWithItems = ['accordion', 'logos', 'numbers', 'people', 'projects', 'skills', 'timeline', 'traits'];
+
+const mapStateToProps = state => ({
+  items: valueSelector(state, 'items'),
+  initiatives: state.auth.initiatives.reduce((acc, { _id, shortUrl }) => ({ ...acc, [shortUrl]: _id }), {}),
 });
+
+const haveItemsError = items => (!items || !items.length || Object.keys(items[0]).length < 2);
 
 const actions = {
   addUserModule,
@@ -53,35 +60,45 @@ class ModalBase extends Component {
 
     this.state = {
       isModalOpen: false,
+      itemsError: null,
     };
   }
+
+  static getDerivedStateFromProps = (props, state) => (state.itemsError && !haveItemsError(props.items))
+    ? { itemsError: null }
+    : null;
 
   getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
 
   onSubmit = async (values) => {
-    const valuesToSubmit = {
-      icon: values.icon,
-      title: values.title,
-      type: this.props.type,
-      content: omit(values, ['icon', 'title']),
-    };
-
-    if (this.isEditModal) {
-      if (isInitiativeView()) {
-        await this.props.updateInitiativeModule(valuesToSubmit, this.getInitiativeId(), this.props.id);
-      } else {
-        await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
-      }
-      this.props.notify(updateNotification(values));
+    if (typesWithItems.includes(this.props.type) && haveItemsError(this.props.items)) {
+      this.setState({ itemsError: 'Musisz dodać co najmniej jeden element' });
+      Promise.reject();
     } else {
-      if (isInitiativeView()) {
-        await this.props.addInitiativeModule(this.getInitiativeId(), valuesToSubmit);
+      const valuesToSubmit = {
+        icon: values.icon,
+        title: values.title,
+        type: this.props.type,
+        content: omit(values, ['icon', 'title']),
+      };
+
+      if (this.isEditModal) {
+        if (isInitiativeView()) {
+          await this.props.updateInitiativeModule(valuesToSubmit, this.getInitiativeId(), this.props.id);
+        } else {
+          await this.props.updateUserModule(valuesToSubmit, this.props.moduleIndex);
+        }
+        this.props.notify(updateNotification(values));
       } else {
-        await this.props.addUserModule(valuesToSubmit);
+        if (isInitiativeView()) {
+          await this.props.addInitiativeModule(this.getInitiativeId(), valuesToSubmit);
+        } else {
+          await this.props.addUserModule(valuesToSubmit);
+        }
+        this.props.notify(addNotification(values));
       }
-      this.props.notify(addNotification(values));
+      this.props.onClose();
     }
-    this.props.onClose();
   };
 
   deleteModule = async () => {
@@ -150,6 +167,7 @@ class ModalBase extends Component {
           </InputWrapper>
         </Top>
         {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
+        {this.state.itemsError && <ItemsError>{this.state.itemsError}</ItemsError>}
         {children}
         <DeleteConfirmationModal
           visible={this.state.isModalOpen}
@@ -202,6 +220,7 @@ ModalBase.propTypes = {
   deleteInitiativeModule: func,
   id: string,
   initiatives: array,
+  items: array,
 };
 
 ModalBase.defaultProps = {
@@ -210,6 +229,7 @@ ModalBase.defaultProps = {
   initialValues: null,
   moduleIndex: null,
   id: '',
+  items: null,
 };
 
 export default ModalBase;
