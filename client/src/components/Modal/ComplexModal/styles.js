@@ -7,7 +7,7 @@ export const StyledModal = styled(Modal)`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-}
+  }
 
 ${media.xs`
     display: flex;
