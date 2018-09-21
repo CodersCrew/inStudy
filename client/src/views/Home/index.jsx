@@ -19,10 +19,8 @@ class Home extends PureComponent {
       location: { pathname },
     } = this.props;
 
-    window.resizeHomeUp =
-      window.resizeHomeUp || (previousPath === '/inicjatywy' && pathname === '/');
-    window.resizeHomeDown =
-      window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy');
+    window.resizeHomeUp = window.resizeHomeUp || (previousPath === '/inicjatywy' && pathname === '/');
+    window.resizeHomeDown = window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy');
 
     if (window.resizeHomeUp && !window.disableAnimation) {
       this.state = { headerIndex: 0, isLanding: false };
@@ -33,6 +31,11 @@ class Home extends PureComponent {
     } else {
       this.state = { headerIndex: 0, isLanding: !props.listView };
     }
+
+    this.supheader = pathname === '/inicjatywy'
+      ? 'Odnajdź najlepszą inicjatywę dla siebie'
+      : 'Dołącz do najaktywniejszych studentów i';
+
     window.disableAnimation = false;
     window.resizeHomeUp = false;
     window.resizeHomeDown = false;
@@ -79,7 +82,7 @@ class Home extends PureComponent {
         {state => (
           <Container src="/img/landing.jpg" isLanding={!isLanding} className={state}>
             <Middle>
-              <Supheader>Dołącz do najaktywniejszych studentów i</Supheader>
+              <Supheader>{this.supheader}</Supheader>
               {this.renderText(headerIndex)}
               <Search onSearch={this.onSearch} />
             </Middle>

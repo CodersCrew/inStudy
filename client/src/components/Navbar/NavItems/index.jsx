@@ -8,7 +8,7 @@ import { Container, NavItem, NavItemLink, Icon } from './styles';
 const menu = (
   <Menu>
     <Menu.Item>
-      <MenuItem text="O projekcie" to="/about" />
+      <MenuItem text="O projekcie" to="/o-projekcie" />
     </Menu.Item>
     <Menu.Item>
       <MenuItem text="FAQ" to="/faq/ogolne" />
