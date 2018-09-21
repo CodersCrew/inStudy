@@ -14,7 +14,7 @@ class Modules extends PureComponent {
     return (
       <Fragment>
         {modules.map(this.renderModule)}
-        {editable && <EmptyState modulesCount={modules.length} openModal={openModal} />}
+        {editable && !modules.length && <EmptyState modulesCount={modules.length} openModal={openModal} />}
       </Fragment>
     );
   }
