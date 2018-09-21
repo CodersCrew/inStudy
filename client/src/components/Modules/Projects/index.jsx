@@ -1,26 +1,8 @@
 import React from 'react';
 import { string, oneOfType, object, array, func } from 'prop-types';
 import { compose, withState, withHandlers } from 'recompose';
-import socialsList from 'data/socials';
 import ProjectModal from './ProjectModal';
 import { Container, ProjectContainer, Card, Text, Name, Header, StyledButton } from './styles';
-
-const ProjectImage = ({ image }) => (
-  <img src={(typeof image === 'string') ? image : image?.preview} />
-);
-
-ProjectImage.propTypes = {
-  image: oneOfType([object, string]).isRequired,
-};
-
-const Social = ({ socialType, url }) => (
-  <i className={socialsList[socialType].icon} />
-);
-
-Social.propTypes = {
-  socialType: string.isRequired,
-  url: string.isRequired,
-};
 
 const Project = props => (
   <ProjectContainer>
@@ -38,10 +20,7 @@ const Project = props => (
 Project.propTypes = {
   name: string.isRequired,
   header: string,
-  description: string.isRequired,
   image: oneOfType([object, string]).isRequired,
-  images: array,
-  socials: array,
   openModal: func.isRequired,
 };
 
