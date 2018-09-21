@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { media } from 'utils';
+import { Button } from 'antd';
 
 export const Container = styled.div`
   display: grid;
@@ -33,4 +34,9 @@ export const Container = styled.div`
       grid-area: unset !important;
     }
   `}
+`;
+
+export const StyledButton = styled(Button)`
+  background-color: var(--customColor) !important;
+  border-color: var(--customColor) !important;
 `;
