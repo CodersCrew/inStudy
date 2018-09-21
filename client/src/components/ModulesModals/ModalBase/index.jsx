@@ -11,7 +11,7 @@ import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
-import { Top, InputWrapper, ContentHeader } from './styles';
+import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal } from './styles';
 
 const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
 
@@ -50,6 +50,10 @@ class ModalBase extends Component {
       this.isEditModal = true;
       props.initialize(parseInitialValues(props.initialValues));
     }
+
+    this.state = {
+      isModalOpen: false,
+    };
   }
 
   getInitiativeId = () => this.props.initiatives[window.location.pathname.split('/')[2]];
@@ -89,6 +93,10 @@ class ModalBase extends Component {
     this.props.notify(deleteNotification(this.props.initialValues));
   };
 
+  openConfiramtionModal = () => this.setState({ isModalOpen: true });
+
+  closeConfiramtionModal = () => this.setState({ isModalOpen: false });
+
   render() {
     const { visible, onClose, name, iconClass, handleSubmit, children, submitting, contentHeader } = this.props;
     const buttons = [
@@ -107,7 +115,7 @@ class ModalBase extends Component {
 
     if (this.isEditModal) {
       buttons.push({
-        onClick: this.deleteModule,
+        onClick: this.openConfiramtionModal,
         label: 'Usuń moduł',
         type: 'danger',
         ghost: true,
@@ -143,6 +151,30 @@ class ModalBase extends Component {
         </Top>
         {contentHeader && <ContentHeader>{contentHeader}</ContentHeader>}
         {children}
+        <DeleteConfirmationModal
+          visible={this.state.isModalOpen}
+          type="confirmation"
+          onCancel={this.closeConfirmationModal}
+          title="Czy jesteś pewien, że chcesz usunąć ten moduł?"
+          iconClass="fal fa-trash-alt"
+          buttons={[
+            {
+              onClick: this.deleteModule,
+              label: 'Usuń moduł',
+              type: 'danger',
+              ghost: true,
+              loading: submitting,
+            },
+            {
+              onClick: this.closeConfirmationModal,
+              label: 'Nie usuwaj',
+              type: 'default',
+              loading: submitting,
+            },
+          ]}
+        >
+          Usuwanie jest procesem nieodwracalnym. Jeśli sądzisz, że moduł może przydać się w przyszłości skorzystaj z opcji jego ukrycia.
+        </DeleteConfirmationModal>
       </Modal>
     );
   }

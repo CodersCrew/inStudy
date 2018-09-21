@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Modal } from 'components';
 
 export const Top = styled.div`
   display: grid;
@@ -18,4 +19,10 @@ export const ContentHeader = styled.h6`
   font-weight: var(--bold);
   text-transform: uppercase;
   color: var(--text3);
+`;
+
+export const DeleteConfirmationModal = styled(Modal)`
+  i {
+    color: var(--error);
+  }
 `;
