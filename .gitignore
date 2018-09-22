@@ -4,9 +4,6 @@ node_modules
 # testing
 coverage
 
-# production
-build
-dist
 
 # private files
 dev.js
@@ -23,6 +20,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-/public
 
 package-lock\.json
