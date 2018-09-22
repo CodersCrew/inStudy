@@ -38,7 +38,7 @@ const User = ({ sizeName, logout, auth, history }) => (
         trigger={['click']}
         placement="bottomRight"
       >
-        <UserImage src={auth?.image} />
+        <UserImage src={auth?.image} icon="user" size={24} />
       </Dropdown>
     )}
   </Fragment>
