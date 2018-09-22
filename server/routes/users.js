@@ -1,5 +1,5 @@
-import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from '../services/fetchUser';
-import { createModuleValidators } from './validators/user-validators';
+import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData, reorderModules } from '../services/fetchUser';
+// import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
 
 module.exports = (app) => {
@@ -47,7 +47,7 @@ module.exports = (app) => {
   });
 
   app.put('/api/user/module', userLogged, (req, res) => {
-    const module = req.body.module;
+    const { module } = req.body;
     const moduleIndex = req.body.index;
     const userId = req.user._id;
 
@@ -66,6 +66,20 @@ module.exports = (app) => {
     const userId = req.user._id;
 
     deleteModule(userId, moduleIndex)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.sendStatus(404);
+      });
+  });
+
+  app.post('/api/user/module/reorder', (req, res) => {
+    const userId = req.user._id;
+    const modules = req.body;
+
+    reorderModules(userId, modules)
       .then(() => {
         res.sendStatus(201);
       })
