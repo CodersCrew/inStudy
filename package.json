@@ -8,7 +8,7 @@
     "server": "nodemon --exec \"yarn run parse-server && node dist/index.js\"",
     "parse-server": "rimraf dist/ && babel ./server/ --out-dir dist/ --ignore ./node_modules",
     "client": "cd client && yarn run start",
-    "build": "cd client && yarn run build",
+    "build": "yarn run parse-server && cd client && yarn run build",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "install:all": "yarn install && cd client && yarn install",
     "lint": "yarn run eslint --ext .jsx --ext .js client/"
