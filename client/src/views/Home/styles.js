@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Typist from 'react-typist';
 import { media } from 'utils';
 
 export const Container = styled.div`
@@ -63,23 +62,11 @@ export const Supheader = styled.p`
 
 export const HeaderWrapper = styled.div`
   display: ${props => Number(props.style.transform.split(/\(|\)/)[1]) < 0.2 && 'none'};
-`;
-
-export const Header = styled(Typist)`
-  user-select: none;
-  line-height: 1;
-  font-size: 52px;
-  font-weight: var(--bold);
-  font-family: var(--headerFont);
   margin-bottom: var(--space-xxl);
-  opacity: 1;
   ${media.lg`
-    font-size: 40px;
     margin-bottom: var(--space-xl);
   `}
   ${media.md`
-    font-size: var(--font-xxl);
-
     @media (orientation: landscape) {
       top: 0;
     }
@@ -90,7 +77,27 @@ export const Header = styled(Typist)`
   `}
   ${media.xs`
     margin-bottom: var(--space-md);
-    font-size: var(--font-xl);
     min-height: 62px;
   `}
+
+  span {
+    user-select: none;
+    line-height: 1;
+    font-size: 52px;
+    font-weight: var(--bold);
+    font-family: var(--headerFont);
+    opacity: 1;
+    ${media.lg`
+      font-size: 40px;
+    `}
+    ${media.md`
+      font-size: var(--font-xxl);
+    `}
+    ${media.sm`
+      line-height: 1.3;
+    `}
+    ${media.xs`
+      font-size: var(--font-xl);
+    `}
+  }
 `;

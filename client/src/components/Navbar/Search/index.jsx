@@ -37,7 +37,6 @@ class Search extends PureComponent {
 
   onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      console.log(this.state.value);
       this.onSearch(this.state.value);
     } else if (key === 'Escape' || key === 'Esc') {
       this.close();
@@ -47,11 +46,13 @@ class Search extends PureComponent {
   onSearch = query => this.props.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
 
   render() {
-    const { active, value } = this.state;
+    const { active } = this.state;
+    const value = this.state.value || '';
 
     return (
       <Container active={active}>
         <Input
+          type="text"
           placeholder="Napisz, czym się interesujesz"
           innerRef={(input) => { this.input = input; }}
           onKeyDown={this.onKeyDown}

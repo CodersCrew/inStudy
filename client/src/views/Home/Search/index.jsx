@@ -8,7 +8,7 @@ import { Container, Input, Icon } from './styles';
   ({ ui, router }) => ({ size: ui.size, query: router.location.search.split('query=')[1] }),
   { push },
 )
-class SearchBar extends PureComponent {
+class Search extends PureComponent {
   state = {
     value: this.props.query,
     querySnapshot: this.props.query,
@@ -22,23 +22,25 @@ class SearchBar extends PureComponent {
 
   onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      this.onSearch(this.state.value);
+      this.onSearch();
     }
   };
 
-  onSearch = query => this.props.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
+  onSearch = () => this.props.push(`/inicjatywy${this.state.value ? `/?query=${this.state.value}` : ''}`);
 
   render() {
     const placeholder =
       this.props.size.value > 768
         ? 'Napisz, czym się interesujesz. Resztę pozostaw nam ;)'
         : 'Napisz, czym się interesujesz';
+    const value = this.state.value || '';
 
     return (
       <Container>
         <Input
+          type="text"
           placeholder={placeholder}
-          value={this.state.value}
+          value={value}
           onChange={this.onChange}
           onKeyPress={this.onKeyDown}
         />
@@ -48,14 +50,14 @@ class SearchBar extends PureComponent {
   }
 }
 
-SearchBar.propTypes = {
-  onSearch: func.isRequired,
+Search.propTypes = {
   size: object.isRequired,
   query: string,
+  push: func.isRequired,
 };
 
-SearchBar.defaultProps = {
+Search.defaultProps = {
   query: '',
 };
 
-export default SearchBar;
+export default Search;

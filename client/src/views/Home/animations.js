@@ -7,10 +7,10 @@ export const getSpringContainerProps = ({ previousPath, currentPath }) => {
   if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
     return { from: { height: window.innerHeight - 40 }, to: { height: 280 } };
   }
-  if (!previousPath && currentPath === '/') {
-    return { from: { height: window.innerHeight } };
+  if (currentPath === '/') {
+    return { from: { height: window.innerHeight - 40 } };
   }
-  if (!previousPath && initiativesRoutes.includes(currentPath)) {
+  if (initiativesRoutes.includes(currentPath)) {
     return { from: { height: 280 } };
   }
 };
@@ -22,10 +22,10 @@ export const getSpringHeaderProps = ({ previousPath, currentPath }) => {
   if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
     return { from: { transform: 'scale(1)' }, to: { transform: 'scale(0)' } };
   }
-  if (!previousPath && currentPath === '/') {
+  if (currentPath === '/') {
     return { from: { transform: 'scale(1)' } };
   }
-  if (!previousPath && initiativesRoutes.includes(currentPath)) {
+  if (initiativesRoutes.includes(currentPath)) {
     return { from: { transform: 'scale(0)' } };
   }
 };
