@@ -27,6 +27,7 @@ module.exports = (app) => {
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then((foundInitiatives) => {
+        console.log(foundInitiatives);
         res.status(200).json(foundInitiatives);
       })
       .catch(() => {
