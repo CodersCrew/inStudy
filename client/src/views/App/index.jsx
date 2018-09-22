@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { getFontAwesome, notificationsTheme } from 'utils';
 import NotificationsSystem from 'reapop';
+import Raven from 'raven-js';
+
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
 
@@ -34,6 +36,10 @@ class App extends PureComponent {
 
   componentDidMount() {
     this.props.fetchUser();
+  }
+
+  componentDidCatch(error) {
+    Raven.captureException(error);
   }
 
   render() {
