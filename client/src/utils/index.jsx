@@ -36,6 +36,16 @@ export const removeFromArray = (array, index) => array.filter((item, i) => i !==
 
 export const pick = (obj, arr) => arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
 
+export const moveInArr = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+export const isInitiativeView = () => window.location.pathname.includes('inicjatywy');
+
 export const nl2br = text =>
   text.split('\n').map((item, key) => (
     <span key={key}>

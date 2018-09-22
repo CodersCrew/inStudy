@@ -34,9 +34,3 @@ export const DeleteConfirmationModal = styled(Modal)`
     color: var(--error);
   }
 `;
-
-export const HideConfirmationModal = styled(Modal)`
-  i {
-    color: var(--grey3);
-  }
-`;

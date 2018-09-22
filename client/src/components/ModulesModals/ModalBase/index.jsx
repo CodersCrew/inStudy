@@ -4,7 +4,7 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { Tooltip } from 'react-tippy';
-import { omit } from 'utils';
+import { omit, isInitiativeView } from 'utils';
 import { required } from 'utils/validators';
 import { Modal } from 'components';
 import { Input, IconPicker } from 'components/reduxFormFields';
@@ -12,11 +12,9 @@ import { withNotifications, withCloseAnimation } from 'hocs';
 import { addUserModule, updateUserModule, deleteUserModule } from 'store/actions/userModules';
 import { addInitiativeModule, updateInitiativeModule, deleteInitiativeModule } from 'store/actions/initiativeModules';
 import { addNotification, updateNotification, deleteNotification } from './notifications';
-import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal, HideConfirmationModal, ItemsError } from './styles';
+import { Top, InputWrapper, ContentHeader, DeleteConfirmationModal, ItemsError } from './styles';
 
 const parseInitialValues = ({ title, icon, content }) => ({ title, icon, ...content });
-
-const isInitiativeView = () => window.location.pathname.includes('inicjatywy');
 
 const valueSelector = formValueSelector('moduleModal');
 

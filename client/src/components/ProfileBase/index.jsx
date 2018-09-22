@@ -24,7 +24,7 @@ class UserProfile extends PureComponent {
         <Fragment>
           <MainContainer>
             <LeftColumn>{data && <Card {...data} editable={editable} cardEditModal={cardEditModal} />}</LeftColumn>
-            <RightColumn>
+            <RightColumn editable={editable}>
               <Modules modules={data?.modules} openModal={openModal} editable={editable} />
             </RightColumn>
           </MainContainer>
