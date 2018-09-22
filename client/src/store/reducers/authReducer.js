@@ -7,9 +7,11 @@ import {
   ADD_USER_MODULE,
   UPDATE_USER_MODULE,
   DELETE_USER_MODULE,
+  REORDER_USER_MODULES,
   ADD_INITIATIVE_MODULE,
   UPDATE_INITIATIVE_MODULE,
   DELETE_INITIATIVE_MODULE,
+  REORDER_INITIATIVE_MODULES,
   UPDATE_BASIC_INITIATIVE_DATA,
 } from '../actions/types';
 
@@ -47,6 +49,9 @@ export default (state = null, { type, payload }) => {
     case DELETE_USER_MODULE:
       return { ...state, modules: removeFromArray(state.modules, payload) };
 
+    case REORDER_USER_MODULES:
+      return { ...state, modules: payload };
+
     case ADD_INITIATIVE_MODULE: {
       const [initiative, initiativeIndex] = getInitiative(state, payload);
       const updatedInitiative = { ...initiative, modules: [...initiative.modules, payload.module] };
@@ -69,6 +74,16 @@ export default (state = null, { type, payload }) => {
       const updatedInitiative = {
         ...initiative,
         modules: initiative.modules.filter(({ _id }) => _id !== payload.moduleId),
+      };
+
+      return { ...state, initiatives: replaceInArray(state.initiatives, updatedInitiative, initiativeIndex) };
+    }
+
+    case REORDER_INITIATIVE_MODULES: {
+      const [initiative, initiativeIndex] = getInitiative(state, payload);
+      const updatedInitiative = {
+        ...initiative,
+        modules: payload.modules,
       };
 
       return { ...state, initiatives: replaceInArray(state.initiatives, updatedInitiative, initiativeIndex) };

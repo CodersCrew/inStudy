@@ -25,7 +25,7 @@ class EditableModuleBase extends PureComponent {
     const ModuleModal = modalData.modalContent;
 
     return (
-      <Container isHidden={this.props.isHidden}>
+      <Container {...this.props}>
         <EditIcon className="fal fa-edit" onClick={this.openModal} />
         <Header>
           {this.props.icon && <Icon className={`fal fa-${this.props.icon}`} />}
