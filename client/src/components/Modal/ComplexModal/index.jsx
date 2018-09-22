@@ -34,6 +34,7 @@ const ComplexModal = ({ visible, iconClass, title, onCancel, width, buttons, chi
 );
 
 ComplexModal.propTypes = {
+  className: string,
   iconClass: string,
   title: string.isRequired,
   visible: bool,
@@ -45,6 +46,7 @@ ComplexModal.propTypes = {
 };
 
 ComplexModal.defaultProps = {
+  className: '',
   iconClass: '',
   visible: false,
   buttons: null,

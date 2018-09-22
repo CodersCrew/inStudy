@@ -99,7 +99,7 @@ class ItemModal extends PureComponent {
           <Field
             name="image"
             component={ImagePicker}
-            props={{ label: 'Zdjęcie' }}
+            props={{ label: 'Zdjęcie', aspect: 1 }}
             validate={[required]}
           />
           <Field

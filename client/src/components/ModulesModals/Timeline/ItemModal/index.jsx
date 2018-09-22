@@ -11,31 +11,31 @@ import { Container, Actual } from './styles';
 
 const valueSelector = formValueSelector('historyItemForm');
 
-  @reduxForm({ form: 'historyItemForm' })
-  @connect(state => ({ from: valueSelector(state, 'from'), to: valueSelector(state, 'to') }))
+@reduxForm({ form: 'historyItemForm' })
+@connect(state => ({ from: valueSelector(state, 'from'), to: valueSelector(state, 'to') }))
 class ItemModal extends PureComponent {
-    constructor(props) {
-      super(props);
-      this.isAfterDate = () => false;
-      this.isBeforeDate = () => false;
+  constructor(props) {
+    super(props);
+    this.isAfterDate = () => false;
+    this.isBeforeDate = () => false;
 
-      if (Object.keys(props.itemData).length) {
-        const { from: initialFrom, to: initialTo } = props.itemData;
-        const from = initialFrom ? moment(initialFrom, 'MM-YYYY') : undefined;
-        const to = initialTo.includes('-') ? moment(initialTo, 'MM-YYYY') : initialTo;
+    if (Object.keys(props.itemData).length) {
+      const { from: initialFrom, to: initialTo } = props.itemData;
+      const from = initialFrom ? moment(initialFrom, 'MM-YYYY') : undefined;
+      const to = initialTo.includes('-') ? moment(initialTo, 'MM-YYYY') : initialTo;
 
-        this.props.initialize({ ...omit(props.itemData, ['index']), from, to });
-        this.isAfterDate = isAfter(props.from);
-        this.isBeforeDate = isBefore(props.to);
-      }
+      this.props.initialize({ ...omit(props.itemData, ['index']), from, to });
+      this.isAfterDate = isAfter(props.from);
+      this.isBeforeDate = isBefore(props.to);
     }
+  }
 
-    componentDidUpdate(prevProps) {
-      if (prevProps.from !== this.props.from || prevProps.to !== this.props.to) {
-        this.isAfterDate = isAfter(this.props.from);
-        this.isBeforeDate = isAfter(this.props.to);
-      }
+  componentDidUpdate(prevProps) {
+    if (prevProps.from !== this.props.from || prevProps.to !== this.props.to) {
+      this.isAfterDate = isAfter(this.props.from);
+      this.isBeforeDate = isAfter(this.props.to);
     }
+  }
 
     onSubmit = (values) => {
       const valuesToSave = {
@@ -112,7 +112,7 @@ class ItemModal extends PureComponent {
         </Modal>
       );
     }
-  }
+}
 
 ItemModal.propTypes = {
   change: func.isRequired,
