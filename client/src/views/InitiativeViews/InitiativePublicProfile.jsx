@@ -12,19 +12,11 @@ import { ProfileBase } from 'components';
 )
 @withCustomColor
 class InitiativePublicProfile extends PureComponent {
-  constructor(props) {
-    super(props);
-    window.disableHomeAnimation = true;
-  }
-
   componentDidMount() {
     this.props.getInitiativePublicProfile(this.props.match.params.shortUrl);
   }
 
   componentWillUnmount() {
-    setTimeout(() => {
-      window.disableHomeAnimation = false;
-    }, 100);
     this.props.cleanPublicProfile();
   }
 

@@ -27,12 +27,7 @@ const NavItems = ({ location }) => (
         <Icon className="fal fa-angle-down" />
       </NavItem>
     </Dropdown>
-    <NavItemLink
-      to="/inicjatywy"
-      onClick={() => {
-        window.resizeHomeDown = location.pathname === '/';
-      }}
-    >
+    <NavItemLink to="/inicjatywy">
       Inicjatywy
     </NavItemLink>
   </Container>

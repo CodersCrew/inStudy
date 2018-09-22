@@ -1,16 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Typist from 'react-typist';
 import { media } from 'utils';
-
-const toSmaller = keyframes`
-  from {
-    height: 100%;
-  }
-
-  to {
-    height: 280px;
-  }
-`;
 
 export const Container = styled.div`
   z-index: 0;
@@ -20,7 +10,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: var(--primary2);
-  height: ${props => (props.isLanding ? '280px' : '100%')};
+  top: ${props => (props.isLanding ? 0 : '-24px')};
 
   &::before {
     content: '';
@@ -33,20 +23,6 @@ export const Container = styled.div`
     right: 0;
     background: url('${props => props.src}') no-repeat bottom/cover;
   }
-
-  > div {
-    position: relative;
-    top: ${props => (props.isLanding ? 0 : '-32px')};
-  }
-
-  &.exiting {
-    animation: ${toSmaller} 0.6s var(--ease-in-out);
-  }
-
-  &.entering {
-    animation: ${toSmaller} 0.6s var(--ease-in-out);
-    animation-direction: reverse;
-  }
 `;
 
 export const Middle = styled.div`
@@ -57,7 +33,9 @@ export const Middle = styled.div`
   padding: 0 var(--space-xl);
   text-align: center;
   color: var(--white);
-  ${media.xs`padding: 0 var(--space-md);`};
+  ${media.xs`
+    padding: 0 var(--space-md);
+  `};
 `;
 
 export const Supheader = styled.p`
@@ -69,39 +47,22 @@ export const Supheader = styled.p`
   color: var(--white);
   opacity: 1;
   transition: all 0.3s linear;
-  ${media.lg`font-size: var(--font-xl); padding-bottom: var(--space-lg);`};
-  ${media.sm`font-size: var(--font-lg); padding-bottom: var(--space-md);`};
-  ${media.xs`font-size: var(--font-md); padding-bottom: var(--space-sm);`};
+  ${media.lg`
+    font-size: var(--font-xl);
+    padding-bottom: var(--space-lg);
+  `};
+  ${media.sm`
+    font-size: var(--font-lg);
+    padding-bottom: var(--space-md);
+  `};
+  ${media.xs`
+    font-size: var(--font-md);
+    padding-bottom: var(--space-sm);
+  `};
 `;
 
-const hideHeader = keyframes`
-  from {
-    line-height: 1;
-    font-size: 52px;
-    margin-bottom: var(--space-xxl);
-    opacity: 1;
-    ${media.lg`
-      box-sizing: border-box;
-      font-size: 40px;
-      margin-bottom: var(--space-xl);
-    `}
-    ${media.md`
-      box-sizing: border-box;
-      font-size: var(--font-xxl);
-    `}
-    ${media.sm`
-      box-sizing: border-box;
-      line-height: 1.3;
-      min-height: 82px;
-    `}
-    ${media.xs`margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`}
-  }
-
-  to {
-    font-size: 0;
-    margin: 0;
-    line-height: 0;
-  }
+export const HeaderWrapper = styled.div`
+  display: ${props => Number(props.style.transform.split(/\(|\)/)[1]) < 0.2 && 'none'};
 `;
 
 export const Header = styled(Typist)`
@@ -127,35 +88,9 @@ export const Header = styled(Typist)`
     line-height: 1.3;
     min-height: 82px;
   `}
-  ${media.xs`margin-bottom: var(--space-md); font-size: var(--font-xl); min-height: 62px;`}
-
-  &.exiting {
-    animation: ${hideHeader} 0.6s var(--ease-in-out);
-  }
-
-  &.entering {
-    animation: ${hideHeader} 0.6s var(--ease-in-out);
-    animation-direction: reverse;
-  }
-
-  .Cursor {
-    display: inline-block;
-
-    &--blinking {
-      opacity: 1;
-      animation: blink 1s linear infinite;
-
-      @keyframes blink {
-        0% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    }
-  }
+  ${media.xs`
+    margin-bottom: var(--space-md);
+    font-size: var(--font-xl);
+    min-height: 62px;
+  `}
 `;

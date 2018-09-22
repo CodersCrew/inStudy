@@ -1,49 +1,26 @@
 import React, { PureComponent } from 'react';
-import { object, func, oneOf, bool, number } from 'prop-types';
+import { object, func, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { withSearch } from 'hocs';
-import { getInitiatives } from '../../../store/actions';
 import { Container, Input, Icon } from './styles';
 
-@withSearch
 @connect(
-  ({ ui, search, initiatives }) => ({ size: ui.size, search, page: initiatives.page }),
-  { getInitiatives },
+  ({ ui, router }) => ({ size: ui.size, query: router.location.search.split('query=')[1] }),
 )
 class SearchBar extends PureComponent {
-  constructor(props) {
-    super(props);
-    const { query } = props.search;
-
-    if (props.page === false) {
-      props.getInitiatives({ query });
-    }
-
-    this.state = {
-      value: query,
-      valueFromProps: query,
-    };
-  }
-
-  static getDerivedStateFromProps(np, ps) {
-    const { query } = np.search;
-    return query !== ps.valueFromProps ? { value: query, valueFromProps: query } : null;
+  state = {
+    value: this.props.query,
   }
 
   onChange = ({ target: { value } }) => this.setState({ value });
 
   onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      this.onSearch();
+      this.onSearch(this.state.value);
     }
   };
 
   onSearch = () => {
-    this.props.setSearch({ query: this.state.value });
-    window.resizeHomeDown = this.props.location.pathname === '/';
-    const { getInitiatives, onSearch } = this.props;
-    onSearch();
-    getInitiatives({ query: this.state.value, page: 0 });
+    this.props.onSearch(this.state.value);
   };
 
   render() {
@@ -67,18 +44,13 @@ class SearchBar extends PureComponent {
 }
 
 SearchBar.propTypes = {
-  getInitiatives: func.isRequired,
-  onEnterPress: func,
-  onSearch: func,
-  page: oneOf([bool, number]),
-  search: object.isRequired,
-  setSearch: func.isRequired,
+  onSearch: func.isRequired,
   size: object.isRequired,
+  query: string,
 };
 
 SearchBar.defaultProps = {
-  onEnterPress: () => {},
-  onSearch: () => {},
+  query: '',
 };
 
 export default SearchBar;

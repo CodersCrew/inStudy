@@ -1,44 +1,64 @@
 import React, { PureComponent } from 'react';
-import { bool, object } from 'prop-types';
+import { object } from 'prop-types';
 import Typist from 'react-typist';
 import { connect } from 'react-redux';
+import { Spring } from 'react-spring';
 import { withSearch } from 'hocs';
-import { Transition } from 'react-transition-group';
 import headerTexts from './headerTexts';
 import Search from './Search';
-import { Container, Middle, Supheader, Header } from './styles';
+import { Container, Middle, Supheader, HeaderWrapper, Header } from './styles';
+
+const initiativesRoutes = ['/inicjatywy', '/inicjatywy/'];
+
+const getSpringContainerProps = ({ previousPath, currentPath }) => {
+  if (initiativesRoutes.includes(previousPath) && currentPath === '/') {
+    return { from: { height: 280 }, to: { height: window.innerHeight - 40 } };
+  }
+  if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
+    return { from: { height: window.innerHeight - 40 }, to: { height: 280 } };
+  }
+  if (!previousPath && currentPath === '/') {
+    return { from: { height: window.innerHeight } };
+  }
+  if (!previousPath && initiativesRoutes.includes(currentPath)) {
+    return { from: { height: 280 } };
+  }
+};
+
+const getSpringHeaderProps = ({ previousPath, currentPath }) => {
+  if (initiativesRoutes.includes(previousPath) && currentPath === '/') {
+    return { from: { transform: 'scale(0)' }, to: { transform: 'scale(1)' } };
+  }
+  if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
+    return { from: { transform: 'scale(1)' }, to: { transform: 'scale(0)' } };
+  }
+  if (!previousPath && currentPath === '/') {
+    return { from: { transform: 'scale(1)' } };
+  }
+  if (!previousPath && initiativesRoutes.includes(currentPath)) {
+    return { from: { transform: 'scale(0)' } };
+  }
+};
 
 @withSearch
 @connect(state => ({ uiHistory: state.ui.history }))
 class Home extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(props.uiHistory);
 
-    const {
-      uiHistory: { previousPath },
-      location: { pathname },
-    } = this.props;
+    const { previousPath, currentPath } = this.props.uiHistory;
 
-    window.resizeHomeUp = window.resizeHomeUp || (previousPath === '/inicjatywy' && pathname === '/');
-    window.resizeHomeDown = window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy');
+    this.state = {
+      headerIndex: 0,
+    };
 
-    if (window.resizeHomeUp && !window.disableAnimation) {
-      this.state = { headerIndex: 0, isLanding: false };
-      setTimeout(() => this.setState({ isLanding: true }), 0);
-    } else if (window.resizeHomeDown && !window.disableAnimation) {
-      this.state = { headerIndex: 0, isLanding: true };
-      setTimeout(() => this.setState({ isLanding: false }), 0);
-    } else {
-      this.state = { headerIndex: 0, isLanding: !props.listView };
-    }
-
-    this.supheader = pathname === '/inicjatywy'
+    this.isLanding = currentPath === '/';
+    this.springContainerProps = getSpringContainerProps({ previousPath, currentPath });
+    this.springHeaderProps = getSpringHeaderProps({ previousPath, currentPath });
+    this.supheader = initiativesRoutes.includes(currentPath)
       ? 'Odnajdź najlepszą inicjatywę dla siebie'
       : 'Dołącz do najaktywniejszych studentów i';
-
-    window.disableAnimation = false;
-    window.resizeHomeUp = false;
-    window.resizeHomeDown = false;
   }
 
   switchHeaderText = headerIndex => this.setState({ headerIndex });
@@ -49,61 +69,49 @@ class Home extends PureComponent {
     this.setState({ headerIndex: -1 }, () => this.switchHeaderText(headerIndex));
   };
 
-  onSearch = () => {
-    window.disableAnimation = true;
-    if (this.state.isLanding) {
-      this.setState({ isLanding: false }, () => {
-        window.setTimeout(() => {
-          this.props.history.push(`/inicjatywy${window.location.search}`);
-        }, 600);
-      });
-    }
-  };
+  onSearch = query => this.props.history.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
 
   renderHeader = index => (
-    <Transition in={this.state.isLanding} timeout={600} unmountOnExit>
-      {state => (
-        <Header onTypingDone={this.dryRender} className={state}>
-          <Typist.Delay ms={300} />
-          {headerTexts[index]}
-          <Typist.Backspace count={headerTexts[index].length} delay={3000} />
-        </Header>
+    <Spring {...this.springHeaderProps} key="header">
+      {styles => (
+        <HeaderWrapper style={styles}>
+          <Header onTypingDone={this.dryRender}>
+            <Typist.Delay ms={300} />
+            {headerTexts[index]}
+            <Typist.Backspace count={headerTexts[index].length} delay={3000} />
+          </Header>
+        </HeaderWrapper>
       )}
-    </Transition>
+    </Spring>
   );
 
   renderText = index => (index === -1 ? '|' : this.renderHeader(index));
 
   render() {
-    const { headerIndex, isLanding } = this.state;
+    const { headerIndex } = this.state;
 
     return (
-      <Transition in={isLanding} timeout={600}>
-        {state => (
-          <Container src="/img/landing.jpg" isLanding={!isLanding} className={state}>
+      <Spring {...this.springContainerProps}>
+        {styles => (
+          <Container src="/img/landing.jpg" style={styles} isLanding={this.isLanding}>
             <Middle>
-              <Supheader>{this.supheader}</Supheader>
+              <Supheader key="supheader">{this.supheader}</Supheader>
               {this.renderText(headerIndex)}
-              <Search onSearch={this.onSearch} />
+              <Search key="search" onSearch={this.onSearch} />
             </Middle>
           </Container>
         )}
-      </Transition>
+      </Spring>
     );
   }
 }
 
 Home.propTypes = {
-  listView: bool,
-  resized: bool,
   history: object.isRequired,
-  location: object.isRequired,
   uiHistory: object,
 };
 
 Home.defaultProps = {
-  listView: false,
-  resized: false,
   uiHistory: {},
 };
 

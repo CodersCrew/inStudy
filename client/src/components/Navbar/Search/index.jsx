@@ -55,9 +55,6 @@ class Search extends PureComponent {
   onSearch = () => {
     const { getInitiatives, history, location } = this.props;
 
-    window.resizeHomeDown = location.pathname === '/';
-    window.disableAnimation = true;
-
     if (location.pathname !== '/inicjatywy') {
       history.push(`/inicjatywy${window.location.search}`);
     }

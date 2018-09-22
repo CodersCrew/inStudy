@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router'
 import { Scrollbars } from 'react-custom-scrollbars';
 import { getFontAwesome, notificationsTheme } from 'utils';
 import NotificationsSystem from 'reapop';
@@ -41,7 +42,7 @@ class App extends PureComponent {
     }
 
     return (
-      <BrowserRouter>
+      <ConnectedRouter history={this.props.history}>
         <Container>
           <UIObserver />
           <Navbar />
@@ -63,7 +64,7 @@ class App extends PureComponent {
           </Body>
           <NotificationsSystem theme={notificationsTheme} />
         </Container>
-      </BrowserRouter>
+      </ConnectedRouter>
     );
   }
 }
