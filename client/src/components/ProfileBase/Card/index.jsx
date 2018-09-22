@@ -2,7 +2,7 @@ import React from 'react';
 import { string, arrayOf, object, bool, func } from 'prop-types';
 import { compose, withState, withHandlers } from 'recompose';
 import { socials } from 'data';
-import { Container, Image, Name, Description, Socials, SocialItem, EditIcon, StyledAvatar } from './styles';
+import { Container, Name, Description, Socials, SocialItem, EditIcon, StyledAvatar } from './styles';
 
 const staticProps = {
   image: string.isRequired,
@@ -38,11 +38,7 @@ const EditableCard = (props) => {
 
   return (
     <Container editable>
-      {props.image ? (
-        <Image src={props.image} alt={`${props.name} - zdjęcie profilowe`} />
-      ) : (
-        <StyledAvatar name={props.name} />
-      )}
+      <StyledAvatar src={props.image} alt={props.name} icon="meh" />
       <Name>{props.name}</Name>
       <Description>{props.description}</Description>
       {props.socials.length > 0 && <Socials>{props.socials.map(Social)}</Socials>}
@@ -58,7 +54,7 @@ const EnhancedEditableCard = withHocs(EditableCard);
 
 const StaticCard = ({ name, description, image, socials }) => (
   <Container>
-    {image ? <Image src={image} alt={`${name} - zdjęcie profilowe`} /> : <StyledAvatar name={name} />}
+    <StyledAvatar src={image} alt={name} icon="meh" />
     <Name>{name}</Name>
     <Description>{description}</Description>
     {socials.length > 0 && <Socials>{socials.map(Social)}</Socials>}

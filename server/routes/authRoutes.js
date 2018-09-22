@@ -1,8 +1,8 @@
 import passport from 'passport';
 import mongoose from 'mongoose';
-import { mapUserToView } from './../services/fetchUser';
+import { mapUserToView } from '../services/fetchUser';
 
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     '/auth/google',
     passport.authenticate('google', {
@@ -28,11 +28,11 @@ module.exports = app => {
         $in: mapUser?.initiatives?.map(initiative => new mongoose.mongo.ObjectId(initiative)),
       },
     })
-      .then(initiatives => {
+      .then((initiatives) => {
         if (initiatives.length) res.json({ ...mapUser, initiatives });
         else res.json(mapUser);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         res.sendStatus(404);
       });

@@ -12,6 +12,8 @@ import {
   UPDATE_BASIC_USER_DATA,
   ADD_USER_INITIATIVE,
   UPDATE_BASIC_INITIATIVE_DATA,
+  INCREMENT_MODALS_COUNT,
+  DECREMENT_MODALS_COUNT,
 } from './types';
 
 export const fetchUser = () => async (dispatch) => {
@@ -40,6 +42,14 @@ export const setSize = size => ({
 export const setHistory = history => ({
   type: SET_HISTORY,
   payload: history,
+});
+
+export const incrementModalsCount = () => ({
+  type: INCREMENT_MODALS_COUNT,
+});
+
+export const decrementModalsCount = () => ({
+  type: DECREMENT_MODALS_COUNT,
 });
 
 let reqCache = {};

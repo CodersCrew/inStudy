@@ -1,5 +1,5 @@
 import keys from '../../config/keys';
-import InitializeUserAccount from './../InitializeUserAccount';
+import InitializeUserAccount from '../InitializeUserAccount';
 
 export default User => ({
   config: {

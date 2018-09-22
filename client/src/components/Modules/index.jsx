@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { array, func, bool, string } from 'prop-types';
+import { array, func, bool, string, number } from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
@@ -16,13 +16,13 @@ const renderEditState = modules => modules.map((module, index) => (
   <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} editable />
 ));
 
-const renderDraggableEditState = (modules, onDragEnd) => (
+const renderDraggableEditState = (modules, onDragEnd, openedModals) => (
   <DragDropContext onDragEnd={onDragEnd}>
     <Droppable droppableId="droppable">
       {({ innerRef: droppableRef }) => (
         <div ref={droppableRef}>
           {modules.map((module, index) => (
-            <Draggable key={module.title} draggableId={module.title} index={index}>
+            <Draggable key={module.title} draggableId={module.title} index={index} isDragDisabled={openedModals}>
               {({ innerRef, draggableProps, dragHandleProps }) => (
                 <div ref={innerRef} {...draggableProps} {...dragHandleProps}>
                   <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} editable />
@@ -40,10 +40,10 @@ const renderViewState = modules => modules.map((module, index) => (
   <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} editable={false} />
 ));
 
-const renderModules = ({ editable, modulesCount, modules, onDragEnd, addModule }) => {
+const renderModules = ({ editable, modulesCount, modules, onDragEnd, addModule, openedModals }) => {
   if (editable && !modulesCount) return renderEmptyState(addModule);
   if (editable && modulesCount === 1) return renderEditState(modules);
-  if (editable && modulesCount > 1) return renderDraggableEditState(modules, onDragEnd);
+  if (editable && modulesCount > 1) return renderDraggableEditState(modules, onDragEnd, openedModals);
   if (!editable) return renderViewState(modules);
 };
 
@@ -60,7 +60,7 @@ const renderFab = (addModule, editable) => {
   return null;
 };
 
-@connect(null, { reorderUserModules, reorderInitiativeModules })
+@connect(({ ui: { openedModals } }) => ({ openedModals }), { reorderUserModules, reorderInitiativeModules })
 class Modules extends PureComponent {
   onDragEnd = ({ source, destination }) => {
     if (!destination) return;
@@ -75,13 +75,13 @@ class Modules extends PureComponent {
   }
 
   render() {
-    const { props: { modules, editable, openModal }, onDragEnd } = this;
+    const { props: { modules, editable, openModal, openedModals }, onDragEnd } = this;
     const modulesCount = modules.length;
     const addModule = () => openModal('AddModule');
 
     return (
       <Fragment>
-        {renderModules({ editable, modulesCount, modules, onDragEnd, addModule })}
+        {renderModules({ editable, modulesCount, modules, onDragEnd, addModule, openedModals })}
         {renderFab(addModule, editable)}
       </Fragment>
     );
@@ -95,6 +95,7 @@ Modules.propTypes = {
   reorderUserModules: func,
   reorderInitiativeModules: func,
   initiativeId: string,
+  openedModals: number,
 };
 
 Modules.defaultProps = {
@@ -102,6 +103,7 @@ Modules.defaultProps = {
   reorderUserModules: () => {},
   reorderInitiativeModules: () => {},
   initiativeId: '',
+  openedModals: 0,
 };
 
 export default Modules;

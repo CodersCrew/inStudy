@@ -23,7 +23,7 @@ import {
   FeatureIcon,
 } from './styles';
 
-const CardItem = ({ name, image, description, university, profileCompleted, shortUrl, styles, onClick }) => (
+const CardItem = ({ name, image, description, university, profileCompleted, shortUrl, color, styles, onClick }) => (
   <Container
     to={`/inicjatywy/${shortUrl}`}
     style={omit(styles, ['opacity'])}
@@ -32,9 +32,9 @@ const CardItem = ({ name, image, description, university, profileCompleted, shor
       onClick();
     }}
   >
-    <Head style={{ opacity: styles.opacity }}>
+    <Head style={{ opacity: styles.opacity }} color={color}>
       <Title>{name}</Title>
-      <MoreIcon className="fal fa-ellipsis-v moreIcon" />
+      {/* <MoreIcon className="fal fa-ellipsis-v moreIcon" /> */}
     </Head>
     <Content style={{ opacity: styles.opacity }}>
       <Left>
@@ -45,10 +45,10 @@ const CardItem = ({ name, image, description, university, profileCompleted, shor
         <Footer>
           <UniversityLogo src={university.image} />
           <FeatureIcons>
-            <FeatureIcon active={profileCompleted}>
+            <FeatureIcon color={color}>
               <i className="fal fa-user-plus" />
             </FeatureIcon>
-            <FeatureIcon>
+            <FeatureIcon active={profileCompleted} color={color}>
               <i className="fal fa-star" />
             </FeatureIcon>
           </FeatureIcons>
@@ -67,6 +67,7 @@ CardItem.propTypes = {
   shortUrl: string.isRequired,
   styles: object.isRequired,
   onClick: func.isRequired,
+  color: string.isRequired,
 };
 
 const handleFrame = ({ opacity }, pushNewUrl, shortUrl) => {
@@ -92,7 +93,7 @@ const Card = props => !props.clicked
     <Spring
       {...props}
       from={{ transform: 'scale(1)', opacity: 1, backgroundColor: 'hsl(0, 100%, 100%)' }}
-      to={{ transform: 'scale(10)', opacity: -0.2, backgroundColor: 'hsl(240, 100%, 99%)' }}
+      to={{ transform: 'scale(12)', opacity: -0.1, backgroundColor: 'hsl(240, 100%, 99%)' }}
       onFrame={styles => handleFrame(styles, props.push, props.shortUrl)}
     >
       {styles => <CardItem {...props} styles={{ ...styles, zIndex: 1 }} />}

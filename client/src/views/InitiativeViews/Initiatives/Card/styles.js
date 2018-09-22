@@ -9,7 +9,7 @@ export const Container = styled(Link)`
   background-color: var(--white);
   border-radius: 4px;
   box-shadow: var(--shadow2);
-  transition: all 0.3s var(--ease-out);
+  transition: all 0.3s var(--ease-in-out);
   cursor: pointer;
   height: 100%;
   text-decoration: none;
@@ -34,7 +34,7 @@ export const Container = styled(Link)`
 export const Head = styled.div`
   display: flex;
   align-items: flex-start;
-  border-bottom: 3px solid var(--primary2);
+  border-bottom: 3px solid ${props => props.color};
   padding: var(--space-md) var(--space-lg);
   line-height: var(--space-lg);
   ${media.xs`
@@ -166,8 +166,8 @@ export const FeatureIcon = styled.div`
   height: 32px;
   min-width: 32px;
   min-height: 32px;
-  border: 1px solid ${props => (props.active ? 'var(--primary2)' : 'var(--grey5)')};
-  background-color: ${props => (props.active ? 'var(--primary1)' : 'var(--white)')};
+  border: 1px solid ${props => (props.active ? props.color : 'var(--grey5)')};
+  background-color: ${props => (props.active ? props.color : 'var(--white)')};
   border-radius: 100%;
 
   &:not(:last-child) {
