@@ -1,8 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { object, bool, array, node } from 'prop-types';
-import Card from './Card';
 import { Modules } from 'components';
 import ModulesModals from 'components/ModulesModals';
+import Card from './Card';
 import { MainContainer, LeftColumn, RightColumn } from './styles';
 
 class UserProfile extends PureComponent {
@@ -25,7 +25,7 @@ class UserProfile extends PureComponent {
           <MainContainer>
             <LeftColumn>{data && <Card {...data} editable={editable} cardEditModal={cardEditModal} />}</LeftColumn>
             <RightColumn editable={editable}>
-              <Modules modules={data?.modules} openModal={openModal} editable={editable} />
+              <Modules modules={data?.modules} openModal={openModal} editable={editable} initiativeId={data._id} />
             </RightColumn>
           </MainContainer>
           {editable && (

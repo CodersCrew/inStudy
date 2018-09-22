@@ -22,6 +22,7 @@ export const deleteInitiativeModule = (initiativeId, moduleId) => async (dispatc
 };
 
 export const reorderInitiativeModules = (initiativeId, modules) => async (dispatch) => {
-  // await axios.delete(`/api/initiative/${initiativeId}/module/${moduleId}`, module);
-  return dispatch({ type: REORDER_INITIATIVE_MODULES, payload: { initiativeId, modules } });
+  dispatch({ type: REORDER_INITIATIVE_MODULES, payload: { initiativeId, modules } });
+  await axios.post(`/api/initiative/${initiativeId}/module/reorder`, modules);
+  return modules;
 };

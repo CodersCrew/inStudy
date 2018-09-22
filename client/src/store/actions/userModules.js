@@ -24,4 +24,5 @@ export const deleteUserModule = index => async (dispatch) => {
 export const reorderUserModules = modules => async (dispatch) => {
   dispatch({ type: REORDER_USER_MODULES, payload: modules });
   await axios.post('/api/user/module/reorder', modules);
+  return modules;
 };

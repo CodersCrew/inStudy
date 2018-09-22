@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { array, func, bool } from 'prop-types';
+import { array, func, bool, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
@@ -68,7 +68,7 @@ class Modules extends PureComponent {
     const reorderedModules = moveInArr(this.props.modules, source.index, destination.index);
 
     if (isInitiativeView()) {
-      this.props.reorderInitiativeModules(reorderedModules);
+      this.props.reorderInitiativeModules(this.props.initiativeId, reorderedModules);
     } else {
       this.props.reorderUserModules(reorderedModules);
     }
@@ -94,12 +94,14 @@ Modules.propTypes = {
   editable: bool.isRequired,
   reorderUserModules: func,
   reorderInitiativeModules: func,
+  initiativeId: string,
 };
 
 Modules.defaultProps = {
   modules: [],
   reorderUserModules: () => {},
   reorderInitiativeModules: () => {},
+  initiativeId: '',
 };
 
 export default Modules;
