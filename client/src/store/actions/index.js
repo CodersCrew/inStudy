@@ -69,8 +69,7 @@ export const updateBasicUserData = userData => async (dispatch) => {
 };
 
 export const updateBasicInitiativeData = (initiativeData, id) => async (dispatch) => {
-  console.log(initiativeData);
-  // await axios.put('/api/user/basic', initiativeData);
+  await axios.put('/api/initiative/basic', initiativeData);
   return dispatch({
     type: UPDATE_BASIC_INITIATIVE_DATA,
     payload: { initiativeData, id },

@@ -24,7 +24,7 @@ const imageFromFile = file => new Promise((resolve) => {
     image.onload = (imageSource) => {
       const base64Url = imageSource.path
         ? imageSource.path[0]
-        : imageSource.target
+        : imageSource.target;
 
       resolve(base64Url);
     };

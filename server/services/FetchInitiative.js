@@ -44,8 +44,11 @@ class FetchInitiative {
 
   getShortInitiativeProfile = page =>
     this.getInitiative(page).then(initiatives =>
-      initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),
-    );
+      initiatives.map(singleInitiative => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative))))
+      .then(e => {
+        console.log(e)
+        return e
+      })
 
   setInitiative = initiative =>
     initiativeExist(initiative.shortUrl).then(foundInitiative => {
@@ -149,12 +152,19 @@ function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
   if (RAWInitiative) {
     const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
 
-    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
+    if (!RAWInitiative.image && AboutPage && AboutPage.content && AboutPage.content.logo) {
       RAWInitiative.image = AboutPage.content.logo;
     }
   }
-
   return RAWInitiative;
 }
+
+export const changeBasicInitiativeData = (basic, initiativeId) => {
+  return mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
+    $set: {
+      ...basic,
+    },
+  });
+};
 
 export default FetchInitiative;

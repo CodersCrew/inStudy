@@ -1,15 +1,18 @@
 import FetchInitiative from './../services/FetchInitiative';
 import multer from 'multer';
 import path from 'path';
-import Cloudinary from './../services/Cloudinary';
+import Cloudinary, { sendInitiativeImage, sendUserImage } from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
 import createNewInitiative from './../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
 import { MODIFY_INITIATIVE } from './validators/consts';
 import { inviteUserValidators, invitationResponse } from './validators/initiative-validators';
-import mailSender, { INVITE_EMAIL } from './../services/mail-sender';
+import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL } from './../services/mail-sender';
 import config from '../config/keys';
 import jsonwebtoken from 'jsonwebtoken';
+import { changeBasicInitiativeData } from './../services/FetchInitiative';
+import mongoose from 'mongoose';
+const Initiative = mongoose.model('initiatives');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -48,12 +51,31 @@ module.exports = app => {
       });
   });
 
+  app.put('/api/initiative/basic', userLogged, (req, res) => {
+    const basic = req.body;
+    const { _id } = req.user;
+    const { initiativeId } = req.body;
+
+    sendInitiativeImage(req.body.image)(_id)
+      .then(({ secure_url }) => {
+        changeBasicInitiativeData({ ...basic, image: secure_url }, initiativeId)
+          .then(() => res.sendStatus(201))
+          .catch((error) => {
+            console.error(error);
+            res.sendStatus(404);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   app.get('/api/initiative/:shortUrl', (req, res) => {
     const { shortUrl } = req.params;
     new FetchInitiative()
       .getSingleInitiative(shortUrl)
-      .then(singleInitiative => {
-        res.status(200).json(singleInitiative);
+      .then((initiative) => {
+        res.status(200).json(initiative);
       })
       .catch(err => {
         if (err === 'NOT_FOUND') {
@@ -64,20 +86,38 @@ module.exports = app => {
       });
   });
 
-  app.post('/initiative/logo', upload.single('background'), (req, res) => {
-    const path = req.file.path;
-    // console.log(req.file)
-    new Cloudinary().uploadInitiativeBackground(path, '34234').then(result => {
-      res.status(200).json({ result });
-    });
-  });
-
-  app.post('/api/initiative/:initId/module', userLogged, (req, res, next) => {
-      const initId = req.params.initId;
+  app.post('/api/initiative/:initId/module', userLogged, async (req, res) => {
+      const { initId } = req.params;
       const module = req.body;
 
+      if( module?.content?.items) {
+        const parsedContent = module.content.items.map(async (singleItem) => {
+          if (singleItem.image) {
+            const { secure_url } = await sendInitiativeImage(singleItem.image)(initId);
+            singleItem.image = secure_url;
+          }
+
+          if (singleItem.images) {
+            const images = singleItem.images.map(async (item) => {
+              if (item.image) {
+                const { secure_url } = await sendInitiativeImage(item.image)(initId);
+                item.image = secure_url;
+              }
+              return item;
+            });
+
+            singleItem.images = await Promise.all(images);
+          }
+
+          return singleItem;
+        });
+
+        module.content.items = await Promise.all(parsedContent);
+      }
+
+
       new FetchInitiative().addInitiativeModule(initId, module).then(() => {
-        req.instudyCache = module;
+        // req.instudyCache = module;
         res.status(200).json(module);
       });
     },
@@ -92,6 +132,17 @@ module.exports = app => {
     });
   });
 
+  app.post('/api/initiative/:initId/send-message', async (req, res) => {
+    const { initId } = req.params;
+    const emailParams = req.body;
+    const { email } = await Initiative.findById(initId);
+
+    mailSender(email, INITIATIVE_CONTACT_EMAIL, emailParams)
+      .then(() => res.sendStatus(201))
+      .catch(() => res.sendStatus(500))
+
+  });
+
   app.put('/api/initiative/:initId/module/:modId', (req, res) => {
     const initId = req.params.initId;
     const modId = req.params.modId;
@@ -99,10 +150,7 @@ module.exports = app => {
 
     new FetchInitiative()
       .updateModule(module, initId, modId)
-      .then(module => {
-        console.log(module);
-        res.status(200).json(module);
-      })
+      .then(updatedModule => res.status(200).json(updatedModule))
       .catch(err => console.error(err));
   });
 
@@ -117,7 +165,6 @@ module.exports = app => {
 
   app.delete('/api/initiative/:initId', (req, res) => {
     const initId = req.params.initId;
-    console.log(initId);
 
     new FetchInitiative().deleteInitiative(initId).then(() => {
       res.sendStatus(200);

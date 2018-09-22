@@ -4,6 +4,9 @@ import { userLogged } from './validators/auth';
 const fs = require('fs');
 import path from 'path';
 import { sendInitiativeImage, sendUserImage } from '../services/Cloudinary';
+import mailSender, { INITIATIVE_CONTACT_EMAIL } from '../services/mail-sender';
+import mongoose from 'mongoose';
+const User = mongoose.model('users');
 
 module.exports = (app) => {
   app.get('/api/user/:userId', (req, res) => {
@@ -21,33 +24,48 @@ module.exports = (app) => {
       });
   });
 
+  app.post('/api/user/:userId/send-message', async (req, res) => {
+    const { userId } = req.params;
+
+    const emailParams = req.body;
+    const { email } = await User.findById(userId);
+
+    mailSender(email, INITIATIVE_CONTACT_EMAIL, emailParams)
+      .then(() => res.sendStatus(201))
+      .catch(() => res.sendStatus(500))
+  });
+
+  //wysylanie zdjec, rejestracja inicjatywy - scrapper, maile, validator
   app.post('/api/user/module', async (req, res) => {
     const module = req.body;
     const { _id: userId } = req.user;
 
     try {
-      const parsedContent = module.content.items.map(async (singleItem) => {
-        if (singleItem.image) {
-          const { secure_url } = await sendUserImage(singleItem.image)(userId);
-          singleItem.image = secure_url;
-        }
+      if( module?.content?.items) {
+        const parsedContent = module.content.items.map(async (singleItem) => {
+          if (singleItem.image) {
+            const { secure_url } = await sendUserImage(singleItem.image)(userId);
+            singleItem.image = secure_url;
+          }
 
-        if (singleItem.images) {
-          const images = singleItem.images.map(async item => {
-            if (item.image) {
-              item.image = await sendUserImage(item.image)(userId);
-              item.image = item.image.secure_url;
-            }
-            return item;
-          });
+          if (singleItem.images) {
+            const images = singleItem.images.map(async (item) => {
+              if (item.image) {
+                const { secure_url } = await sendUserImage(item.image)(userId);
+                item.image = secure_url;
+              }
+              return item;
+            });
 
-          singleItem.images = await Promise.all(images);
-        }
+            singleItem.images = await Promise.all(images);
+          }
 
-        return singleItem;
-      });
+          return singleItem;
+        });
 
-      module.content.items = await Promise.all(parsedContent);
+        module.content.items = await Promise.all(parsedContent);
+      }
+
       addNewModule(module, userId)
         .then(() => res.sendStatus(201))
         .catch((error) => {
@@ -56,6 +74,7 @@ module.exports = (app) => {
         });
     } catch (e) {
       console.log(e);
+      res.sendStatus(500);
     }
   });
 
@@ -75,14 +94,15 @@ module.exports = (app) => {
           });
       })
       .catch(e => {
-        console.log(e)
+        console.log(e);
+        res.sendStatus(500);
       });
   });
 
   app.put('/api/user/module', userLogged, (req, res) => {
     const { module } = req.body;
     const moduleIndex = req.body.index;
-    const userId = req.user._id;
+    const userId = req.user._id; //add id to module
     updateModule(module, userId, moduleIndex)
       .then(() => {
         res.sendStatus(201);

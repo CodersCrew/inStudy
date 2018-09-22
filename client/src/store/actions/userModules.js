@@ -15,3 +15,11 @@ export const deleteUserModule = index => async dispatch => {
   await axios.delete(`/api/user/module/${index}`, module);
   return dispatch({ type: DELETE_USER_MODULE, payload: index });
 };
+
+export const sendContactMail = (userId, mailContent) => async dispatch => {
+  const response = await axios.post(`/api/user/${userId}/send-message`, mailContent);
+  console.log('sending email: ', response)
+  return dispatch({
+    type: 'NON',
+  });
+}
