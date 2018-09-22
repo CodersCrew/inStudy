@@ -6,14 +6,33 @@ import { media } from 'utils';
 
 export const Container = styled.div`
   background-color: var(--primary2);
-  background-size:cover;
+  background-size: cover;
   opacity: 0.95;
+  height: 100%;
+  ${media.xl`
+    height: 100%;
+  `}
+  ${media.md`
+    height: 100vmax;
+  `}
+  ${media.sm`
+    height: initial;
+  `}
 `;
 
 export const Background = styled.div`
   background: url(/img/bg-registration.jpg);
   background-size: cover;
   height: 100%;
+  ${media.xl`
+    height: 100%;
+  `}
+  ${media.md`
+    height: 100vmax;
+  `}
+  ${media.sm`
+    height: initial;
+  `}
 `;
 export const Message = styled.div`
   display: flex;
@@ -22,6 +41,12 @@ export const Message = styled.div`
   padding: 15% 30%;
   text-align: center;
   color: var(--white);
+  ${media.sm`
+     padding: 40% 25%;
+  `}
+  ${media.xs`
+     padding: 50% 25%;
+  `}
 `;
 
 export const MainText = styled.div`
