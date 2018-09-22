@@ -11,7 +11,8 @@
     "build": "yarn run parse-server && cd client && yarn run build",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "install:all": "yarn install && cd client && yarn install",
-    "lint": "yarn run eslint --ext .jsx --ext .js client/"
+    "lint": "yarn run eslint --ext .jsx --ext .js client/",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false YARN_PRODUCTION=false yarn run install:all && yarn run parse-server && yarn run build --prefix client"
   },
   "author": "Konrad Szwarc",
   "license": "MIT",
