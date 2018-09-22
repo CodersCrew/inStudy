@@ -1,15 +1,22 @@
 import React, { PureComponent } from 'react';
 import { object, func, string } from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { Container, Input, Icon } from './styles';
 
 @connect(
   ({ ui, router }) => ({ size: ui.size, query: router.location.search.split('query=')[1] }),
+  { push },
 )
 class SearchBar extends PureComponent {
   state = {
     value: this.props.query,
+    querySnapshot: this.props.query,
   }
+
+  static getDerivedStateFromProps = (props, state) => (props.query !== state.querySnapshot)
+    ? { value: props.query, querySnapshot: props.query }
+    : null;
 
   onChange = ({ target: { value } }) => this.setState({ value });
 
@@ -19,9 +26,7 @@ class SearchBar extends PureComponent {
     }
   };
 
-  onSearch = () => {
-    this.props.onSearch(this.state.value);
-  };
+  onSearch = query => this.props.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
 
   render() {
     const placeholder =

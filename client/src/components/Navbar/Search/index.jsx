@@ -1,31 +1,23 @@
 import React, { PureComponent } from 'react';
-import { object, func } from 'prop-types';
-import { withSearch } from 'hocs';
+import { func, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { getInitiatives } from '../../../store/actions';
+import { push } from 'connected-react-router';
 import { Container, Input, SearchIcon } from './styles';
 
-@withSearch
 @connect(
-  ({ search, initiatives }) => ({ search, page: initiatives.page }),
-  { getInitiatives },
+  ({ router }) => ({ query: router.location.search.split('query=')[1] }),
+  { push },
 )
 class Search extends PureComponent {
-  constructor(props) {
-    super(props);
-    const { query } = props.search;
+  state = {
+    active: false,
+    value: this.props.query,
+    querySnapshot: this.props.query,
+  };
 
-    this.state = {
-      active: false,
-      value: query,
-      valueFromProps: query,
-    };
-  }
-
-  static getDerivedStateFromProps(np, ps) {
-    const { query } = np.search;
-    return query !== ps.valueFromProps ? { value: query, valueFromProps: query } : null;
-  }
+  static getDerivedStateFromProps = (props, state) => (props.query !== state.querySnapshot)
+    ? { value: props.query, querySnapshot: props.query }
+    : null;
 
   onChange = ({ target: { value } }) => this.setState({ value });
 
@@ -45,22 +37,14 @@ class Search extends PureComponent {
 
   onKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      this.props.setSearch({ query: this.state.value });
-      this.onSearch();
+      console.log(this.state.value);
+      this.onSearch(this.state.value);
     } else if (key === 'Escape' || key === 'Esc') {
       this.close();
     }
   };
 
-  onSearch = () => {
-    const { getInitiatives, history, location } = this.props;
-
-    if (location.pathname !== '/inicjatywy') {
-      history.push(`/inicjatywy${window.location.search}`);
-    }
-
-    getInitiatives({ query: this.state.value, page: 0 });
-  };
+  onSearch = query => this.props.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
 
   render() {
     const { active, value } = this.state;
@@ -69,9 +53,7 @@ class Search extends PureComponent {
       <Container active={active}>
         <Input
           placeholder="Napisz, czym się interesujesz"
-          innerRef={input => {
-            this.input = input;
-          }}
+          innerRef={(input) => { this.input = input; }}
           onKeyDown={this.onKeyDown}
           value={value}
           onChange={this.onChange}
@@ -83,11 +65,12 @@ class Search extends PureComponent {
 }
 
 Search.propTypes = {
-  history: object.isRequired,
-  location: object.isRequired,
-  getInitiatives: func.isRequired,
-  setSearch: func.isRequired,
-  search: object.isRequired,
+  push: func.isRequired,
+  query: string,
+};
+
+Search.defaultProps = {
+  query: '',
 };
 
 export default Search;

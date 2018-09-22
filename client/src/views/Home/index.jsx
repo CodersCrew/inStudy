@@ -3,44 +3,11 @@ import { object } from 'prop-types';
 import Typist from 'react-typist';
 import { connect } from 'react-redux';
 import { Spring } from 'react-spring';
-import { withSearch } from 'hocs';
 import headerTexts from './headerTexts';
+import { initiativesRoutes, getSpringContainerProps, getSpringHeaderProps } from './animations';
 import Search from './Search';
 import { Container, Middle, Supheader, HeaderWrapper, Header } from './styles';
 
-const initiativesRoutes = ['/inicjatywy', '/inicjatywy/'];
-
-const getSpringContainerProps = ({ previousPath, currentPath }) => {
-  if (initiativesRoutes.includes(previousPath) && currentPath === '/') {
-    return { from: { height: 280 }, to: { height: window.innerHeight - 40 } };
-  }
-  if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
-    return { from: { height: window.innerHeight - 40 }, to: { height: 280 } };
-  }
-  if (!previousPath && currentPath === '/') {
-    return { from: { height: window.innerHeight } };
-  }
-  if (!previousPath && initiativesRoutes.includes(currentPath)) {
-    return { from: { height: 280 } };
-  }
-};
-
-const getSpringHeaderProps = ({ previousPath, currentPath }) => {
-  if (initiativesRoutes.includes(previousPath) && currentPath === '/') {
-    return { from: { transform: 'scale(0)' }, to: { transform: 'scale(1)' } };
-  }
-  if (previousPath === '/' && initiativesRoutes.includes(currentPath)) {
-    return { from: { transform: 'scale(1)' }, to: { transform: 'scale(0)' } };
-  }
-  if (!previousPath && currentPath === '/') {
-    return { from: { transform: 'scale(1)' } };
-  }
-  if (!previousPath && initiativesRoutes.includes(currentPath)) {
-    return { from: { transform: 'scale(0)' } };
-  }
-};
-
-@withSearch
 @connect(state => ({ uiHistory: state.ui.history }))
 class Home extends PureComponent {
   constructor(props) {
@@ -69,8 +36,6 @@ class Home extends PureComponent {
     this.setState({ headerIndex: -1 }, () => this.switchHeaderText(headerIndex));
   };
 
-  onSearch = query => this.props.history.push(`/inicjatywy${query ? `/?query=${query}` : ''}`);
-
   renderHeader = index => (
     <Spring {...this.springHeaderProps} key="header">
       {styles => (
@@ -97,7 +62,7 @@ class Home extends PureComponent {
             <Middle>
               <Supheader key="supheader">{this.supheader}</Supheader>
               {this.renderText(headerIndex)}
-              <Search key="search" onSearch={this.onSearch} />
+              <Search key="search" />
             </Middle>
           </Container>
         )}
