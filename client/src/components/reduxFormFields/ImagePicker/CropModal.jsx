@@ -2,7 +2,14 @@ import React, { PureComponent } from 'react';
 import { bool, func, object, string, number } from 'prop-types';
 import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import { withCloseAnimation } from 'hocs';
+import styled from 'styled-components';
 import { Modal } from 'components';
+
+const StyledModal = styled(Modal)`
+  .ant-modal-body > div {
+    margin: 0 auto;
+  }
+`;
 
 @withCloseAnimation
 class CropModal extends PureComponent {
@@ -70,7 +77,7 @@ class CropModal extends PureComponent {
 
   render() {
     return (
-      <Modal
+      <StyledModal
         visible={this.props.visible}
         onCancel={this.cancel}
         type="complex"
@@ -94,7 +101,7 @@ class CropModal extends PureComponent {
           crop={this.state.crop}
           onImageLoaded={this.onImageLoaded}
         />
-      </Modal>
+      </StyledModal>
     );
   }
 }

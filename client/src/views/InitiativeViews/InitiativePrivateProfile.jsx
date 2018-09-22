@@ -7,17 +7,6 @@ import CardEditModal from './CardEditModal';
 
 @connect(({ auth }) => ({ auth }))
 class InitiativePublicProfile extends PureComponent {
-  constructor(props) {
-    super(props);
-    window.disableHomeAnimation = true;
-  }
-
-  componentWillUnmount() {
-    setTimeout(() => {
-      window.disableHomeAnimation = false;
-    }, 100);
-  }
-
   render() {
     const { auth, match } = this.props;
     const initiative = auth?.initiatives.find(({ shortUrl }) => shortUrl === match.params.shortUrl);

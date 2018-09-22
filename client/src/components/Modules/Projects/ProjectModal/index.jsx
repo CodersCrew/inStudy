@@ -11,7 +11,7 @@ const getImages = imagesArray => imagesArray
   .map(({ image }) => image);
 
 const renderSocial = (social) => {
-  if (social) {
+  if (social && social.url && social.socialType) {
     const { url, socialType } = social;
     const { icon, color } = socialsData[socialType];
 

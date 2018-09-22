@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { notify } from 'reapop';
+import Raven from 'raven-js';
 import {
   FETCH_USER,
   LOGOUT,
@@ -11,15 +12,25 @@ import {
   UPDATE_BASIC_USER_DATA,
   ADD_USER_INITIATIVE,
   UPDATE_BASIC_INITIATIVE_DATA,
+  INCREMENT_MODALS_COUNT,
+  DECREMENT_MODALS_COUNT,
 } from './types';
 
 export const fetchUser = () => async (dispatch) => {
   const { data } = await axios.get('/api/current_user');
+
+  if (data) {
+    Raven.setUserContext(data);
+  }
+
   return dispatch({ type: FETCH_USER, payload: data });
 };
 
 export const logout = () => async (dispatch) => {
   await axios.get('/api/logout');
+
+  Raven.setUserContext();
+
   return dispatch({ type: LOGOUT });
 };
 
@@ -31,6 +42,14 @@ export const setSize = size => ({
 export const setHistory = history => ({
   type: SET_HISTORY,
   payload: history,
+});
+
+export const incrementModalsCount = () => ({
+  type: INCREMENT_MODALS_COUNT,
+});
+
+export const decrementModalsCount = () => ({
+  type: DECREMENT_MODALS_COUNT,
 });
 
 let reqCache = {};

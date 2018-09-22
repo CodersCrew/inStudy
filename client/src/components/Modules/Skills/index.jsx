@@ -22,21 +22,21 @@ const renderSkill = skill => (
   </Skill>
 );
 
-const Skills = ({ skills }) => (
+const Skills = ({ items }) => (
   <Container>
-    {skills.filter(({ name }) => name).map(renderSkill)}
+    {items.filter(({ name }) => name).map(renderSkill)}
   </Container>
 );
 
 Skills.propTypes = {
-  skills: arrayOf(exact({
+  items: arrayOf(exact({
     name: string,
     value: oneOfType([string, number]),
   })),
 };
 
 Skills.defaultProps = {
-  skills: [],
+  items: [],
 };
 
 export default Skills;

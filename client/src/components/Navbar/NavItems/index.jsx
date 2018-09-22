@@ -8,7 +8,7 @@ import { Container, NavItem, NavItemLink, Icon } from './styles';
 const menu = (
   <Menu>
     <Menu.Item>
-      <MenuItem text="O projekcie" to="/about" />
+      <MenuItem text="O projekcie" to="/o-projekcie" />
     </Menu.Item>
     <Menu.Item>
       <MenuItem text="FAQ" to="/faq/ogolne" />
@@ -27,12 +27,7 @@ const NavItems = ({ location }) => (
         <Icon className="fal fa-angle-down" />
       </NavItem>
     </Dropdown>
-    <NavItemLink
-      to="/inicjatywy"
-      onClick={() => {
-        window.resizeHomeDown = location.pathname === '/';
-      }}
-    >
+    <NavItemLink to="/inicjatywy">
       Inicjatywy
     </NavItemLink>
   </Container>

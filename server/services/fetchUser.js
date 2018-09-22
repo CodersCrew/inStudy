@@ -51,6 +51,12 @@ export const deleteModule = (userId, moduleIndex) => {
   });
 };
 
+export const reorderModules = (userId, modules) => mongoose.model('users').findByIdAndUpdate(userId, {
+  $set: {
+    modules,
+  },
+});
+
 export const changeBasicUserData = (basic, userId) => {
   return mongoose.model('users').findByIdAndUpdate(userId, {
     $set: {

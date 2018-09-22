@@ -7,20 +7,30 @@ import { getViewportSize } from '../../utils';
 
 @withRouter
 @connect(
-  null,
+  state => ({ pathname: state.router.location.pathname }),
   { setSize, setHistory },
 )
 class UIObserver extends PureComponent {
-  constructor(props) {
-    super(props);
+  state = {
+    history: {
+      previousPath: '',
+      currentPath: '',
+    },
+  }
 
-    this.size = getViewportSize();
+  static getDerivedStateFromProps(props, state) {
+    if (props.pathname !== state.history.currentPath) {
+      const history = {
+        previousPath: state.history.currentPath,
+        currentPath: props.pathname,
+      };
 
-    this.history = {};
-    this.setPreviousPath(this.props.history.location.pathname);
-    this.props.history.listen(e => {
-      if (e.pathname !== this.previousPathHolder) this.setPreviousPath(e.pathname);
-    });
+      props.setHistory(history);
+
+      return { history };
+    }
+
+    return null;
   }
 
   componentDidMount() {
@@ -32,13 +42,6 @@ class UIObserver extends PureComponent {
       }
     });
   }
-
-  setPreviousPath = newPath => {
-    if (newPath !== this.history.previousPath) {
-      this.history.previousPath = newPath;
-      this.props.setHistory(this.history);
-    }
-  };
 
   render() {
     return null;

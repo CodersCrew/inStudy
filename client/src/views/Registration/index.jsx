@@ -16,17 +16,6 @@ const goToGoogleLogin = () => window.location.assign('/auth/google');
 
 @withAuth(['unauthorizedUser'])
 class Registration extends PureComponent {
-  constructor(props) {
-    super(props);
-    window.disableHomeAnimation = true;
-  }
-
-  componentWillUnmount() {
-    setTimeout(() => {
-      window.disableHomeAnimation = false;
-    }, 100);
-  }
-
   render() {
     return (
     <Background>

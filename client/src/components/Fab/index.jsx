@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { string, number, oneOf, func, shape, arrayOf } from 'prop-types';
 import enhanceWithClickOutside from 'react-click-outside';
 import { Container, BigFab, Wrapper, SmallFab, Badge } from './styles';
 
-const getTooltipPosition = position => {
+const getTooltipPosition = (position) => {
   if (position.includes('right')) return 'left';
   if (position.includes('left')) return 'right';
   if (position.includes('top')) return 'bottom';
@@ -80,7 +80,7 @@ class Fab extends PureComponent {
         className={className}
         onClick={this.handleClick}
         open={open}
-        innerRef={x => {
+        innerRef={(x) => {
           this.fab = x;
         }}
         position={position}
@@ -99,20 +99,20 @@ class Fab extends PureComponent {
 }
 
 Fab.propTypes = {
-  className: PropTypes.string,
-  count: PropTypes.number,
-  iconClass: PropTypes.string.isRequired,
-  iconOpenClass: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      iconClass: PropTypes.string.isRequired,
-      onClick: PropTypes.func,
-      title: PropTypes.string,
+  className: string,
+  count: number,
+  iconClass: string.isRequired,
+  iconOpenClass: string,
+  items: arrayOf(
+    shape({
+      iconClass: string.isRequired,
+      onClick: func,
+      title: string,
     }),
   ),
-  offset: PropTypes.arrayOf(PropTypes.number),
-  onClick: PropTypes.func,
-  position: PropTypes.oneOf([
+  offset: arrayOf(number),
+  onClick: func,
+  position: oneOf([
     'left top',
     'left center',
     'left bottom',
@@ -122,7 +122,7 @@ Fab.propTypes = {
     'right center',
     'right bottom',
   ]),
-  title: PropTypes.string,
+  title: string,
 };
 
 Fab.defaultProps = {
