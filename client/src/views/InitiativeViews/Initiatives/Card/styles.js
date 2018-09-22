@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { media } from 'utils';
 
 export const Container = styled(Link)`
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--white);
@@ -163,6 +164,8 @@ export const FeatureIcon = styled.div`
   justify-content: center;
   width: 32px;
   height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   border: 1px solid ${props => (props.active ? 'var(--primary2)' : 'var(--grey5)')};
   background-color: ${props => (props.active ? 'var(--primary1)' : 'var(--white)')};
   border-radius: 100%;
