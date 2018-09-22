@@ -1,14 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { array, func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 import { moveInArr, isInitiativeView } from 'utils';
+import { Fab } from 'components';
 import { reorderUserModules } from 'store/actions/userModules';
 import { reorderInitiativeModules } from 'store/actions/initiativeModules';
 import EmptyState from './EmptyState';
 import ModuleBase from './ModuleBase';
 
-const renderEmptyState = (modulesCount, openModal) => <EmptyState modulesCount={modulesCount} openModal={openModal} />;
+const renderEmptyState = addModule => <EmptyState addModule={addModule} />;
 
 const renderEditState = modules => modules.map((module, index) => (
   <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} editable />
@@ -38,23 +40,51 @@ const renderViewState = modules => modules.map((module, index) => (
   <ModuleBase key={`${module.title}-${module.icon}`} moduleIndex={index} {...module} editable={false} />
 ));
 
+const renderModules = ({ editable, modulesCount, modules, onDragEnd, addModule }) => {
+  if (editable && !modulesCount) return renderEmptyState(addModule);
+  if (editable && modulesCount === 1) return renderEditState(modules);
+  if (editable && modulesCount > 1) return renderDraggableEditState(modules, onDragEnd);
+  if (!editable) return renderViewState(modules);
+};
+
+const renderFab = (addModule, editable) => {
+  if (editable) {
+    const StyledFab = styled(Fab)`
+    > div > div {
+      background-color: var(--customColor);
+    }
+  `;
+    return <StyledFab iconClass="fal fa-plus" onClick={addModule} title="Dodaj moduł do profilu" />;
+  }
+
+  return null;
+};
+
 @connect(null, { reorderUserModules, reorderInitiativeModules })
 class Modules extends PureComponent {
   onDragEnd = ({ source, destination }) => {
     if (!destination) return;
 
     const reorderedModules = moveInArr(this.props.modules, source.index, destination.index);
-    this.props[isInitiativeView() ? 'reorderInitiativeModules' : 'reorderUserModules'](reorderedModules);
+
+    if (isInitiativeView()) {
+      this.props.reorderInitiativeModules(reorderedModules);
+    } else {
+      this.props.reorderUserModules(reorderedModules);
+    }
   }
 
   render() {
-    const { modules, editable, openModal } = this.props;
+    const { props: { modules, editable, openModal }, onDragEnd } = this;
     const modulesCount = modules.length;
+    const addModule = () => openModal('AddModule');
 
-    if (editable && !modulesCount) return renderEmptyState(modulesCount, openModal);
-    if (editable && modulesCount === 1) return renderEditState(modules);
-    if (editable && modulesCount > 1) return renderDraggableEditState(modules, this.onDragEnd);
-    if (!editable) return renderViewState(modules);
+    return (
+      <Fragment>
+        {renderModules({ editable, modulesCount, modules, onDragEnd, addModule })}
+        {renderFab(addModule, editable)}
+      </Fragment>
+    );
   }
 }
 
