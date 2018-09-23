@@ -79,8 +79,7 @@ class CardEditModal extends PureComponent {
 
   onSubmit = (values) => {
     const parsedSocials = values.socials.filter(({ socialType, url }) => socialType && url);
-    console.log({ ...values, socials: parsedSocials });
-    this.props.updateBasicInitiativeData({ ...values, socials: parsedSocials }, this.props.data._id);
+    this.props.updateBasicInitiativeData({ ...values, socials: parsedSocials, initiativeId: this.props.data._id }, this.props.data._id);
     this.props.onClose();
   };
 

@@ -14,7 +14,13 @@ const FBScraper = url => {
 
 
 const AboutSchema = () => {
-  const find = (selector, type = 'innerHTML') => document.querySelector(selector)[type];
+  const find = (selector, type = 'innerHTML') => {
+    const selectedElement = document.querySelector(selector);
+
+    if(selectedElement) {
+      return selectedElement[type]
+    } else return ''
+  };
   return ({
     kind: 'About',
     title: find('title', 'innerText') || '',

@@ -69,6 +69,7 @@
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
-    "puppeteer": "^1.6.2"
+    "puppeteer": "^1.6.2",
+    "validatorjs": "^3.14.2"
   }
 }

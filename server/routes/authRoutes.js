@@ -1,6 +1,7 @@
 import passport from 'passport';
 import mongoose from 'mongoose';
 import { mapUserToView } from '../services/fetchUser';
+import { mapRAWInitiativeObjectToViewReady } from '../services/FetchInitiative'
 
 module.exports = (app) => {
   app.get(
@@ -28,8 +29,8 @@ module.exports = (app) => {
         $in: mapUser?.initiatives?.map(initiative => new mongoose.mongo.ObjectId(initiative)),
       },
     })
-      .then((initiatives) => {
-        if (initiatives.length) res.json({ ...mapUser, initiatives });
+      .then(initiatives => {
+        if (initiatives.length) res.json({ ...mapUser, initiatives: initiatives.map(initiative => mapRAWInitiativeObjectToViewReady(initiative)) });
         else res.json(mapUser);
       })
       .catch((error) => {

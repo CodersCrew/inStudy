@@ -21,6 +21,14 @@ export const deleteInitiativeModule = (initiativeId, moduleId) => async (dispatc
   return dispatch({ type: DELETE_INITIATIVE_MODULE, payload: { initiativeId, moduleId } });
 };
 
+export const sendContactMail = (initiativeId, mailContent) => async dispatch => {
+  const response = await axios.post(`/api/initiative/${initiativeId}/send-message`, mailContent);
+  console.log('sending email: ', response)
+  return dispatch({
+    type: 'NON',
+  });
+}
+
 export const reorderInitiativeModules = (initiativeId, modules) => async (dispatch) => {
   dispatch({ type: REORDER_INITIATIVE_MODULES, payload: { initiativeId, modules } });
   await axios.post(`/api/initiative/${initiativeId}/module/reorder`, modules);

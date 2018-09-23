@@ -3,39 +3,26 @@ import FBCrawler from './Crawler/FBCrawler';
 
 const Initiative = mongoose.model('initiatives');
 const User = mongoose.model('users');
+const University = mongoose.model('universities');
 const initiativeExist = initiativeShortUrl =>
   mongoose.model('initiatives').findOne({
     shortUrl: initiativeShortUrl,
   });
 
-const shortenInitiativeProfile = (singleInitiative) => {
-  const { name, description, shortUrl, color } = singleInitiative;
+const shortenInitiativeProfile = async singleInitiative => {
+  const { image, name, description, shortUrl, color } = singleInitiative;
 
+  const university = await University.findById(singleInitiative.university);
+  console.log(university)
   return {
-    image: singleInitiative.FBProfile[0]?.content?.logo,
+    image: image || 'https://screenshotlayer.com/images/assets/placeholder.png',
     name,
     description,
     color,
     profileCompleted: true,
     shortUrl,
-    university: {
-      name: 'Uniwersytet Ekonomiczny',
-      id: '1',
-      image: '/img/universities/5a90aac95ded6d5a4a06195d.png',
-    },
+    university,
   };
-};
-
-const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
-  if (RAWInitiative) {
-    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
-
-    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
-      return { ...RAWInitiative, image: AboutPage.content.logo };
-    }
-  }
-
-  return RAWInitiative;
 };
 
 // logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
@@ -53,7 +40,7 @@ class FetchInitiative {
 
   getShortInitiativeProfile = page =>
     this.getInitiative(page).then(initiatives =>
-      initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)));
+      initiatives.map(singleInitiative => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative))))
 
   setInitiative = initiative =>
     initiativeExist(initiative.shortUrl).then(foundInitiative => (foundInitiative)
@@ -141,5 +128,22 @@ class FetchInitiative {
     },
   })
 }
+
+export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
+  if (!RAWInitiative.image && RAWInitiative.FBProfile.logo) {
+    RAWInitiative.image = RAWInitiative.FBProfile.logo;
+  }
+
+  RAWInitiative.facebookUrl = `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
+  return RAWInitiative;
+}
+
+export const changeBasicInitiativeData = (basic, initiativeId) => {
+  return mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
+    $set: {
+      ...basic,
+    },
+  });
+};
 
 export default FetchInitiative;

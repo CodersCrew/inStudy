@@ -14,9 +14,11 @@ const schema = new Schema({
   shortUrl: String,
   color: String,
   modules: [{}],
-  FBProfile: [{}],
+  FBProfile: {},
   image: String,
   members: [MemberSchema],
 });
+
+schema.index({ name: 'text', description: 'text' });
 
 module.exports = mongoose.model('initiatives', schema);
