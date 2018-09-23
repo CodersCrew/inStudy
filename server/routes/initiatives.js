@@ -1,7 +1,7 @@
 import FetchInitiative from './../services/FetchInitiative';
 import multer from 'multer';
 import path from 'path';
-import Cloudinary, { sendInitiativeImage, sendUserImage } from './../services/Cloudinary';
+import Cloudinary, { sendInitiativeImage, sendUserImage, removeImage, sendModuleImage } from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
 import createNewInitiative from './../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
@@ -94,14 +94,14 @@ module.exports = app => {
       if( module?.content?.items) {
         const parsedContent = module.content.items.map(async (singleItem) => {
           if (singleItem.image) {
-            const { secure_url } = await sendInitiativeImage(singleItem.image)(initId);
+            const { secure_url } = await sendModuleImage(singleItem.image)(initId);
             singleItem.image = secure_url;
           }
 
           if (singleItem.images) {
             const images = singleItem.images.map(async (item) => {
               if (item.image) {
-                const { secure_url } = await sendInitiativeImage(item.image)(initId);
+                const { secure_url } = await sendModuleImage(item.image)(initId);
                 item.image = secure_url;
               }
               return item;
@@ -155,13 +155,44 @@ module.exports = app => {
       .catch(err => console.error(err));
   });
 
-  app.delete('/api/initiative/:initId/module/:modId', userLogged, (req, res) => {
-    const initId = req.params.initId;
-    const modId = req.params.modId;
+  app.delete('/api/initiative/:initId/module/:modId', userLogged, async (req, res) => {
+    const { initId } = req.params;
+    const { modId } = req.params;
 
-    new FetchInitiative().deleteModule(initId, modId).then(() => { //TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
-      res.sendStatus(201);
-    });
+    Initiative.findById(initId).lean()
+      .then( async initiative => {
+        const module = initiative.modules.find(module => module._id.toString() === modId)
+
+        if( module?.content?.items) {
+          const parsedContent = module.content.items.map(async (singleItem) => {
+            if (singleItem.image) {
+              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
+              await removeImage(public_id);
+            }
+
+            if (singleItem.images) {
+              const images = singleItem.images.map(async (item) => {
+                if (item.image) {
+                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
+                  await removeImage(public_id);
+                }
+                return item;
+              });
+
+              singleItem.images = await Promise.all(images);
+            }
+
+            return singleItem;
+          });
+
+          await Promise.all(parsedContent);
+        }
+      })
+      .then(() => {
+        new FetchInitiative().deleteModule(initId, modId).then(() => { //TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
+          res.sendStatus(201);
+        });
+      })
   });
 
   app.delete('/api/initiative/:initId', (req, res) => {

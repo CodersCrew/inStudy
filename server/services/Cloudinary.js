@@ -23,3 +23,6 @@ module.exports.sendModuleImage = path => (initiativeId) =>
     public_id: `/${Math.floor(Math.random() * 10000)}`,
     folder: `${initiativeId}/modules`,
   });
+
+module.exports.removeImage = public_id =>
+  Cloudinary.uploader.destroy(public_id, function(error, result){console.log(result, error)})

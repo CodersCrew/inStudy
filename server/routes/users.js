@@ -2,8 +2,7 @@ import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserD
 import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
 const fs = require('fs');
-import path from 'path';
-import { sendInitiativeImage, sendUserImage } from '../services/Cloudinary';
+import { removeImage, sendInitiativeImage, sendModuleImage } from '../services/Cloudinary';
 import mailSender, { INITIATIVE_CONTACT_EMAIL } from '../services/mail-sender';
 import mongoose from 'mongoose';
 const User = mongoose.model('users');
@@ -44,14 +43,14 @@ module.exports = (app) => {
       if( module?.content?.items) {
         const parsedContent = module.content.items.map(async (singleItem) => {
           if (singleItem.image) {
-            const { secure_url } = await sendUserImage(singleItem.image)(userId);
+            const { secure_url } = await sendModuleImage(singleItem.image)(userId);
             singleItem.image = secure_url;
           }
 
           if (singleItem.images) {
             const images = singleItem.images.map(async (item) => {
               if (item.image) {
-                const { secure_url } = await sendUserImage(item.image)(userId);
+                const { secure_url } = await sendModuleImage(item.image)(userId);
                 item.image = secure_url;
               }
               return item;
@@ -113,11 +112,45 @@ module.exports = (app) => {
       });
   });
 
-  app.delete('/api/user/module/:moduleIndex', userLogged, (req, res) => {
-    const { moduleIndex } = req.params;
+  app.delete('/api/user/module/:modId', userLogged, (req, res) => {
     const userId = req.user._id;
+    const { modId } = req.params;
 
-    deleteModule(userId, moduleIndex)
+    User.findById(userId).lean()
+      .then( async user => {
+        const module = user.modules.find(module => module._id.toString() === modId)
+
+        console.log(module)
+        if( module?.content?.items) {
+          const parsedContent = module.content.items.map(async (singleItem) => {
+            if (singleItem.image) {
+              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
+              console.log(public_id)
+              await removeImage(public_id);
+            }
+
+            if (singleItem.images) {
+              const images = singleItem.images.map(async (item) => {
+                if (item.image) {
+                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
+                  console.log(public_id)
+
+                  await removeImage(public_id);
+                }
+                return item;
+              });
+
+              singleItem.images = await Promise.all(images);
+            }
+
+            return singleItem;
+          });
+
+          await Promise.all(parsedContent);
+        }
+      })
+
+    deleteModule(userId, modId)
       .then(() => {
         res.sendStatus(201);
       })
