@@ -2,7 +2,6 @@ module.exports = {
   googleClientID: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   mongoURI: process.env.MONGODB_URI,
-  mongoURIold: process.env.MONGODB_URI_OLD,
   cookieKey: process.env.COOKIE_KEY,
   PORT: process.env.PORT,
   sessionDuration: process.env.SESSION_DURATION,
