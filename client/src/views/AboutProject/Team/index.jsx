@@ -7,7 +7,7 @@ const Team = () => (
   <MainContainer>
     <Heading>Zespół inStudy</Heading>
     <TeamList>
-      {data.map(item => <Member key={item.text} {...item} />)}
+      {data.map(item => <Member key={item.name} {...item} />)}
     </TeamList>
   </MainContainer>
 );
