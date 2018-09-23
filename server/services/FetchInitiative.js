@@ -3,24 +3,24 @@ import FBCrawler from './Crawler/FBCrawler';
 
 const Initiative = mongoose.model('initiatives');
 const User = mongoose.model('users');
+const University = mongoose.model('universities');
 const initiativeExist = initiativeShortUrl =>
   mongoose.model('initiatives').findOne({
     shortUrl: initiativeShortUrl,
   });
 
-const shortenInitiativeProfile = singleInitiative => {
+const shortenInitiativeProfile = async singleInitiative => {
   const { image, name, description, shortUrl } = singleInitiative;
+
+  const university = await University.findById(singleInitiative.university);
+  console.log(university)
   return {
-    image: singleInitiative.FBProfile[0]?.content?.logo,
+    image: image || 'https://screenshotlayer.com/images/assets/placeholder.png',
     name,
     description,
     profileCompleted: true,
     shortUrl,
-    university: {
-      name: 'Uniwersytet Ekonomiczny',
-      id: '1',
-      image: '/img/universities/5a90aac95ded6d5a4a06195d.png',
-    },
+    university,
   };
 };
 
@@ -45,10 +45,6 @@ class FetchInitiative {
   getShortInitiativeProfile = page =>
     this.getInitiative(page).then(initiatives =>
       initiatives.map(singleInitiative => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative))))
-      .then(e => {
-        console.log(e)
-        return e
-      })
 
   setInitiative = initiative =>
     initiativeExist(initiative.shortUrl).then(foundInitiative => {
@@ -148,14 +144,12 @@ class FetchInitiative {
   }
 }
 
-function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
-  if (RAWInitiative) {
-    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
-
-    if (!RAWInitiative.image && AboutPage && AboutPage.content && AboutPage.content.logo) {
-      RAWInitiative.image = AboutPage.content.logo;
-    }
+export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
+  if (!RAWInitiative.image && RAWInitiative.FBProfile.logo) {
+    RAWInitiative.image = RAWInitiative.FBProfile.logo;
   }
+
+  RAWInitiative.facebookUrl = `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
 }
 

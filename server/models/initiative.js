@@ -14,7 +14,7 @@ const schema = new Schema({
   shortUrl: String,
   color: String,
   modules: [{}],
-  FBProfile: [{}],
+  FBProfile: {},
   image: String,
   members: [MemberSchema],
 });

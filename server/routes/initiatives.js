@@ -26,12 +26,12 @@ const upload = multer({ dest: 'uploads/', storage });
 // const upload = multer({ dest: 'uploads/' });
 
 module.exports = app => {
-  app.get('/api/initiative', (req, res) => {
+  app.get('/api/initiative', async (req, res) => {
     const { page } = req.query;
     new FetchInitiative()
       .getShortInitiativeProfile(page)
-      .then(foundInitiatives => {
-        res.status(200).json(foundInitiatives);
+      .then( async foundInitiatives => {
+        res.status(200).json(await Promise.all(foundInitiatives));
       })
       .catch(() => {
         res.sendStatus(404);
@@ -72,6 +72,7 @@ module.exports = app => {
 
   app.get('/api/initiative/:shortUrl', (req, res) => {
     const { shortUrl } = req.params;
+
     new FetchInitiative()
       .getSingleInitiative(shortUrl)
       .then((initiative) => {

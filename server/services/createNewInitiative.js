@@ -15,7 +15,7 @@ const createInitiative = (initiative, user) => {
         roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
       });
 
-      return new Initiative({ ...initiative, FBProfile: fetchedProfile, members: [newMember] }).save();
+      return new Initiative({ ...initiative, FBProfile: fetchedProfile[0]?.content, members: [newMember] }).save();
     })
     .then(createdInitiative => assignToUser(createdInitiative, user._id));
 };
