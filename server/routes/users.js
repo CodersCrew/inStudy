@@ -112,20 +112,18 @@ module.exports = (app) => {
       });
   });
 
-  app.delete('/api/user/module/:modId', userLogged, (req, res) => {
+  app.delete('/api/user/module/:moduleIndex', userLogged, (req, res) => {
     const userId = req.user._id;
-    const { modId } = req.params;
+    const { moduleIndex } = req.params;
 
     User.findById(userId).lean()
       .then( async user => {
-        const module = user.modules.find(module => module._id.toString() === modId)
+        const module = user.modules[moduleIndex]
 
-        console.log(module)
-        if( module?.content?.items) {
+        if ( module?.content?.items) {
           const parsedContent = module.content.items.map(async (singleItem) => {
             if (singleItem.image) {
               const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
-              console.log(public_id)
               await removeImage(public_id);
             }
 
@@ -133,30 +131,26 @@ module.exports = (app) => {
               const images = singleItem.images.map(async (item) => {
                 if (item.image) {
                   const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
-                  console.log(public_id)
-
                   await removeImage(public_id);
                 }
                 return item;
               });
-
               singleItem.images = await Promise.all(images);
             }
-
             return singleItem;
           });
-
           await Promise.all(parsedContent);
         }
       })
-
-    deleteModule(userId, modId)
       .then(() => {
-        res.sendStatus(201);
+        deleteModule(userId, moduleIndex)
+          .then(() => {
+            res.sendStatus(201);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.sendStatus(404);
+          });
       })
-      .catch((error) => {
-        console.error(error);
-        res.sendStatus(404);
-      });
   });
 };

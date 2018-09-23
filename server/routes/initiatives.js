@@ -91,7 +91,7 @@ module.exports = app => {
       const { initId } = req.params;
       const module = req.body;
 
-      if( module?.content?.items) {
+      if ( module?.content?.items) {
         const parsedContent = module.content.items.map(async (singleItem) => {
           if (singleItem.image) {
             const { secure_url } = await sendModuleImage(singleItem.image)(initId);
@@ -163,7 +163,7 @@ module.exports = app => {
       .then( async initiative => {
         const module = initiative.modules.find(module => module._id.toString() === modId)
 
-        if( module?.content?.items) {
+        if (module?.content?.items) {
           const parsedContent = module.content.items.map(async (singleItem) => {
             if (singleItem.image) {
               const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]

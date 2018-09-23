@@ -13,7 +13,7 @@ export const getUserData = userId =>
 
 export const addNewModule = (module, userId) => mongoose.model('users').findByIdAndUpdate(userId, {
   $addToSet: {
-    modules: module,
+    modules: { ...module, _id: new mongoose.mongo.ObjectId() },
   },
 });
 
