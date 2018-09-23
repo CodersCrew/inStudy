@@ -7,7 +7,6 @@ export default (req, res, next) => {
 
   if (method === 'GET') {
     const result = storage.find(path);
-    console.log(result);
     if (result) {
       res.status(200).json(result);
     } else {

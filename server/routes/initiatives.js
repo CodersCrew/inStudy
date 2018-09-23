@@ -1,30 +1,22 @@
+import jsonwebtoken from 'jsonwebtoken';
+import mongoose from 'mongoose';
+const bcrypt = require('bcryptjs');
+
 import FetchInitiative from './../services/FetchInitiative';
-import multer from 'multer';
-import path from 'path';
-import Cloudinary, { sendInitiativeImage, sendUserImage, removeImage, sendModuleImage } from './../services/Cloudinary';
+import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
 import createNewInitiative from './../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
 import { MODIFY_INITIATIVE } from './validators/consts';
 import { inviteUserValidators, invitationResponse } from './validators/initiative-validators';
-import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL } from './../services/mail-sender';
+import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL, RESTORE_ACCOUNT } from './../services/mail-sender';
 import config from '../config/keys';
-import jsonwebtoken from 'jsonwebtoken';
 import { changeBasicInitiativeData } from './../services/FetchInitiative';
-import mongoose from 'mongoose';
-const Initiative = mongoose.model('initiatives');
 const { searchInitiative } = require('./../services/search');
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ dest: 'uploads/', storage });
-// const upload = multer({ dest: 'uploads/' });
+const Initiative = mongoose.model('initiatives');
+const OldInitiative = require('./../models/oldInitiative');
+const Member = mongoose.model('member');
+const User = mongoose.model('users');
 
 module.exports = app => {
   app.get('/api/initiative', async (req, res) => {
@@ -51,6 +43,52 @@ module.exports = app => {
           res.sendStatus(409);
         }
       });
+  });
+
+  app.get('/api/restore', async (req, res) => {
+    const { token } = req.query;
+
+    const { userId, initiativeId } = jsonwebtoken.verify(token, config.cookieKey);
+    const initiative = await Initiative.findById(initiativeId);
+
+    if (userId && initiativeId) {
+
+      const newMember = new Member({
+        user: new mongoose.mongo.ObjectId(userId),
+        role: 'admin',
+        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
+      });
+
+      await Initiative.findByIdAndUpdate(initiativeId, {
+        $addToSet: {
+          members: newMember,
+        }
+      })
+      await User.findByIdAndUpdate(userId, {
+        $addToSet: {
+          initiatives: new mongoose.mongo.ObjectId(initiativeId)
+        }
+      }
+    )
+    }
+
+    res.redirect(`${config.HOST}/student/profil`);
+
+  });
+
+  app.post('/api/initiative/restore', async (req, res) => {
+    const { email } = req.body;
+    // const { _id: userId } = req.user;
+    const userId = '5ba662f121f43e0717efcdbd';
+    const result = await OldInitiative.findOne({ email });
+    const newInitiative = await Initiative.findOne({ email });
+
+    if (result && newInitiative) {
+      const token = jsonwebtoken.sign({ userId, initiativeId: newInitiative._id }, config.cookieKey);
+      await mailSender(email, RESTORE_ACCOUNT, { token })
+    }
+
+    res.sendStatus(201);
   });
 
   app.put('/api/initiative/basic', userLogged, (req, res) => {

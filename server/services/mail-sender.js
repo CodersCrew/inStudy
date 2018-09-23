@@ -3,12 +3,14 @@ import jwt from 'jsonwebtoken';
 import config from '../config/keys';
 import contact from './email-templates/contact';
 import register from './email-templates/register';
+import restore from './email-templates/restore';
 
 const transporter = nodemailer.createTransport(config.MAIL_CONFIG);
 
 export const INVITE_EMAIL = 'INVITE_EMAIL';
 export const INITIATIVE_CONTACT_EMAIL = 'INITIATIVE_CONTACT_EMAIL';
 export const USER_REGISTER_EMAIL = 'USER_REGISTER_EMAIL';
+export const RESTORE_ACCOUNT = 'RESTORE_ACCOUNT';
 
 const sendEmail = (mailOptions) => new Promise((resolve, reject) => {
   transporter.sendMail(mailOptions, (error, info) => {
@@ -51,6 +53,17 @@ export default (email, kind, data) => {
         to: email,
         subject: `Instudy - wiadomość z portalu`,
         html: register(name),
+      };
+
+      return sendEmail(mailOptions);
+    }
+    case RESTORE_ACCOUNT: {
+      const { token } = data;
+      const mailOptions = {
+        from: 'instudy',
+        to: email,
+        subject: `Instudy - wiadomość z portalu`,
+        html: restore(token),
       };
 
       return sendEmail(mailOptions);
