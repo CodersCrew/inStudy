@@ -19,4 +19,6 @@ const schema = new Schema({
   members: [MemberSchema],
 });
 
+schema.index({ name: 'text', description: 'text' });
+
 module.exports = mongoose.model('initiatives', schema);

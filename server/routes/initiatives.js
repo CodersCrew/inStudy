@@ -13,6 +13,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { changeBasicInitiativeData } from './../services/FetchInitiative';
 import mongoose from 'mongoose';
 const Initiative = mongoose.model('initiatives');
+const { searchInitiative } = require('./../services/search');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -28,6 +29,7 @@ const upload = multer({ dest: 'uploads/', storage });
 module.exports = app => {
   app.get('/api/initiative', async (req, res) => {
     const { page } = req.query;
+
     new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then( async foundInitiatives => {
@@ -68,6 +70,13 @@ module.exports = app => {
       .catch((error) => {
         console.log(error);
       });
+  });
+
+  app.get('/api/initiative/search', async (req, res) => {
+    const { query } = req.query;
+    const result = await searchInitiative(query);
+
+    res.status(200).json(result);
   });
 
   app.get('/api/initiative/:shortUrl', (req, res) => {
@@ -228,5 +237,5 @@ module.exports = app => {
       .assignInitiative(user._id, initiativeID)
       .then(() => res.sendStatus(201))
       .catch(() => res.sendStatus(500));
-  })
+  });
 };
