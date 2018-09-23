@@ -13,7 +13,6 @@ import config from '../config/keys';
 import { changeBasicInitiativeData } from './../services/FetchInitiative';
 const { searchInitiative } = require('./../services/search');
 const Initiative = mongoose.model('initiatives');
-const OldInitiative = require('./../models/oldInitiative');
 const Member = mongoose.model('member');
 const User = mongoose.model('users');
 
@@ -79,10 +78,9 @@ module.exports = app => {
     const { email } = req.body;
     const { _id: userId } = req.user;
     // const userId = '5ba662f121f43e0717efcdbd';
-    const result = await OldInitiative.findOne({ email });
     const newInitiative = await Initiative.findOne({ email });
 
-    if (result && newInitiative) {
+    if (newInitiative) {
       const token = jsonwebtoken.sign({ userId, initiativeId: newInitiative._id }, config.cookieKey);
       await mailSender(email, RESTORE_ACCOUNT, { token })
     }
