@@ -23,13 +23,13 @@ const Priorities = ({ activeItem, setActiveItem }) => (
         type={activeItem === 'initiative' ? 'primary' : 'default'}
         onClick={() => setActiveItem('initiative')}
       >
-        dla inicjatyw
+        Inicjatywy
       </Button>
       <Button
         type={activeItem === 'student' ? 'primary' : 'default'}
         onClick={() => setActiveItem('student')}
       >
-        dla studentów
+        Studenci
       </Button>
     </ButtonGroup>
     <PrioritiesList>
