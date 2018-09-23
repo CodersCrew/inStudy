@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { withCustomColor } from 'hocs';
 import { ProfileBase } from 'components';
 import CardEditModal from './CardEditModal';
 
 @connect(({ auth }) => ({ auth }))
+@withCustomColor
 class InitiativePublicProfile extends PureComponent {
   render() {
     const { auth, match } = this.props;

@@ -22,8 +22,6 @@ import FAQ from '../FAQ';
 import Contact from '../Contact';
 import Registration from '../Registration';
 import AboutProject from '../AboutProject';
-import Policy from '../Registration/Policy';
-import Statute from '../Registration/Statute';
 
 @connect(
   null,
@@ -60,8 +58,6 @@ class App extends PureComponent {
                 <Route path="/student/profil" component={StudentViews} />
                 <Route path="/student" component={StudentViews} />
                 <Route path="/rejestracja" component={Registration} />
-                <Route path="/polityka_prywatnosci" component={Policy} />
-                <Route path="/regulamin" component={Statute} />
                 <Route path="/faq/:name" component={FAQ} />
                 <Route path="/o-projekcie" component={AboutProject} />
                 <Route path="/kontakt" component={Contact} />

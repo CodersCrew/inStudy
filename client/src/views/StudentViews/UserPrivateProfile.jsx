@@ -1,8 +1,15 @@
 import React from 'react';
 import { object } from 'prop-types';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { withCustomColor } from 'hocs';
 import { ProfileBase } from 'components';
 import CardEditModal from './CardEditModal';
+
+const hocs = compose(
+  connect(({ auth }) => ({ user: auth })),
+  withCustomColor,
+);
 
 const UserProfile = ({ user }) => user && (
   <ProfileBase
@@ -24,4 +31,4 @@ UserProfile.defaultProps = {
   user: null,
 };
 
-export default connect(({ auth }) => ({ user: auth }))(UserProfile);
+export default hocs(UserProfile);

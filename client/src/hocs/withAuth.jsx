@@ -10,6 +10,7 @@ const withHocs = compose(
 );
 
 const withAuth = conditions => (WrappedComponent) => {
+  console.log(conditions);
   if (conditions.includes('authorizedUser')) {
     const Component = (props) => {
       if (props.auth !== false) {
@@ -30,7 +31,7 @@ const withAuth = conditions => (WrappedComponent) => {
     };
 
     return withHocs(Component);
-  } else if (conditions.includes('unauthorizedUser')) {
+  } if (conditions.includes('unauthorizedUser')) {
     const Component = props =>
       props.auth === false ? <WrappedComponent {...props} /> : <Redirect to="/student/profil" />;
     return withHocs(Component);
