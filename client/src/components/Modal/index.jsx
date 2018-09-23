@@ -12,11 +12,10 @@ const hocs = compose(
   connect(null, { incrementModalsCount, decrementModalsCount }),
   lifecycle({
     componentDidMount() {
-      if (this.props.visible) this.props.incrementModalsCount();
+      this.props.incrementModalsCount();
     },
-    componentDidUpdate(pp) {
-      if (!pp.visible && this.props.visible) this.props.incrementModalsCount();
-      else if (pp.visible && !this.props.visible) this.props.decrementModalsCount();
+    componentWillUnmount() {
+      this.props.decrementModalsCount();
     },
   }),
 );

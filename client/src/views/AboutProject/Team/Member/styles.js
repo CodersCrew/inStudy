@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from 'utils';
 
 export const Container = styled.div`
   display: flex;
@@ -22,6 +23,10 @@ export const Role = styled.div`
   line-height: var(--font-md-lh);
   font-weight: var(--regular);
   color: var(--text2);
+  ${media.xl`
+    font-size: var(--font-sm);
+    line-height: var(--font-sm-lh);
+  `}
 `;
 
 export const Image = styled.div`

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { SVGIcon } from 'components';
-import { categories, questions } from './texts';
 import { nl2br } from 'utils';
+import { categories, questions } from './texts';
 import {
   MainContainer,
   Header,
@@ -22,7 +22,7 @@ export default class FAQ extends PureComponent {
     openIndex: null,
   };
 
-  changeCategory = name => {
+  changeCategory = (name) => {
     if (this.props.match.params.name !== name) {
       this.setState({ openIndex: null });
       this.props.history.push(`/faq/${name}`);
