@@ -10,10 +10,9 @@ import { Container } from './styles';
 
 const InitiativeViews = ({ location: { pathname } }) => {
   const pathnameArr = pathname.split('/');
-  const isProfile =
-    pathnameArr[1] === 'inicjatywy' && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
+  const isProfile = pathnameArr[1] === 'inicjatywy'
+    && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
   const isSingleView = pathnameArr.length === 3;
-  console.log(1111);
 
   return (
     <Fragment>

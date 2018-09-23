@@ -9,7 +9,6 @@ import { Container } from './styles';
 
 const StudentViews = ({ location: { pathname } }) => {
   const isProfile = pathname.includes('profil');
-  console.log(2222);
 
   return (
     <Fragment>
