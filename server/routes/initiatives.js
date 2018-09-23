@@ -35,10 +35,10 @@ module.exports = app => {
   app.post('/api/initiative', userLogged, (req, res) => {
     const initiative = req.body;
     createNewInitiative(initiative, req.user)
-      .then(result => {
+      .then((result) => {
         res.status(200).json({ result });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err === 'ITEM_EXIST') {
           res.sendStatus(409);
         }
@@ -125,7 +125,7 @@ module.exports = app => {
       .then((initiative) => {
         res.status(200).json(initiative);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err === 'NOT_FOUND') {
           res.sendStatus(404);
         } else {
@@ -173,9 +173,9 @@ module.exports = app => {
   );
 
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
-    const initId = req.params.initId;
+    const { initId } = req.params;
 
-    new FetchInitiative().getAllModules(initId).then(modules => {
+    new FetchInitiative().getAllModules(initId).then((modules) => {
       res.status(200).json(modules);
     });
   });
@@ -192,8 +192,8 @@ module.exports = app => {
   });
 
   app.put('/api/initiative/:initId/module/:modId', (req, res) => {
-    const initId = req.params.initId;
-    const modId = req.params.modId;
+    const { initId } = req.params;
+    const { modId } = req.params;
     const module = req.body;
 
     new FetchInitiative()
@@ -242,6 +242,16 @@ module.exports = app => {
       })
   });
 
+  app.post('/api/initiative/:initId/module/reorder', userLogged, (req, res) => {
+    const { initId } = req.params;
+    const modules = req.body;
+
+    // TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
+    new FetchInitiative().reorderModules(initId, modules).then(() => {
+      res.sendStatus(201);
+    });
+  });
+
   app.delete('/api/initiative/:initId', (req, res) => {
     const initId = req.params.initId;
 
@@ -251,7 +261,8 @@ module.exports = app => {
   });
 
   app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
-    const shortUrl = req.params.shortUrl;
+    const { shortUrl } = req.params;
+
     new FetchInitiative()
       .getFBProfile(shortUrl)
       .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
@@ -260,11 +271,10 @@ module.exports = app => {
 
   app.post('/api/initiative/:initId/invite', inviteUserValidators, (req, res) => {
     const { email } = req.body;
-    mailSender(email, INVITE_EMAIL, { initiativeID: req.params.initId})
+    mailSender(email, INVITE_EMAIL, { initiativeID: req.params.initId })
       .then(() => res.sendStatus(201))
       .catch(() => res.sendStatus(500));
-
-  })
+  });
 
   app.get('/api/invite', invitationResponse, (req, res) => {
     const { jwt } = req.query;

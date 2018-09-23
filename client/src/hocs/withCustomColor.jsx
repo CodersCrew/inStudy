@@ -33,9 +33,9 @@ const withCustomColor = WrappedComponent =>
     }
 
     componentWillUnmount() {
-      document.body.style.setProperty('--customColor', 'var(--primary2)');
-      document.body.style.setProperty('--customColor-hover', 'var(--primary2-hover)');
-      document.body.style.setProperty('--customColor-active', 'var(--primary2-active)');
+      document.body.style.setProperty('--customColor', 'var(--primary1)');
+      document.body.style.setProperty('--customColor-hover', 'var(--primary1-hover)');
+      document.body.style.setProperty('--customColor-active', 'var(--primary1-active)');
     }
 
     getInitiativeColor = () => {

@@ -30,6 +30,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'consistent-return': 'off',
     'max-len': ['error', { 'code': 120 }],
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {

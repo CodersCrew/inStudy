@@ -45,7 +45,7 @@ class Skills extends PureComponent {
   render() {
     return (
       <ModalBase {...getModalBaseData(this.props)} contentHeader="Lista umiejętności">
-        <FieldArray name="skills" component={this.renderSkills} />
+        <FieldArray name="items" component={this.renderSkills} />
       </ModalBase>
     );
   }

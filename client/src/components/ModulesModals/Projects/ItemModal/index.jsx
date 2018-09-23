@@ -10,8 +10,8 @@ import { Container, TrashIcon, Label, Socials, Images, Overlay } from './styles'
 
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
 
-const areAllFieldsFilled = fields =>
-  fields.reduce((acc, { socialType, url, image }) => acc && (socialType || url || image), true);
+const areAllFieldsFilled = fields => fields
+  && fields.reduce((acc, { socialType, url, image }) => acc && (socialType || url || image), true);
 
 @reduxForm({ form: 'projectItemForm' })
 class ItemModal extends PureComponent {
@@ -86,7 +86,7 @@ class ItemModal extends PureComponent {
         key={rfName}
         name={`${rfName}.image`}
         component={ImagePicker}
-        props={{ overlay: () => this.renderImageOverlay(remove, index) }}
+        props={{ overlay: () => this.renderImageOverlay(remove, index), aspect: 16 / 9 }}
       />
     </div>
   );
@@ -136,7 +136,7 @@ class ItemModal extends PureComponent {
           <Field
             name="image"
             component={ImagePicker}
-            props={{ label: 'Zdjęcie główne' }}
+            props={{ label: 'Zdjęcie główne', aspect: 16 / 9 }}
             validate={[required]}
           />
           <Field

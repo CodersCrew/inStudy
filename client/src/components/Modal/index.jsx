@@ -1,9 +1,25 @@
 import React from 'react';
 import { string } from 'prop-types';
+import { connect } from 'react-redux';
+import { lifecycle, compose } from 'recompose';
 import { omit } from 'utils';
+import { incrementModalsCount, decrementModalsCount } from 'store/actions';
 import ComplexModal from './ComplexModal';
 import ConfirmationModal from './ConfirmationModal';
 import EmptyModal from './EmptyModal';
+
+const hocs = compose(
+  connect(null, { incrementModalsCount, decrementModalsCount }),
+  lifecycle({
+    componentDidMount() {
+      if (this.props.visible) this.props.incrementModalsCount();
+    },
+    componentDidUpdate(pp) {
+      if (!pp.visible && this.props.visible) this.props.incrementModalsCount();
+      else if (pp.visible && !this.props.visible) this.props.decrementModalsCount();
+    },
+  }),
+);
 
 const Modal = (props) => {
   const modalProps = omit(props, ['type']);
@@ -27,4 +43,4 @@ Modal.defaultProps = {
   type: 'complex',
 };
 
-export default Modal;
+export default hocs(Modal);

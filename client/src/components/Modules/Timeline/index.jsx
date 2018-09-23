@@ -20,13 +20,18 @@ const itemProps = {
   description: string.isRequired,
 };
 
+const getDate = (from, to, small = false) => (
+  <DateWrapper small={small}>
+    <DateText>{`${from} - ${to}`}</DateText>
+    <Dot />
+  </DateWrapper>
+);
+
 const Item = ({ from, to, title, subtitle, description }) => (
   <ItemContainer>
-    <DateWrapper>
-      <DateText>{`${from} - ${to}`}</DateText>
-      <Dot />
-    </DateWrapper>
+    {getDate(from, to)}
     <ContentWrapper>
+      {getDate(from, to, true)}
       <Title>{title}</Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
       <Description>{description}</Description>

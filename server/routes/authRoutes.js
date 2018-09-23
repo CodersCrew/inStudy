@@ -1,9 +1,9 @@
 import passport from 'passport';
 import mongoose from 'mongoose';
-import { mapUserToView } from './../services/fetchUser';
-import { mapRAWInitiativeObjectToViewReady } from './../services/FetchInitiative'
+import { mapUserToView } from '../services/fetchUser';
+import { mapRAWInitiativeObjectToViewReady } from '../services/FetchInitiative'
 
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     '/auth/google',
     passport.authenticate('google', {
@@ -33,7 +33,7 @@ module.exports = app => {
         if (initiatives.length) res.json({ ...mapUser, initiatives: initiatives.map(initiative => mapRAWInitiativeObjectToViewReady(initiative)) });
         else res.json(mapUser);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         res.sendStatus(404);
       });

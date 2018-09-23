@@ -1,106 +1,70 @@
 import React, { PureComponent } from 'react';
-import { bool, object } from 'prop-types';
-import Typist from 'react-typist';
+import { object } from 'prop-types';
 import { connect } from 'react-redux';
-import { withSearch } from 'hocs';
-import { Transition } from 'react-transition-group';
+import { Spring } from 'react-spring';
+import Typed from 'typed.js';
 import headerTexts from './headerTexts';
+import { initiativesRoutes, getSpringContainerProps, getSpringHeaderProps } from './animations';
 import Search from './Search';
-import { Container, Middle, Supheader, Header } from './styles';
+import { Container, Middle, Supheader, HeaderWrapper } from './styles';
 
-@withSearch
+const TypedHeader = ({ springHeaderProps }) => (
+  <Spring {...springHeaderProps} key="header">
+    {styles => (
+      <HeaderWrapper style={styles}>
+        <span id="Home__header" />
+      </HeaderWrapper>
+    )}
+  </Spring>
+);
+
 @connect(state => ({ uiHistory: state.ui.history }))
 class Home extends PureComponent {
   constructor(props) {
     super(props);
 
-    const {
-      uiHistory: { previousPath },
-      location: { pathname },
-    } = this.props;
+    const { previousPath, currentPath } = this.props.uiHistory;
 
-    window.resizeHomeUp =
-      window.resizeHomeUp || (previousPath === '/inicjatywy' && pathname === '/');
-    window.resizeHomeDown =
-      window.resizeHomeDown || (previousPath === '/' && pathname === '/inicjatywy');
-
-    if (window.resizeHomeUp && !window.disableAnimation) {
-      this.state = { headerIndex: 0, isLanding: false };
-      setTimeout(() => this.setState({ isLanding: true }), 0);
-    } else if (window.resizeHomeDown && !window.disableAnimation) {
-      this.state = { headerIndex: 0, isLanding: true };
-      setTimeout(() => this.setState({ isLanding: false }), 0);
-    } else {
-      this.state = { headerIndex: 0, isLanding: !props.listView };
-    }
-    window.disableAnimation = false;
-    window.resizeHomeUp = false;
-    window.resizeHomeDown = false;
+    this.isLanding = currentPath === '/';
+    this.springContainerProps = getSpringContainerProps({ previousPath, currentPath });
+    this.springHeaderProps = getSpringHeaderProps({ previousPath, currentPath });
+    this.supheader = initiativesRoutes.includes(currentPath)
+      ? 'Odnajdź najlepszą inicjatywę dla siebie'
+      : 'Dołącz do najaktywniejszych studentów i';
   }
 
-  switchHeaderText = headerIndex => this.setState({ headerIndex });
-
-  dryRender = () => {
-    let { headerIndex } = this.state;
-    headerIndex = headerIndex + 1 < headerTexts.length ? headerIndex + 1 : 0;
-    this.setState({ headerIndex: -1 }, () => this.switchHeaderText(headerIndex));
-  };
-
-  onSearch = () => {
-    window.disableAnimation = true;
-    if (this.state.isLanding) {
-      this.setState({ isLanding: false }, () => {
-        window.setTimeout(() => {
-          this.props.history.push(`/inicjatywy${window.location.search}`);
-        }, 600);
-      });
-    }
-  };
-
-  renderHeader = index => (
-    <Transition in={this.state.isLanding} timeout={600} unmountOnExit>
-      {state => (
-        <Header onTypingDone={this.dryRender} className={state}>
-          <Typist.Delay ms={300} />
-          {headerTexts[index]}
-          <Typist.Backspace count={headerTexts[index].length} delay={3000} />
-        </Header>
-      )}
-    </Transition>
-  );
-
-  renderText = index => (index === -1 ? '|' : this.renderHeader(index));
+  componentDidMount() {
+    this.typed = new Typed('#Home__header', {
+      strings: headerTexts,
+      typeSpeed: 45,
+      backSpeed: 45,
+      backDelay: 2000,
+    });
+  }
 
   render() {
-    const { headerIndex, isLanding } = this.state;
-
     return (
-      <Transition in={isLanding} timeout={600}>
-        {state => (
-          <Container src="/img/landing.jpg" isLanding={!isLanding} className={state}>
+      <Spring {...this.springContainerProps}>
+        {styles => (
+          <Container src="/img/landing.jpg" style={styles} isLanding={this.isLanding}>
             <Middle>
-              <Supheader>Dołącz do najaktywniejszych studentów i</Supheader>
-              {this.renderText(headerIndex)}
-              <Search onSearch={this.onSearch} />
+              <Supheader key="supheader">{this.supheader}</Supheader>
+              <TypedHeader springHeaderProps={this.springHeaderProps} />
+              <Search key="search" />
             </Middle>
           </Container>
         )}
-      </Transition>
+      </Spring>
     );
   }
 }
 
 Home.propTypes = {
-  listView: bool,
-  resized: bool,
   history: object.isRequired,
-  location: object.isRequired,
   uiHistory: object,
 };
 
 Home.defaultProps = {
-  listView: false,
-  resized: false,
   uiHistory: {},
 };
 

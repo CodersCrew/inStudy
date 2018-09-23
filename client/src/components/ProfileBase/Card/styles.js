@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Avatar from 'react-avatar';
+import { Avatar } from 'antd';
 import { media } from 'utils';
 
 export const Container = styled.div`
@@ -28,35 +28,8 @@ export const Container = styled.div`
   `};
 `;
 
-export const Image = styled.div`
-  background: url('${props => props.src}') no-repeat center/cover;
-  min-width: 176px;
-  min-height: 176px;
-  max-width: 176px;
-  max-height: 176px;
-  border-radius: 100%;
-  ${media.xl`
-    min-width: 160px;
-    min-height: 160px;
-    max-width: 160px;
-    max-height: 160px;
-  `};
-  ${media.md`
-    grid-area: 1/1/4/2;
-    align-self: start;
-  `};
-  ${media.xs`
-    min-width: 120px;
-    min-height: 120px;
-    max-width: 120px;
-    max-height: 120px;
-    align-self: center;
-    margin-bottom: var(--space-sm);
-  `};
-`;
-
 export const StyledAvatar = styled(Avatar)`
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   min-width: 176px;

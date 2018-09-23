@@ -1,5 +1,5 @@
-import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData } from '../services/fetchUser';
-import { createModuleValidators } from './validators/user-validators';
+import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData, reorderModules } from '../services/fetchUser';
+// import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
 const fs = require('fs');
 import { removeImage, sendInitiativeImage, sendModuleImage } from '../services/Cloudinary';
@@ -152,5 +152,19 @@ module.exports = (app) => {
             res.sendStatus(404);
           });
       })
+  });
+
+  app.post('/api/user/module/reorder', (req, res) => {
+    const userId = req.user._id;
+    const modules = req.body;
+
+    reorderModules(userId, modules)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.sendStatus(404);
+      });
   });
 };

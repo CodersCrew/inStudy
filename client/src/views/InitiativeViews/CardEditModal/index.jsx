@@ -153,7 +153,7 @@ class CardEditModal extends PureComponent {
         ]}
       >
         <Container>
-          <Field name="image" component={ImagePicker} props={{ label: 'Zdjęcie profilowe' }} validate={[required]} />
+          <Field name="image" component={ImagePicker} props={{ label: 'Zdjęcie profilowe', aspect: 1 }} validate={[required]} />
           <Field name="name" component={Input} props={{ label: 'Nazwa inicjatywy' }} validate={[required]} />
           <Field name="email" component={Input} props={{ label: 'E-mail kontaktowy' }} validate={[required]} />
           <Field

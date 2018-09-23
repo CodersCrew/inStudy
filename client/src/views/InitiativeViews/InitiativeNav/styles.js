@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { media } from 'utils';
 
 export const Container = styled.div`
   position: fixed;
@@ -21,7 +22,7 @@ export const Item = styled(NavLink)`
   border-bottom: 2px solid transparent;
   padding: 0 var(--space-xl);
   outline: none;
-  text-decoration: none;
+  text-decoration: none !important;
   color: var(--text1);
   cursor: pointer;
   transition: all 0.3s var(--ease-in-out);
@@ -41,4 +42,14 @@ export const Item = styled(NavLink)`
     background-color: var(--grey7);
     color: default;
   }
+
+  span:first-child {
+    padding-right: var(--space-sm);
+  }
+
+  ${media.sm`
+    span:last-child {
+      display: none;
+    }
+  `}
 `;

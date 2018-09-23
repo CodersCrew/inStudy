@@ -26,11 +26,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: '2mb' }));
 
 initializeRoutes(app);
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.render(path.resolve(__dirname, '..', 'server', 'views', 'index'), {});
 });
 

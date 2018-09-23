@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Avatar from 'react-avatar';
+import { Avatar } from 'antd';
 
 export const Container = styled.div`
   display: flex;
@@ -15,21 +15,8 @@ export const Header = styled.div`
   align-items: flex-start;
 `;
 
-export const Logo = styled.div`
-  max-width: 96px;
-  max-height: 96px;
-  min-width: 96px;
-  min-height: 96px;
-  border-radius: 4px;
-  background: url('${props => props.src}') no-repeat center/contain;
-`;
-
 export const StyledAvatar = styled(Avatar)`
-  max-width: 96px;
-  max-height: 96px;
-  min-width: 96px;
-  min-height: 96px;
-  border-radius: 4px;
+  font-size: var(--font-xxl) !important;
 `;
 
 export const HeaderTexts = styled.div`

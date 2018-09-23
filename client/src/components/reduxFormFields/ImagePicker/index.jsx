@@ -15,7 +15,6 @@ DefaultOverlay.defaultProps = {
 };
 
 const imageFromFile = file => new Promise((resolve) => {
-
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = (e) => {
@@ -34,7 +33,7 @@ const imageFromFile = file => new Promise((resolve) => {
 class ImagePicker extends PureComponent {
   state = {
     imageToCrop: null,
-  };
+  }
 
   onDrop = async (acceptedFiles) => {
     let [file] = acceptedFiles;

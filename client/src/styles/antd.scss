@@ -39,7 +39,7 @@
   }
 }
 
-.ant-btn {
+.ant-btn.ant-btn-default {
   border-color: var(--grey5);
   color: var(--text1);
 
@@ -103,4 +103,10 @@
 .ant-dropdown-menu-submenu-title > a {
   margin: 0;
   padding: 0;
+}
+
+/* MODALS */
+.ant-confirm-body .anticon {
+  position: relative;
+  top: var(--space-xs);
 }
