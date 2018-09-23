@@ -25,18 +25,6 @@ const shortenInitiativeProfile = async singleInitiative => {
   };
 };
 
-const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
-  if (RAWInitiative) {
-    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
-
-    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
-      return { ...RAWInitiative, image: AboutPage.content.logo };
-    }
-  }
-
-  return RAWInitiative;
-};
-
 // logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 class FetchInitiative {
   getInitiative = (page) => {

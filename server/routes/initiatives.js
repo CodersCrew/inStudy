@@ -1,6 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
 import mongoose from 'mongoose';
-const bcrypt = require('bcryptjs');
 
 import FetchInitiative from './../services/FetchInitiative';
 import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
@@ -78,8 +77,8 @@ module.exports = app => {
 
   app.post('/api/initiative/restore', async (req, res) => {
     const { email } = req.body;
-    // const { _id: userId } = req.user;
-    const userId = '5ba662f121f43e0717efcdbd';
+    const { _id: userId } = req.user;
+    // const userId = '5ba662f121f43e0717efcdbd';
     const result = await OldInitiative.findOne({ email });
     const newInitiative = await Initiative.findOne({ email });
 
