@@ -31,3 +31,9 @@ body {
 .tippy-popper {
   z-index: 1000 !important;
 }
+
+/* QUILL */
+.ql-container,
+.ql-editor {
+  height: unset;
+}

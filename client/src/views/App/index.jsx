@@ -19,6 +19,7 @@ import StudentViews from '../StudentViews';
 import InitiativeViews from '../InitiativeViews';
 import Page404 from '../Page404';
 import FAQ from '../FAQ';
+import Contact from '../Contact';
 import Registration from '../Registration';
 import AboutProject from '../AboutProject';
 import Policy from '../Registration/Policy';
@@ -63,6 +64,7 @@ class App extends PureComponent {
                 <Route path="/regulamin" component={Statute} />
                 <Route path="/faq/:name" component={FAQ} />
                 <Route path="/o-projekcie" component={AboutProject} />
+                <Route path="/kontakt" component={Contact} />
                 <Route exact path="/" component={Home} />
                 <Route path="/" component={Page404} />
               </Switch>
