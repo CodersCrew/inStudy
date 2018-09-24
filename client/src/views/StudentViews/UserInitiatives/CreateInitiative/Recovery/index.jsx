@@ -2,6 +2,7 @@ import React from 'react';
 import { bool, func } from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
+import axios from 'axios';
 import { Modal } from 'components';
 import { Input } from 'components/reduxFormFields';
 import { isEmail, required } from 'utils/validators';
@@ -21,7 +22,11 @@ const Text = styled.p`
   color: var(--text1);
 `;
 
-const Initial = ({ visible, closeModal, incrementStep }) => (
+const sendMail = (values) => {
+  axios.post('/api/initiative/restore', values).then(res => console.log(res));
+};
+
+const Initial = ({ visible, closeModal, incrementStep, handleSubmit }) => (
   <StyledModal
     type="confirmation"
     visible={visible}
@@ -31,7 +36,7 @@ const Initial = ({ visible, closeModal, incrementStep }) => (
     width={644}
     buttons={[
       {
-        onClick: () => incrementStep(1),
+        onClick: handleSubmit(sendMail),
         label: 'Importuj konto',
         size: 'large',
         type: 'primary',
