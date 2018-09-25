@@ -63,7 +63,7 @@ const StaticModuleBase = (props) => {
   const ModuleComponent = modalData.module;
 
   return (
-    <Container>
+    <Container isHidden={props.isHidden}>
       <Header>
         <Icon className={`fal fa-${props.icon}`} />
         <Text>{props.title}</Text>
