@@ -50,7 +50,7 @@ class FBCrawler {
 
   scrape = async () => {
     try {
-      this.browser = await puppeteer.launch();
+      this.browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
       const scrapedPages = this.pages.map(async singlePage => {
         try {
           singlePage.content = await singlePage.openNewPage(this.browser, FBScraper(singlePage.url));
