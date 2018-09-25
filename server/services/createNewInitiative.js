@@ -2,23 +2,7 @@ import mongoose from 'mongoose';
 const Initiative = mongoose.model('initiatives');
 const Member = mongoose.model('member');
 import FBCrawler from './../services/Crawler/FBCrawler';
-
-const createInitiative = (initiative, user) => {
-
-  return new FBCrawler()
-    .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
-    .scrape()
-    .then(fetchedProfile => {
-      const newMember = new Member({
-        user: new mongoose.mongo.ObjectId(user._id),
-        role: 'admin',
-        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
-      });
-
-      return new Initiative({ ...initiative, FBProfile: fetchedProfile[0]?.content, members: [newMember] }).save();
-    })
-    .then(createdInitiative => assignToUser(createdInitiative, user._id));
-};
+import roles, { ADMIN } from './../services/roles';
 
 const assignToUser = async (createdInitiative, userId) => {
   console.log(createdInitiative);
@@ -28,6 +12,23 @@ const assignToUser = async (createdInitiative, userId) => {
     },
   });
   return createdInitiative;
+};
+
+const createInitiative = (initiative, user) => {
+
+  const newMember = new Member(roles(user.id, ADMIN, initiative));
+
+  return new Initiative({ ...initiative, members: [newMember] }).save()
+    .then(createdInitiative => assignToUser(createdInitiative, user._id));
+  // return new FBCrawler()
+  //   .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
+  //   .scrape()
+  //   .then(fetchedProfile => {
+  //
+  //     const newMember = new Member(roles(user.id, ADMIN, initiative));
+  //     return new Initiative({ ...initiative, FBProfile: fetchedProfile[0]?.content, members: [newMember] }).save();
+  //   })
+  //   .then(createdInitiative => assignToUser(createdInitiative, user._id));
 };
 
 const initiativeNotExist = initiative => {
