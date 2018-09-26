@@ -2,11 +2,12 @@ import React from 'react';
 import { object } from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withCustomColor } from 'hocs';
+import { withCustomColor, withAuth } from 'hocs';
 import { ProfileBase } from 'components';
 import CardEditModal from './CardEditModal';
 
 const hocs = compose(
+  withAuth('userProfile'),
   connect(({ auth }) => ({ user: auth })),
   withCustomColor,
 );

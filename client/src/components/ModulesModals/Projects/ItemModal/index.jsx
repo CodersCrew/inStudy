@@ -94,7 +94,6 @@ class ItemModal extends PureComponent {
   renderImages = ({ fields = [] }) => {
     const fieldsValues = fields.getAll();
     const lastImageIndex = fields.length - 1;
-    console.log(fieldsValues);
 
     if (fields.length === 0 || areAllFieldsFilled(fieldsValues)) {
       fields.push({});

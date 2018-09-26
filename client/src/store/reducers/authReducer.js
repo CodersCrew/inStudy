@@ -37,7 +37,6 @@ export default (state = null, { type, payload }) => {
     }
 
     case ADD_USER_INITIATIVE:
-      console.log(payload);
       return { ...state, initiatives: [...state.initiatives, payload] };
 
     case ADD_USER_MODULE:
