@@ -9,11 +9,11 @@ const initiativeExist = initiativeShortUrl =>
     shortUrl: initiativeShortUrl,
   });
 
-const shortenInitiativeProfile = async singleInitiative => {
+const shortenInitiativeProfile = async (singleInitiative) => {
   const { image, name, description, shortUrl, color } = singleInitiative;
 
   const university = await University.findById(singleInitiative.university);
-  console.log(university)
+  console.log(university);
   return {
     image: image || 'https://screenshotlayer.com/images/assets/placeholder.png',
     name,
@@ -130,20 +130,18 @@ class FetchInitiative {
 }
 
 export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
-  if (!RAWInitiative.image && RAWInitiative.FBProfile.logo) {
+  if (!RAWInitiative.image && RAWInitiative?.FBProfile?.logo) {
     RAWInitiative.image = RAWInitiative.FBProfile.logo;
   }
 
   RAWInitiative.facebookUrl = `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
-}
-
-export const changeBasicInitiativeData = (basic, initiativeId) => {
-  return mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
-    $set: {
-      ...basic,
-    },
-  });
 };
+
+export const changeBasicInitiativeData = (basic, initiativeId) => mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
+  $set: {
+    ...basic,
+  },
+});
 
 export default FetchInitiative;

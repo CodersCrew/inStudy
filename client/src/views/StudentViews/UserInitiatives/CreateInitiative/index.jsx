@@ -32,7 +32,6 @@ class CreateInitiative extends PureComponent {
   render() {
     const { step } = this.state;
     const { closeModal } = this.props;
-    console.log(step);
 
     return (
       <Fragment>

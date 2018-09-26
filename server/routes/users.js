@@ -1,10 +1,12 @@
+import mongoose from 'mongoose';
 import { addNewModule, changeBasicUserData, updateModule, deleteModule, getUserData, reorderModules } from '../services/fetchUser';
 // import { createModuleValidators } from './validators/user-validators';
 import { userLogged } from './validators/auth';
-const fs = require('fs');
 import { removeImage, sendInitiativeImage, sendModuleImage } from '../services/Cloudinary';
 import mailSender, { INITIATIVE_CONTACT_EMAIL } from '../services/mail-sender';
-import mongoose from 'mongoose';
+
+const fs = require('fs');
+
 const User = mongoose.model('users');
 
 module.exports = (app) => {
@@ -31,16 +33,16 @@ module.exports = (app) => {
 
     mailSender(email, INITIATIVE_CONTACT_EMAIL, emailParams)
       .then(() => res.sendStatus(201))
-      .catch(() => res.sendStatus(500))
+      .catch(() => res.sendStatus(500));
   });
 
-  //wysylanie zdjec, rejestracja inicjatywy - scrapper, maile, validator
+  // wysylanie zdjec, rejestracja inicjatywy - scrapper, maile, validator
   app.post('/api/user/module', async (req, res) => {
     const module = req.body;
     const { _id: userId } = req.user;
 
     try {
-      if( module?.content?.items) {
+      if (module?.content?.items) {
         const parsedContent = module.content.items.map(async (singleItem) => {
           if (singleItem.image) {
             const { secure_url } = await sendModuleImage(singleItem.image)(userId);
@@ -83,7 +85,7 @@ module.exports = (app) => {
 
     sendInitiativeImage(req.body.image)(req.user._id)
       .then((result) => {
-        changeBasicUserData({ ...basic, image: result.secure_url}, userId)
+        changeBasicUserData({ ...basic, image: result.secure_url }, userId)
           .then(() => {
             res.sendStatus(201);
           })
@@ -92,7 +94,7 @@ module.exports = (app) => {
             res.sendStatus(404);
           });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         res.sendStatus(500);
       });
@@ -101,7 +103,7 @@ module.exports = (app) => {
   app.put('/api/user/module', userLogged, (req, res) => {
     const { module } = req.body;
     const moduleIndex = req.body.index;
-    const userId = req.user._id; //add id to module
+    const userId = req.user._id; // add id to module
     updateModule(module, userId, moduleIndex)
       .then(() => {
         res.sendStatus(201);
@@ -117,20 +119,20 @@ module.exports = (app) => {
     const { moduleIndex } = req.params;
 
     User.findById(userId).lean()
-      .then( async user => {
-        const module = user.modules[moduleIndex]
+      .then(async (user) => {
+        const module = user.modules[moduleIndex];
 
-        if ( module?.content?.items) {
+        if (module?.content?.items) {
           const parsedContent = module.content.items.map(async (singleItem) => {
             if (singleItem.image) {
-              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
+              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1];
               await removeImage(public_id);
             }
 
             if (singleItem.images) {
               const images = singleItem.images.map(async (item) => {
                 if (item.image) {
-                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
+                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1];
                   await removeImage(public_id);
                 }
                 return item;
@@ -151,7 +153,7 @@ module.exports = (app) => {
             console.error(error);
             res.sendStatus(404);
           });
-      })
+      });
   });
 
   app.post('/api/user/module/reorder', (req, res) => {

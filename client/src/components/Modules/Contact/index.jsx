@@ -4,10 +4,10 @@ import React, { PureComponent } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { required, isEmail } from 'utils/validators';
 import { Input, TextArea } from 'components/reduxFormFields';
-import { Container, StyledButton } from './styles';
 import { connect } from 'react-redux';
 import { sendContactMail as sendInitiativeContactMail } from 'store/actions/initiativeModules';
 import { sendContactMail as sendUserContactMail } from 'store/actions/userModules';
+import { Container, StyledButton } from './styles';
 
 @reduxForm({ form: 'contactForm' })
 @connect(
@@ -15,21 +15,17 @@ import { sendContactMail as sendUserContactMail } from 'store/actions/userModule
   { sendInitiativeContactMail, sendUserContactMail },
 )
 class Contact extends PureComponent {
-
   onSubmit = (values) => {
-    console.log(values);
     if (!this.props.publicProfile) {
       const { _id } = this.props.auth;
       this.props.sendUserContactMail(_id, { ...values });
     } else {
       const { _id } = this.props.publicProfile;
-      console.log(this.props.publicProfile)
       this.props.sendInitiativeContactMail(_id, { ...values });
     }
   };
 
   render() {
-    console.log(this.props)
     return (
       <Container>
         <Field name="email" component={Input} props={{ label: 'E-mail' }} validate={[required, isEmail]} />
