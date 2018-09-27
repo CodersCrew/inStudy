@@ -86,7 +86,7 @@ class ItemModal extends PureComponent {
         key={rfName}
         name={`${rfName}.image`}
         component={ImagePicker}
-        props={{ overlay: () => this.renderImageOverlay(remove, index), aspect: 16 / 9 }}
+        props={{ overlay: () => this.renderImageOverlay(remove, index), aspect: 16 / 9, width: 1280 }}
       />
     </div>
   );
@@ -135,7 +135,7 @@ class ItemModal extends PureComponent {
           <Field
             name="image"
             component={ImagePicker}
-            props={{ label: 'Zdjęcie główne', aspect: 16 / 9 }}
+            props={{ label: 'Zdjęcie główne', aspect: 16 / 9, width: 1280 }}
             validate={[required]}
           />
           <Field
