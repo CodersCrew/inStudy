@@ -14,20 +14,48 @@ DefaultOverlay.defaultProps = {
   preview: null,
 };
 
-const imageFromFile = file => new Promise((resolve) => {
+const convertBlobToImageSource = (file, callback) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
+
   reader.onload = (e) => {
     const image = new Image();
     image.src = e.target.result;
     image.onload = (imageSource) => {
-      const base64Url = imageSource.path
-        ? imageSource.path[0]
-        : imageSource.target;
-
-      resolve(base64Url);
+      callback(imageSource, image);
     };
   };
+};
+
+const resizeImage = (image, { width, height }, callback) => {
+  const elem = document.createElement('canvas');
+
+  elem.width = width;
+  elem.height = height;
+
+  const ctx = elem.getContext('2d');
+
+  ctx.drawImage(image, 0, 0, width, height);
+  ctx.canvas.toBlob(callback);
+};
+
+const resolveToBase64 = (imageSource, resolve) => {
+  const base64Url = imageSource.path ? imageSource.path[0] : imageSource.target;
+  resolve(base64Url);
+};
+
+const imageFromFile = (initialBlob, resizeObj) => new Promise((resolve) => {
+  convertBlobToImageSource(initialBlob, (initialImageSource, image) => {
+    if (resizeObj) {
+      resizeImage(image, resizeObj, (blob) => {
+        convertBlobToImageSource(blob, (imageSource) => {
+          resolveToBase64(imageSource, resolve);
+        });
+      });
+    } else {
+      resolveToBase64(initialImageSource, resolve);
+    }
+  });
 });
 
 class ImagePicker extends PureComponent {
@@ -37,7 +65,7 @@ class ImagePicker extends PureComponent {
 
   onDrop = async (acceptedFiles) => {
     let [file] = acceptedFiles;
-    const { input, aspect } = this.props;
+    const { input, aspect, width } = this.props;
     const image = await imageFromFile(file);
 
     if (aspect && image.width / image.height !== aspect) {
@@ -46,7 +74,11 @@ class ImagePicker extends PureComponent {
       this.setState({ imageToCrop: null });
     }
 
-    file = await imageFromFile(file);
+    if (aspect && width) {
+      file = await imageFromFile(file, { width, height: width / aspect });
+    } else {
+      file = await imageFromFile(file);
+    }
 
     input.onChange(file.src);
     input.onBlur();
@@ -92,11 +124,13 @@ ImagePicker.propTypes = {
   aspect: number,
   input: object.isRequired,
   overlay: func,
+  width: number,
 };
 
 ImagePicker.defaultProps = {
   aspect: null,
   overlay: null,
+  width: 600,
 };
 
 export default ImagePicker;
