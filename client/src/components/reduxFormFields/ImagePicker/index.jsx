@@ -130,7 +130,7 @@ ImagePicker.propTypes = {
 ImagePicker.defaultProps = {
   aspect: null,
   overlay: null,
-  width: 600,
+  width: null,
 };
 
 export default ImagePicker;
