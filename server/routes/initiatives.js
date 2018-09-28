@@ -263,15 +263,6 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
-    const { shortUrl } = req.params;
-
-    new FetchInitiative()
-      .getFBProfile(shortUrl)
-      .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
-      .then(() => res.sendStatus(201));
-  });
-
   app.post('/api/initiative/:initId/invite', inviteUserValidators, (req, res) => {
     const { email } = req.body;
     mailSender(email, INVITE_EMAIL, { initiativeID: req.params.initId })
