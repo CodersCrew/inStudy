@@ -28,16 +28,16 @@ module.exports = (app) => {
           res
             .status(200)
             .json(result);
-        })
+        });
     } else {
       new FetchInitiative()
-      .getShortInitiativeProfile(page)
-      .then(async (foundInitiatives) => {
-        res.status(200).json(await Promise.all(foundInitiatives));
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
+        .getShortInitiativeProfile(page)
+        .then(async (foundInitiatives) => {
+          res.status(200).json(await Promise.all(foundInitiatives));
+        })
+        .catch(() => {
+          res.sendStatus(404);
+        });
     }
   });
 
@@ -48,6 +48,7 @@ module.exports = (app) => {
         res.status(200).json({ result });
       })
       .catch((err) => {
+        console.log(err)
         if (err === 'ITEM_EXIST') {
           res.sendStatus(409);
         }
@@ -76,7 +77,7 @@ module.exports = (app) => {
         $addToSet: {
           initiatives: new mongoose.mongo.ObjectId(initiativeId),
         },
-      } );
+      });
     }
 
     res.redirect(`${config.HOST}/student/profil`);
@@ -174,7 +175,7 @@ module.exports = (app) => {
       res.status(200).json(module);
     });
   },
-  cacher );
+  cacher);
 
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const { initId } = req.params;
