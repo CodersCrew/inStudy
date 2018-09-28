@@ -1,46 +1,52 @@
 import mongoose from 'mongoose';
 import FBCrawler from './Crawler/FBCrawler';
-
+import roles, { MEMBER } from './roles';
+const { searchInitiative } = require('./../services/search');
 const Initiative = mongoose.model('initiatives');
 const User = mongoose.model('users');
+const Member = mongoose.model('member');
 const University = mongoose.model('universities');
+const to = require('./../utils/to');
 const initiativeExist = initiativeShortUrl =>
   mongoose.model('initiatives').findOne({
     shortUrl: initiativeShortUrl,
   });
 
 const shortenInitiativeProfile = async singleInitiative => {
-  const { image, name, description, shortUrl, color } = singleInitiative;
+  const { image, name, description, shortUrl, color, modules } = singleInitiative;
 
-  const university = await University.findById(singleInitiative.university);
-  console.log(university)
+  const [err, university] = await to(University.findById(singleInitiative.university));
+  if (err) throw new Error("fetch db error");
+
   return {
     image: image || 'https://screenshotlayer.com/images/assets/placeholder.png',
     name,
     description,
     color,
-    profileCompleted: true,
+    profileCompleted: modules.length >= 3,
     shortUrl,
     university,
   };
 };
 
+export const getShortInitiativeProfile = async (page, count, query) => {
+  const ITEMS_PER_PAGE = 10;
+  if (query) {
+    return await to(searchInitiative(query));
+  }
+
+  const [err, initiatives] = await to(Initiative.find({}).skip(page * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE));
+  if (err) throw new Error("");
+
+  const parsedInitiatives = initiatives.map((singleInitiative) => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative)))
+
+  return Promise.all(parsedInitiatives);
+};
+
 // logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 class FetchInitiative {
-  getInitiative = (page) => {
-    if (page) {
-      return Initiative.find({})
-        .skip(page * 10)
-        .limit(10);
-    }
-    return Initiative.find({});
-  };
 
   deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
-
-  getShortInitiativeProfile = page =>
-    this.getInitiative(page).then(initiatives =>
-      initiatives.map(singleInitiative => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative))))
 
   setInitiative = initiative =>
     initiativeExist(initiative.shortUrl).then(foundInitiative => (foundInitiative)
@@ -122,15 +128,26 @@ class FetchInitiative {
 
   setFBProfile = (shortUrl, profile) => Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
 
-  assignInitiative = (userId, initiativeId) => User.findByIdAndUpdate(userId, {
-    $addToSet: {
-      initiatives: initiativeId,
-    },
-  })
+  assignInitiative = async (userId, initiativeId) => {
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        initiatives: initiativeId,
+      },
+    });
+
+    const initiative = await Initiative.findById(initiativeId);
+
+    return await Initiative.findByIdAndUpdate(initiativeId, {
+      $addToSet: {
+        members: new Member(roles(userId, MEMBER, initiative))
+      }
+    })
+  }
 }
 
 export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
-  if (!RAWInitiative.image && RAWInitiative.FBProfile.logo) {
+  if (!RAWInitiative.image && RAWInitiative.FBProfile?.logo) {
     RAWInitiative.image = RAWInitiative.FBProfile.logo;
   }
 
@@ -146,4 +163,8 @@ export const changeBasicInitiativeData = (basic, initiativeId) => {
   });
 };
 
-export default FetchInitiative;
+export const restoreInitiative = () => {
+
+}
+
+export default new FetchInitiative();

@@ -1,7 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
-import FetchInitiative from './../services/FetchInitiative';
+import FetchInitiative, { getShortInitiativeProfile } from './../services/FetchInitiative';
 import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
 import createNewInitiative from './../services/createNewInitiative';
@@ -15,60 +15,62 @@ const { searchInitiative } = require('./../services/search');
 const Initiative = mongoose.model('initiatives');
 const Member = mongoose.model('member');
 const User = mongoose.model('users');
+import roles, { ADMIN } from './../services/roles';
+const to = require('./../utils/to');
+const { initiativeDebug } = require('./../utils/debug');
 
 module.exports = app => {
   app.get('/api/initiative', async (req, res) => {
-    const { page } = req.query;
+    const { page, count, query } = req.query;
 
-    new FetchInitiative()
-      .getShortInitiativeProfile(page)
-      .then( async foundInitiatives => {
-        res.status(200).json(await Promise.all(foundInitiatives));
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
+    const [err, initiatives] = await to(getShortInitiativeProfile(page, count, query));
+    initiativeDebug(req.query, [err, initiatives]);
+
+    if (err) return res.sendStatus(404);
+    return res.status(200).json(initiatives);
   });
 
-  app.post('/api/initiative', userLogged, (req, res) => {
-    const initiative = req.body;
-    createNewInitiative(initiative, req.user)
-      .then((result) => {
-        res.status(200).json({ result });
-      })
-      .catch((err) => {
-        if (err === 'ITEM_EXIST') {
-          res.sendStatus(409);
-        }
-      });
+  app.post('/api/initiative', userLogged, async (req, res) => {
+    const initiativeInput = req.body;
+    const { user } = req;
+
+    const [err, initiative] = await to(createNewInitiative(initiativeInput, user));
+    initiativeDebug(initiativeInput, [err, initiative]);
+
+    if (err) return res.sendStatus(409);
+
+    return res.status(200).json({ result: initiative });
   });
 
   app.get('/api/restore', async (req, res) => {
     const { token } = req.query;
 
     const { userId, initiativeId } = jsonwebtoken.verify(token, config.cookieKey);
-    const initiative = await Initiative.findById(initiativeId);
+
+    let [err, initiative] = await to(Initiative.findById(initiativeId));
+
+    if (err) return res.sendStatus(500);
 
     if (userId && initiativeId) {
-
-      const newMember = new Member({
-        user: new mongoose.mongo.ObjectId(userId),
-        role: 'admin',
-        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
-      });
-
-      await Initiative.findByIdAndUpdate(initiativeId, {
+      const newMember = new Member(roles(userId, ADMIN, initiative));
+      [err] = await to(Initiative.findByIdAndUpdate(initiativeId, {
         $addToSet: {
           members: newMember,
         }
-      })
-      await User.findByIdAndUpdate(userId, {
+      }));
+
+      if (err) return res.sendStatus(500);
+
+      [err] = await to(User.findByIdAndUpdate(userId, {
         $addToSet: {
-          initiatives: new mongoose.mongo.ObjectId(initiativeId)
+          initiatives: new mongoose.mongo.ObjectId(initiativeId),
         }
-      }
-    )
+      }));
+
+      if (err) return res.sendStatus(500);
     }
+
+    initiativeDebug(req.query, 'void');
 
     res.redirect(`${config.HOST}/student/profil`);
 
@@ -268,12 +270,13 @@ module.exports = app => {
 
   app.post('/api/initiative/:initId/invite', inviteUserValidators, (req, res) => {
     const { email } = req.body;
+
     mailSender(email, INVITE_EMAIL, { initiativeID: req.params.initId })
       .then(() => res.sendStatus(201))
       .catch(() => res.sendStatus(500));
   });
 
-  app.get('/api/invite', invitationResponse, (req, res) => {
+  app.get('/api/invite', invitationResponse, (req, res) => {//TODO: zmienic mechanike zapraszania
     const { jwt } = req.query;
 
     const { initiativeID } = jsonwebtoken.verify(jwt, config.cookieKey);
