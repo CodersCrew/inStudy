@@ -9,6 +9,7 @@ const vinylPaths = require('vinyl-paths');
 const styles = require('./styles');
 const server = require('./server');
 const build = require('./build');
+const images = require('./images');
 const devServer = require('./dev-server');
 
 gulp.task('clean-client', (done) => {
@@ -33,7 +34,9 @@ gulp.task('webpack-dev-server', devServer);
 
 gulp.task('server', server);
 
-gulp.task('client', gulp.series('styles', 'webpack-dev-server'));
+gulp.task('images', images);
+
+gulp.task('client', gulp.series('styles', 'images', 'webpack-dev-server'));
 
 // gulp.task('build-client', gulp.series('styles', 'webpack-build'));
 
