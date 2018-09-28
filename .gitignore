@@ -10,7 +10,7 @@ dist
 /public
 
 # private files
-dev.js
+server/config/dev\.js
 
 # misc
 .DS_Store
