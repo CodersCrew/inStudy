@@ -20,9 +20,17 @@ const User = mongoose.model('users');
 
 module.exports = (app) => {
   app.get('/api/initiative', async (req, res) => {
-    const { page } = req.query;
+    const { page, query } = req.query;
 
-    new FetchInitiative()
+    if (query && query.length) {
+      searchInitiative(query)
+        .then((result) => {
+          res
+            .status(200)
+            .json(result);
+        })
+    } else {
+      new FetchInitiative()
       .getShortInitiativeProfile(page)
       .then(async (foundInitiatives) => {
         res.status(200).json(await Promise.all(foundInitiatives));
@@ -30,6 +38,7 @@ module.exports = (app) => {
       .catch(() => {
         res.sendStatus(404);
       });
+    }
   });
 
   app.post('/api/initiative', userLogged, (req, res) => {
