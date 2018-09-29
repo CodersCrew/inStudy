@@ -11,7 +11,7 @@ import { Container, TrashIcon, Label, Socials, Images, Overlay } from './styles'
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
 
 const areAllFieldsFilled = fields => fields
-  && fields.reduce((acc, { socialType, url, image }) => acc && (socialType || url || image), true);
+  && fields.reduce((acc, curr) => acc && curr && (curr.socialType || curr.url || curr.image), true);
 
 @reduxForm({ form: 'projectItemForm' })
 class ItemModal extends PureComponent {

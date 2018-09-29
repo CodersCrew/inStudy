@@ -9,8 +9,8 @@ import { Container, Logo, Line, Right } from './styles';
 
 const Navbar = ({ sizeName }) => {
   const logoData = sizeName === 'xs'
-    ? { path: '/img/sygnet_bialy.svg', width: 21, height: 16 }
-    : { path: '/img/logo_poziomo_biale.svg', width: 80, height: 24 };
+    ? { src: '/img/sygnet_bialy.svg', width: 21, height: 16 }
+    : { src: '/img/logo_poziomo_biale.svg', width: 80, height: 24 };
 
   return (
     <Container>
