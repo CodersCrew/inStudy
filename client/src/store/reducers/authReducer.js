@@ -92,7 +92,7 @@ export default (state = null, { type, payload }) => {
       const { initiativeData, id } = payload;
       const image = typeof initiativeData.image === 'string' ? initiativeData.image : initiativeData.image.preview;
       const initiative = state.initiatives.find(({ _id }) => _id === id);
-      const updatedInitiative = { ...initiative, image };
+      const updatedInitiative = { ...initiative, ...initiativeData, image };
 
       return { ...state, initiatives: state.initiatives.map(ini => ini._id === id ? updatedInitiative : ini) };
     }
