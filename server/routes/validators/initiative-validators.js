@@ -11,9 +11,22 @@ export const invitationResponse = [
   validate,
 ];
 
+export const get_api_initiative = [
+  check('page').exists(),
+  check('query').exists(),
+  validate,
+];
+
+export const post_api_initiative = [
+  check('page').exists(),
+  check('query').exists(),
+  validate,
+];
+
 function validate(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   } else return next();
 }
+

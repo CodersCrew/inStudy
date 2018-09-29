@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 const Cloudinary = require('cloudinary');
 const { cloudinaryConfig } = require('./../config/keys');
 
-const Initiative = mongoose.model('initiatives');
-
 Cloudinary.config(cloudinaryConfig);
 
 module.exports.sendInitiativeImage = path => (initiativeId) =>
   Cloudinary.uploader.upload(path, () => {}, {
     public_id: '/image',
+    folder: initiativeId,
+  });
+
+module.exports.sendInitiativeOpengraph = path => (initiativeId) =>
+  Cloudinary.uploader.upload(path, () => {}, {
+    public_id: '/opengraph',
     folder: initiativeId,
   });
 

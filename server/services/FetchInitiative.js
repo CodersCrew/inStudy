@@ -1,19 +1,15 @@
 import mongoose from 'mongoose';
-import FBCrawler from './Crawler/FBCrawler';
 import roles, { MEMBER } from './roles';
+import { removeImage, sendModuleImage } from './Cloudinary';
 const { searchInitiative } = require('./../services/search');
 const Initiative = mongoose.model('initiatives');
 const User = mongoose.model('users');
 const Member = mongoose.model('member');
 const University = mongoose.model('universities');
 const to = require('./../utils/to');
-const initiativeExist = initiativeShortUrl =>
-  mongoose.model('initiatives').findOne({
-    shortUrl: initiativeShortUrl,
-  });
 
 const shortenInitiativeProfile = async singleInitiative => {
-  const { image, name, description, shortUrl, color, modules } = singleInitiative;
+  const { image, name, description, shortUrl, color, modules, facebookUrl } = singleInitiative;
 
   const [err, university] = await to(University.findById(singleInitiative.university));
   if (err) throw new Error("fetch db error");
@@ -26,13 +22,19 @@ const shortenInitiativeProfile = async singleInitiative => {
     profileCompleted: modules.length >= 3,
     shortUrl,
     university,
+    facebookUrl,
   };
 };
 
 export const getShortInitiativeProfile = async (page, count, query) => {
   const ITEMS_PER_PAGE = 10;
-  if (query) {
-    return await to(searchInitiative(query));
+  if (query?.length) {
+    const [err, foundInitiatives] = await to(searchInitiative(query));
+    if(err) throw new Error('Mongo err');
+
+    const parsedInitiatives = foundInitiatives.map((singleInitiative) => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative)))
+
+    return Promise.all(parsedInitiatives);
   }
 
   const [err, initiatives] = await to(Initiative.find({}).skip(page * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE));
@@ -43,115 +45,167 @@ export const getShortInitiativeProfile = async (page, count, query) => {
   return Promise.all(parsedInitiatives);
 };
 
-// logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
-class FetchInitiative {
+export const getSingleInitiative = async (shortUrl) => {
+  const [err, initiative] = await to(Initiative.findOne({ shortUrl }).lean());
+  if(err) throw new Error('Mongo err')
 
-  deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
+  if (initiative) {
+    return mapRAWInitiativeObjectToViewReady(initiative);
+  }
 
-  setInitiative = initiative =>
-    initiativeExist(initiative.shortUrl).then(foundInitiative => (foundInitiative)
-      ? Promise.resolve(foundInitiative)
-      : new Initiative(initiative).save());
+  throw new Error('Initiative not found');
+};
 
-  getSingleInitiative = shortUrl =>
-    new Promise((resolve, reject) => {
-      Initiative.findOne({ shortUrl }, (err, initiative) => {
-        if (initiative === null) {
-          reject('NOT_FOUND');
-        } else {
-          const profile = { ...initiative.toObject(), profileCompleted: true };
-          resolve(mapRAWInitiativeObjectToViewReady(profile));
-        }
-      });
-    });
+const parseModule = async (module, initId) => {
+  if ( module?.content?.items) {
+    const parsedContent = module.content.items.map(async (singleItem) => {
+      if (singleItem.image) {
+        const { secure_url } = await sendModuleImage(singleItem.image)(initId);
+        singleItem.image = secure_url;
+      }
 
-  addInitiativeModule = (initiativeId, module) => {
-    console.log(initiativeId);
-    console.log(module);
-    module._id = new mongoose.mongo.ObjectId();
-
-    return Initiative.findByIdAndUpdate(initiativeId, {
-      $addToSet: {
-        modules: module,
-      },
-    });
-  };
-
-  getAllModules = initiativeId => Initiative.findById(initiativeId).then(result => result.modules);
-
-  updateModule = (module, initiativeId, moduleId) =>
-    new Promise((resolve, reject) => {
-      Initiative.findById(initiativeId, (err, initiative) => {
-        let newModule;
-
-        const updatedModules = initiative.modules.map((item) => {
-          if (String(item._id) === String(moduleId)) {
-            newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
-            return newModule;
+      if (singleItem.images) {
+        const images = singleItem.images.map(async (item) => {
+          if (item.image) {
+            const { secure_url } = await sendModuleImage(item.image)(initId);
+            item.image = secure_url;
           }
           return item;
         });
 
-        Initiative.findByIdAndUpdate(
-          initiativeId,
-          {
-            $set: {
-              modules: updatedModules,
-            },
-          },
-          (error) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(newModule);
-            }
-          },
-        );
-      });
+        singleItem.images = await Promise.all(images);
+      }
+
+      return singleItem;
     });
 
-  deleteModule = (initiativeId, moduleId) =>
-    Initiative.findByIdAndUpdate(initiativeId, {
+    module.content.items = await Promise.all(parsedContent);
+  }
+  console.log('wqeqwrwe, 3333mod', module)
+
+  return module;
+};
+
+export const addInitiativeModule = async (initiativeId, module) => {
+  module._id = new mongoose.mongo.ObjectId();
+  module = await parseModule(module, initiativeId);
+
+  console.log('aaaaaa', module)
+  return Initiative.findByIdAndUpdate(initiativeId, {
+    $addToSet: {
+      modules: module,
+    },
+  });
+};
+
+export const getAllModules = initiativeId => Initiative.findById(initiativeId).then(result => result.modules);
+
+export const updateModule = (module, initiativeId, moduleId) =>
+  new Promise((resolve, reject) => {
+    Initiative.findById(initiativeId, (err, initiative) => {
+      let newModule;
+
+      const updatedModules = initiative.modules.map((item) => {
+        if (String(item._id) === String(moduleId)) {
+          newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
+          return newModule;
+        }
+        return item;
+      });
+
+      Initiative.findByIdAndUpdate(
+        initiativeId,
+        {
+          $set: {
+            modules: updatedModules,
+          },
+        },
+        (error) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(newModule);
+          }
+        },
+      );
+    });
+  });
+
+const deleteSingleModule = async (initiative, modId) => {
+
+  const module = initiative.modules.find(module => module._id.toString() === modId)
+
+  if (module?.content?.items) {
+    const parsedContent = module.content.items.map(async (singleItem) => {
+      if (singleItem.image) {
+        const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
+        await removeImage(public_id);
+      }
+
+      if (singleItem.images) {
+        const images = singleItem.images.map(async (item) => {
+          if (item.image) {
+            const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
+            await removeImage(public_id);
+          }
+          return item;
+        });
+
+        singleItem.images = await Promise.all(images);
+      }
+
+      return singleItem;
+    });
+
+    await Promise.all(parsedContent);
+  }
+};
+
+export const deleteModule = async (initiativeId, moduleId) => {
+  const [err, initiative] = await to(Initiative.findById(initId).lean());
+
+  if (initiativeId) {
+    deleteSingleModule(initiative)
+
+    return Initiative.findByIdAndUpdate(initiativeId, {
       $pull: {
         modules: {
           _id: new mongoose.mongo.ObjectId(moduleId),
         },
       },
     });
-
-  reorderModules = (initId, modules) => Initiative.findByIdAndUpdate(initId, {
-    $set: { modules },
-  })
-
-  getFBProfile = shortUrl =>
-    new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
-
-  setFBProfile = (shortUrl, profile) => Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
-
-  assignInitiative = async (userId, initiativeId) => {
-
-    await User.findByIdAndUpdate(userId, {
-      $addToSet: {
-        initiatives: initiativeId,
-      },
-    });
-
-    const initiative = await Initiative.findById(initiativeId);
-
-    return await Initiative.findByIdAndUpdate(initiativeId, {
-      $addToSet: {
-        members: new Member(roles(userId, MEMBER, initiative))
-      }
-    })
   }
-}
+};
+
+export const reorderModules = (initId, modules) => Initiative.findByIdAndUpdate(initId, {
+  $set: { modules },
+});
+
+export const deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
+
+export const assignInitiative = async (userId, initiativeId) => {
+
+  await User.findByIdAndUpdate(userId, {
+    $addToSet: {
+      initiatives: initiativeId,
+    },
+  });
+
+  const initiative = await Initiative.findById(initiativeId);
+
+  return await Initiative.findByIdAndUpdate(initiativeId, {
+    $addToSet: {
+      members: new Member(roles(userId, MEMBER, initiative))
+    }
+  })
+};
 
 export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
   if (!RAWInitiative.image && RAWInitiative.FBProfile?.logo) {
     RAWInitiative.image = RAWInitiative.FBProfile.logo;
   }
 
-  RAWInitiative.facebookUrl = `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
+  RAWInitiative.facebookUrl = RAWInitiative.facebookUrl.includes('facebook.com')? RAWInitiative.facebookUrl: `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
 }
 
@@ -162,9 +216,3 @@ export const changeBasicInitiativeData = (basic, initiativeId) => {
     },
   });
 };
-
-export const restoreInitiative = () => {
-
-}
-
-export default new FetchInitiative();

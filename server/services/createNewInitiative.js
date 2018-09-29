@@ -49,12 +49,13 @@ const initiativeNotExist = initiative => {
 
 const mapUserInputToSave = RAWInputData => {
   const FBUrlRegExp = new RegExp(
-    '^@([a-zA-Z0-9]+)$|facebook.com/([a-zA-Z0-9]+)/?$|facebook.com/pg/([a-zA-Z0-9]+)/?|^[a-zA-Z0-9]+$',
+    '^@([a-zA-Z0-9]+)$|facebook\.com\/([a-zA-Z0-9]+)\/?$|facebook\.com\/pg\/([a-zA-Z0-9]+)\/?|^[a-zA-Z0-9]+$|facebook\.com\/([a-zA-Z0-9.]+)\/?',
     'i',
-  ).exec(RAWInputData.facebookUrl);
+  );
 
   //TODO: dodac obslluge bledow
-  RAWInputData.facebookUrl = FBUrlRegExp.slice(0)
+  RAWInputData.facebookUrl = FBUrlRegExp.exec(RAWInputData.facebookUrl)
+    .slice(0)
     .reverse()
     .find(singleMatch => singleMatch);
   RAWInputData.shortUrl = RAWInputData.facebookUrl;
