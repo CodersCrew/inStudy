@@ -81,7 +81,6 @@ const parseModule = async (module, initId) => {
 
     module.content.items = await Promise.all(parsedContent);
   }
-  console.log('wqeqwrwe, 3333mod', module)
 
   return module;
 };
@@ -90,7 +89,6 @@ export const addInitiativeModule = async (initiativeId, module) => {
   module._id = new mongoose.mongo.ObjectId();
   module = await parseModule(module, initiativeId);
 
-  console.log('aaaaaa', module)
   return Initiative.findByIdAndUpdate(initiativeId, {
     $addToSet: {
       modules: module,
@@ -207,4 +205,12 @@ export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
 
   RAWInitiative.facebookUrl = RAWInitiative.facebookUrl.includes('facebook.com')? RAWInitiative.facebookUrl: `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
+};
+
+export const changeBasicInitiativeData = (basic, initiativeId) => {
+  return mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
+    $set: {
+      ...basic,
+    },
+  });
 };
