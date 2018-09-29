@@ -11,14 +11,14 @@ const UserNav = () => (
       <span className="fal fa-users" />
       <span>Inicjatywy</span>
     </Item>
-    <Item to="/student/profil/wydarzenia" activeClassName="active">
+    {/* <Item to="/student/profil/wydarzenia" activeClassName="active">
       <span className="fal fa-calendar-alt" />
       <span>Wydarzenia</span>
     </Item>
     <Item to="/student/profil/osiagniecia" activeClassName="active">
       <span className="fal fa-award" />
       <span>Osiągnięcia</span>
-    </Item>
+    </Item> */}
   </Container>
 );
 
