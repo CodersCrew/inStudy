@@ -29,7 +29,7 @@ const Registration = () => (
         {' portalu.'}
       </CautionText>
       <StyledButton size="large" onClick={goToGoogleLogin}>
-        <StyledSVGIcon path="/img/google_icon.svg" width={32} height={32} />
+        <StyledSVGIcon src="/img/google_icon.svg" width={32} height={32} />
         <span>Zaloguj się przez Google</span>
       </StyledButton>
     </Message>

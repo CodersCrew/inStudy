@@ -207,12 +207,4 @@ export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
 
   RAWInitiative.facebookUrl = RAWInitiative.facebookUrl.includes('facebook.com')? RAWInitiative.facebookUrl: `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
-}
-
-export const changeBasicInitiativeData = (basic, initiativeId) => {
-  return mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
-    $set: {
-      ...basic,
-    },
-  });
 };

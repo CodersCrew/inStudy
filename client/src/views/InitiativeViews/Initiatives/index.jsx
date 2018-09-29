@@ -23,6 +23,12 @@ class Initiatives extends PureComponent {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.query !== this.props.query) {
+      this.props.getInitiatives({ query: this.props.query, page: 0 });
+    }
+  }
+
   handleWaypointEnter = () => {
     const { initiatives } = this.props;
     this.props.getMoreInitiatives({ ...initiatives, page: initiatives.page + 1 });

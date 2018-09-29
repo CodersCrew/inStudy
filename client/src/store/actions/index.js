@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { notify } from 'reapop';
 import Raven from 'raven-js';
+import { push } from 'connected-react-router';
 import {
   FETCH_USER,
   LOGOUT,
@@ -28,6 +29,10 @@ export const fetchUser = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   await axios.get('/api/logout');
+
+  const message = 'Wylogowałeś się z konta na portalu.';
+  dispatch(push('/'));
+  dispatch(notify({ title: 'Zostałeś wylogowany', message, status: 'success' }));
 
   Raven.setUserContext();
 

@@ -14,7 +14,7 @@ import {
 } from './../services/FetchInitiative';
 import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
 import cacher from '../services/cacher/index';
-import createNewInitiative from './../services/createNewInitiative';
+import createNewInitiative from '../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
 import { MODIFY_INITIATIVE } from './validators/consts';
 import {
@@ -32,7 +32,7 @@ const to = require('./../utils/to');
 const { initiativeDebug } = require('./../utils/debug');
 // const makeOpengraph = require('./../services/opengraph/opengraph');
 
-module.exports = app => {
+module.exports = (app) => {
   app.get('/api/initiative', async (req, res) => {
     const { page, count, query } = req.query;
 
@@ -84,7 +84,6 @@ module.exports = app => {
     initiativeDebug(req.query, 'void');
 
     res.redirect(`${config.HOST}/student/profil`);
-
   });
 
   app.post('/api/initiative/restore', async (req, res) => {
@@ -94,7 +93,7 @@ module.exports = app => {
 
     if (newInitiative) {
       const token = jsonwebtoken.sign({ userId, initiativeId: newInitiative._id }, config.cookieKey);
-      await mailSender(email, RESTORE_ACCOUNT, { token })
+      await mailSender(email, RESTORE_ACCOUNT, { token });
     }
 
     res.sendStatus(201);
@@ -129,8 +128,8 @@ module.exports = app => {
   });
 
   app.post('/api/initiative/:initId/module', userLogged, async (req, res) => {
-      const { initId } = req.params;
-      const module = req.body;
+    const { initId } = req.params;
+    const module = req.body;
 
       const [err, updatedModule] = await to(addInitiativeModule(initId, module));
       if (err) res.sendStatus(500)
@@ -153,8 +152,7 @@ module.exports = app => {
 
     mailSender(email, INITIATIVE_CONTACT_EMAIL, emailParams)
       .then(() => res.sendStatus(201))
-      .catch(() => res.sendStatus(500))
-
+      .catch(() => res.sendStatus(500));
   });
 
   app.put('/api/initiative/:initId/module/:modId', async (req, res) => {

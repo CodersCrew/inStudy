@@ -37,7 +37,6 @@ export default (state = null, { type, payload }) => {
     }
 
     case ADD_USER_INITIATIVE:
-      console.log(payload);
       return { ...state, initiatives: [...state.initiatives, payload] };
 
     case ADD_USER_MODULE:
@@ -93,7 +92,7 @@ export default (state = null, { type, payload }) => {
       const { initiativeData, id } = payload;
       const image = typeof initiativeData.image === 'string' ? initiativeData.image : initiativeData.image.preview;
       const initiative = state.initiatives.find(({ _id }) => _id === id);
-      const updatedInitiative = { ...initiative, image };
+      const updatedInitiative = { ...initiative, ...initiativeData, image };
 
       return { ...state, initiatives: state.initiatives.map(ini => ini._id === id ? updatedInitiative : ini) };
     }

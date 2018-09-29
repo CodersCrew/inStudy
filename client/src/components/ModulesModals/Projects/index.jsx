@@ -23,7 +23,7 @@ class ItemsList extends PureComponent {
     modalData: {},
   };
 
-  closeModal = () => this.setState({ isModalOpen: false });
+  closeModal = () => this.setState({ isModalOpen: false, modalData: {} });
 
   submitModalData = (item, index = null) => {
     if (index === null) {

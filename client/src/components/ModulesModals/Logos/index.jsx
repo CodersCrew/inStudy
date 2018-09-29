@@ -40,7 +40,7 @@ class Logos extends PureComponent {
 
   renderTraitEditView = (rfName, isDisabled, remove, insert) => (
     <EditCard>
-      <Field name={`${rfName}.image`} component={ImagePicker} props={{ placeholder: 'Logo' }} validate={[required]} />
+      <Field name={`${rfName}.image`} component={ImagePicker} props={{ placeholder: 'Logo', width: 200 }} validate={[required]} />
       <Field name={`${rfName}.title`} component={Input} props={{ placeholder: 'Tytuł' }} validate={[required]} />
       <Field name={`${rfName}.url`} component={Input} props={{ placeholder: 'Adres URL' }} validate={[url]} />
       <Actions>

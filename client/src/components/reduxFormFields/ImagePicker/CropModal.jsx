@@ -57,7 +57,7 @@ class CropModal extends PureComponent {
 
       canvas.toBlob((file) => {
         resolve(file);
-      }, `image/${isPng ? 'png' : 'jpg'}`);
+      }, `image/${isPng ? 'png' : 'jpeg'}`);
     });
   }
 

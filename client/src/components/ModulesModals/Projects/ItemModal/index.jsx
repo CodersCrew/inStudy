@@ -11,7 +11,7 @@ import { Container, TrashIcon, Label, Socials, Images, Overlay } from './styles'
 const socialsOptions = Object.keys(socials).map(key => ({ label: socials[key].name, value: key }));
 
 const areAllFieldsFilled = fields => fields
-  && fields.reduce((acc, { socialType, url, image }) => acc && (socialType || url || image), true);
+  && fields.reduce((acc, curr) => acc && curr && (curr.socialType || curr.url || curr.image), true);
 
 @reduxForm({ form: 'projectItemForm' })
 class ItemModal extends PureComponent {
@@ -86,7 +86,7 @@ class ItemModal extends PureComponent {
         key={rfName}
         name={`${rfName}.image`}
         component={ImagePicker}
-        props={{ overlay: () => this.renderImageOverlay(remove, index), aspect: 16 / 9 }}
+        props={{ overlay: () => this.renderImageOverlay(remove, index), aspect: 16 / 9, width: 1280 }}
       />
     </div>
   );
@@ -94,7 +94,6 @@ class ItemModal extends PureComponent {
   renderImages = ({ fields = [] }) => {
     const fieldsValues = fields.getAll();
     const lastImageIndex = fields.length - 1;
-    console.log(fieldsValues);
 
     if (fields.length === 0 || areAllFieldsFilled(fieldsValues)) {
       fields.push({});
@@ -136,7 +135,7 @@ class ItemModal extends PureComponent {
           <Field
             name="image"
             component={ImagePicker}
-            props={{ label: 'Zdjęcie główne', aspect: 16 / 9 }}
+            props={{ label: 'Zdjęcie główne', aspect: 16 / 9, width: 1280 }}
             validate={[required]}
           />
           <Field

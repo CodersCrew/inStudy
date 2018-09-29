@@ -1,36 +1,35 @@
-var CACHE_NAME='static-cache';
-var urlsToCache = [
+const CACHE_NAME = 'static-cache';
+const urlsToCache = [
   '/',
   '/index.html',
   '/inicjatywy',
   '/rejestracja',
   '/favicon.ico',
-  '/views'
+  '/views',
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing Service Worker ...', event);
   event.waitUntil(caches.open(CACHE_NAME)
-  .then(function(cache) {
+    .then((cache) => {
       console.log('before');
       return cache.addAll(urlsToCache);
     }));
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activating Service Worker ...', event);
   return self.clients.claim();
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
-    .then(function(res) {
-      if(res){
-         return res;
-      }else{
+      .then((res) => {
+        if (res) {
+          return res;
+        }
         return fetch(event.request);
-      }
-    })
+      }),
   );
 });

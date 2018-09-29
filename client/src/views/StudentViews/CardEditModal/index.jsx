@@ -33,7 +33,6 @@ class CardEditModal extends PureComponent {
 
   onSubmit = (values) => {
     const parsedSocials = values.socials.filter(({ socialType, url: socialUrl }) => socialType && socialUrl);
-    console.log(values)
     this.props.updateBasicUserData({ ...values, socials: parsedSocials });
     this.props.onClose();
   };
@@ -106,7 +105,12 @@ class CardEditModal extends PureComponent {
         ]}
       >
         <Container>
-          <Field name="image" component={ImagePicker} props={{ label: 'Zdjęcie profilowe', aspect: 1 }} validate={[required]} />
+          <Field
+            name="image"
+            component={ImagePicker}
+            props={{ label: 'Zdjęcie profilowe', aspect: 1, width: 200 }}
+            validate={[required]}
+          />
           <Field name="firstName" component={Input} props={{ label: 'Imię' }} validate={[required]} />
           <Field name="lastName" component={Input} props={{ label: 'Nazwisko' }} validate={[required]} />
           <Field name="email" component={Input} props={{ label: 'E-mail kontaktowy' }} validate={[required]} />
