@@ -20,7 +20,7 @@ const InitiativeNav = ({ location: { pathname } }) => {
         <span className="fal fa-id-card" />
         <span>Profil</span>
       </Item>
-      <Item
+      {/* <Item
         to={`/inicjatywy/${shortUrl}/czlonkowie`}
         activeClassName="active"
         isActive={() => checkActive(pathname, 'czlonkowie')}
@@ -43,7 +43,7 @@ const InitiativeNav = ({ location: { pathname } }) => {
       >
         <span className="fal fa-user-plus" />
         <span>Rekrutacja</span>
-      </Item>
+      </Item> */}
     </Container>
   );
 };

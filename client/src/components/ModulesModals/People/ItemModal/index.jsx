@@ -123,7 +123,6 @@ class ItemModal extends PureComponent {
             name="description"
             component={TextArea}
             props={{ label: 'Opis' }}
-            validate={[required]}
           />
           <FieldArray name="socials" component={this.renderSocials} />
         </Container>
