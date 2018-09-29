@@ -1,11 +1,13 @@
 import React, { PureComponent, Fragment } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
+import { withAuth } from 'hocs';
 import { Fab } from 'components';
 import CreateInitiative from './CreateInitiative';
 import InitiativeCard from './InitiativeCard';
 import { MainContainer, Wrapper, Icon, Header, StyledButton } from './styles';
 
+@withAuth('userProfile')
 @connect(state => ({ initiatives: state?.auth?.initiatives }))
 class UserInitiatives extends PureComponent {
   state = {

@@ -1,33 +1,44 @@
 import jsonwebtoken from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
-import FetchInitiative from './../services/FetchInitiative';
-import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
+import FetchInitiative from '../services/FetchInitiative';
+import { sendInitiativeImage, removeImage, sendModuleImage } from '../services/Cloudinary';
 import cacher from '../services/cacher/index';
-import createNewInitiative from './../services/createNewInitiative';
+import createNewInitiative from '../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
 import { MODIFY_INITIATIVE } from './validators/consts';
 import { inviteUserValidators, invitationResponse } from './validators/initiative-validators';
-import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL, RESTORE_ACCOUNT } from './../services/mail-sender';
+import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL, RESTORE_ACCOUNT } from '../services/mail-sender';
 import config from '../config/keys';
-import { changeBasicInitiativeData } from './../services/FetchInitiative';
+import { changeBasicInitiativeData } from '../services/FetchInitiative';
+
 const { searchInitiative } = require('./../services/search');
+
 const Initiative = mongoose.model('initiatives');
 const Member = mongoose.model('member');
 const User = mongoose.model('users');
 
-module.exports = app => {
+module.exports = (app) => {
   app.get('/api/initiative', async (req, res) => {
-    const { page } = req.query;
+    const { page, query } = req.query;
 
-    new FetchInitiative()
-      .getShortInitiativeProfile(page)
-      .then( async foundInitiatives => {
-        res.status(200).json(await Promise.all(foundInitiatives));
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
+    if (query && query.length) {
+      searchInitiative(query)
+        .then((result) => {
+          res
+            .status(200)
+            .json(result);
+        });
+    } else {
+      new FetchInitiative()
+        .getShortInitiativeProfile(page)
+        .then(async (foundInitiatives) => {
+          res.status(200).json(await Promise.all(foundInitiatives));
+        })
+        .catch(() => {
+          res.sendStatus(404);
+        });
+    }
   });
 
   app.post('/api/initiative', userLogged, (req, res) => {
@@ -37,6 +48,7 @@ module.exports = app => {
         res.status(200).json({ result });
       })
       .catch((err) => {
+        console.log(err)
         if (err === 'ITEM_EXIST') {
           res.sendStatus(409);
         }
@@ -50,28 +62,25 @@ module.exports = app => {
     const initiative = await Initiative.findById(initiativeId);
 
     if (userId && initiativeId) {
-
       const newMember = new Member({
         user: new mongoose.mongo.ObjectId(userId),
         role: 'admin',
-        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`
+        roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`,
       });
 
       await Initiative.findByIdAndUpdate(initiativeId, {
         $addToSet: {
           members: newMember,
-        }
-      })
+        },
+      });
       await User.findByIdAndUpdate(userId, {
         $addToSet: {
-          initiatives: new mongoose.mongo.ObjectId(initiativeId)
-        }
-      }
-    )
+          initiatives: new mongoose.mongo.ObjectId(initiativeId),
+        },
+      });
     }
 
     res.redirect(`${config.HOST}/student/profil`);
-
   });
 
   app.post('/api/initiative/restore', async (req, res) => {
@@ -82,7 +91,7 @@ module.exports = app => {
 
     if (newInitiative) {
       const token = jsonwebtoken.sign({ userId, initiativeId: newInitiative._id }, config.cookieKey);
-      await mailSender(email, RESTORE_ACCOUNT, { token })
+      await mailSender(email, RESTORE_ACCOUNT, { token });
     }
 
     res.sendStatus(201);
@@ -132,42 +141,41 @@ module.exports = app => {
   });
 
   app.post('/api/initiative/:initId/module', userLogged, async (req, res) => {
-      const { initId } = req.params;
-      const module = req.body;
+    const { initId } = req.params;
+    const module = req.body;
 
-      if ( module?.content?.items) {
-        const parsedContent = module.content.items.map(async (singleItem) => {
-          if (singleItem.image) {
-            const { secure_url } = await sendModuleImage(singleItem.image)(initId);
-            singleItem.image = secure_url;
-          }
+    if (module?.content?.items) {
+      const parsedContent = module.content.items.map(async (singleItem) => {
+        if (singleItem.image) {
+          const { secure_url } = await sendModuleImage(singleItem.image)(initId);
+          singleItem.image = secure_url;
+        }
 
-          if (singleItem.images) {
-            const images = singleItem.images.map(async (item) => {
-              if (item.image) {
-                const { secure_url } = await sendModuleImage(item.image)(initId);
-                item.image = secure_url;
-              }
-              return item;
-            });
+        if (singleItem.images) {
+          const images = singleItem.images.map(async (item) => {
+            if (item.image) {
+              const { secure_url } = await sendModuleImage(item.image)(initId);
+              item.image = secure_url;
+            }
+            return item;
+          });
 
-            singleItem.images = await Promise.all(images);
-          }
+          singleItem.images = await Promise.all(images);
+        }
 
-          return singleItem;
-        });
-
-        module.content.items = await Promise.all(parsedContent);
-      }
-
-
-      new FetchInitiative().addInitiativeModule(initId, module).then(() => {
-        // req.instudyCache = module;
-        res.status(200).json(module);
+        return singleItem;
       });
-    },
-    cacher,
-  );
+
+      module.content.items = await Promise.all(parsedContent);
+    }
+
+
+    new FetchInitiative().addInitiativeModule(initId, module).then(() => {
+      // req.instudyCache = module;
+      res.status(200).json(module);
+    });
+  },
+  cacher);
 
   app.get('/api/initiative/:initId/module', cacher, (req, res) => {
     const { initId } = req.params;
@@ -184,8 +192,7 @@ module.exports = app => {
 
     mailSender(email, INITIATIVE_CONTACT_EMAIL, emailParams)
       .then(() => res.sendStatus(201))
-      .catch(() => res.sendStatus(500))
-
+      .catch(() => res.sendStatus(500));
   });
 
   app.put('/api/initiative/:initId/module/:modId', (req, res) => {
@@ -204,20 +211,20 @@ module.exports = app => {
     const { modId } = req.params;
 
     Initiative.findById(initId).lean()
-      .then( async initiative => {
-        const module = initiative.modules.find(module => module._id.toString() === modId)
+      .then(async (initiative) => {
+        const module = initiative.modules.find(module => module._id.toString() === modId);
 
         if (module?.content?.items) {
           const parsedContent = module.content.items.map(async (singleItem) => {
             if (singleItem.image) {
-              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1]
+              const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(singleItem.image)[1];
               await removeImage(public_id);
             }
 
             if (singleItem.images) {
               const images = singleItem.images.map(async (item) => {
                 if (item.image) {
-                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1]
+                  const public_id = new RegExp('image\\/upload\\/[A-Za-z0-9]+\\/([A-Za-z0-9]+\\/modules\\/[A-Za-z0-9]+)').exec(item.image)[1];
                   await removeImage(public_id);
                 }
                 return item;
@@ -233,10 +240,10 @@ module.exports = app => {
         }
       })
       .then(() => {
-        new FetchInitiative().deleteModule(initId, modId).then(() => { //TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
+        new FetchInitiative().deleteModule(initId, modId).then(() => { // TODO: kasowanie modułu powinno kasować zdjecia na cloudinary
           res.sendStatus(201);
         });
-      })
+      });
   });
 
   app.post('/api/initiative/:initId/module/reorder', userLogged, (req, res) => {
@@ -255,15 +262,6 @@ module.exports = app => {
     new FetchInitiative().deleteInitiative(initId).then(() => {
       res.sendStatus(200);
     });
-  });
-
-  app.post('/api/initiative/:shortUrl/fetch', (req, res) => {
-    const { shortUrl } = req.params;
-
-    new FetchInitiative()
-      .getFBProfile(shortUrl)
-      .then(result => new FetchInitiative().setFBProfile(shortUrl, result))
-      .then(() => res.sendStatus(201));
   });
 
   app.post('/api/initiative/:initId/invite', inviteUserValidators, (req, res) => {

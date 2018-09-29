@@ -59,6 +59,7 @@ export const Wrapper = styled.div`
 
 export const Image = styled.img`
   min-width: 100%;
+  max-width: 100%;
   border-radius: 4px;
   transform: scale(1) rotate(0) translateY(0);
   transition: all 0.3s var(--ease-in-out);

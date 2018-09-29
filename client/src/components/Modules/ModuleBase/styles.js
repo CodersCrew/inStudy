@@ -9,6 +9,7 @@ export const Container = styled.div`
   box-shadow: ${props => props.isHidden ? 'none' : 'var(--shadow2)'};
   border-radius: 4px;
   opacity: ${props => props.isHidden ? 0.6 : 1};
+  display: ${props => (!props.editable && props.isHidden) ? 'none' : 'block'};
   ${media.md`
     margin-top: var(--space-xl);
     padding: var(--space-md) var(--space-lg) var(--space-lg);

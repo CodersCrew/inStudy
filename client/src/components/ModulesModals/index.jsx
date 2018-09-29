@@ -7,7 +7,6 @@ class ModulesModals extends PureComponent {
   renderModal = (name) => {
     const modalData = modulesConfig[name];
     const Modal = modalData.modalContent;
-    console.log(name);
 
     return (
       <Modal

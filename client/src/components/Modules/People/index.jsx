@@ -17,13 +17,13 @@ import {
   Title,
 } from './styles';
 
-const Social = ({ socialType, url }) => socialType && url && (
+const Social = social => (social.socialType && social.url) ? (
   <SocialWrapper>
-    <Link href={url}>
-      <Icon className={socialsList[socialType].icon} />
+    <Link href={social.url}>
+      <Icon className={socialsList[social.socialType].icon} />
     </Link>
   </SocialWrapper>
-);
+) : null;
 
 Social.propTypes = {
   socialType: string.isRequired,
