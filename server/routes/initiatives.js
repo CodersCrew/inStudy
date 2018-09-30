@@ -101,7 +101,7 @@ module.exports = (app) => {
     const basic = req.body;
     const { initiativeId } = req.body;
 
-    sendInitiativeImage(req.body.image)(initiativeIds)
+    sendInitiativeImage(req.body.image)(initiativeId)
       .then(({ secure_url }) => {
         changeBasicInitiativeData({ ...basic, image: secure_url }, initiativeId)
           .then(() => res.sendStatus(201))
