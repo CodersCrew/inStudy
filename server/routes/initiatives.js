@@ -99,10 +99,9 @@ module.exports = (app) => {
 
   app.put('/api/initiative/basic', userLogged, (req, res) => {
     const basic = req.body;
-    const { _id } = req.user;
     const { initiativeId } = req.body;
 
-    sendInitiativeImage(req.body.image)(_id)
+    sendInitiativeImage(req.body.image)(initiativeIds)
       .then(({ secure_url }) => {
         changeBasicInitiativeData({ ...basic, image: secure_url }, initiativeId)
           .then(() => res.sendStatus(201))
