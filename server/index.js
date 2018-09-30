@@ -42,14 +42,18 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
   });
-} else {
   app.get('/inicjatywy/:shortUrl', async (req, res) => {
     const { shortUrl } = req.params;
     const fetchedInitiative = await Initiative.findOne({ shortUrl });
 
-    const { name, description } = fetchedInitiative;
-    const initiativeView = path.resolve(__dirname, '..', 'server', 'views', 'initiative');
-    res.render(initiativeView, { name: name || '', description: description || '' });
+    const { name, description, opengraph, shortUrl } = fetchedInitiative;
+    const initiativeView = path.resolve(__dirname, '..', 'server', 'views', 'index');
+    res.render(initiativeView, {
+      name: name || '',
+      description: description || '',
+      opengraph: opengraph || '',
+      url: shortUrl || '',
+    });
   })
 }
 
