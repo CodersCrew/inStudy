@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
-import roles, { MEMBER } from './roles';
+import roles, { ADMIN, MEMBER } from './roles';
 import { removeImage, sendModuleImage } from './Cloudinary';
+import jsonwebtoken from 'jsonwebtoken';
+import config from '../config/keys';
 const { searchInitiative } = require('./../services/search');
 const Initiative = mongoose.model('initiatives');
 const User = mongoose.model('users');
@@ -213,4 +215,28 @@ export const changeBasicInitiativeData = (basic, initiativeId) => {
       ...basic,
     },
   });
+};
+
+export const validRequestToRestoreInitiative = async (token) => {
+  const { userId, initiativeId } = jsonwebtoken.verify(token, config.cookieKey);
+
+  let [err, initiative] = await to(Initiative.findById(initiativeId));
+  if (err || !initiative || !userId) throw new Error();
+
+  const newMember = new Member(roles(userId, ADMIN, initiative));
+  [err] = await to(Initiative.findByIdAndUpdate(initiativeId, {
+    $addToSet: {
+      members: newMember,
+    },
+  }));
+
+  if (err) throw new Error();
+
+  [err] = await to(User.findByIdAndUpdate(userId, {
+    $addToSet: {
+      initiatives: new mongoose.mongo.ObjectId(initiativeId),
+    }
+  }));
+
+  if (err) throw new Error();
 };

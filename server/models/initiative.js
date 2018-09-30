@@ -18,6 +18,7 @@ const schema = new Schema({
   image: String,
   socials: [],
   members: [MemberSchema],
+  opengraph: String,
 });
 
 schema.index({ name: 'text', description: 'text' });

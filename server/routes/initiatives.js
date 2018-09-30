@@ -11,12 +11,11 @@ import {
   addInitiativeModule,
   getAllModules,
   updateModule,
+  validRequestToRestoreInitiative,
 } from './../services/FetchInitiative';
-import { sendInitiativeImage, removeImage, sendModuleImage } from './../services/Cloudinary';
-import cacher from '../services/cacher/index';
+import { sendInitiativeImage } from './../services/Cloudinary';
 import createNewInitiative from '../services/createNewInitiative';
 import { userLogged, permissionGranted } from './validators/auth';
-import { MODIFY_INITIATIVE } from './validators/consts';
 import {
   inviteUserValidators,
   invitationResponse,
@@ -25,12 +24,8 @@ import {
 import mailSender, { INVITE_EMAIL, INITIATIVE_CONTACT_EMAIL, RESTORE_ACCOUNT } from './../services/mail-sender';
 import config from '../config/keys';
 const Initiative = mongoose.model('initiatives');
-const Member = mongoose.model('member');
-const User = mongoose.model('users');
-import roles, { ADMIN } from './../services/roles';
 const to = require('./../utils/to');
 const { initiativeDebug } = require('./../utils/debug');
-// const makeOpengraph = require('./../services/opengraph/opengraph');
 
 module.exports = (app) => {
   app.get('/api/initiative', async (req, res) => {
@@ -57,36 +52,16 @@ module.exports = (app) => {
 
   app.get('/api/restore', async (req, res) => {
     const { token } = req.query;
-    const { userId, initiativeId } = jsonwebtoken.verify(token, config.cookieKey);
 
-    let [err, initiative] = await to(Initiative.findById(initiativeId));
-    if (err) return res.sendStatus(500);
-
-    if (userId && initiativeId) {
-      const newMember = new Member(roles(userId, ADMIN, initiative));
-      [err] = await to(Initiative.findByIdAndUpdate(initiativeId, {
-        $addToSet: {
-          members: newMember,
-        }
-      }));
-
-      if (err) return res.sendStatus(500);
-
-      [err] = await to(User.findByIdAndUpdate(userId, {
-        $addToSet: {
-          initiatives: new mongoose.mongo.ObjectId(initiativeId),
-        }
-      }));
-
-      if (err) return res.sendStatus(500);
-    }
+    const [err] = await to(validRequestToRestoreInitiative(token));
+    if (err) res.sendStatus(500);
 
     initiativeDebug(req.query, 'void');
 
     res.redirect(`${config.HOST}/student/profil`);
   });
 
-  app.post('/api/initiative/restore', async (req, res) => {
+  app.post('/api/initiative/restore', async (req, res) => { //TODO: zmienić path na unikalny
     const { email } = req.body;
     const { _id: userId } = req.user;
     const newInitiative = await Initiative.findOne({ email });

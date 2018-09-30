@@ -32,19 +32,16 @@ const assignToUser = async (createdInitiative, userId) => {
   return createdInitiative;
 };
 
-const initiativeNotExist = (initiative) => {
+const initiativeNotExist = async (initiative) => {
   const { email, facebookUrl, shortUrl } = initiative;
-  return InitiativeModel
-    .findOne({
-      $or: [{ email }, { facebookUrl }, { shortUrl }],
-    })
-    .then((initiative) => {
-      if (initiative) {
-        return Promise.reject('ITEM_EXIST');
-      }
+  const findInitiativeQuery = {
+    $or: [{ email }, { facebookUrl }, { shortUrl }],
+  };
 
-      return true;
-    });
+  const [err, foundInitiative] = await to(InitiativeModel.findOne(findInitiativeQuery));
+
+  if (err || foundInitiative) throw new Error('ITEM_EXIST');
+  else return true;
 };
 
 const mapUserInputToSave = (RAWInputData) => {
@@ -54,7 +51,7 @@ const mapUserInputToSave = (RAWInputData) => {
   );
 
   //TODO: dodac obslluge bledow
-  let fetchedPhrase = FBUrlRegExp.exec(RAWInputData.facebookUrl);
+  const fetchedPhrase = FBUrlRegExp.exec(RAWInputData.facebookUrl);
 
   if (fetchedPhrase) {
     RAWInputData.facebookUrl = fetchedPhrase
