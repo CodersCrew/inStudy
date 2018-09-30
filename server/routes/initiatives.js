@@ -101,10 +101,9 @@ module.exports = (app) => {
 
   app.put('/api/initiative/basic', userLogged, (req, res) => {
     const basic = req.body;
-    const { _id } = req.user;
     const { initiativeId } = req.body;
 
-    sendInitiativeImage(req.body.image)(_id)
+    sendInitiativeImage(req.body.image)(initiativeId)
       .then(({ secure_url }) => {
         // makeOpengraph(initiativeId, secure_url, basic.name, basic.description);
         changeBasicInitiativeData({ ...basic, image: secure_url }, initiativeId)
@@ -127,7 +126,7 @@ module.exports = (app) => {
     else res.status(200).json(initiative);
   });
 
-  app.post('/api/initiative/:initId/module', userLogged, async (req, res) => {
+  app.post('/api/initiative/:initId/module', userLogged, async (req, res, next) => {
     const { initId } = req.params;
     const module = req.body;
 

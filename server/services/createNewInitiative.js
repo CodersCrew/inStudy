@@ -1,34 +1,40 @@
 import mongoose from 'mongoose';
-//import FBCrawler from './Crawler/FBCrawler';
-
-const Initiative = mongoose.model('initiatives');
-const Member = mongoose.model('member');
+import revertChanges, { REVERT_INITIATIVE } from './revertChanges';
+import to from './../utils/to';
+const UserModel = mongoose.model('users');
+const InitiativeModel = mongoose.model('initiatives');
+const MemberModel = mongoose.model('member');
+const { ObjectId } = mongoose.mongo;
 
 const createInitiative = (initiative, user) => {
-  const newMember = new Member({
-    user: new mongoose.mongo.ObjectId(user._id),
+  const newMember = new MemberModel({
+    user: new ObjectId(user._id),
     role: 'admin',
     roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`,
   });
 
-  return new Initiative({ ...initiative, members: [newMember] }).save()
+  return new InitiativeModel({ ...initiative, members: [newMember] }).save()
   .then(createdInitiative => assignToUser(createdInitiative, user._id));
 }
 
 const assignToUser = async (createdInitiative, userId) => {
+  const { _id } = createdInitiative;
+
   console.log(createdInitiative);
-  await mongoose.model('users').findByIdAndUpdate(userId, {
+  const assignUserQuery = {
     $addToSet: {
-      initiatives: new mongoose.mongo.ObjectId(createdInitiative._id),
+      initiatives: new ObjectId(_id),
     },
-  });
+  };
+
+  const [err] = await to(UserModel.findByIdAndUpdate(userId, assignUserQuery));
+  if (err) await revertChanges(REVERT_INITIATIVE, { _id });
   return createdInitiative;
 };
 
 const initiativeNotExist = (initiative) => {
   const { email, facebookUrl, shortUrl } = initiative;
-  return mongoose
-    .model('initiatives')
+  return InitiativeModel
     .findOne({
       $or: [{ email }, { facebookUrl }, { shortUrl }],
     })
@@ -48,11 +54,17 @@ const mapUserInputToSave = (RAWInputData) => {
   );
 
   //TODO: dodac obslluge bledow
-  RAWInputData.facebookUrl = FBUrlRegExp.exec(RAWInputData.facebookUrl)
-    .slice(0)
-    .reverse()
-    .find(singleMatch => singleMatch);
-  RAWInputData.shortUrl = RAWInputData.facebookUrl; return RAWInputData;
+  let fetchedPhrase = FBUrlRegExp.exec(RAWInputData.facebookUrl);
+
+  if (fetchedPhrase) {
+    RAWInputData.facebookUrl = fetchedPhrase
+      .slice(0)
+      .reverse()
+      .find(singleMatch => singleMatch);
+  }
+
+  RAWInputData.shortUrl = RAWInputData.facebookUrl;
+  return RAWInputData;
 };
 
 export default (initiative, user) =>
