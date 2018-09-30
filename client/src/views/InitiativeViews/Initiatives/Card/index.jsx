@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 
 import React from 'react';
-import { string, object, bool, func } from 'prop-types';
+import { string, object, bool, func, oneOfType } from 'prop-types';
 import Fade from 'react-reveal/Fade';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -23,7 +23,7 @@ import {
   FeatureIcon,
 } from './styles';
 
-const CardItem = ({ name, image, description, university, profileCompleted, shortUrl, color, styles, onClick }) => (
+const CardItem = ({ name, image, description, university, profileCompleted, shortUrl, color, styles, onClick, waypoint }) => (
   <Container
     to={`/inicjatywy/${shortUrl}`}
     style={omit(styles, ['opacity'])}
@@ -36,6 +36,7 @@ const CardItem = ({ name, image, description, university, profileCompleted, shor
       <Title>{name}</Title>
       {/* <MoreIcon className="fal fa-ellipsis-v moreIcon" /> */}
     </Head>
+    {waypoint && waypoint()}
     <Content style={{ opacity: styles.opacity }}>
       <Left>
         <Logo src={image} alt={`Logo inicjatywy ${name}`} />
@@ -105,6 +106,7 @@ Card.propTypes = {
   clicked: bool.isRequired,
   push: func.isRequired,
   shortUrl: string.isRequired,
+  waypoint: oneOfType([func, bool]).isRequired,
 };
 
 export default connect(null, { push })(Card);

@@ -7,11 +7,11 @@ const InitiativesList = ({ initiatives, waypoint, handleCardClick, clickedCardIn
   <StyledContainer>
     {initiatives.map((initiative, i) => (
       <Fragment key={initiative.shortUrl}>
-        {i === initiatives.length - 3 && waypoint()}
         <Card
           key={initiative.shortUrl}
           clicked={i === clickedCardIndex}
           onClick={() => handleCardClick(i)}
+          waypoint={i === initiatives.length - 5 && waypoint}
           {...initiative}
         />
       </Fragment>
