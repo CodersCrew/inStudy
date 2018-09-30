@@ -164,7 +164,7 @@ class RolesModal extends PureComponent {
   };
 
   render() {
-    const { props: { visible, onCancel }, state: { editingRowsIds } } = this;
+    const { props: { visible, onCancel }, state: { editingRowIndex } } = this;
 
     return (
       <Modal
@@ -177,7 +177,7 @@ class RolesModal extends PureComponent {
         <FieldArray
           name="roles"
           component={this.renderRolesTable}
-          props={{ editingRowsIds }}
+          props={{ editingRowIndex }}
         />
       </Modal>
     );

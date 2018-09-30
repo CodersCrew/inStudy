@@ -1,13 +1,3 @@
-import cities from './cities';
-import categories from './categories';
-import authRoutes from './authRoutes';
-import initiatives from './initiatives';
-import users from './users';
+import moduleLoader from './../utils/moduleLoader';
 
-export default app => {
-  cities(app);
-  categories(app);
-  authRoutes(app);
-  initiatives(app);
-  users(app);
-};
+export default app => moduleLoader(__dirname, ['index.js', 'validators'], app);

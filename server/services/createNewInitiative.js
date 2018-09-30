@@ -1,17 +1,19 @@
 import mongoose from 'mongoose';
-import FBCrawler from './../services/Crawler/FBCrawler';
+//import FBCrawler from './Crawler/FBCrawler';
+
+const Initiative = mongoose.model('initiatives');
+const Member = mongoose.model('member');
 
 const createInitiative = (initiative, user) => {
-  const Initiative = mongoose.model('initiatives');
+  const newMember = new Member({
+    user: new mongoose.mongo.ObjectId(user._id),
+    role: 'admin',
+    roleDescription: `Członek inicjatywy "${initiative.name}" działającej na uczelni ${initiative.university}, obszarze ${initiative.category}`,
+  });
 
-  return new FBCrawler()
-    .addPage(`https://www.facebook.com/pg/${initiative.facebookUrl}/about/?ref=page_internal`)
-    .scrape()
-    .then(fetchedProfile => {
-      return new Initiative({ ...initiative, FBProfile: fetchedProfile }).save();
-    })
-    .then(createdInitiative => assignToUser(createdInitiative, user._id));
-};
+  return new Initiative({ ...initiative, members: [newMember] }).save()
+  .then(createdInitiative => assignToUser(createdInitiative, user._id));
+}
 
 const assignToUser = async (createdInitiative, userId) => {
   console.log(createdInitiative);
@@ -23,14 +25,14 @@ const assignToUser = async (createdInitiative, userId) => {
   return createdInitiative;
 };
 
-const initiativeNotExist = initiative => {
+const initiativeNotExist = (initiative) => {
   const { email, facebookUrl, shortUrl } = initiative;
   return mongoose
     .model('initiatives')
     .findOne({
       $or: [{ email }, { facebookUrl }, { shortUrl }],
     })
-    .then(initiative => {
+    .then((initiative) => {
       if (initiative) {
         return Promise.reject('ITEM_EXIST');
       }
@@ -39,20 +41,18 @@ const initiativeNotExist = initiative => {
     });
 };
 
-const mapUserInputToSave = RAWInputData => {
+const mapUserInputToSave = (RAWInputData) => {
   const FBUrlRegExp = new RegExp(
-    '^@([a-zA-Z0-9]+)$|facebook.com/([a-zA-Z0-9]+)/?$|facebook.com/pg/([a-zA-Z0-9]+)/?|^[a-zA-Z0-9]+$',
+    '^@([a-zA-Z0-9]+)$|facebook\.com\/([a-zA-Z0-9]+)\/?$|facebook\.com\/pg\/([a-zA-Z0-9]+)\/?|^[a-zA-Z0-9]+$|facebook\.com\/([a-zA-Z0-9.]+)\/?',
     'i',
-  ).exec(RAWInputData.facebookUrl);
-
-  //TODO: dodac obslluge bledow
-  RAWInputData.facebookUrl = FBUrlRegExp.slice(0)
+  ); // TODO: dodac obslluge bledow
+  RAWInputData.facebookUrl = FBUrlRegExp.exec(RAWInputData.facebookUrl)
+    .slice(0)
     .reverse()
     .find(singleMatch => singleMatch);
-  RAWInputData.shortUrl = RAWInputData.facebookUrl;
-
-  return RAWInputData;
+  RAWInputData.shortUrl = RAWInputData.facebookUrl; return RAWInputData;
 };
 
 export default (initiative, user) =>
-  initiativeNotExist(mapUserInputToSave(initiative)).then(() => createInitiative(initiative, user));
+  initiativeNotExist(mapUserInputToSave(initiative))
+    .then(() => createInitiative(initiative, user));

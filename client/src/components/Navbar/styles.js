@@ -11,8 +11,9 @@ export const Container = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  background-color: var(--primary1);
+  background-color: var(--customColor);
   padding: var(--space-sm) var(--space-lg);
+  transition: all 0.3s var(--ease-in-out);
   ${media.sm`
     padding: var(--space-sm) var(--space-md);
   `};

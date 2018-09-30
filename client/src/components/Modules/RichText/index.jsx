@@ -3,7 +3,7 @@ import { string } from 'prop-types';
 import { Container } from './styles';
 
 const RichText = ({ description }) => (
-	<Container dangerouslySetInnerHTML={{ __html: description }} />
+  <Container dangerouslySetInnerHTML={{ __html: description }} />
 );
 
 RichText.propTypes = {

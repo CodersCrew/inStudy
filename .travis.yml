@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "node"
+branches:
+  only:
+  - master
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+install:
+  - yarn run install:all
+before_script:
+  - yarn run build
+script: 'true'
+deploy:
+  provider: heroku
+  api_key:
+    secure: "849b6293-0c84-4759-b8ad-7f7ee0c552ae"
+  app: instudy-test

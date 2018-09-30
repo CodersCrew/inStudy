@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
+import { Button, Avatar } from 'antd';
 import { media } from 'utils';
 
 export const StyledButton = styled(Button)`
@@ -15,13 +15,11 @@ export const StyledButton = styled(Button)`
     width: 24px;
     height: 24px;
     min-width: 0;
-    padding: 0;
+    padding: 0 !important;
     border-radius: 100%;
 
     span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: -2px !important;
       min-width: 14px;
       max-width: 14px;
       min-height: 14px;
@@ -30,13 +28,10 @@ export const StyledButton = styled(Button)`
   `};
 `;
 
-export const UserImage = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-left: var(--space-lg);
-  border-radius: 100%;
+export const UserImage = styled(Avatar)`
+  margin-left: var(--space-lg) !important;
   cursor: pointer;
   ${media.sm`
-    margin-left: var(--space-md);
+    margin-left: var(--space-md) !important;
   `};
 `;

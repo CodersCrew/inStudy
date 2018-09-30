@@ -1,8 +1,8 @@
 import DBConnect from './DBConnector';
 
-const userExist = profile => {
+const userExist = (profile) => {
   DBConnect.prepare(profile);
-  return DBConnect.getUser(profile.id).then(user => (user ? DBConnect.putUser(profile) : DBConnect.setUser(profile)));
+  return DBConnect.getUser(profile.id).then(user => (user || DBConnect.setUser(profile)));
 };
 
 class InitializeUserAccount {

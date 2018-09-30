@@ -2,12 +2,12 @@ import React from 'react';
 import { string, exact } from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import { Container, Header, Logo, StyledAvatar, HeaderTexts, Role, Name, Time, Description, Footer } from './styles';
+import { Container, Header, StyledAvatar, HeaderTexts, Role, Name, Time, Description, Footer } from './styles';
 
 const InitiativeCard = ({ name, role, time, image, description, shortUrl }) => (
   <Container>
     <Header>
-      {image ? <Logo src={image} alt={`Logo inicjatywy ${name}`} /> : <StyledAvatar size="96" name={name} />}
+      <StyledAvatar size={96} src={image} alt={`Logo inicjatywy ${name}`} shape="square" icon="meh" />
       <HeaderTexts>
         <Role>{role}</Role>
         <Name>{name}</Name>

@@ -36,7 +36,7 @@ export default class Page404 extends PureComponent {
             containerHeight={this.state.windowHeight}
             src="/video/404.mp4"
             style={{ zIndex: 11000 }}
-            ref={p => {
+            ref={(p) => {
               this.player = p;
             }}
           />

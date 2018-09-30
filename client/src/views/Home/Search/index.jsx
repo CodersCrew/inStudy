@@ -1,34 +1,22 @@
 import React, { PureComponent } from 'react';
-import { object, func, oneOf, bool, number } from 'prop-types';
+import { object, func, string } from 'prop-types';
 import { connect } from 'react-redux';
-import { withSearch } from 'hocs';
-import { getInitiatives } from '../../../store/actions';
+import { push } from 'connected-react-router';
 import { Container, Input, Icon } from './styles';
 
-@withSearch
 @connect(
-  ({ ui, search, initiatives }) => ({ size: ui.size, search, page: initiatives.page }),
-  { getInitiatives },
+  ({ ui, router }) => ({ size: ui.size, query: router.location.search.split('query=')[1] }),
+  { push },
 )
-class SearchBar extends PureComponent {
-  constructor(props) {
-    super(props);
-    const { query } = props.search;
-
-    if (props.page === false) {
-      props.getInitiatives({ query });
-    }
-
-    this.state = {
-      value: query,
-      valueFromProps: query,
-    };
+class Search extends PureComponent {
+  state = {
+    value: this.props.query,
+    querySnapshot: this.props.query,
   }
 
-  static getDerivedStateFromProps(np, ps) {
-    const { query } = np.search;
-    return query !== ps.valueFromProps ? { value: query, valueFromProps: query } : null;
-  }
+  static getDerivedStateFromProps = (props, state) => (props.query !== state.querySnapshot)
+    ? { value: props.query, querySnapshot: props.query }
+    : null;
 
   onChange = ({ target: { value } }) => this.setState({ value });
 
@@ -38,25 +26,21 @@ class SearchBar extends PureComponent {
     }
   };
 
-  onSearch = () => {
-    this.props.setSearch({ query: this.state.value });
-    window.resizeHomeDown = this.props.location.pathname === '/';
-    const { getInitiatives, onSearch } = this.props;
-    onSearch();
-    getInitiatives({ query: this.state.value, page: 0 });
-  };
+  onSearch = () => this.props.push(`/inicjatywy${this.state.value ? `/?query=${this.state.value}` : ''}`);
 
   render() {
     const placeholder =
       this.props.size.value > 768
         ? 'Napisz, czym się interesujesz. Resztę pozostaw nam ;)'
         : 'Napisz, czym się interesujesz';
+    const value = this.state.value || '';
 
     return (
       <Container>
         <Input
+          type="text"
           placeholder={placeholder}
-          value={this.state.value}
+          value={value}
           onChange={this.onChange}
           onKeyPress={this.onKeyDown}
         />
@@ -66,19 +50,14 @@ class SearchBar extends PureComponent {
   }
 }
 
-SearchBar.propTypes = {
-  getInitiatives: func.isRequired,
-  onEnterPress: func,
-  onSearch: func,
-  page: oneOf([bool, number]),
-  search: object.isRequired,
-  setSearch: func.isRequired,
+Search.propTypes = {
   size: object.isRequired,
+  query: string,
+  push: func.isRequired,
 };
 
-SearchBar.defaultProps = {
-  onEnterPress: () => {},
-  onSearch: () => {},
+Search.defaultProps = {
+  query: '',
 };
 
-export default SearchBar;
+export default Search;

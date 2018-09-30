@@ -7,9 +7,12 @@ import {
   ADD_USER_MODULE,
   UPDATE_USER_MODULE,
   DELETE_USER_MODULE,
+  REORDER_USER_MODULES,
   ADD_INITIATIVE_MODULE,
   UPDATE_INITIATIVE_MODULE,
   DELETE_INITIATIVE_MODULE,
+  REORDER_INITIATIVE_MODULES,
+  UPDATE_BASIC_INITIATIVE_DATA,
 } from '../actions/types';
 
 const getInitiative = (state, payload) => {
@@ -34,7 +37,6 @@ export default (state = null, { type, payload }) => {
     }
 
     case ADD_USER_INITIATIVE:
-      console.log(payload);
       return { ...state, initiatives: [...state.initiatives, payload] };
 
     case ADD_USER_MODULE:
@@ -45,6 +47,9 @@ export default (state = null, { type, payload }) => {
 
     case DELETE_USER_MODULE:
       return { ...state, modules: removeFromArray(state.modules, payload) };
+
+    case REORDER_USER_MODULES:
+      return { ...state, modules: payload };
 
     case ADD_INITIATIVE_MODULE: {
       const [initiative, initiativeIndex] = getInitiative(state, payload);
@@ -71,6 +76,25 @@ export default (state = null, { type, payload }) => {
       };
 
       return { ...state, initiatives: replaceInArray(state.initiatives, updatedInitiative, initiativeIndex) };
+    }
+
+    case REORDER_INITIATIVE_MODULES: {
+      const [initiative, initiativeIndex] = getInitiative(state, payload);
+      const updatedInitiative = {
+        ...initiative,
+        modules: payload.modules,
+      };
+
+      return { ...state, initiatives: replaceInArray(state.initiatives, updatedInitiative, initiativeIndex) };
+    }
+
+    case UPDATE_BASIC_INITIATIVE_DATA: {
+      const { initiativeData, id } = payload;
+      const image = typeof initiativeData.image === 'string' ? initiativeData.image : initiativeData.image.preview;
+      const initiative = state.initiatives.find(({ _id }) => _id === id);
+      const updatedInitiative = { ...initiative, ...initiativeData, image };
+
+      return { ...state, initiatives: state.initiatives.map(ini => ini._id === id ? updatedInitiative : ini) };
     }
 
     case FETCH_USER:

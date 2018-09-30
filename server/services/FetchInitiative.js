@@ -1,60 +1,55 @@
 import mongoose from 'mongoose';
 import FBCrawler from './Crawler/FBCrawler';
 
+const Initiative = mongoose.model('initiatives');
+const User = mongoose.model('users');
+const University = mongoose.model('universities');
 const initiativeExist = initiativeShortUrl =>
   mongoose.model('initiatives').findOne({
     shortUrl: initiativeShortUrl,
   });
 
-const shortenInitiativeProfile = singleInitiative => {
-  const { image, name, description, shortUrl } = singleInitiative;
+const shortenInitiativeProfile = async (singleInitiative) => {
+  const { image, name, description, shortUrl, color } = singleInitiative;
+
+  const university = await University.findById(singleInitiative.university);
+  console.log(university);
   return {
-    image,
+    image: image || 'https://screenshotlayer.com/images/assets/placeholder.png',
     name,
     description,
+    color,
     profileCompleted: true,
     shortUrl,
-    university: {
-      name: 'Uniwersytet Ekonomiczny',
-      id: '1',
-      image: '/img/universities/5a90aac95ded6d5a4a06195d.png',
-    },
+    university,
   };
 };
 
-//logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
+// logo tyt opis, czy rekrutuje, czy ma uzupełn profil, uczelnia, id ucz, logo ucz, nazw ucz, short_url
 class FetchInitiative {
-  constructor() {
-    this.Initiative = mongoose.model('initiatives');
-  }
-
-  getInitiative = page => {
+  getInitiative = (page) => {
     if (page) {
-      return this.Initiative.find({})
+      return Initiative.find({})
         .skip(page * 10)
         .limit(10);
-    } else {
-      return this.Initiative.find({});
     }
+    return Initiative.find({});
   };
+
+  deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
 
   getShortInitiativeProfile = page =>
     this.getInitiative(page).then(initiatives =>
-      initiatives.map(singleInitiative => shortenInitiativeProfile(singleInitiative)),
-    );
+      initiatives.map(singleInitiative => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative))))
 
   setInitiative = initiative =>
-    initiativeExist(initiative.shortUrl).then(foundInitiative => {
-      if (foundInitiative) {
-        return Promise.resolve(foundInitiative);
-      } else {
-        return new this.Initiative(initiative).save();
-      }
-    });
+    initiativeExist(initiative.shortUrl).then(foundInitiative => (foundInitiative)
+      ? Promise.resolve(foundInitiative)
+      : new Initiative(initiative).save());
 
   getSingleInitiative = shortUrl =>
     new Promise((resolve, reject) => {
-      this.Initiative.findOne({ shortUrl }, (err, initiative) => {
+      Initiative.findOne({ shortUrl }, (err, initiative) => {
         if (initiative === null) {
           reject('NOT_FOUND');
         } else {
@@ -69,22 +64,21 @@ class FetchInitiative {
     console.log(module);
     module._id = new mongoose.mongo.ObjectId();
 
-    return this.Initiative.findByIdAndUpdate(initiativeId, {
+    return Initiative.findByIdAndUpdate(initiativeId, {
       $addToSet: {
         modules: module,
       },
     });
   };
 
-  getAllModules = initiativeId =>
-    this.Initiative.findById(initiativeId).then(result => Promise.resolve(result.modules));
+  getAllModules = initiativeId => Initiative.findById(initiativeId).then(result => result.modules);
 
   updateModule = (module, initiativeId, moduleId) =>
     new Promise((resolve, reject) => {
-      this.Initiative.findById(initiativeId, (err, initiative) => {
+      Initiative.findById(initiativeId, (err, initiative) => {
         let newModule;
 
-        const updatedModules = initiative.modules.map(item => {
+        const updatedModules = initiative.modules.map((item) => {
           if (String(item._id) === String(moduleId)) {
             newModule = { ...module, _id: new mongoose.mongo.ObjectId() };
             return newModule;
@@ -92,16 +86,16 @@ class FetchInitiative {
           return item;
         });
 
-        this.Initiative.findByIdAndUpdate(
+        Initiative.findByIdAndUpdate(
           initiativeId,
           {
             $set: {
               modules: updatedModules,
             },
           },
-          err => {
-            if (err) {
-              reject(err);
+          (error) => {
+            if (error) {
+              reject(error);
             } else {
               resolve(newModule);
             }
@@ -111,7 +105,7 @@ class FetchInitiative {
     });
 
   deleteModule = (initiativeId, moduleId) =>
-    this.Initiative.findByIdAndUpdate(initiativeId, {
+    Initiative.findByIdAndUpdate(initiativeId, {
       $pull: {
         modules: {
           _id: new mongoose.mongo.ObjectId(moduleId),
@@ -119,23 +113,35 @@ class FetchInitiative {
       },
     });
 
+  reorderModules = (initId, modules) => Initiative.findByIdAndUpdate(initId, {
+    $set: { modules },
+  })
+
   getFBProfile = shortUrl =>
     new FBCrawler().addPage(`https://www.facebook.com/pg/${shortUrl}/about/?ref=page_internal`).scrape();
 
-  setFBProfile = (shortUrl, profile) =>
-    this.Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
+  setFBProfile = (shortUrl, profile) => Initiative.findOneAndUpdate({ shortUrl }, { $set: { FBProfile: profile } });
+
+  assignInitiative = (userId, initiativeId) => User.findByIdAndUpdate(userId, {
+    $addToSet: {
+      initiatives: initiativeId,
+    },
+  })
 }
 
-function mapRAWInitiativeObjectToViewReady(RAWInitiative) {
-  if (RAWInitiative) {
-    const AboutPage = RAWInitiative.FBProfile.find(page => page.content && page.content.kind === 'About');
-
-    if (AboutPage && AboutPage.content && AboutPage.content.logo) {
-      RAWInitiative.image = AboutPage.content.logo;
-    }
+export const mapRAWInitiativeObjectToViewReady = (RAWInitiative) => {
+  if (!RAWInitiative.image && RAWInitiative?.FBProfile?.logo) {
+    RAWInitiative.image = RAWInitiative.FBProfile.logo;
   }
 
+  RAWInitiative.facebookUrl = `https://www.facebook.com/${RAWInitiative.facebookUrl}`;
   return RAWInitiative;
-}
+};
+
+export const changeBasicInitiativeData = (basic, initiativeId) => mongoose.model('initiatives').findByIdAndUpdate(initiativeId, {
+  $set: {
+    ...basic,
+  },
+});
 
 export default FetchInitiative;

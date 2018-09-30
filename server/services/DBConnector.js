@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import mailSender, { USER_REGISTER_EMAIL } from './mail-sender';
+// const User = mongoose.model('users');
+
 
 const createUser = ({ photos, id, name, emails, description = '', socials = [] }) => ({
   googleId: id,
@@ -23,7 +26,13 @@ class DBConnector {
   putUser = profile =>
     mongoose.model('users').findOneAndUpdate({ googleId: profile.id }, createUser(profile), { new: true });
 
-  setUser = profile => new mongoose.model('users')(createUser(profile)).save();
+  setUser = profile => mongoose.model('users')(createUser(profile)).save()
+    .then((result) => {
+      const { email, firstName } = result;
+      console.log(result)
+      mailSender(email, USER_REGISTER_EMAIL, { name: firstName })
+      return result;
+    })
 }
 
 export default new DBConnector();

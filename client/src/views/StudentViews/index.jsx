@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { withAuth } from 'hocs';
 import UserNav from './UserNav';
 import UserPrivateProfile from './UserPrivateProfile';
 import UserPublicProfile from './UserPublicProfile';
@@ -16,10 +15,10 @@ const StudentViews = ({ location: { pathname } }) => {
       {isProfile && <UserNav />}
       <Container isProfile={isProfile}>
         <Switch>
-          <Route path="/student/profil/inicjatywy" component={withAuth(['authorizedUser'])(UserInitiatives)} />
+          <Route path="/student/profil/inicjatywy" component={UserInitiatives} />
           <Route path="/student/profil/wydarzenia" component={() => <div>wydarzenia</div>} />
           <Route path="/student/profil/osiagniecia" component={() => <div>osiągnięcia</div>} />
-          <Route path="/student/profil" component={withAuth(['authorizedUser'])(UserPrivateProfile)} />
+          <Route path="/student/profil" component={UserPrivateProfile} />
           <Route path="/student/:userId" component={UserPublicProfile} />
         </Switch>
       </Container>

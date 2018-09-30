@@ -1,6 +1,6 @@
 import { fetchCities, fetchUniversities } from './../services/fetchCities';
 
-export default app => {
+module.exports = app => {
   app.get('/api/cities', async (req, res) => {
     const result = await fetchCities();
     res.status(200).json(result);

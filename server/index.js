@@ -5,19 +5,18 @@ import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 import keys from './config/keys';
-import fileUpload from 'express-fileupload';
+
 import initializeRoutes from './routes';
 import initializeModels from './models';
 import initializePassport from './services/passport';
 
+const app = express();
 initializeModels();
 initializePassport();
 
-const app = express();
-
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
-// app.use(fileUpload());
+
 app.use(
   cookieSession({
     maxAge: keys.sessionDuration,
@@ -27,13 +26,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.get('/', function(req, res, next) {
-  res.render('index', {});
-});
+app.use(bodyParser.json({ limit: '2mb' }));
 
 initializeRoutes(app);
+
+app.get('/', (req, res) => {
+  res.render(path.resolve(__dirname, '..', 'server', 'views', 'index'), {});
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'public')));
@@ -42,6 +41,4 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(keys.PORT, () => {
-  console.info(`App listening on port ${keys.PORT}`);
-});
+app.listen(keys.PORT, () => console.info(`App listening on port ${keys.PORT}`));

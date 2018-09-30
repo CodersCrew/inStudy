@@ -87,6 +87,12 @@
   --background: hsl(240, 100%, 99%);
   --overlay: hsla(0, 0%, 16%, 65%);
 
+  --customColor: var(--primary1);
+  --customColor-hover: var(--primary1-hover);
+  --customColor-active: var(--primary1-active);
+
+  /* SHADOWS */
+
   --shadow1: 0 4px 6px hsl(0, 0%, 16%, 0.2);
   --shadow2: 0 2px 6px hsl(0, 0%, 16%, 0.2);
   --shadow3: 0 1px 2px hsl(0, 0%, 16%, 0.12);
@@ -104,7 +110,7 @@
   --bold: 700;
 
   --font-xxl: 32px;
-  --font-xxl-lh: 40px;
+  --font-xxl-lh: 44px;
 
   --font-xl: 24px;
   --font-xl-lh: 30px;

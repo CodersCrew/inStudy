@@ -2,6 +2,7 @@ import React from 'react';
 import { bool, func, array } from 'prop-types';
 import { Modal } from 'components';
 import { modulesConfig } from 'data';
+import { withCloseAnimation } from 'hocs';
 import Item from './Item';
 import { Container, Label, Modules } from './styles';
 
@@ -41,4 +42,4 @@ AddModule.propTypes = {
   accessibleModals: array.isRequired,
 };
 
-export default AddModule;
+export default withCloseAnimation(AddModule);

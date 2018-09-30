@@ -1,6 +1,4 @@
 import React from 'react';
-import { object } from 'prop-types';
-import { withRouter } from 'react-router';
 import { Menu, Dropdown } from 'antd';
 import { MenuItem } from '../Menu';
 import { Container, NavItem, NavItemLink, Icon } from './styles';
@@ -8,18 +6,18 @@ import { Container, NavItem, NavItemLink, Icon } from './styles';
 const menu = (
   <Menu>
     <Menu.Item>
-      <MenuItem text="O projekcie" to="/about" />
+      <MenuItem text="O projekcie" to="/o-projekcie" />
     </Menu.Item>
     <Menu.Item>
       <MenuItem text="FAQ" to="/faq/ogolne" />
     </Menu.Item>
     <Menu.Item>
-      <MenuItem text="Kontakt" to="/contact" />
+      <MenuItem text="Kontakt" to="/kontakt" />
     </Menu.Item>
   </Menu>
 );
 
-const NavItems = ({ location }) => (
+const NavItems = () => (
   <Container>
     <Dropdown overlay={menu} trigger={['click']} placement="bottomCenter">
       <NavItem style={{ paddingRight: 16 }}>
@@ -27,19 +25,10 @@ const NavItems = ({ location }) => (
         <Icon className="fal fa-angle-down" />
       </NavItem>
     </Dropdown>
-    <NavItemLink
-      to="/inicjatywy"
-      onClick={() => {
-        window.resizeHomeDown = location.pathname === '/';
-      }}
-    >
+    <NavItemLink to="/inicjatywy">
       Inicjatywy
     </NavItemLink>
   </Container>
 );
 
-NavItems.propTypes = {
-  location: object.isRequired,
-};
-
-export default withRouter(NavItems);
+export default NavItems;

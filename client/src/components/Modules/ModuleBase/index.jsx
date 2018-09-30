@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { string, object, number, bool } from 'prop-types';
+import Fade from 'react-reveal/Fade';
 import { pick } from 'utils';
 import { modulesConfig } from 'data';
 import { Container, Header, Icon, Text, Content, EditIcon } from './styles';
 
 const staticProps = {
-  content: object.isRequired,
-  icon: string.isRequired,
+  icon: string,
   title: string.isRequired,
   type: string.isRequired,
 };
@@ -26,29 +26,31 @@ class EditableModuleBase extends PureComponent {
     const ModuleModal = modalData.modalContent;
 
     return (
-      <Container>
-        <EditIcon className="fal fa-edit" onClick={this.openModal} />
-        <Header>
-          <Icon className={`fal fa-${this.props.icon}`} />
-          <Text>{this.props.title}</Text>
-        </Header>
-        <Content>
-          <ModuleComponent {...this.props.content} />
-        </Content>
-        {this.state.isModalOpen && (
+      <Fade>
+        <Container {...this.props}>
+          <EditIcon className="fal fa-edit" onClick={this.openModal} />
+          <Header>
+            {this.props.icon && <Icon className={`fal fa-${this.props.icon}`} />}
+            <Text>{this.props.title}</Text>
+          </Header>
+          <Content>
+            <ModuleComponent {...this.props.content} />
+          </Content>
+          {this.state.isModalOpen && (
           <ModuleModal
             visible
-            key={this.props.type}
+            key={this.props._id}
             id={this.props._id}
             name={modalData.name}
             iconClass={modalData.iconClass}
             type={this.props.type}
             onClose={this.closeModal}
-            initialValues={pick(this.props, ['title', 'icon', 'content'])}
+            initialValues={pick(this.props, ['title', 'icon', 'content', 'isHidden'])}
             moduleIndex={this.props.moduleIndex}
           />
-        )}
-      </Container>
+          )}
+        </Container>
+      </Fade>
     );
   }
 }
@@ -56,12 +58,12 @@ class EditableModuleBase extends PureComponent {
 EditableModuleBase.propTypes = { ...staticProps, moduleIndex: number.isRequired, id: string };
 EditableModuleBase.defaultProps = { id: '' };
 
-const StaticModuleBase = props => {
+const StaticModuleBase = (props) => {
   const modalData = modulesConfig[props.type];
   const ModuleComponent = modalData.module;
 
   return (
-    <Container>
+    <Container isHidden={props.isHidden}>
       <Header>
         <Icon className={`fal fa-${props.icon}`} />
         <Text>{props.title}</Text>
@@ -81,6 +83,11 @@ ModuleBase.propTypes = {
   ...staticProps,
   moduleIndex: number.isRequired,
   editable: bool.isRequired,
+  content: object,
+};
+
+ModuleBase.defaultProps = {
+  content: {},
 };
 
 export default ModuleBase;

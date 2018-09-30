@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { withAuth } from 'hocs';
 import InitiativeNav from './InitiativeNav';
 import InitiativePublicProfile from './InitiativePublicProfile';
 import InitiativePrivateProfile from './InitiativePrivateProfile';
@@ -11,8 +10,8 @@ import { Container } from './styles';
 
 const InitiativeViews = ({ location: { pathname } }) => {
   const pathnameArr = pathname.split('/');
-  const isProfile =
-    pathnameArr[1] === 'inicjatywy' && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
+  const isProfile = pathnameArr[1] === 'inicjatywy'
+    && ['profil', 'czlonkowie', 'projekty', 'rekrutacja'].includes(pathnameArr[3]);
   const isSingleView = pathnameArr.length === 3;
 
   return (
@@ -22,20 +21,20 @@ const InitiativeViews = ({ location: { pathname } }) => {
         <Switch>
           <Route
             path="/inicjatywy/:shortUrl/profil"
-            component={withAuth(['authorizedUser'])(InitiativePrivateProfile)}
+            component={InitiativePrivateProfile}
           />
-          <Route path="/inicjatywy/:shortUrl/czlonkowie" component={withAuth(['authorizedUser'])(Members)} />
+          <Route path="/inicjatywy/:shortUrl/czlonkowie" component={Members} />
           <Route
             path="/inicjatywy/:shortUrl/projekty"
-            component={withAuth(['authorizedUser'])(() => (
+            component={() => (
               <div>projekty</div>
-            ))}
+            )}
           />
           <Route
             path="/inicjatywy/:shortUrl/rekrutacja"
-            component={withAuth(['authorizedUser'])(() => (
+            component={() => (
               <div>rekrutacja</div>
-            ))}
+            )}
           />
           <Route path="/inicjatywy/:shortUrl" component={InitiativePublicProfile} />
           <Route exact path="/inicjatywy" component={Initiatives} />

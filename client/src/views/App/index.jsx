@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { notificationsTheme } from 'utils';
+import { getFontAwesome, notificationsTheme } from 'utils';
 import NotificationsSystem from 'reapop';
+import Raven from 'raven-js';
+
 import * as actions from '../../store/actions';
 import { Container, Body } from './styles';
-
-import { getFontAwesome } from 'utils';
 
 import Navbar from '../../components/Navbar';
 import UIObserver from '../../components/UIObserver';
@@ -18,9 +19,9 @@ import StudentViews from '../StudentViews';
 import InitiativeViews from '../InitiativeViews';
 import Page404 from '../Page404';
 import FAQ from '../FAQ';
+import Contact from '../Contact';
 import Registration from '../Registration';
-import Policy from '../Registration/Policy';
-import Statute from '../Registration/Statute';
+import AboutProject from '../AboutProject';
 
 @connect(
   null,
@@ -36,13 +37,17 @@ class App extends PureComponent {
     this.props.fetchUser();
   }
 
+  componentDidCatch(error) {
+    Raven.captureException(error);
+  }
+
   render() {
     if (!this.isFontAwesomeLoaded) {
       this.isFontAwesomeLoaded = getFontAwesome(__FONT_AWESOME__, this.isFontAwesomeLoaded);
     }
 
     return (
-      <BrowserRouter>
+      <ConnectedRouter history={this.props.history}>
         <Container>
           <UIObserver />
           <Navbar />
@@ -53,9 +58,9 @@ class App extends PureComponent {
                 <Route path="/student/profil" component={StudentViews} />
                 <Route path="/student" component={StudentViews} />
                 <Route path="/rejestracja" component={Registration} />
-                <Route path="/polityka_prywatnosci" component={Policy} />
-                <Route path="/regulamin" component={Statute} />
                 <Route path="/faq/:name" component={FAQ} />
+                <Route path="/o-projekcie" component={AboutProject} />
+                <Route path="/kontakt" component={Contact} />
                 <Route exact path="/" component={Home} />
                 <Route path="/" component={Page404} />
               </Switch>
@@ -63,7 +68,7 @@ class App extends PureComponent {
           </Body>
           <NotificationsSystem theme={notificationsTheme} />
         </Container>
-      </BrowserRouter>
+      </ConnectedRouter>
     );
   }
 }

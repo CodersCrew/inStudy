@@ -7,12 +7,21 @@ import initiativesReducer from './initiativesReducer';
 import uiReducer from './uiReducer';
 import publicProfileReducer from './publicProfileReducer';
 
+const defaultNotification = {
+  status: 'success',
+  position: 'tr',
+  dismissible: true,
+  dismissAfter: 5000,
+  allowHTML: true,
+  closeButton: true,
+};
+
 export default combineReducers({
   auth: authReducer,
   ui: uiReducer,
   initiatives: initiativesReducer,
   form: formReducer,
   search: searchReducer,
-  notifications: notificationsReducer(),
+  notifications: notificationsReducer(defaultNotification),
   publicProfile: publicProfileReducer,
 });

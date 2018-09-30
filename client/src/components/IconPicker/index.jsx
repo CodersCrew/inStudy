@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { string, bool, func } from 'prop-types';
-import { Input } from 'antd';
+import { Input, Icon } from 'antd';
 import Modal from './Modal';
 import { Container, IconWrapper } from './styles';
 
@@ -9,18 +9,17 @@ class IconPicker extends PureComponent {
     super(props);
 
     this.state = {
-      focused: false,
       isModalOpen: false,
     };
   }
 
   openModal = () => {
-    this.setState({ isModalOpen: true, focused: true });
+    this.setState({ isModalOpen: true });
     this.props.onFocus();
   };
 
   closeModal = () => {
-    this.setState({ isModalOpen: false, focused: false });
+    this.setState({ isModalOpen: false });
     this.props.onBlur();
   };
 
@@ -46,6 +45,7 @@ class IconPicker extends PureComponent {
             value={value}
             onClick={openModal}
             onChange={() => {}}
+            addonAfter={value && <Icon onClick={() => this.handleChange('')} type="close-circle" />}
           />
           {value && (
             <IconWrapper>
@@ -61,7 +61,6 @@ class IconPicker extends PureComponent {
 
 IconPicker.propTypes = {
   disabled: bool,
-  label: string,
   name: string.isRequired,
   placeholder: string,
   size: string,

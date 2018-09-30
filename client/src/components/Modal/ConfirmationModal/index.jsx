@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, bool, func, arrayOf, object, node, number } from 'prop-types';
+import { connect } from 'react-redux';
 import { Button } from 'antd';
 import { StyledModal, TitleContainer, Icon, TitleText } from './styles';
 
@@ -17,9 +18,11 @@ const renderButtons = buttons =>
     </Button>
   ));
 
-const ConfirmationModal = ({ visible, iconClass, title, onCancel, buttons, children, width }) => (
+const ConfirmationModal = ({ visible, iconClass, title, onCancel, buttons, children, width, size, className }) => (
   <StyledModal
     destroyOnClose
+    className={className}
+    centered={size <= 480}
     visible={visible}
     title={renderTitle(iconClass, title)}
     onCancel={onCancel}
@@ -38,6 +41,7 @@ ConfirmationModal.propTypes = {
   buttons: arrayOf(object),
   children: node.isRequired,
   width: number,
+  size: number.isRequired,
 };
 
 ConfirmationModal.defaultProps = {
@@ -47,4 +51,4 @@ ConfirmationModal.defaultProps = {
   width: 560,
 };
 
-export default ConfirmationModal;
+export default connect(state => ({ size: state.ui.size.value }))(ConfirmationModal);

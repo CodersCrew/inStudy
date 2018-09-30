@@ -17,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loaders: ['babel-loader', 'stylelint-custom-processor-loader'],
+        loaders: ['babel-loader'],
         exclude: /node_modules/,
       },
       {

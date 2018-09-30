@@ -1,10 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 import { withCloseAnimation } from 'hocs';
 import InitialModal from './Initial';
 import CreationTypeModal from './CreationType';
 import DetailsModal from './Details';
 import SuccessModal from './Success';
+import RecoveryModal from './Recovery';
+import RecoverySuccessModal from './RecoverySuccess';
 
 @withCloseAnimation
 class CreateInitiative extends PureComponent {
@@ -38,13 +40,20 @@ class CreateInitiative extends PureComponent {
         <CreationTypeModal visible={step === 1} incrementStep={this.incrementStep} closeModal={closeModal} />
         <DetailsModal visible={step === 2} incrementStep={this.incrementStep} decrementStep={this.decrementStep} />
         <SuccessModal visible={step === 3} closeModal={closeModal} />
+        <RecoveryModal visible={step === 4} incrementStep={this.incrementStep} closeModal={closeModal} />
+        <RecoverySuccessModal visible={step === 5} closeModal={closeModal} />
       </Fragment>
     );
   }
 }
 
 CreateInitiative.propTypes = {
+  visible: bool,
   closeModal: func.isRequired,
+};
+
+CreateInitiative.defaultProps = {
+  visible: false,
 };
 
 export default CreateInitiative;
