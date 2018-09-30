@@ -1489,9 +1489,6 @@ export default [
     name: 'hourglass',
     tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
   },
-
-
-
   {
     name: 'traffic-cone',
     tags: ['słupek', 'wypadek', 'roboty drogowe', 'pomarańczowy', 'żółty', 'ostrzegawczy', 'ostrzeżenie', 'zwolnić', 'stać'],
@@ -1829,6 +1826,663 @@ export default [
     tags: ['siatka', 'siatkówka', 'piłka', 'plażowa', 'drużyna', 'zawodnik', 'gra', 'mecz'],
   },
   {
+    name: 'hourglass-end',
+    tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
+  },
+  {
+    name: 'hourglass-half',
+    tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
+  },
+  {
+    name: 'hourglass-start',
+    tags: ['zegarek', 'czas', 'organizacja czasu', 'minutnik', 'godzina'],
+  },
+  {
+    name: 'i-cursor',
+    tags: ['Word', 'pismo', 'edycja', 'redaktor', 'redagowanie', 'copywriting'],
+  },
+  {
+    name: 'id-badge',
+    tags: ['zdjęcie', 'osoba', 'człowiek', 'członek', 'fotografia', 'id', 'identyfikator'],
+  },
+  {
+    name: 'id-card',
+    tags: ['zdjęcie', 'osoba', 'człowiek', 'członek', 'fotografia', 'id', 'identyfikator', 'karta', 'wizytówka', 'strona internetowa', 'biografia'],
+  },
+  {
+    name: 'id-card-alt',
+    tags: ['zdjęcie', 'osoba', 'człowiek', 'członek', 'fotografia', 'id', 'identyfikator', 'karta', 'wizytówka', 'strona internetowa', 'biografia'],
+  },
+  {
+    name: 'image',
+    tags: ['zdjęcie', 'widok', 'obrazek', 'rysunek', 'ilustracja', 'rysowanie'],
+  },
+  {
+    name: 'images',
+    tags: ['zdjęcie', 'widok', 'obrazek', 'rysunek', 'ilustracja', 'rysowanie', 'kolekcja', 'album'],
+  },
+  {
+    name: 'inbox',
+    tags: ['skrzynka', 'korespondencja', 'karton', 'pudło', 'segregator', 'kuweta', 'administracja', 'dokumenty', 'szuflada'],
+  },
+  {
+    name: 'inbox-in',
+    tags: ['skrzynka', 'wchodzące', 'odebrane', 'listy', 'download', 'zapisane', 'korespondencja', 'karton', 'pudło', 'segregator', 'kuweta', 'administracja', 'dokumenty', 'szuflada'],
+  },
+  {
+    name: 'inbox-out',
+    tags: ['skrzynka', 'wychodzące', 'wysłane', 'korespondencja', 'karton', 'pudło', 'segregator', 'kuweta', 'administracja', 'dokumenty', 'szuflada'],
+  },
+  {
+    name: 'indent',
+    tags: ['lista', 'dokument', 'wskaźnik', 'kursor', 'wyciąg', 'wykaz'],
+  },
+  {
+    name: 'industry',
+    tags: ['branża', 'przemysł', 'budynek', 'produkcja', 'wytwórczość'],
+  },
+  {
+    name: 'industry-alt',
+    tags: ['branża', 'przemysł', 'budynek', 'produkcja', 'wytwórczość'],
+  },
+  {
+    name: 'infinity',
+    tags: ['nieskończoność', 'rozwój', 'pętla', 'przyszłość'],
+  },
+  {
+    name: 'info',
+    tags: ['informacja', 'infolinia', 'kontakt', 'wiedza', 'odpowiedź', 'litera', 'pismo'],
+  },
+  {
+    name: 'info-circle',
+    tags: ['informacja', 'infolinia', 'kontakt', 'wiedza', 'odpowiedź', 'litera', 'pismo'],
+  },
+  {
+    name: 'info-square',
+    tags: ['informacja', 'infolinia', 'kontakt', 'wiedza', 'odpowiedź', 'litera', 'pismo'],
+  },
+  {
+    name: 'inhaler',
+    tags: ['inhalator', 'przeziębienie', 'choroba', 'leczenie', 'uczulenie', 'lek', 'spray'],
+  },
+  {
+    name: 'integral',
+    tags: ['całka', 'matematyka', 'obliczenia', 'funkcja', 'algebra', 'nauka', 'studia'],
+  },
+  {
+    name: 'inventory',
+    tags: ['inwentaryzacja', 'magazyn', 'zapasy', 'towar', 'półki', 'sklep'],
+  },
+  {
+    name: 'italic',
+    tags: ['kursywa', 'font', 'czcionka', 'litera', 'tekst', 'nachylenie', 'kursor'],
+  },
+  {
+    name: 'jack-o-lantern',
+    tags: ['helloween', 'impreza', 'dynia', 'potwór', 'przebieranie', 'integracja'],
+  },
+  {
+    name: 'journal-whills',
+    tags: ['dziennik', 'dziennikarstwo', 'książka', 'czytanie', 'biblioteka', 'księga', 'notatnik', 'wiedza', 'dziennikarz', 'notatki', 'studia', 'pisarz', 'pisanie'],
+  },
+  {
+    name: 'keyboard',
+    tags: ['klawiatura', 'klawisze', 'komputer', 'pisanie', 'sprzęt', 'informatyka', 'informatyk', 'technologia'],
+  },
+  {
+    name: 'keynote',
+    tags: ['biurko', 'miejsce pracy', 'prezentacja', 'mikrofon', 'wystąpienie', 'prelekcja'],
+  },
+  {
+    name: 'kidneys',
+    tags: ['nerki', 'anatomia', 'lekarz', 'chirurg', 'przeszczep', 'prelekcja', 'cynaderki'],
+  },
+  {
+    name: 'kiwi-bird',
+    tags: ['ptak', 'kiwi', 'zoologia', 'australia'],
+  },
+  {
+    name: 'lambda',
+    tags: ['fizyka', 'matematyka', 'litera', 'znak', 'alfabet'],
+  },
+  {
+    name: 'lamp',
+    tags: ['oświetlenie', 'światło', 'lampka', 'prąd', 'elektryk'],
+  },
+  {
+    name: 'landmark',
+    tags: ['budynek', 'zabytki', 'muzeum', 'zwiedzanie', 'historia', 'kultura'],
+  },
+  {
+    name: 'language',
+    tags: ['język', 'tłumacz', 'tłumaczenie', 'alfabet', 'lekcja', 'lektor', 'uczenie się'],
+  },
+  {
+    name: 'laptop',
+    tags: ['komputer', 'laptop', 'technologie', 'informatyka', 'informatyk', 'programowanie', 'kodowanie'],
+  },
+  {
+    name: 'laptop-code',
+    tags: ['komputer', 'laptop', 'technologie', 'informatyka', 'informatyk', 'programowanie', 'kodowanie'],
+  },
+  {
+    name: 'laugh',
+    tags: ['uśmiech', 'ludzie', 'emotikon', 'buźka', 'radość', 'impreza', 'śmiech'],
+  },
+  {
+    name: 'laugh-beam',
+    tags: ['uśmiech', 'ludzie', 'emotikon', 'buźka', 'radość', 'impreza'],
+  },
+  {
+    name: 'laugh-squint',
+    tags: ['uśmiech', 'ludzie', 'emotikon', 'buźka', 'radość', 'impreza'],
+  },
+  {
+    name: 'laugh-wink',
+    tags: ['uśmiech', 'ludzie', 'emotikon', 'buźka', 'radość', 'impreza'],
+  },
+  {
+    name: 'layer-group',
+    tags: ['warstwy', 'dokumenty', 'administracja', 'biurokracja', 'papiery', 'porządek', 'organizacja'],
+  },
+  {
+    name: 'leaf',
+    tags: ['listek', 'roślina', 'przyroda', 'natura', 'zieleń', 'biologia'],
+  },
+  {
+    name: 'lemon',
+    tags: ['owoce', 'gotowanie', 'kulinaria', 'gastro', 'kwas', 'cytryna'],
+  },
+  {
+    name: 'less-than',
+    tags: ['mniej', 'działanie', 'matematyka', 'algebra', 'znak', 'mniejszość'],
+  },
+  {
+    name: 'less-than-equal',
+    tags: ['mniej', 'mniej lub równe', 'działanie', 'matematyka', 'algebra', 'znak', 'mniejszość'],
+  },
+  {
+    name: 'level-down',
+    tags: ['wskaźnik', 'dół', 'strzałka', 'niżej'],
+  },
+  {
+    name: 'level-down-alt',
+    tags: ['wskaźnik', 'dół', 'strzałka', 'niżej'],
+  },
+  {
+    name: 'level-up',
+    tags: ['wskaźnik', 'góra', 'strzałka', 'wyżej'],
+  },
+  {
+    name: 'level-up-alt',
+    tags: ['wskaźnik', 'góra', 'strzałka', 'wyżej'],
+  },
+  {
+    name: 'life-ring',
+    tags: ['koło', 'ratunek', 'ratownik', 'pływanie', 'basen', 'plaża', 'morze'],
+  },
+  {
+    name: 'lightbulb',
+    tags: ['światło', 'prąd', 'pomysł', 'idea', 'geniusz', 'żarówka', 'elektryka'],
+  },
+  {
+    name: 'lightbulb-dollar',
+    tags: ['światło', 'prąd', 'pomysł', 'idea', 'geniusz', 'żarówka', 'elektryka', 'pieniądze', 'komercjalizacja'],
+  },
+  {
+    name: 'lightbulb-exclamation',
+    tags: ['światło', 'prąd', 'pomysł', 'idea', 'geniusz', 'żarówka', 'elektryka', 'uwaga', 'warunek', 'wykrzyknik', 'rozkaz'],
+  },
+  {
+    name: 'lightbulb-on',
+    tags: ['światło', 'prąd', 'pomysł', 'idea', 'geniusz', 'żarówka', 'elektryka'],
+  },
+  {
+    name: 'link',
+    tags: ['link', 'internet', 'sieć', 'łącze', 'hyperłącze', 'powiązanie', 'związek'],
+  },
+  {
+    name: 'lips',
+    tags: ['usta', 'anatomia', 'uśmiech', 'makijaż'],
+  },
+  {
+    name: 'list',
+    tags: ['lista', 'notatka', 'zadania', 'wyciąg', 'todolist', 'todo', 'odhaczania', 'zadania', 'checkbox', 'do zrobienia'],
+  },
+  {
+    name: 'list-alt',
+    tags: ['lista', 'notatka', 'zadania', 'wyciąg', 'todolist', 'todo', 'odhaczania', 'zadania', 'checkbox', 'do zrobienia'],
+  },
+  {
+    name: 'list-ol',
+    tags: ['lista', 'notatka', 'zadania', 'wyciąg', 'todolist', 'todo', 'odhaczania', 'zadania', 'checkbox', 'do zrobienia'],
+  },
+  {
+    name: 'list-ul',
+    tags: ['lista', 'notatka', 'zadania', 'wyciąg', 'todolist', 'todo', 'odhaczania', 'zadania', 'checkbox', 'do zrobienia'],
+  },
+  {
+    name: 'location',
+    tags: ['lokalizacja', 'miejsce', 'punkt', 'geografia'],
+  },
+  {
+    name: 'location-arrow',
+    tags: ['lokalizacja', 'miejsce', 'punkt', 'geografia', 'strzałka', 'kierunek', 'kierunkowskaz', 'kursor'],
+  },
+  {
+    name: 'location-circle',
+    tags: ['lokalizacja', 'miejsce', 'punkt', 'geografia', 'strzałka', 'kierunek', 'kierunkowskaz'],
+  },
+  {
+    name: 'lock',
+    tags: ['hasło', 'zamek', 'prywatność', 'brak dostępu', 'zamknięcie'],
+  },
+  {
+    name: 'lock-alt',
+    tags: ['hasło', 'zamek', 'prywatność', 'brak dostępu', 'zamknięcie'],
+  },
+  {
+    name: 'long-arrow-alt-down',
+    tags: ['strzałka', 'dół', 'down', 'scroll', 'zmniejsz', 'odejmij'],
+  },
+  {
+    name: 'long-arrow-alt-left',
+    tags: ['strzałka', 'lewo', 'cofnij', 'wstecz', 'powrót'],
+  },
+  {
+    name: 'long-arrow-alt-right',
+    tags: ['strzałka', 'prawo', 'przesuń', 'next'],
+  },
+  {
+    name: 'long-arrow-alt-up',
+    tags: ['strzałka', 'góra', 'powrót', 'up'],
+  },
+  {
+    name: 'long-arrow-down',
+    tags: ['strzałka', 'dół', 'down', 'scroll', 'zmniejsz', 'odejmij'],
+  },
+  {
+    name: 'long-arrow-left',
+    tags: ['strzałka', 'lewo', 'cofnij', 'wstecz', 'powrót'],
+  },
+  {
+    name: 'long-arrow-right',
+    tags: ['strzałka', 'prawo', 'przesuń', 'next'],
+  },
+  {
+    name: 'long-arrow-up',
+    tags: ['strzałka', 'góra', 'powrót', 'up'],
+  },
+  {
+    name: 'loveseat',
+    tags: ['meble', 'krzesło', 'sofa', 'kanapa', 'siedzenie', 'wygoda', 'odpoczynek'],
+  },
+  {
+    name: 'luggage-cart',
+    tags: ['przewoźnik', 'bagaż', 'walizka', 'wózek', 'lot', 'lotnisko'],
+  },
+  {
+    name: 'lungs',
+    tags: ['płuca', 'anatomia', 'lekarz', 'chirurg', 'przeszczep', 'zdrowie', 'medycyna'],
+  },
+  {
+    name: 'mail-bulk',
+    tags: ['sms', 'mail', 'wiadomość', 'powiadomienie', 'poczta', 'korespondencja', 'list'],
+  },
+  {
+    name: 'male',
+    tags: ['osoba', 'człowiek', 'członek', 'student'],
+  },
+  {
+    name: 'map',
+    tags: ['mapa', 'geografia', 'lokalizacja', 'kartka'],
+  },
+  {
+    name: 'map-marked',
+    tags: ['mapa', 'geografia', 'lokalizacja', 'kartka', 'miejsce', 'punkt'],
+  },
+  {
+    name: 'map-marked-alt',
+    tags: ['mapa', 'geografia', 'lokalizacja', 'kartka', 'miejsce', 'punkt'],
+  },
+  {
+    name: 'map-marker',
+    tags: ['mapa', 'lokalizacja', 'miejsce', 'punkt', 'balonik', 'zaznaczenie', 'znak'],
+  },
+  {
+    name: 'map-marker-alt',
+    tags: ['mapa', 'lokalizacja', 'miejsce', 'punkt', 'balonik', 'zaznaczenie', 'znak'],
+  },
+  {
+    name: 'map-marker-check',
+    tags: ['zrobione', 'done', 'udało się', 'znaleziono', 'dotarcie', 'lokalizacja', 'miejsce', 'punkt'],
+  },
+  {
+    name: 'map-marker-exclamation',
+    tags: ['lokalizacja', 'miejsce', 'punkt', 'uwaga', 'wykrzyknik', 'niebezpieczeństwo'],
+  },
+  {
+    name: 'map-marker-question',
+    tags: ['lokalizacja', 'miejsce', 'punkt', 'pytanie', 'niejasność', 'nieporozumienie'],
+  },
+  {
+    name: 'map-marker-smile',
+    tags: ['uśmiech', 'osoba', 'śmiech', 'człowiek', 'ludzie'],
+  },
+  {
+    name: 'map-signs',
+    tags: ['wskazówki', 'kierunek', 'kierunkowskaz', 'drogi'],
+  },
+  {
+    name: 'marker',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro'],
+  },
+  {
+    name: 'medal',
+    tags: ['nagroda', 'wyróżnienie', 'medal', 'osiągnięcie'],
+  },
+  {
+    name: 'medkit',
+    tags: ['medycyna', 'pierwsza pomoc', 'pomoc', 'apteczka', 'pogotowie', 'leki', 'tabletki', 'ratunek'],
+  },
+  {
+    name: 'megaphone',
+    tags: ['wystąpienie', 'marketing', 'promocja', 'wydarzenie', 'megafon', 'przemowa', 'głośnik'],
+  },
+  {
+    name: 'microphone',
+    tags: ['mikrofon', 'śpiewanie', 'wystąpienie', 'prelekcja', 'mówienie', 'nagrywanie'],
+  },
+  {
+    name: 'microphone-alt',
+    tags: ['mikrofon', 'śpiewanie', 'wystąpienie', 'prelekcja', 'mówienie', 'nagrywanie'],
+  },
+  {
+    name: 'microscope',
+    tags: ['mikroskop', 'biologia', 'laboratorium', 'badanie', 'nauka'],
+  },
+  {
+    name: 'minus',
+    tags: ['minus', 'odejmij', 'brak', 'nic', 'myślnik'],
+  },
+  {
+    name: 'mobile',
+    tags: ['telefon', 'smartfon', 'urządzenie mobilne', 'komórka', 'technologia', 'aplikacja mobilna'],
+  },
+  {
+    name: 'mobile-alt',
+    tags: ['telefon', 'smartfon', 'urządzenie mobilne', 'komórka', 'technologia', 'aplikacja mobilna'],
+  },
+  {
+    name: 'mobile-android',
+    tags: ['telefon', 'smartfon', 'urządzenie mobilne', 'komórka', 'technologia', 'aplikacja mobilna'],
+  },
+  {
+    name: 'mobile-android-alt',
+    tags: ['telefon', 'smartfon', 'urządzenie mobilne', 'komórka', 'technologia', 'aplikacja mobilna'],
+  },
+  {
+    name: 'money-bill',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'money-bill-alt',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'money-bill-wave',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'money-bill-wave-alt',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'money-check',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'money-check-alt',
+    tags: ['waluta', 'pieniądze', 'wynagrodzenie', 'wypłata', 'finanse', 'kasa', 'zarobki', 'oczekiwania finansowe'],
+  },
+  {
+    name: 'monitor-heart-rate',
+    tags: ['badanie', 'serce', 'medycyna', 'leczenie', 'rehabilitacja', 'kardiograma', 'puls', 'ciśnienie'],
+  },
+  {
+    name: 'monument',
+    tags: ['zabytek', 'pamiętnik', 'kamień', 'słup'],
+  },
+  {
+    name: 'moon',
+    tags: ['księżyc', 'noc', 'astronomia', 'zaćmienie'],
+  },
+  {
+    name: 'mortar-pestle',
+    tags: ['młynek', 'gotowanie', 'kulinaria', 'gastro', 'zioła'],
+  },
+  {
+    name: 'mosque',
+    tags: ['budynek', 'zamek', 'palac', 'zabytek'],
+  },
+  {
+    name: 'motorcycle',
+    tags: ['motor', 'mechanika', 'prawo jazdy', 'rower'],
+  },
+  {
+    name: 'mouse-pointer',
+    tags: ['kursor', 'wskazówka', 'wskaźnik', 'strzałka'],
+  },
+  {
+    name: 'music',
+    tags: ['muzyka', 'nuta', 'melodia', 'meloman'],
+  },
+  {
+    name: 'newspaper',
+    tags: ['gazeta', 'prasa', 'artykuł', 'notka prasowa', 'wywiad', 'czytanie', 'informacja', 'wiadomości', 'dziennikarstwo'],
+  },
+  {
+    name: 'notes-medical',
+    tags: ['diagnoza', 'diagnostyka', 'szpital', 'przychodnia', 'lekarz', 'terapeuta', 'medycyna', 'pomoc'],
+  },
+  {
+    name: 'oil-can',
+    tags: ['tankowanie', 'mechanika', 'olej', 'benzyna'],
+  },
+  {
+    name: 'om',
+    tags: ['harmonia', 'znak', 'dźwięk', 'talizman', 'symbol'],
+  },
+  {
+    name: 'omega',
+    tags: ['omega', 'znak', 'symbol', 'litera', 'oznaczenie', 'fizyka'],
+  },
+  {
+    name: 'paint-brush',
+    tags: ['pędzel', 'rysowanie', 'malowanie', 'grafika', 'tworzenie', 'kolor', 'design', 'dizajn', 'sztuka', 'wzornictwo', 'artysta'],
+  },
+  {
+    name: 'paint-brush-alt',
+    tags: ['pędzel', 'rysowanie', 'malowanie', 'grafika', 'tworzenie', 'kolor', 'design', 'dizajn', 'sztuka', 'wzornictwo', 'artysta'],
+  },
+  {
+    name: 'paint-roller',
+    tags: ['rolka', 'malowanie', 'budownictwo', 'remont'],
+  },
+  {
+    name: 'palette',
+    tags: ['paleta', 'rysowanie', 'malowanie', 'grafika', 'tworzenie', 'kolor', 'design', 'dizajn', 'sztuka', 'wzornictwo', 'artysta'],
+  },
+  {
+    name: 'paper-plane',
+    tags: ['samolot', 'papier', 'zabawa', 'gra', 'rozrywka', 'origami'],
+  },
+  {
+    name: 'paperclip',
+    tags: ['spinacz', 'spinanie', 'składanie', 'biuro', 'dokument', 'porządek', 'segregacja', 'artykuł biurowy'],
+  },
+  {
+    name: 'parachute-box',
+    tags: ['balon', 'lot', 'rozrywka', 'sport', 'zwiedzanie'],
+  },
+  {
+    name: 'parking',
+    tags: ['parking', 'litera', 'znak', 'oznakowanie', 'symbol', 'P'],
+  },
+  {
+    name: 'parking-circle',
+    tags: ['parking', 'litera', 'znak', 'oznakowanie', 'symbol', 'P'],
+  },
+  {
+    name: 'passport',
+    tags: ['paszport', 'dowód osobisty', 'id', 'dokument', 'granica', 'weryfikacja', 'przemieszczenie się', 'przejazd', 'podróż'],
+  },
+  {
+    name: 'paste',
+    tags: ['wklej', 'wstaw', 'dodaj', 'kopiuj', 'duplikat', 'duplikuj', 'kopia'],
+  },
+  {
+    name: 'paw',
+    tags: ['łapka', 'zwierzęta', 'zoologia', 'schronisko'],
+  },
+  {
+    name: 'pen',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pen-alt',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pen-fancy',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pen-nib',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pen-square',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pencil',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pencil-alt',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek'],
+  },
+  {
+    name: 'pencil-paintbrush',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek', 'pędzel'],
+  },
+  {
+    name: 'pencil-ruler',
+    tags: ['długopis', 'pisanie', 'notatki', 'pisarz', 'dziennikarz', 'pióro', 'ołówek', 'linijka'],
+  },
+  {
+    name: 'pennant',
+    tags: ['flaga', 'koniec', 'finisz', 'cel', 'osiągnięcie'],
+  },
+  {
+    name: 'people-carry',
+    tags: ['dostawa', 'ludzie', 'dostawca', 'kurier', 'zespół', 'pomoc'],
+  },
+  {
+    name: 'percent',
+    tags: ['procent', 'matematyka', 'algebra', 'liczenie', 'wyliczanie'],
+  },
+  {
+    name: 'percentage',
+    tags: ['procent', 'matematyka', 'algebra', 'liczenie', 'wyliczanie'],
+  },
+  {
+    name: 'person-carry',
+    tags: ['dostawa', 'ludzie', 'dostawca', 'kurier', 'zespół', 'pomoc'],
+  },
+  {
+    name: 'phone',
+    tags: ['telefon', 'komórka', 'połączenie', 'kontakt'],
+  },
+  {
+    name: 'phone-office',
+    tags: ['telefon', 'komórka', 'połączenie', 'kontakt', 'faks', 'sekretarz'],
+  },
+  {
+    name: 'phone-square',
+    tags: ['telefon', 'komórka', 'połączenie', 'kontakt', 'faks', 'sekretarz'],
+  },
+  {
+    name: 'phone-volume',
+    tags: ['telefon', 'komórka', 'połączenie', 'kontakt', 'faks', 'sekretarz'],
+  },
+  {
+    name: 'piggy-bank',
+    tags: ['skarbonka', 'zrzutka', 'pieniądze', 'oszczędności', 'monety', 'drobne'],
+  },
+  {
+    name: 'pills',
+    tags: ['tabletki', 'leczenie', 'kuracja', 'medycyna', 'apteka'],
+  },
+  {
+    name: 'plane',
+    tags: ['samolot', 'lot', 'podróż', 'wycieczka', 'przemieszczenie się', 'lotnisko', 'pilot'],
+  },
+  {
+    name: 'plane-alt',
+    tags: ['samolot', 'lot', 'podróż', 'wycieczka', 'przemieszczenie się', 'lotnisko', 'pilot'],
+  },
+  {
+    name: 'plane-arrival',
+    tags: ['samolot', 'lot', 'podróż', 'wycieczka', 'przemieszczenie się', 'lotnisko', 'pilot', 'przylot'],
+  },
+  {
+    name: 'plane-departure',
+    tags: ['samolot', 'lot', 'podróż', 'wycieczka', 'przemieszczenie się', 'lotnisko', 'pilot', 'odlot'],
+  },
+  {
+    name: 'plug',
+    tags: ['gniazdko', 'elektryka', 'prąd', 'wtyczka'],
+  },
+  {
+    name: 'plus',
+    tags: ['dodawanie', 'plus', 'więcej', 'połącz', 'działanie'],
+  },
+  {
+    name: 'plus-circle',
+    tags: ['dodawanie', 'plus', 'więcej', 'połącz', 'działanie'],
+  },
+  {
+    name: 'plus-hexagon',
+    tags: ['dodawanie', 'plus', 'więcej', 'połącz', 'działanie'],
+  },
+  {
+    name: 'plus-octagon',
+    tags: ['dodawanie', 'plus', 'więcej', 'połącz', 'działanie'],
+  },
+  {
+    name: 'plus-square',
+    tags: ['dodawanie', 'plus', 'więcej', 'połącz', 'działanie'],
+  },
+  {
+    name: 'podcast',
+    tags: ['podkast', 'nagranie', 'wifi', 'zasięg'],
+  },
+  {
+    name: 'podium',
+    tags: ['podium', 'prelekcja', 'prezentacja', 'wystąpienie', 'mikrofon'],
+  },
+  {
+    name: 'poll',
+    tags: ['ankieta', 'głosowanie', 'wykres', 'wynik', 'diagram'],
+  },
+  {
+    name: 'poll-h',
+    tags: ['ankieta', 'głosowanie', 'wykres', 'wynik', 'diagram'],
+  },
+  
+  {
     name: 'volume',
     tags: ['dźwięk', 'głośność', 'podgłośnić', 'zwiększyć', 'podwyższyć', 'zgłaśniać', 'zgłośnić'],
   },
@@ -1882,7 +2536,7 @@ export default [
   },
   {
     name: 'weight-hanging',
-    tags: ['podnoszenie', 'ciężar', , 'waga', 'siłacz', 'siłownia', 'trening', 'zawody', 'olimpiada', 'mistrz', 'medalista', 'atleta', 'ciężki', 'silny'],
+    tags: ['podnoszenie', 'ciężar', 'waga', 'siłacz', 'siłownia', 'trening', 'zawody', 'olimpiada', 'mistrz', 'medalista', 'atleta', 'ciężki', 'silny'],
   },
   {
     name: 'wheelchair',
