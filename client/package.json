@@ -56,6 +56,7 @@
     "axios": "^0.18.0",
     "connected-react-router": "^4.4.1",
     "history": "^4.7.2",
+    "image-compressor.js": "^1.1.4",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "raven-js": "^3.27.0",
@@ -85,6 +86,7 @@
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
+    "resize-image": "^0.1.0",
     "styled-components": "^3.4.1",
     "typed.js": "^2.0.9"
   }

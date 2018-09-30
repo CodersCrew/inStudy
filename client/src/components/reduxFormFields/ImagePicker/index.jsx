@@ -1,5 +1,9 @@
+/* eslint-disable no-new */
+
 import React, { PureComponent } from 'react';
 import { object, func, oneOfType, string, number } from 'prop-types';
+import ImageCompressor from 'image-compressor.js';
+import resizeeImage from 'resize-image';
 import FieldWrapper from '../FieldWrapper';
 import CropModal from './CropModal';
 import { StyledDropzone, StyledOverlay } from './styles';
@@ -15,45 +19,45 @@ DefaultOverlay.defaultProps = {
 };
 
 const convertBlobToImageSource = (file, callback) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
+  new ImageCompressor(file, {
+    quality: 0.8,
+    success: (result) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(result);
 
-  reader.onload = (e) => {
-    const image = new Image();
-    image.src = e.target.result;
-    image.onload = (imageSource) => {
-      callback(imageSource, image);
-    };
-  };
+      reader.onload = (e) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = (imageSource) => {
+          callback(imageSource, image);
+        };
+      };
+    },
+    error: (e) => {
+      console.log(e.message);
+    },
+  });
 };
 
-const resizeImage = (image, { width, height }, callback) => {
-  const elem = document.createElement('canvas');
+const resizeImage = (image, { width, height }) => {
+  const isPng = image.src.slice(11, 20).split(';base')[0] === 'png';
 
-  elem.width = width;
-  elem.height = height;
+  if (height) {
+    return resizeeImage.resize(image, width, height, resizeeImage[isPng ? 'PNG' : 'JPEG']);
+  }
 
-  const ctx = elem.getContext('2d');
-
-  ctx.drawImage(image, 0, 0, width, height);
-  ctx.canvas.toBlob(callback);
-};
-
-const resolveToBase64 = (imageSource, resolve) => {
-  const base64Url = imageSource.path ? imageSource.path[0] : imageSource.target;
-  resolve(base64Url);
+  const calculatedHeight = width * (image.height / image.width);
+  return resizeeImage.resize(image, width, calculatedHeight, resizeeImage[isPng ? 'PNG' : 'JPEG']);;
 };
 
 const imageFromFile = (initialBlob, resizeObj) => new Promise((resolve) => {
   convertBlobToImageSource(initialBlob, (initialImageSource, image) => {
-    if (resizeObj) {
-      resizeImage(image, resizeObj, (blob) => {
-        convertBlobToImageSource(blob, (imageSource) => {
-          resolveToBase64(imageSource, resolve);
-        });
-      });
+    if (resizeObj && image.width > resizeObj.width) {
+      const base64Url = resizeImage(image, resizeObj);
+      resolve({ base64Url });
     } else {
-      resolveToBase64(initialImageSource, resolve);
+      const newImage = initialImageSource.path ? initialImageSource.path[0] : initialImageSource.target;
+      resolve({ base64Url: newImage.src, image: newImage });
     }
   });
 });
@@ -66,7 +70,7 @@ class ImagePicker extends PureComponent {
   onDrop = async (acceptedFiles) => {
     let [file] = acceptedFiles;
     const { input, aspect, width } = this.props;
-    const image = await imageFromFile(file);
+    const { image } = await imageFromFile(file);
 
     if (aspect && image.width / image.height !== aspect) {
       file = await this.openCropModal(image);
@@ -76,11 +80,13 @@ class ImagePicker extends PureComponent {
 
     if (aspect && width) {
       file = await imageFromFile(file, { width, height: width / aspect });
+    } else if (width) {
+      file = await imageFromFile(file, { width });
     } else {
       file = await imageFromFile(file);
     }
 
-    input.onChange(file.src);
+    input.onChange(file.base64Url);
     input.onBlur();
   }
 
