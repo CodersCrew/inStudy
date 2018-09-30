@@ -1054,10 +1054,6 @@ export default [
     tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
   },
   {
-    name: 'file-alt',
-    tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
-  },
-  {
     name: 'file-archive',
     tags: ['plik', 'dokument', 'archiwum', 'word', 'excel', 'ksero', 'skan', 'druk', 'biuro', 'dane', 'praca', 'kartka', 'folder', 'teczka'],
   },

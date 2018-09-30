@@ -6,7 +6,7 @@ import axios from 'axios';
 import { updateBasicInitiativeData } from 'store/actions';
 import { Modal } from 'components';
 import { Input, TextArea, ImagePicker, SingleSelect, ColorSelect } from 'components/reduxFormFields';
-import { required, maxLength, url } from 'utils/validators';
+import { required, maxLength, url, isFacebookUrl } from 'utils/validators';
 import { socials, antdColors } from 'data';
 import { withCloseAnimation } from 'hocs';
 import { pick } from 'utils';
@@ -165,7 +165,7 @@ class CardEditModal extends PureComponent {
             name="facebookUrl"
             component={Input}
             props={{ label: 'Adres fanpage na facebooku', disabled: this.props.submitting }}
-            validate={[required, url]}
+            validate={[required, url, isFacebookUrl]}
           />
           <Field
             name="city"

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import { Input, SingleSelect, TextArea } from 'components/reduxFormFields';
-import { required, maxLength, url } from 'utils/validators';
+import { required, maxLength, url, isFacebookUrl } from 'utils/validators';
 import { addUserInitiative } from 'store/actions';
 import { withCloseAnimation } from 'hocs';
 import { antdColors } from 'data';
@@ -144,7 +144,7 @@ class Details extends PureComponent {
             name="facebookUrl"
             component={Input}
             props={{ label: 'Adres fanpage na facebooku', disabled: submitting }}
-            validate={[required, url]}
+            validate={[required, url, isFacebookUrl]}
           />
           <Field
             name="description"
