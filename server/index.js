@@ -32,10 +32,6 @@ app.use(bodyParser.json({ limit: '2mb' }));
 
 initializeRoutes(app);
 
-app.get('/', (req, res) => {
-  res.render(path.resolve(__dirname, '..', 'server', 'views', 'index'), {});
-});
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'public')));
   app.get('/inicjatywy/:shortUrl', async (req, res) => {
