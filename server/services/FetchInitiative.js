@@ -40,16 +40,15 @@ export const getShortInitiativeProfile = async (page, count, query) => {
   }
 
   const [err, initiatives] = await to(Initiative.find({}).skip(page * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE));
-  if (err) throw new Error("");
+  if (err) throw new Error(err);
 
   const parsedInitiatives = initiatives.map((singleInitiative) => shortenInitiativeProfile(mapRAWInitiativeObjectToViewReady(singleInitiative)))
-
   return Promise.all(parsedInitiatives);
 };
 
 export const getSingleInitiative = async (shortUrl) => {
   const [err, initiative] = await to(Initiative.findOne({ shortUrl }).lean());
-  if(err) throw new Error('Mongo err')
+  if(err) throw new Error(err);
 
   if (initiative) {
     return mapRAWInitiativeObjectToViewReady(initiative);
@@ -162,10 +161,11 @@ const deleteSingleModule = async (initiative, modId) => {
 };
 
 export const deleteModule = async (initiativeId, moduleId) => {
-  const [err, initiative] = await to(Initiative.findById(initId).lean());
+  const [err, initiative] = await to(Initiative.findById(initiativeId).lean());
+  if (err) throw new Error(err);
 
   if (initiativeId) {
-    deleteSingleModule(initiative)
+    deleteSingleModule(initiative);
 
     return Initiative.findByIdAndUpdate(initiativeId, {
       $pull: {
@@ -181,7 +181,7 @@ export const reorderModules = (initId, modules) => Initiative.findByIdAndUpdate(
   $set: { modules },
 });
 
-export const deleteInitiative = initId => this.Initiative.findByIdAndDelete(initId);
+export const deleteInitiative = initId => Initiative.findByIdAndDelete(initId);
 
 export const assignInitiative = async (userId, initiativeId) => {
 
@@ -221,7 +221,7 @@ export const validRequestToRestoreInitiative = async (token) => {
   const { userId, initiativeId } = jsonwebtoken.verify(token, config.cookieKey);
 
   let [err, initiative] = await to(Initiative.findById(initiativeId));
-  if (err || !initiative || !userId) throw new Error();
+  if (err || !initiative || !userId) throw new Error(err || '');
 
   const newMember = new Member(roles(userId, ADMIN, initiative));
   [err] = await to(Initiative.findByIdAndUpdate(initiativeId, {

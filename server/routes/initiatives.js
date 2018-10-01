@@ -28,13 +28,13 @@ const to = require('./../utils/to');
 const { initiativeDebug } = require('./../utils/debug');
 
 module.exports = (app) => {
-  app.get('/api/initiative', async (req, res) => {
+  app.get('/api/initiative', async (req, res, next) => {
     const { page, count, query } = req.query;
 
     const [err, initiatives] = await to(getShortInitiativeProfile(page, count, query));
     initiativeDebug(req.query, [err, initiatives]);
 
-    if (err) return res.sendStatus(404);
+    if (err) return next(err);
     return res.status(200).json(initiatives);
   });
 
