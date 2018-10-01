@@ -86,7 +86,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, '..', 'public')]),
+    new CleanWebpackPlugin('public', {
+      root: path.resolve(__dirname, '..'),
+    }),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
