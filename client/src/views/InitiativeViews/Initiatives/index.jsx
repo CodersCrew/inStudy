@@ -31,7 +31,7 @@ class Initiatives extends PureComponent {
 
   handleWaypointEnter = () => {
     const { initiatives } = this.props;
-    this.props.getMoreInitiatives({ ...initiatives, page: initiatives.page + 1 });
+    this.props.getMoreInitiatives({ query: this.props.query, page: initiatives.page + 1 });
   };
 
   handleCardClick = clickedCardIndex => this.setState({ clickedCardIndex });
@@ -46,7 +46,7 @@ class Initiatives extends PureComponent {
           initiatives={initiatives.items}
           handleCardClick={this.handleCardClick}
           clickedCardIndex={this.state.clickedCardIndex}
-          waypoint={() => initiatives.items.length % 10 === 0 && <Waypoint onEnter={this.handleWaypointEnter} />}
+          waypoint={() => initiatives.items.length % 5 === 0 && <Waypoint onEnter={this.handleWaypointEnter} />}
         />
       </Fragment>
     );

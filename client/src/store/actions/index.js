@@ -57,23 +57,18 @@ export const decrementModalsCount = () => ({
   type: DECREMENT_MODALS_COUNT,
 });
 
-let reqCache = {};
-
 export const getInitiatives = req => async (dispatch) => {
   const params = {
     page: req?.page || 0,
     query: req?.query || '',
   };
 
-  if (params.page !== reqCache.page || params.query !== reqCache.query) {
-    reqCache = params;
-    const { data } = await axios.get('/api/initiative', { params });
-    return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data } });
-  }
+  const { data } = await axios.get('/api/initiative', { params });
+  return dispatch({ type: FETCH_INITIATIVES, payload: { ...params, items: data } });
 };
 
-export const getMoreInitiatives = () => async (dispatch) => {
-  const params = { ...reqCache, page: reqCache.page + 1 };
+export const getMoreInitiatives = req => async (dispatch) => {
+  const params = { page: req?.page || 0, query: req?.query || '', };
   const { data } = await axios.get('/api/initiative', { params });
   return dispatch({ type: FETCH_MORE_INITIATIVES, payload: { ...params, items: data } });
 };
