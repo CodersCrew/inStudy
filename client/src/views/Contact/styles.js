@@ -95,7 +95,7 @@ export const Socials = styled.div`
   `}
 `;
 
-export const Social = styled.div`
+export const Social = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;

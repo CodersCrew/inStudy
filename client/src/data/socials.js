@@ -5,6 +5,12 @@ export default {
     rootUrl: 'https://www.facebook.com/',
     icon: 'fab fa-facebook-f',
   },
+  instagram: {
+    name: 'Instagram',
+    color: '#D12369',
+    rootUrl: 'https://www.instagram.com/',
+    icon: 'fab fa-instagram',
+  },
   twitter: {
     name: 'Twitter',
     color: '#1DA1F2',

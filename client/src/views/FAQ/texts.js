@@ -78,7 +78,7 @@ export const questions = {
   ],
   inicjatywy: [
     {
-      question: 'Czy założenie/prowadzeni profilu jest płatne?',
+      question: 'Czy założenie/prowadzenie profilu jest płatne?',
       answer: 'Nie. inStudy było, jest i zawsze będzie w całości darmowe dla wszystkich studentów oraz inicjatyw.',
     },
     {
@@ -87,11 +87,11 @@ export const questions = {
     },
     {
       question: 'Jak stworzyć najlepszy profil na inStudy?',
-      answer: 'Obecnie pracujemy nad staworzeniem poradnika, który krork po kroku przeprowadzi Cię pr',
+      answer: 'Obecnie pracujemy nad staworzeniem poradnika, który krok po kroku przeprowadzi Cię przez proces tworzenia profilu.',
     },
     {
-      question: 'Założyłem konto na poprzedniej wersji inStudy jak można go odzyskać?',
-      answer: '',
+      question: 'Założyłem konto na poprzedniej wersji inStudy jak mogę je odzyskać?',
+      answer: 'Po założeniu prywatnego konta na portalu zyskasz możliwość zakładania kont dla inicjatyw. Aby odzyskać konto z poprzedniej wersji portalu najpierw upewnij się, że zostało już przeniesione (znajduje się na liście inicjatyw). Następnie w trakcie zakładania nowej inicjatywy zaznacz opcję "Zaimportuj inicjatywę".',
     },
     {
       question: 'Czy mogę utworzyć konto dla inicjatywy, która jeszcze nie istnieje na Uczelni?',
@@ -103,11 +103,11 @@ export const questions = {
     },
     {
       question: 'Jak przekazać innej osobie możliwość zarządzania inicjatywą?',
-      answer: 'Na chwilę obecną tylko osoba, która utworzyła inicjatywę może zarządzać jej profilem. W ciągu kilku tygodni planujemy wprowadzić na portalu fukkcję administrowania profilem przez kilku użytkowników.',
+      answer: 'Na chwilę obecną tylko osoba, która utworzyła inicjatywę może zarządzać jej profilem. W ciągu kilku tygodni planujemy wprowadzić na portalu fukcję administrowania profilem przez kilku użytkowników. Jeżeli już teraz chciałbyś mieć dostęp do tej funkcjonalności napisz do nas, podając imię i nazwizko drugiej osoby, która miałaby otrzymać prawa administratora.',
     },
     {
       question: 'Jak sprawić, żeby odnaleźć się jak najwyżej w wynikach wyszukiwania?',
-      answer: 'W inStudy najważniejsze jest dla nas, by studenw wyszukująci inicjatywy znalazł te, które najlepiej odpowiadają jego zainteresowaniom. W związku z tym najlepszym sposobem dotarcia do dużej liczby właściwych jest posiadanie jak najpełniejszego profilu, w którym często będą pojawiały się frazy, pod którymi inicjatywa ma być wysoko pozycjonowana.',
+      answer: 'W inStudy najważniejsze jest dla nas, by student wyszukujący inicjatywy znalazł te, które najlepiej odpowiadają jego zainteresowaniom. W związku z tym najlepszym sposobem dotarcia do dużej liczby właściwych kandydatów jest posiadanie jak najpełniejszego profilu, w którym często będą pojawiały się frazy, pod którymi inicjatywa ma być wysoko pozycjonowana.',
     },
   ],
 };

@@ -8,7 +8,7 @@ class Contatct extends PureComponent {
     return (
       <ModalBase {...getModalBaseData(this.props)}>
         <Text>
-          Ten moduł nie wymaga dodatkowej konfiguracji. Wszystkie maile będą wywyłane na adres ustawiony w profilu.
+          Ten moduł nie wymaga dodatkowej konfiguracji. Wszystkie maile będą wysyłane na adres ustawiony w profilu.
         </Text>
       </ModalBase>
     );

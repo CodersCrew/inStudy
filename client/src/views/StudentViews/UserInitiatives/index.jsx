@@ -24,7 +24,7 @@ class UserInitiatives extends PureComponent {
     <Wrapper>
       <Icon className="fal fa-grin-beam-sweat" />
       <Header>
-        Obecnie nie działasz w żadnej inicjatywie. Oznacza to, że w ramach tej zkaładki masz 2 możliwości.
+        Obecnie nie działasz w żadnej inicjatywie. Oznacza to, że w ramach tej zkładki masz 2 możliwości.
       </Header>
       <StyledButton size="large" onClick={this.goToInitiatives}>
         Wyszukaj istniejącą inicjatywę
