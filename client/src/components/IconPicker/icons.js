@@ -2481,6 +2481,282 @@ export default [
     name: 'poll-h',
     tags: ['ankieta', 'głosowanie', 'wykres', 'wynik', 'diagram'],
   },
+  {
+    name: 'portrait',
+    tags: ['ID', 'identyfikator', 'rysunek', 'portret', 'dane', 'człowiek', 'członek', 'HR', 'kadry'],
+  },
+  {
+    name: 'pound-sigh',
+    tags: ['pieniądze', 'funt', 'kwota', 'kasa', 'znak', 'litera', 'kantor', 'waluta'],
+  },
+  {
+    name: 'power-off',
+    tags: ['wyłączanie', 'przycisk', 'off', 'koniec', 'włączanie', 'start', 'on'],
+  },
+  {
+    name: 'pray',
+    tags: ['religia', 'wiara', 'modlitwa', 'prośba', 'podwładny'],
+  },
+  {
+    name: 'praying-hands',
+    tags: ['ręce', 'wdzięczność', 'prośba', 'modlitwa', 'gest', 'znak'],
+  },
+  {
+    name: 'prescription',
+    tags: ['recepta', 'medycyna', 'litery', 'diagnoza', 'znak', 'R'],
+  },
+  {
+    name: 'prescription-bottle',
+    tags: ['tabletki', 'leki', 'kuracja', 'dawka', 'medycyna', 'pobieranie', 'pojemnik', 'butelka'],
+  },
+  {
+    name: 'prescription-bottle-alt',
+    tags: ['tabletki', 'leki', 'kuracja', 'dawka', 'medycyna', 'pobieranie', 'pojemnik', 'butelka'],
+  },
+  {
+    name: 'presentation',
+    tags: ['prezentacja', 'wystąpienie', 'prelekcja', 'przedstawienie', 'rzutnik', 'wyświetlanie', 'ekran', 'monitor'],
+  },
+  {
+    name: 'print',
+    tags: ['druk', 'papier', 'drukarka', 'dokumenty', 'sprzęt', 'urządzenie'],
+  },
+  {
+    name: 'procedures',
+    tags: ['zabieg', 'szpital', 'kuracja', 'rehabilitacja', 'odpoczynek', 'sen'],
+  },
+  {
+    name: 'project-diagram',
+    tags: ['projekt', 'plan', 'mapa myśli', 'wykres', 'algorytm', 'schemat'],
+  },
+  {
+    name: 'puzzle-piece',
+    tags: ['puzzle', 'element', 'gra', 'zabawa', 'łamigłówka', 'hobby', 'rozrywka'],
+  },
+  {
+    name: 'qrcode',
+    tags: ['kod', 'odczyt', 'informacja', 'QR', 'technologia', 'informacja'],
+  },
+  {
+    name: 'question',
+    tags: ['pytanie', 'wątpliwość', 'ciekawość', 'F&A', 'znak', 'symbol'],
+  },
+  {
+    name: 'question-circle',
+    tags: ['pytanie', 'wątpliwość', 'ciekawość', 'F&A', 'znak', 'symbol'],
+  },
+  {
+    name: 'question-square',
+    tags: ['pytanie', 'wątpliwość', 'ciekawość', 'F&A', 'znak', 'symbol'],
+  },
+  {
+    name: 'quote-left',
+    tags: ['cytat', 'znak', 'symbol', 'cudzysłów', 'przecinki'],
+  },
+  {
+    name: 'quote-right',
+    tags: ['cytat', 'znak', 'symbol', 'cudzysłów', 'przecinki'],
+  },
+  {
+    name: 'quran',
+    tags: ['książka', 'podręcznik', 'religia', 'wiara'],
+  },
+  {
+    name: 'racquet',
+    tags: ['sport', 'tenis', 'badminton', 'fitness', 'zawody', 'gra', 'wychowanie fizyczne'],
+  },
+  {
+    name: 'random',
+    tags: ['strzałki', 'mieszanka', 'random', 'przypadek', 'kierunek'],
+  },
+  {
+    name: 'receipt',
+    tags: ['paragon', 'wydruk', 'papier', 'notatki', 'kartka', 'druk', 'informacja', 'zapisy'],
+  },
+  {
+    name: 'rectangle-landscape',
+    tags: ['prostokąt', 'geometria', 'przestrzeń', 'figura', 'kształt', 'pudełko'],
+  },
+  {
+    name: 'rectangle-portrait',
+    tags: ['prostokąt', 'geometria', 'przestrzeń', 'figura', 'kształt', 'pudełko'],
+  },
+  {
+    name: 'rectangle-wide',
+    tags: ['prostokąt', 'geometria', 'przestrzeń', 'figura', 'kształt', 'pudełko'],
+  },
+  {
+    name: 'recycle',
+    tags: ['recykling', 'przetwarzanie', 'proces', 'działanie', 'kolejność'],
+  },
+  {
+    name: 'redo',
+    tags: ['strzałka', 'powtórzenie', 'powrót', 'zakręt', 'kierunek', 'znak'],
+  },
+  {
+    name: 'redo-alt',
+    tags: ['strzałka', 'powtórzenie', 'powrót', 'zakręt', 'kierunek', 'znak'],
+  },
+  {
+    name: 'registered',
+    tags: ['R', 'znak', 'symbol', 'rekrutacja', 'rejestracja', 'litera'],
+  },
+  {
+    name: 'repeat',
+    tags: ['strzałki', 'powtórzenie', 'powrót', 'przetwarzanie', 'odczytanie', 'znak'],
+  },
+  {
+    name: 'repeat-alt',
+    tags: ['strzałki', 'powtórzenie', 'powrót', 'przetwarzanie', 'odczytanie', 'znak'],
+  },
+  {
+    name: 'reply',
+    tags: ['odpowiedź', 'strzałka', 'wyślij', 'powrót', 'zakręt'],
+  },
+  {
+    name: 'reply-all',
+    tags: ['odpowiedź', 'strzałka', 'wyślij', 'powrót', 'zakręt'],
+  },
+  {
+    name: 'retweet',
+    tags: ['strzałki', 'powtórzenie', 'powrót', 'przetwarzanie', 'odczytanie', 'znak'],
+  },
+  {
+    name: 'retweet-alt',
+    tags: ['strzałki', 'powtórzenie', 'powrót', 'przetwarzanie', 'odczytanie', 'znak'],
+  },
+  {
+    name: 'road',
+    tags: ['droga', 'podróż', 'prosto', 'kierunek', 'jazda', 'prawo jazdy', 'ścieżka'],
+  },
+  {
+    name: 'robot',
+    tags: ['robot', 'elektronika', 'technika', 'sztuczna inteligencja', 'AI', 'elektrony'],
+  },
+  {
+    name: 'rocket',
+    tags: ['rakieta', 'transport', 'do przodu', 'statek', 'start', 'lot'],
+  },
+  {
+    name: 'route',
+    tags: ['ścieżka', 'mapa', 'kierunek', 'GPS', 'nawigacja', 'lokalizacja', 'dojazd', 'dojście', 'trasa'],
+  },
+  {
+    name: 'rss',
+    tags: ['sygnał', 'fale', 'internet', 'wi-fi'],
+  },
+  {
+    name: 'rss-square',
+    tags: ['sygnał', 'fale', 'internet', 'wi-fi'],
+  },
+  {
+    name: 'ruble-sign',
+    tags: ['pieniądze', 'rubel', 'kwota', 'kasa', 'znak', 'kantor', 'waluta']
+  },
+  {
+    name: 'ruler',
+    tags: ['linijka', 'szkic', 'lista', 'matematyka', 'geometria'],
+  },
+  {
+    name: 'ruler-combined',
+    tags: ['linijka', 'szkic', 'szkicowanie', 'matematyka', 'geometria'],
+  },
+  {
+    name: 'ruler-horizontal',
+    tags: ['linijka', 'szkic', 'lista', 'matematyka', 'geometria', 'szkicowanie'],
+  },
+  {
+    name: 'ruler-triangle',
+    tags: ['linijka', 'szkic', 'lista', 'matematyka', 'szkicowanie', 'trójkąt', 'figura'],
+  },
+  {
+    name: 'ruler-vertical',
+    tags: ['linijka', 'szkic', 'lista', 'matematyka', 'geometria', 'szkicowanie'],
+  },
+  {
+    name: 'save',
+    tags: ['zapisz', 'dyskietka', 'dysk', 'dokumenty', 'dane'],
+  },
+  {
+    name: 'scalpel',
+    tags: ['nóż', 'medycyna', 'chirurgia', 'operacja', 'krojenie', 'kroić', 'skalpel'],
+  },
+  {
+    name: 'scalpel-path',
+    tags: ['nóż', 'medycyna', 'chirurgia', 'operacja', 'krojenie', 'kroić', 'skalpel'],
+  },
+  {
+    name: 'scanner',
+    tags: ['skaner', 'skanować', 'odczyt', 'dane', 'kod kreskowy', 'skan'],
+  },
+  {
+    name: 'scanner-keyboard',
+    tags: ['skaner', 'skanować', 'odczyt', 'dane', 'kod kreskowy', 'skan'],
+  },
+  {
+    name: 'scanner-touchscreen',
+    tags: ['skaner', 'skanować', 'odczyt', 'dane', 'kod kreskowy', 'skan'],
+  },
+  {
+    name: 'school',
+    tags: ['szkoła', 'budynek', 'studia', 'uniwersytet', 'nauka'],
+  },
+  {
+    name: 'scrubber',
+    tags: ['płyta', 'CD', 'DVD', 'dane', 'koło',],
+  },
+  {
+    name: 'search',
+    tags: ['wyszukiwarka', 'szukanie', 'lupa', 'znajdź', 'wyszukiwanie', 'poszukiwanie'],
+  },
+  {
+    name: 'search-dollar',
+    tags: ['wyszukiwarka', 'szukanie', 'lupa', 'znajdź', 'wyszukiwanie', 'poszukiwanie', 'dolar', 'pieniądze', 'wynagrodzenie', 'zarobki'],
+  },
+  {
+    name: 'search-location',
+    tags: ['wyszukiwarka', 'szukanie', 'lupa', 'znajdź', 'wyszukiwanie', 'poszukiwanie', 'lokalizacja', 'mapa', 'punkt'],
+  },
+  {
+    name: 'search-minus',
+    tags: ['wyszukiwarka', 'szukanie', 'lupa', 'znajdź', 'wyszukiwanie', 'poszukiwanie', 'odejmowanie', 'mniej', 'minus'],
+  },
+  {
+    name: 'search-plus',
+    tags: ['wyszukiwarka', 'szukanie', 'lupa', 'znajdź', 'wyszukiwanie', 'poszukiwanie', 'plus', 'dodawanie', 'więcej'],
+  },
+  {
+    name: 'seedling',
+    tags: ['ziarno', 'sadzonka', 'ogród', 'roślina', 'ogrodnictwo', 'rolnictwo'],
+  },
+  {
+    name: 'server',
+    tags: ['serwer', 'sieć', 'Internet', 'router', 'technologia'],
+  },
+  {
+    name: 'shapes',
+    tags: ['figura', 'kształt', 'geometria', 'trójkąt', 'krąg', 'prostokąt'],
+  },
+  {
+    name: 'share',
+    tags: ['dzielenie się', 'prześlij dalej', 'wyślij', 'odpowiedz', 'przekazanie'],
+  },
+  {
+    name: 'share-all',
+    tags: ['dzielenie się', 'prześlij dalej', 'wyślij', 'odpowiedz', 'przekazanie'],
+  },
+  {
+    name: 'share-alt',
+    tags: ['dzielenie się', 'prześlij dalej', 'wyślij', 'połączenie', 'sieć', 'kontakty'],
+  },
+  {
+    name: 'share-alt-square',
+    tags: ['dzielenie się', 'prześlij dalej', 'wyślij', 'połączenie', 'sieć', 'kontakty'],
+  },
+  {
+    name: 'share-square',
+    tags: ['dzielenie się', 'prześlij dalej', 'wyślij', 'odpowiedz', 'przekazanie'],
+  },
   
   {
     name: 'volume',
