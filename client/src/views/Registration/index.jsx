@@ -21,13 +21,13 @@ const Registration = () => (
       <MiddleText>
           Zarejestruj się z wykorzystaniem konta Google dzieki czemu będziesz w stanie w pełni wykorzystać możliwości inStudy.
       </MiddleText>
-      <CautionText>
+      {/* <CautionText>
         {'Logując się akceptujesz '}
         <StyledLink href="/pdf/test.pdf" target="__blank">politykę&nbsp;prywatności</StyledLink>
         {' oraz '}
         <StyledLink href="/pdf/test.pdf" target="__blank">regulamin</StyledLink>
         {' portalu.'}
-      </CautionText>
+      </CautionText> */}
       <StyledButton size="large" onClick={goToGoogleLogin}>
         <StyledSVGIcon src="/img/google_icon.svg" width={32} height={32} />
         <span>Zaloguj się przez Google</span>
