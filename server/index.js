@@ -1,3 +1,4 @@
+import 'newrelic';
 import '@babel/polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
