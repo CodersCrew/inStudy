@@ -2,8 +2,6 @@
 
 inStudy to portal zrzeszający aktywnych studentów oraz inicjatywy studenckie działające we Wrocławiu.
 
-ℹ️ Projekt obecnie znajduje się w fazie przebudowy. Jeżeli chciałbyś zobaczyć jakie możliwości oferuje portal możesz skorzystać z jego wersji beta pod adresem https://instudy-prod.herokuapp.com/.
-
 
 ### Dlaczego podjęliśmy się stworzenia takiego portalu?
 Coraz więcej studentów zdaje sobie sprawę, że samo studiowanie nie jest w stanie zagwarantować im wymarzonej, satysfakcjonującej pracy. Poza tym, wiele osób podczas wybierania kierunku studiów nie jest jeszcze pewnych, czym dokładnie pragną się zajmować.
