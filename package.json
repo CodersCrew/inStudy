@@ -54,7 +54,7 @@
     "crawler": "^1.1.4",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "express-fileupload": "^0.4.0",
+    "express-fileupload": "^1.1.10",
     "express-graphql": "^0.6.12",
     "express-handlebars": "^3.0.0",
     "express-jwt": "^5.3.1",
